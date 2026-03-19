@@ -1,2 +1,2 @@
 # TidalVoid
-Prototype Godot Game with Orit Simulations
+Prototype Godot Game with Orbit Simulations
