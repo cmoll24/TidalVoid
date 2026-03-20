@@ -1,3 +1,22 @@
 [gd_scene format=3 uid="uid://bcsp2j6ktrslb"]
 
-[node name="Node2D" type="Node2D" unique_id=730832755]
+[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/planet.tscn" id="1_4heml"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4heml"]
+radius = 30.0
+
+[node name="OrbitTestScene" type="Node2D" unique_id=730832755]
+
+[node name="Planet" parent="." unique_id=1958881701 node_paths=PackedStringArray("orbit_center_marker") instance=ExtResource("1_4heml")]
+position = Vector2(1046, 539)
+mass = 100.0
+gravity_scale = 0.0
+linear_velocity = Vector2(0, 200)
+orbit_center_marker = NodePath("../StaticBody2D")
+source_mass = 10000.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=665486328]
+position = Vector2(806.4499, 527.21533)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1446422804]
+shape = SubResource("CircleShape2D_4heml")
