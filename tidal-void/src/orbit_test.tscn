@@ -1,15 +1,19 @@
 [gd_scene format=3 uid="uid://bcsp2j6ktrslb"]
 
 [ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/planet.tscn" id="1_4heml"]
-[ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player.tscn" id="2_gnnns"]
+[ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
+[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 
 [node name="Planet" parent="." unique_id=519984572 instance=ExtResource("1_4heml")]
 position = Vector2(834, 507)
-mass = 2000.0
+mass = 1800.0
 
 [node name="Player" parent="." unique_id=1840910455 node_paths=PackedStringArray("gravity_bodies") instance=ExtResource("2_gnnns")]
-position = Vector2(920, 495)
+position = Vector2(1083, 504)
 linear_velocity = Vector2(0, 55)
 gravity_bodies = [NodePath("../Planet")]
+
+[node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
+player = NodePath("../Player")

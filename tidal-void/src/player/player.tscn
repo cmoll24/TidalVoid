@@ -11,3 +11,13 @@ script = ExtResource("1_lowyb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
 shape = SubResource("CircleShape2D_rc2ur")
+
+[node name="GravityLabel" type="Label" parent="." unique_id=1770463010]
+offset_left = -26.0
+offset_top = -33.0
+offset_right = 27.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+text = "gravity"
+horizontal_alignment = 1
+vertical_alignment = 1
