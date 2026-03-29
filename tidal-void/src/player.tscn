@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dpc0b3n2r5f74"]
+
+[ext_resource type="Script" uid="uid://c86h8qmjks2v6" path="res://src/drift_body.gd" id="1_lowyb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
+radius = 15.0
+
+[node name="Player" type="RigidBody2D" unique_id=1840910455]
+gravity_scale = 0.0
+script = ExtResource("1_lowyb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
+shape = SubResource("CircleShape2D_rc2ur")
