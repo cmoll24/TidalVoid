@@ -2,13 +2,14 @@ class_name GravitySource
 extends StaticBody2D
 
 @export var mass : float = 1000.0
-var MASS_SCALE = 1000.0 #the masses must be big so this a multipler
+const MASS_SCALE = 1000.0 #the masses must be big so this a multipler
 @export var pull_radius : float = 600.0
+@export var collision_radius : float = 50.0
 
 @export var no_grav_radius : float = 1.0
 
-func get_gravity_pull(from_posiiton : Vector2) -> Vector2:
-	var offset_distance = global_position - from_posiiton
+func get_gravity_pull(from_positon : Vector2) -> Vector2:
+	var offset_distance = global_position - from_positon
 	var distance = offset_distance.length()
 	
 	if distance > pull_radius or distance < no_grav_radius:

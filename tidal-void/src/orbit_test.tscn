@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/planet.tscn" id="1_4heml"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
+[ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 
@@ -10,10 +11,19 @@
 position = Vector2(834, 507)
 mass = 1800.0
 
-[node name="Player" parent="." unique_id=1840910455 node_paths=PackedStringArray("gravity_bodies") instance=ExtResource("2_gnnns")]
+[node name="Player" parent="." unique_id=1840910455 node_paths=PackedStringArray("gravity_sources") instance=ExtResource("2_gnnns")]
 position = Vector2(1083, 504)
 linear_velocity = Vector2(0, 55)
-gravity_bodies = [NodePath("../Planet")]
+gravity_sources = [NodePath("../Planet")]
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
+
+[node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "gravity_sources", "player") instance=ExtResource("4_je76y")]
+line = NodePath("../Line2D")
+steps = 5000
+gravity_sources = [NodePath("../Planet")]
+player = NodePath("../Player")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=203975512]
+width = 3.0
