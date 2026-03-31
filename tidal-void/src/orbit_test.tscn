@@ -1,42 +1,98 @@
 [gd_scene format=3 uid="uid://bcsp2j6ktrslb"]
 
 [ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/planet.tscn" id="1_4heml"]
+[ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/orbit_test.gd" id="1_hd3kg"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
+[ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/camera_2d.gd" id="3_s70ra"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
+[ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/collectable.tscn" id="5_axjf6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hd3kg"]
+radius = 200.0
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
-offsets = PackedFloat32Array(0, 0.61728394, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
+offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
+script = ExtResource("1_hd3kg")
 
 [node name="Planet" parent="." unique_id=519984572 instance=ExtResource("1_4heml")]
 position = Vector2(423, 690)
-mass = 3000.0
-pull_radius = 700.0
+mass = 8000.0
 collision_radius = 70.0
 
 [node name="Planet2" parent="." unique_id=1740166484 instance=ExtResource("1_4heml")]
-position = Vector2(1384, 259)
+position = Vector2(1587, 318)
 mass = 1500.0
 collision_radius = 70.0
 
+[node name="Planet3" parent="." unique_id=219364871 instance=ExtResource("1_4heml")]
+position = Vector2(2371, 1902)
+mass = 22000.0
+collision_radius = 210.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Planet3" unique_id=607027697]
+shape = SubResource("CircleShape2D_hd3kg")
+
 [node name="Player" parent="." unique_id=1840910455 node_paths=PackedStringArray("gravity_sources") instance=ExtResource("2_gnnns")]
-position = Vector2(883, 646)
+position = Vector2(1828, 311)
 linear_velocity = Vector2(0, 55)
 thrust_power = 10.0
-gravity_sources = [NodePath("../Planet"), NodePath("../Planet2")]
+gravity_sources = [NodePath("../Planet"), NodePath("../Planet2"), NodePath("../Planet3")]
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1784519845]
+position_smoothing_enabled = true
+script = ExtResource("3_s70ra")
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
 
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "gravity_sources", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
-steps = 2000
-gravity_sources = [NodePath("../Planet"), NodePath("../Planet2")]
+steps = 1000
+gravity_sources = [NodePath("../Planet"), NodePath("../Planet2"), NodePath("../Planet3")]
 player = NodePath("../Player")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
 width = 3.0
 gradient = SubResource("Gradient_je76y")
+
+[node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
+position = Vector2(512.2966, 452.5486)
+
+[node name="Collectable2" parent="." unique_id=241563427 instance=ExtResource("5_axjf6")]
+position = Vector2(569, 668)
+
+[node name="Collectable3" parent="." unique_id=84615810 instance=ExtResource("5_axjf6")]
+position = Vector2(1369, 381)
+
+[node name="Collectable4" parent="." unique_id=1964092763 instance=ExtResource("5_axjf6")]
+position = Vector2(1545, 555)
+
+[node name="Collectable5" parent="." unique_id=1892822805 instance=ExtResource("5_axjf6")]
+position = Vector2(782, 552)
+
+[node name="Collectable6" parent="." unique_id=1945323454 instance=ExtResource("5_axjf6")]
+position = Vector2(830, 532)
+
+[node name="Collectable7" parent="." unique_id=342270177 instance=ExtResource("5_axjf6")]
+position = Vector2(873, 505)
+
+[node name="Collectable8" parent="." unique_id=574767553 instance=ExtResource("5_axjf6")]
+position = Vector2(909, 478)
+
+[node name="Collectable9" parent="." unique_id=148827875 instance=ExtResource("5_axjf6")]
+position = Vector2(1911, 1212)
+
+[node name="Collectable10" parent="." unique_id=512758479 instance=ExtResource("5_axjf6")]
+position = Vector2(2142, 1630)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
+
+[node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
+text = "FPS"

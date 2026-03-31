@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bsd3px3q1x5hj"]
+
+[ext_resource type="Script" uid="uid://dna60cb0pvxk0" path="res://src/orbit/collectable_trajectory_predictor.gd" id="1_yvqpr"]
+
+[node name="TrajectoryPredictor" type="Node" unique_id=401195789]
+script = ExtResource("1_yvqpr")
