@@ -5,27 +5,38 @@
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 
+[sub_resource type="Gradient" id="Gradient_je76y"]
+offsets = PackedFloat32Array(0, 0.61728394, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
+
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 
 [node name="Planet" parent="." unique_id=519984572 instance=ExtResource("1_4heml")]
-position = Vector2(834, 507)
+position = Vector2(423, 690)
 mass = 3000.0
+pull_radius = 700.0
+collision_radius = 70.0
+
+[node name="Planet2" parent="." unique_id=1740166484 instance=ExtResource("1_4heml")]
+position = Vector2(1384, 259)
+mass = 1500.0
 collision_radius = 70.0
 
 [node name="Player" parent="." unique_id=1840910455 node_paths=PackedStringArray("gravity_sources") instance=ExtResource("2_gnnns")]
-position = Vector2(1219, 508)
+position = Vector2(883, 646)
 linear_velocity = Vector2(0, 55)
 thrust_power = 10.0
-gravity_sources = [NodePath("../Planet")]
+gravity_sources = [NodePath("../Planet"), NodePath("../Planet2")]
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
 
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "gravity_sources", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
-steps = 5000
-gravity_sources = [NodePath("../Planet")]
+steps = 2000
+gravity_sources = [NodePath("../Planet"), NodePath("../Planet2")]
 player = NodePath("../Player")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
 width = 3.0
+gradient = SubResource("Gradient_je76y")
