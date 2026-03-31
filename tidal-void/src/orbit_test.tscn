@@ -9,11 +9,13 @@
 
 [node name="Planet" parent="." unique_id=519984572 instance=ExtResource("1_4heml")]
 position = Vector2(834, 507)
-mass = 1800.0
+mass = 3000.0
+collision_radius = 70.0
 
 [node name="Player" parent="." unique_id=1840910455 node_paths=PackedStringArray("gravity_sources") instance=ExtResource("2_gnnns")]
-position = Vector2(1083, 504)
+position = Vector2(1219, 508)
 linear_velocity = Vector2(0, 55)
+thrust_power = 10.0
 gravity_sources = [NodePath("../Planet")]
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]

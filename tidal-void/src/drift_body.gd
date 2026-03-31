@@ -14,24 +14,8 @@ var thrust_direction : Vector2 = Vector2.ZERO
 func _ready() -> void:
 	gravity_scale = 0
 
-func _physics_process(delta: float) -> void:
-	apply_gravity()
-	apply_thrust()
+func _physics_process(_delta: float) -> void:
 	update_dominant_body()
-
-func apply_gravity() -> void:
-	var total_gravity = Vector2.ZERO
-	
-	for body in gravity_sources:
-		total_gravity += body.get_gravity_pull(global_position)
-		
-	gravity_label.text = str(round(total_gravity.length())) + " N"
-	apply_central_force(total_gravity)
-
-func apply_thrust() -> void:
-	if thrust_direction == Vector2.ZERO:
-		return
-	apply_central_force(thrust_direction * thrust_power)
 
 func set_thurst(direction : Vector2) -> void:
 	if direction.length() > 0.1:
@@ -48,3 +32,22 @@ func update_dominant_body() -> void:
 		if pull > strongest_pull:
 			strongest_pull = pull
 			dominant_body = body
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	# NOTE: requires "Custom Integrator" = true on the RigidBody2D
+	
+	var total_gravity = Vector2.ZERO
+	
+	for body in gravity_sources:
+		total_gravity += body.get_gravity_pull(global_position)
+	
+	var new_vel  = state.linear_velocity + total_gravity * state.step
+	
+	if thrust_direction != Vector2.ZERO:
+		new_vel += thrust_direction * thrust_power * state.step
+	
+	state.linear_velocity = new_vel.limit_length(max_velocity)
+	
+	
+	
+	

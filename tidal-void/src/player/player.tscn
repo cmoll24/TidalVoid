@@ -7,6 +7,7 @@ radius = 15.0
 
 [node name="Player" type="RigidBody2D" unique_id=1840910455]
 gravity_scale = 0.0
+custom_integrator = true
 script = ExtResource("1_lowyb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
