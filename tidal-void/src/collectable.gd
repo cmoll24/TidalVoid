@@ -4,9 +4,14 @@ extends Area2D
 @export var gravity_sources : Array[GravitySource] = []
 var velocity : Vector2 = Vector2.ZERO
 
+var debug = false
+
 func _ready() -> void:
 	gravity_sources.assign(get_tree().get_nodes_in_group("gravity_sources"))
 	velocity = orbital_velocity(get_dominant_body(), global_position)
+	
+	if not debug:
+		return
 	
 	var line : Line2D = Line2D.new()
 	line.width = 2.0
