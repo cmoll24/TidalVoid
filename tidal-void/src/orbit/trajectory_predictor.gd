@@ -1,11 +1,13 @@
 class_name TrajectoryPredictor
 extends Node
 
+##Reference to line used to draw a predicted trajectory, should have antialiasing on
 @export var line : Line2D
+##The number of simulated physics steps to use
 @export var steps : int = 10_000
-#the amount of fake steps to place in between real physics steps to make the line smooth
+##the amount of fake steps to place in between real physics steps to make the line smooth
 @export var fake_steps : float = 5;
-#This saves performance by skipping steps, a value of 20 does 20 at a time
+## The amount of steps to traverse in each step, numbers over 1 skip steps to save on performance,may cause some stuttering in the trajectory, should be used was fake steps to avoid pointy lines
 @export var step_dist : float = 20;
 #@export var step_delta : float = 0.005
 @export var gravity_sources : Array[GravitySource]
