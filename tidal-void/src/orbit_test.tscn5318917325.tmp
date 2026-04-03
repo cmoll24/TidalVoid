@@ -52,15 +52,14 @@ player = NodePath("../Player")
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "gravity_sources", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
 steps = 50
-fake_steps = 20.0
-step_dist = 10.0
+fake_steps = null
+step_dist = null
 gravity_sources = [NodePath("../Planet"), NodePath("../Planet2"), NodePath("../Planet3")]
 player = NodePath("../Player")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
 width = 3.0
 gradient = SubResource("Gradient_je76y")
-antialiased = true
 
 [node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
 position = Vector2(512.2966, 452.5486)
