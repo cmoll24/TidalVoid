@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dpc0b3n2r5f74"]
 
 [ext_resource type="Script" uid="uid://c86h8qmjks2v6" path="res://src/Framework/drift_body.gd" id="1_lowyb"]
+[ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="2_rxibo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 15.0
@@ -19,6 +20,13 @@ offset_top = -33.0
 offset_right = 27.0
 offset_bottom = -19.0
 theme_override_font_sizes/font_size = 10
-text = "gravity"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=998047140]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 75.0
+offset_bottom = 75.0
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("2_rxibo")
