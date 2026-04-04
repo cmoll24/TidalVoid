@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cmvbyrs6dht4x"]
+
+[ext_resource type="Script" uid="uid://c5rwjyeanre2b" path="res://src/Collectables/collectable.gd" id="1_6f7qm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8g1sw"]
+
+[sub_resource type="Gradient" id="Gradient_amveg"]
+
+[node name="Collectable" type="Area2D" unique_id=1685557867]
+script = ExtResource("1_6f7qm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884730571]
+shape = SubResource("RectangleShape2D_8g1sw")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1986613331]
+width = 2.0
+default_color = Color(1, 0.43137255, 0.43137255, 0.49803922)
+gradient = SubResource("Gradient_amveg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

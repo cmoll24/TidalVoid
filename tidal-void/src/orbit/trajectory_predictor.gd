@@ -10,9 +10,12 @@ extends Node
 ## The amount of steps to traverse in each step, numbers over 1 skip steps to save on performance,may cause some stuttering in the trajectory, should be used was fake steps to avoid pointy lines
 @export var step_dist : float = 20;
 #@export var step_delta : float = 0.005
-@export var gravity_sources : Array[GravitySource]
+var game_manager : GameManager
 
 @export var player : DriftBody
+
+func _ready() -> void:
+	game_manager = get_tree().get_first_node_in_group("game_managers")
 
 func _process(_delta: float) -> void:
 	draw_trajectory()
@@ -27,7 +30,7 @@ func draw_trajectory() -> void:
 	for i in steps:
 		#simulate gravity
 		var grav = Vector2.ZERO
-		for body in gravity_sources:
+		for body in game_manager.gravity_sources:
 			grav += body.get_gravity_pull(sim_pos)
 		sim_vel += grav * step
 		sim_vel = sim_vel.limit_length(player.max_velocity)
@@ -35,7 +38,7 @@ func draw_trajectory() -> void:
 		
 		#we stop drwaing if we hit an orbital body
 		var hit = false
-		for body in gravity_sources:
+		for body in game_manager.gravity_sources:
 			var distance : float = sim_pos.distance_to(body.global_position)
 			if  distance < body.collision_radius:
 				hit = true

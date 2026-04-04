@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cmvbyrs6dht4x"]
 
-[ext_resource type="Script" uid="uid://c5rwjyeanre2b" path="res://src/collectable.gd" id="1_6f7qm"]
+[ext_resource type="Script" uid="uid://c5rwjyeanre2b" path="res://src/Collectables/collectable.gd" id="1_6f7qm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8g1sw"]
 
@@ -9,5 +9,7 @@ script = ExtResource("1_6f7qm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884730571]
 shape = SubResource("RectangleShape2D_8g1sw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1869384330]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

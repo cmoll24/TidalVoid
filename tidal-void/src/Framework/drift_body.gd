@@ -6,13 +6,14 @@ extends RigidBody2D
 @export var thrust_power : float = 50.0
 @export var max_velocity : float = 400.0
 
-@export var gravity_sources : Array[GravitySource] = []
+var game_manager : GameManager
 var dominant_body : GravitySource = null
 
 var thrust_direction : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	gravity_scale = 0
+	game_manager = get_tree().get_first_node_in_group("game_managers")
 
 func _physics_process(_delta: float) -> void:
 	update_dominant_body()
@@ -27,7 +28,7 @@ func update_dominant_body() -> void:
 	#the domiannt body is the grav source with the strongest pull
 	var strongest_pull = 0.0
 	dominant_body = null
-	for body in gravity_sources:
+	for body in game_manager.gravity_sources:
 		var pull = body.get_gravity_pull(global_position).length()
 		if pull > strongest_pull:
 			strongest_pull = pull
@@ -38,7 +39,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 	var total_gravity = Vector2.ZERO
 	
-	for body in gravity_sources:
+	for body in game_manager.gravity_sources:
 		total_gravity += body.get_gravity_pull(global_position)
 	
 	var new_vel  = state.linear_velocity + total_gravity * state.step
