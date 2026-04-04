@@ -97,4 +97,4 @@ theme_override_font_sizes/font_size = 24
 text = "FPS"
 
 [node name="DriftPlanet" parent="." unique_id=1381837011 instance=ExtResource("9_rhkje")]
-position = Vector2(1753, 550)
+position = Vector2(1381, 147)

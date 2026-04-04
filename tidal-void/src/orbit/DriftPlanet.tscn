@@ -22,9 +22,6 @@ height = 100
 fill = 1
 fill_from = Vector2(0.47826087, 0.5173913)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_klrcr"]
-radius = 25.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_sijsn"]
 radius = 25.0
 
@@ -55,7 +52,6 @@ offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_s2205")
-stretch_mode = 3
 
 [node name="TextureRect" type="TextureRect" parent="Planet" unique_id=1904708707]
 material = ExtResource("3_8pw33")
@@ -64,21 +60,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_68xgs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet" unique_id=2016008320]
-shape = SubResource("CircleShape2D_klrcr")
-debug_color = Color(0, 0.004019165, 0, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet" unique_id=1725577781]
+shape = SubResource("CircleShape2D_sijsn")
+disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1343489286]
 shape = SubResource("CircleShape2D_sijsn")
-disabled = true
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="GravityLabel" type="Label" parent="." unique_id=335971722]

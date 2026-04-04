@@ -44,7 +44,8 @@ func draw_trajectory() -> void:
 				hit = true
 				var past_pos = points[points.size()-1]
 				var delta : Vector2 = sim_pos - past_pos
-				sim_pos = lerp(past_pos,sim_pos,distance/delta.length())
+				sim_pos = lerp(past_pos,sim_pos,(distance-body.collision_radius)
+				/delta.length())
 				break
 		
 		#first add steps interpolating to the current step to keep the curve smooth
