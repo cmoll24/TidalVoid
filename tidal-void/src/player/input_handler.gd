@@ -9,6 +9,6 @@ func _process(delta: float) -> void:
 	var horizontal_thrust = Input.get_axis("thrust_left", "thrust_right")
 	var vertical_thrust = Input.get_axis("thrust_up", "thrust_down")
 	
-	thrust_direction = Vector2(horizontal_thrust, vertical_thrust)
+	thrust_direction = Vector2(horizontal_thrust, vertical_thrust).normalized()
 	
 	player.set_thurst(thrust_direction)

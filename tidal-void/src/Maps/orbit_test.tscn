@@ -48,7 +48,7 @@ player = NodePath("../Player")
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
 steps = 500
-fake_steps = 1.0
+fake_steps = 2.0
 step_dist = 2.0
 player = NodePath("../Player")
 
