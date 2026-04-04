@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://p15eipntvile"]
 
-[ext_resource type="Script" uid="uid://dmxg4ii735gl4" path="res://src/gravity_source.gd" id="1_qm4g4"]
+[ext_resource type="Script" uid="uid://dmxg4ii735gl4" path="res://src/Framework/gravity_source.gd" id="1_qm4g4"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="2_klrcr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klrcr"]

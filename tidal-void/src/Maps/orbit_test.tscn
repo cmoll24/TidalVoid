@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://bcsp2j6ktrslb"]
 
-[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/planet.tscn" id="1_4heml"]
-[ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/orbit_test.gd" id="1_hd3kg"]
+[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/orbit/planet.tscn" id="1_4heml"]
+[ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_hd3kg"]
+[ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_4vn8n"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
-[ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/camera_2d.gd" id="3_s70ra"]
+[ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="3_s70ra"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
-[ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/collectable.tscn" id="5_axjf6"]
+[ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hd3kg"]
 radius = 200.0
@@ -17,6 +18,8 @@ colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 script = ExtResource("1_hd3kg")
+
+[node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_4vn8n")]
 
 [node name="Planet" parent="." unique_id=519984572 instance=ExtResource("1_4heml")]
 position = Vector2(423, 690)
@@ -36,11 +39,10 @@ collision_radius = 210.0
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Planet3" unique_id=607027697]
 shape = SubResource("CircleShape2D_hd3kg")
 
-[node name="Player" parent="." unique_id=1840910455 node_paths=PackedStringArray("gravity_sources") instance=ExtResource("2_gnnns")]
+[node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 position = Vector2(1828, 311)
 linear_velocity = Vector2(0, 55)
 thrust_power = 10.0
-gravity_sources = [NodePath("../Planet"), NodePath("../Planet2"), NodePath("../Planet3")]
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1784519845]
 position_smoothing_enabled = true
@@ -49,12 +51,11 @@ script = ExtResource("3_s70ra")
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
 
-[node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "gravity_sources", "player") instance=ExtResource("4_je76y")]
+[node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
 steps = 50
 fake_steps = 20.0
 step_dist = 10.0
-gravity_sources = [NodePath("../Planet"), NodePath("../Planet2"), NodePath("../Planet3")]
 player = NodePath("../Player")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]

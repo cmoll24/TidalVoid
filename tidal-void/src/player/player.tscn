@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dpc0b3n2r5f74"]
 
-[ext_resource type="Script" uid="uid://c86h8qmjks2v6" path="res://src/drift_body.gd" id="1_lowyb"]
+[ext_resource type="Script" uid="uid://c86h8qmjks2v6" path="res://src/Framework/drift_body.gd" id="1_lowyb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 15.0
