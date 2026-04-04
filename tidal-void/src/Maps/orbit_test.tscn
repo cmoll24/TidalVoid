@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="3_s70ra"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
+[ext_resource type="PackedScene" uid="uid://d28hex2r4exax" path="res://src/orbit/DriftPlanet.tscn" id="9_rhkje"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -48,8 +49,8 @@ player = NodePath("../Player")
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
 steps = 500
-fake_steps = 2.0
-step_dist = 2.0
+fake_steps = 0.0
+step_dist = 1.0
 player = NodePath("../Player")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
@@ -94,3 +95,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 24
 text = "FPS"
+
+[node name="DriftPlanet" parent="." unique_id=1381837011 instance=ExtResource("9_rhkje")]
+position = Vector2(1753, 550)

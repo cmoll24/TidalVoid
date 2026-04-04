@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://d28hex2r4exax"]
+
+[ext_resource type="Script" uid="uid://dmxg4ii735gl4" path="res://src/Framework/gravity_source.gd" id="1_7mmrp"]
+[ext_resource type="Script" uid="uid://c86h8qmjks2v6" path="res://src/Framework/drift_body.gd" id="1_sijsn"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="2_sijsn"]
+[ext_resource type="Material" uid="uid://d3kfjuqmr2fmj" path="res://assets/Materials/M_astroid1_pixelated.tres" id="3_8pw33"]
+[ext_resource type="Texture2D" uid="uid://drxyman8jyghj" path="res://assets/Textures/Environmental/astroid1_pixelated.png" id="4_68xgs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s2205"]
+shader = ExtResource("2_sijsn")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.6987952, 0.9096386, 1)
+colors = PackedColorArray(1, 1, 0.5254902, 0, 1, 1, 0.5254902, 0.042721722, 1, 1, 0.5254902, 0.13725491, 1, 1, 0.5254902, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s2205"]
+gradient = SubResource("Gradient_klrcr")
+width = 100
+height = 100
+fill = 1
+fill_from = Vector2(0.47826087, 0.5173913)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_klrcr"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sijsn"]
+radius = 25.0
+
+[node name="DriftPlanet" type="RigidBody2D" unique_id=1381837011]
+mass = 1000.0
+gravity_scale = 0.0
+custom_integrator = true
+script = ExtResource("1_sijsn")
+max_velocity = 2000.0
+start_in_orbit = true
+metadata/_custom_type_script = "uid://c86h8qmjks2v6"
+
+[node name="Planet" type="StaticBody2D" parent="." unique_id=519984572 groups=["gravity_sources"]]
+script = ExtResource("1_7mmrp")
+collision_radius = 25.0
+
+[node name="PullRadius" type="TextureRect" parent="Planet" unique_id=1929894957]
+material = SubResource("ShaderMaterial_s2205")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_s2205")
+stretch_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="Planet" unique_id=1904708707]
+material = ExtResource("3_8pw33")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_68xgs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet" unique_id=2016008320]
+shape = SubResource("CircleShape2D_klrcr")
+debug_color = Color(0, 0.004019165, 0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1343489286]
+shape = SubResource("CircleShape2D_sijsn")
+disabled = true
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="GravityLabel" type="Label" parent="." unique_id=335971722]
+offset_left = -26.0
+offset_top = -33.0
+offset_right = 27.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
