@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d3kfjuqmr2fmj"]
+
+[ext_resource type="Shader" uid="uid://dihci1ntoemw4" path="res://assets/shaders/planet.gdshader" id="1_tbhar"]
+
+[resource]
+shader = ExtResource("1_tbhar")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+shader_parameter/rotation_speed = Vector2(0.1, 0.02)

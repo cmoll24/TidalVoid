@@ -13,7 +13,7 @@ extends Node
 #@export var step_delta : float = 0.005
 var game_manager : GameManager
 
-@export var collectable : Collectable
+@export var collectable : Orbiter
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
