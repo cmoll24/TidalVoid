@@ -37,7 +37,7 @@ collision_radius = 210.0
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 position = Vector2(1828, 311)
 linear_velocity = Vector2(0, 55)
-thrust_power = 10.0
+thrust_power = 15.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1784519845]
 position_smoothing_enabled = true
