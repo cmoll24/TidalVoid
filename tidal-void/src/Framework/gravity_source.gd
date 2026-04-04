@@ -2,6 +2,8 @@ class_name GravitySource
 extends StaticBody2D
 
 @onready var pull_radius_circle = $PullRadius
+@onready var collision_radius_shape : CollisionShape2D = $CollisionShape2D
+@onready var texture_rect : TextureRect = $TextureRect
 
 @export var mass : float = 1000.0
 const MASS_SCALE = 1000.0 #the masses must be big so this a multipler
@@ -17,6 +19,11 @@ func _ready() -> void:
 	print(pull_radius)
 	pull_radius_circle.scale = Vector2(pull_radius, pull_radius) / 50.0 #because scale is diameter
 	pull_radius_circle.position = -Vector2(pull_radius, pull_radius)# / 2.0
+	var new_shape = CircleShape2D.new()
+	new_shape.radius = collision_radius
+	collision_radius_shape.shape = new_shape
+	texture_rect.size = Vector2(collision_radius, collision_radius)*2
+	texture_rect.position = -Vector2(collision_radius, collision_radius)
 
 func calculate_pull_radius() -> float:
 	# solve: (mass * MASS_SCALE) / distance^2 = threshold

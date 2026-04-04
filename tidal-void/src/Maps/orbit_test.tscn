@@ -9,9 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hd3kg"]
-radius = 200.0
-
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
@@ -36,9 +33,6 @@ position = Vector2(2371, 1902)
 mass = 22000.0
 collision_radius = 210.0
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Planet3" unique_id=607027697]
-shape = SubResource("CircleShape2D_hd3kg")
-
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 position = Vector2(1828, 311)
 linear_velocity = Vector2(0, 55)
@@ -53,9 +47,9 @@ player = NodePath("../Player")
 
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
-steps = 50
-fake_steps = 20.0
-step_dist = 10.0
+steps = 500
+fake_steps = 1.0
+step_dist = 2.0
 player = NodePath("../Player")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
