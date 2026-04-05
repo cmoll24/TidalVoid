@@ -28,11 +28,11 @@ camera_attributes = ExtResource("4_lm5jn")
 [node name="Planet" parent="." unique_id=519984572 instance=ExtResource("1_4heml")]
 position = Vector2(423, 690)
 mass = 8000.0
-collision_radius = 70.0
+collision_radius = 120.0
 
 [node name="Planet2" parent="." unique_id=1740166484 instance=ExtResource("1_4heml")]
 position = Vector2(1587, 318)
-mass = 1500.0
+mass = 1600.0
 collision_radius = 70.0
 
 [node name="Planet3" parent="." unique_id=219364871 instance=ExtResource("1_4heml")]
@@ -68,7 +68,7 @@ antialiased = true
 position = Vector2(512.2966, 452.5486)
 
 [node name="Collectable2" parent="." unique_id=241563427 instance=ExtResource("5_axjf6")]
-position = Vector2(569, 668)
+position = Vector2(655, 991)
 
 [node name="Collectable3" parent="." unique_id=84615810 instance=ExtResource("5_axjf6")]
 position = Vector2(1369, 381)
