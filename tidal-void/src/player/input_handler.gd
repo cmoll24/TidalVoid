@@ -20,7 +20,6 @@ func _process(delta: float) -> void:
 		var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
 		var player_screen_position = player.global_position - get_viewport().get_camera_2d().global_position
 		
-		print(mouse_position, player_screen_position)
 		var mouse_direction = (mouse_position - player_screen_position).normalized()
 		
 		thrust_direction = mouse_direction
