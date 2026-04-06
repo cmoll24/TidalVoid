@@ -2,7 +2,7 @@ class_name ZoomCamera
 extends Camera2D
 
 @export var min_zoom : float = 0.1
-@export var max_zoom : float = 2.0
+@export var max_zoom : float = 4.0
 @export var zoom_speed : float = 0.05
 @export var zoom_smoothing : float = 0.1
 
