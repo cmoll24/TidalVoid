@@ -35,6 +35,7 @@ scale = Vector2(0.333, 0.333)
 texture = ExtResource("2_rxibo")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2146207545]
+limit_enabled = false
 script = ExtResource("3_5f2sf")
 
 [node name="StarBackground" type="TextureRect" parent="Camera2D" unique_id=1208103608]
