@@ -1,8 +1,6 @@
 class_name DriftBody
 extends RigidBody2D
 
-@onready var gravity_label = $GravityLabel
-
 @onready var gravity_source = $GravitySource
 
 @export var thrust_power : float = 50.0

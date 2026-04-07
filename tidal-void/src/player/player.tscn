@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dpc0b3n2r5f74"]
 
-[ext_resource type="Script" uid="uid://c86h8qmjks2v6" path="res://src/Framework/drift_body.gd" id="1_lowyb"]
+[ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
 [ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="2_rxibo"]
 [ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="3_5f2sf"]
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="4_5f2sf"]
@@ -9,10 +9,19 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 15.0
 
+[sub_resource type="Curve" id="Curve_5f2sf"]
+_data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_5f2sf"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.22839506, 0.45061728, 0.69753087, 1)
+colors = PackedColorArray(1, 1, 0.85490197, 1, 1, 1, 0.26, 0.7294118, 1, 0.120000005, 0.120000005, 0.7490196, 0.71, 0.07810001, 0.07810001, 0.73333335, 0, 0, 0, 0.60784316)
+
 [node name="Player" type="RigidBody2D" unique_id=1840910455]
 gravity_scale = 0.0
 custom_integrator = true
-script = ExtResource("1_lowyb")
+script = ExtResource("1_5f2sf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
 shape = SubResource("CircleShape2D_rc2ur")
@@ -25,6 +34,19 @@ offset_bottom = -19.0
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=168159882]
+amount = 20
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 90.0
+angle_max = 30.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_5f2sf")
+color_ramp = SubResource("Gradient_5f2sf")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=998047140]
 offset_left = -15.0
@@ -39,7 +61,7 @@ limit_enabled = false
 script = ExtResource("3_5f2sf")
 
 [node name="StarBackground" type="TextureRect" parent="Camera2D" unique_id=1208103608]
-z_index = -1
+z_index = -5
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
