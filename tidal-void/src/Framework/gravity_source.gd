@@ -16,7 +16,6 @@ var pull_radius : float = 600.0
 
 func _ready() -> void:
 	pull_radius = calculate_pull_radius()
-	print(pull_radius)
 	pull_radius_circle.scale = Vector2(pull_radius, pull_radius) / 50.0 #because scale is diameter
 	pull_radius_circle.position = -Vector2(pull_radius, pull_radius)# / 2.0
 	if(collision_radius_shape):
@@ -38,8 +37,7 @@ func get_gravity_pull(from_positon : Vector2) -> Vector2:
 	if distance > pull_radius or distance < no_grav_radius:
 		return Vector2.ZERO
 	
-	#print(distance, " - ", distance**2, " ++ ", max(distance**2, 3000.0))
+	#strength = M / R^2
 	var strength = (mass * MASS_SCALE) / max(distance**2, 5000.0)
-	#print(strength)
 	
 	return offset_distance.normalized() * strength
