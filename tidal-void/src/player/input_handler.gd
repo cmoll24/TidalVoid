@@ -1,7 +1,7 @@
 class_name InputHandler
 extends Node
 
-@export var player : DriftBody
+@export var player : Player
 
 func _process(delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -24,4 +24,12 @@ func _process(delta: float) -> void:
 		
 		thrust_direction = mouse_direction
 	
-	player.set_thurst(thrust_direction)
+	var thrust_multiplier = 1.0
+	if Input.is_action_pressed("boost"):
+		thrust_multiplier = 10.0
+	
+	#This is very temporary: it's just a debug to check if this works
+	if Input.is_action_just_pressed("jump"):
+		player.jump(thrust_direction)
+	
+	player.set_thurst(thrust_direction, thrust_multiplier)

@@ -1,8 +1,11 @@
+class_name Player
 extends DriftBody
 
 @onready var gravity_label = $GravityLabel
 
 @onready var thrust_particles = $ThrustParticles
+
+@export var jump_power : float = 150.0
 
 func _ready() -> void:
 	super._ready()
@@ -30,10 +33,13 @@ func start_thrust_particles(direction):
 	
 	thrust_particles.emitting = true
 
-func set_thurst(direction : Vector2) -> void:
-	super.set_thurst(direction)
+func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
+	super.set_thurst(direction, multiplier)
 	
 	if direction != Vector2.ZERO:
 		start_thrust_particles(direction)
 	else:
 		thrust_particles.emitting = false
+
+func jump(direction : Vector2):
+	apply_central_impulse(jump_power * direction)

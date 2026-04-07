@@ -53,7 +53,6 @@ collision_radius = 210.0
 [node name="Planet4" parent="." unique_id=1640720222 instance=ExtResource("1_4heml")]
 position = Vector2(530, 1882)
 mass = 1500.0
-collision_radius = 70.0
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 z_index = 1
