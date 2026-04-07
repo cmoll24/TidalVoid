@@ -50,10 +50,15 @@ position = Vector2(2371, 1902)
 mass = 22000.0
 collision_radius = 210.0
 
+[node name="Planet4" parent="." unique_id=1640720222 instance=ExtResource("1_4heml")]
+position = Vector2(530, 1882)
+mass = 1500.0
+collision_radius = 70.0
+
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 z_index = 1
-position = Vector2(1828, 311)
-linear_velocity = Vector2(0, 55)
+position = Vector2(771, 1871)
+linear_velocity = Vector2(0, 65)
 thrust_power = 15.0
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
@@ -100,6 +105,15 @@ position = Vector2(1911, 1212)
 
 [node name="Collectable10" parent="." unique_id=512758479 instance=ExtResource("5_axjf6")]
 position = Vector2(2142, 1630)
+
+[node name="Collectable11" parent="." unique_id=1526817881 instance=ExtResource("5_axjf6")]
+position = Vector2(257, 1870)
+
+[node name="Collectable12" parent="." unique_id=27494866 instance=ExtResource("5_axjf6")]
+position = Vector2(529, 1750)
+
+[node name="Collectable13" parent="." unique_id=1474240198 instance=ExtResource("5_axjf6")]
+position = Vector2(761, 1710)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
 
