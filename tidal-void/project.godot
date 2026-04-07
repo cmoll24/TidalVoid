@@ -77,6 +77,10 @@ thrust={
 ]
 }
 
+[layer_names]
+
+2d_physics/navigation_engine="GodotNavigation2D"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

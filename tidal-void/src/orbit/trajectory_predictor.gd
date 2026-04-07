@@ -9,6 +9,8 @@ extends Node
 @export var fake_steps : float = 5;
 ## The amount of steps to traverse in each step, numbers over 1 skip steps to save on performance,may cause some stuttering in the trajectory, should be used was fake steps to avoid pointy lines
 @export var step_dist : float = 20;
+## Used to ensure accurate predications of when collision may occur, set to the radius of whatever is being predicted
+@export var collision_radius : float = 15;
 #@export var step_delta : float = 0.005
 var game_manager : GameManager
 
@@ -39,7 +41,7 @@ func draw_trajectory() -> void:
 		#we stop drwaing if we hit an orbital body
 		var hit = false
 		for body in game_manager.gravity_sources:
-			var distance : float = sim_pos.distance_to(body.global_position)
+			var distance : float = sim_pos.distance_to(body.global_position)-collision_radius
 			if  distance < body.collision_radius:
 				hit = true
 				var past_pos = points[points.size()-1]
