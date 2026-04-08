@@ -3,6 +3,8 @@ extends Node
 
 @export var player : Player
 
+var reverse_thrust = false
+
 func _process(delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
 	
@@ -32,4 +34,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		player.jump(thrust_direction)
 	
-	player.set_thurst(thrust_direction, thrust_multiplier)
+	if reverse_thrust:
+		player.set_thurst(thrust_direction.rotated(PI), thrust_multiplier)
+	else:
+		player.set_thurst(thrust_direction, thrust_multiplier)
