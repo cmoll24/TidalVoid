@@ -5,11 +5,18 @@ extends DriftBody
 
 @onready var thrust_particles = $ThrustParticles
 
-@export var jump_power : float = 200.0
+#@export var jump_power : float = 200.0
+@export var walk_speed : float = 100.0
+
+@export var min_jump_power : float = 50.0
+@export var max_jump_power : float = 600.0
+@export var max_charge_time : float = 3.0  # seconds to reach full charge
 
 var is_grounded : bool = false
 var grounded_body : GravitySource
 var surface_normal : Vector2 = Vector2.ZERO
+var is_charging_jump : bool = false
+var jump_charge_time : float = 0.0
 
 #var surface_friction_coef : float = 0.001
 
@@ -42,9 +49,24 @@ func start_thrust_particles(direction):
 	
 	thrust_particles.emitting = true
 
+func _physics_process(delta: float) -> void:
+	if is_grounded:
+		if Input.is_action_just_pressed("jump"):
+			is_charging_jump = true
+			jump_charge_time = 0.0
+
+		if is_charging_jump and Input.is_action_pressed("jump"):
+			jump_charge_time += delta
+			jump_charge_time = min(jump_charge_time, max_charge_time)
+
+		if is_charging_jump and Input.is_action_just_released("jump"):
+			perform_jump()
+
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	super._integrate_forces(state)
 	check_grounded(state)
+	if is_grounded:
+		handle_ground_movement(state)
 
 func check_grounded(state: PhysicsDirectBodyState2D):
 	#This required contact_moniter = true and max_contact_reported >= 1
@@ -70,12 +92,49 @@ func check_grounded(state: PhysicsDirectBodyState2D):
 func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
 	super.set_thurst(direction, multiplier)
 	
-	if direction != Vector2.ZERO:
+	if direction != Vector2.ZERO and not is_grounded:
 		start_thrust_particles(direction)
 	else:
 		thrust_particles.emitting = false
 
-func jump():
+#func jump():
+#	if not is_grounded:
+#		return
+#	apply_central_impulse(jump_power * surface_normal)
+
+func perform_jump():
 	if not is_grounded:
 		return
-	apply_central_impulse(jump_power * surface_normal)
+
+	is_charging_jump = false
+
+	var charge_ratio = jump_charge_time / max_charge_time
+
+	var final_power = lerp(min_jump_power, max_jump_power, charge_ratio)
+
+	apply_central_impulse(final_power * surface_normal)
+
+	jump_charge_time = 0.0
+
+func handle_ground_movement(state: PhysicsDirectBodyState2D):
+	if grounded_body == null:
+		return
+
+	var up_dir = surface_normal.normalized()
+
+	rotation = up_dir.angle() + PI/2
+
+	state.angular_velocity = 0
+
+	var tangent = Vector2(-up_dir.y, up_dir.x)
+
+	var input_dir = 0
+	if Input.is_action_pressed("thrust_left"):
+		input_dir -= 1
+	if Input.is_action_pressed("thrust_right"):
+		input_dir += 1
+
+	var target_velocity = tangent * input_dir * walk_speed
+
+	var radial_velocity = up_dir * state.linear_velocity.dot(up_dir)
+	state.linear_velocity = radial_velocity + target_velocity

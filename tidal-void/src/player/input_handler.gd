@@ -30,8 +30,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("boost"):
 		thrust_multiplier = 10.0
 	
-	if Input.is_action_just_pressed("jump"):
-		player.jump()
+	#if Input.is_action_just_pressed("jump"):
+ 	#	player.jump()
 	
 	if reverse_thrust:
 		player.set_thurst(thrust_direction.rotated(PI), thrust_multiplier)

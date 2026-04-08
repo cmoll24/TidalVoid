@@ -58,6 +58,7 @@ mass = 1500.0
 z_index = 1
 position = Vector2(771, 1871)
 linear_velocity = Vector2(0, 65)
+walk_speed = 150.0
 thrust_power = 15.0
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
