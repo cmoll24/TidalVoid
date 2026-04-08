@@ -54,7 +54,7 @@ func check_grounded(state: PhysicsDirectBodyState2D):
 	
 	for i in state.get_contact_count():
 		var collider = state.get_contact_collider_object(i)
-		if collider is GravitySource:
+		if collider is GravitySource: #this means it currently ignores dirftPlanets
 			is_grounded = true
 			grounded_body = collider
 			surface_normal = state.get_contact_local_normal(i)

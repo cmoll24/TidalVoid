@@ -30,7 +30,6 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("boost"):
 		thrust_multiplier = 10.0
 	
-	#This is very temporary: it's just a debug to check if this works
 	if Input.is_action_just_pressed("jump"):
 		player.jump()
 	
