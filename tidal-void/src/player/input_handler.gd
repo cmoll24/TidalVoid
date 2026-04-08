@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	
 	#This is very temporary: it's just a debug to check if this works
 	if Input.is_action_just_pressed("jump"):
-		player.jump(thrust_direction)
+		player.jump()
 	
 	if reverse_thrust:
 		player.set_thurst(thrust_direction.rotated(PI), thrust_multiplier)

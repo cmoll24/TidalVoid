@@ -5,10 +5,19 @@ extends DriftBody
 
 @onready var thrust_particles = $ThrustParticles
 
-@export var jump_power : float = 150.0
+@export var jump_power : float = 200.0
+
+var is_grounded : bool = false
+var grounded_body : GravitySource
+var surface_normal : Vector2 = Vector2.ZERO
+
+#var surface_friction_coef : float = 0.001
 
 func _ready() -> void:
 	super._ready()
+	
+	contact_monitor = true
+	max_contacts_reported = 1
 	
 	thrust_particles.emitting = false
 
@@ -33,6 +42,31 @@ func start_thrust_particles(direction):
 	
 	thrust_particles.emitting = true
 
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	super._integrate_forces(state)
+	check_grounded(state)
+
+func check_grounded(state: PhysicsDirectBodyState2D):
+	#This required contact_moniter = true and max_contact_reported >= 1
+	
+	is_grounded = false
+	grounded_body = null
+	
+	for i in state.get_contact_count():
+		var collider = state.get_contact_collider_object(i)
+		if collider is GravitySource:
+			is_grounded = true
+			grounded_body = collider
+			surface_normal = state.get_contact_local_normal(i)
+			
+			#surface friction
+			#var gravity = collider.get_gravity_pull(global_position).length()
+			#var friction_amount = mass * gravity * surface_friction_coef
+			var friction_amount = 0.1
+			state.linear_velocity *= 1.0 - (friction_amount * state.step)
+			
+			return #Currently we stop after finding a first collision, idk what we sohuld do if there are several
+
 func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
 	super.set_thurst(direction, multiplier)
 	
@@ -41,5 +75,7 @@ func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
 	else:
 		thrust_particles.emitting = false
 
-func jump(direction : Vector2):
-	apply_central_impulse(jump_power * direction)
+func jump():
+	if not is_grounded:
+		return
+	apply_central_impulse(jump_power * surface_normal)
