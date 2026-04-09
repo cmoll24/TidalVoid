@@ -25,15 +25,9 @@ fill_from = Vector2(0.47826087, 0.5173913)
 [sub_resource type="CircleShape2D" id="CircleShape2D_sijsn"]
 radius = 25.0
 
-[node name="DriftPlanet" type="RigidBody2D" unique_id=1381837011]
-mass = 1000.0
-gravity_scale = 0.0
-custom_integrator = true
+[node name="DriftPlanet" type="StaticBody2D" unique_id=1380605901]
 script = ExtResource("1_sijsn")
-velocity = null
-prediction_velocity = null
-b_prediction_velo_is_real = null
-thrust_power = null
+mass = 10000.0
 max_velocity = 2000.0
 start_in_orbit = true
 metadata/_custom_type_script = "uid://c86h8qmjks2v6"
@@ -88,3 +82,6 @@ offset_bottom = -19.0
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=1324502118]
+target_position = Vector2(0, 0)

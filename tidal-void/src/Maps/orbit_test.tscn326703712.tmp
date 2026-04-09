@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
+[ext_resource type="PackedScene" uid="uid://d28hex2r4exax" path="res://src/orbit/DriftPlanet.tscn" id="9_rhkje"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
@@ -57,11 +58,19 @@ mass = 1500.0
 z_index = 1
 position = Vector2(360, 1932)
 walk_speed = 150.0
-max_jump_power = 600.0
-min_stat_fric_velo = 0.2
-min_dot_for_ground = 0.5
-elasticity = 0.8
+min_jump_power = null
+max_jump_power = null
+max_charge_time = null
+mass = null
+velocity = null
+prediction_velocity = null
+b_prediction_velo_is_real = null
+min_stat_fric_velo = null
+kinetic_friction_coefficient = null
+min_dot_for_ground = null
+elasticity = null
 thrust_power = 15.0
+max_velocity = null
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
@@ -124,3 +133,10 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 24
 text = "FPS"
+
+[node name="DriftPlanet" parent="." unique_id=1381837011 instance=ExtResource("9_rhkje")]
+position = Vector2(1381, 147)
+min_stat_fric_velo = null
+kinetic_friction_coefficient = null
+min_dot_for_ground = null
+elasticity = null
