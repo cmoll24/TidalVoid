@@ -9,14 +9,17 @@ extends DriftBody
 @export var walk_speed : float = 100.0
 
 @export var min_jump_power : float = 50.0
-@export var max_jump_power : float = 600.0
-@export var max_charge_time : float = 3.0  # seconds to reach full charge
+@export var max_jump_power : float = 330.0
+@export var max_charge_time : float = 5.0  # seconds to reach full charge
 
 var is_grounded : bool = false
 var grounded_body : GravitySource
 var surface_normal : Vector2 = Vector2.ZERO
 var is_charging_jump : bool = false
 var jump_charge_time : float = 0.0
+var max_jump_angle : float = PI/2.5
+
+var mouse_direction : Vector2
 
 #var surface_friction_coef : float = 0.001
 
@@ -50,6 +53,8 @@ func start_thrust_particles(direction):
 	thrust_particles.emitting = true
 
 func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	
 	if is_grounded:
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
@@ -102,17 +107,31 @@ func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
 #		return
 #	apply_central_impulse(jump_power * surface_normal)
 
+func get_jump_vector() -> Vector2:
+	var charge_ratio = jump_charge_time / max_charge_time
+	var curved_ratio = pow(charge_ratio, 0.3) #I like the feel of this better
+	var power =  lerp(min_jump_power, max_jump_power, curved_ratio)
+	
+	var up_direction = surface_normal.normalized()
+	
+	if mouse_direction == Vector2.ZERO:
+		return power * up_direction
+	
+	var angle_to_thrust = up_direction.angle_to(mouse_direction)
+	
+	var jump_angle = clampf(angle_to_thrust, -max_jump_angle, max_jump_angle)
+	
+	return power * up_direction.rotated(jump_angle)
+
 func perform_jump():
 	if not is_grounded:
 		return
 
 	is_charging_jump = false
+	
+	var jump_vector = get_jump_vector()
 
-	var charge_ratio = jump_charge_time / max_charge_time
-
-	var final_power = lerp(min_jump_power, max_jump_power, charge_ratio)
-
-	apply_central_impulse(final_power * surface_normal)
+	apply_central_impulse(jump_vector)
 
 	jump_charge_time = 0.0
 
@@ -121,18 +140,21 @@ func handle_ground_movement(state: PhysicsDirectBodyState2D):
 		return
 
 	var up_dir = surface_normal.normalized()
-
 	rotation = up_dir.angle() + PI/2
-
 	state.angular_velocity = 0
+	
+	if thrust_direction == Vector2.ZERO:
+		return
 
+	#the vector parralel to up_dir
 	var tangent = Vector2(-up_dir.y, up_dir.x)
 
-	var input_dir = 0
-	if Input.is_action_pressed("thrust_left"):
-		input_dir -= 1
-	if Input.is_action_pressed("thrust_right"):
-		input_dir += 1
+	#var input_dir = 0
+	#if Input.is_action_pressed("thrust_left"):
+	#	input_dir -= 1
+	#if Input.is_action_pressed("thrust_right"):
+	#	input_dir += 1
+	var input_dir = thrust_direction.dot(tangent)
 
 	var target_velocity = tangent * input_dir * walk_speed
 
