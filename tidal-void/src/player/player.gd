@@ -1,5 +1,6 @@
-class_name Player
+
 extends DriftBody
+class_name Player
 
 @onready var gravity_label = $GravityLabel
 
@@ -12,9 +13,6 @@ extends DriftBody
 @export var max_jump_power : float = 600.0
 @export var max_charge_time : float = 3.0  # seconds to reach full charge
 
-var is_grounded : bool = false
-var grounded_body : GravitySource
-var surface_normal : Vector2 = Vector2.ZERO
 var is_charging_jump : bool = false
 var jump_charge_time : float = 0.0
 
@@ -22,9 +20,6 @@ var jump_charge_time : float = 0.0
 
 func _ready() -> void:
 	super._ready()
-	
-	contact_monitor = true
-	max_contacts_reported = 1
 	
 	thrust_particles.emitting = false
 
@@ -37,7 +32,7 @@ func start_thrust_particles(direction):
 	
 	var exhaust_speed : float = thrust_power * 10
 	
-	var total_velocity = linear_velocity + exhaust_speed * exhaust_direction.rotated(spread)
+	var total_velocity = velocity + exhaust_speed * exhaust_direction.rotated(spread)
 	
 	var particle_speed = total_velocity.length()
 	var particle_direction = total_velocity.normalized()
@@ -50,49 +45,27 @@ func start_thrust_particles(direction):
 	thrust_particles.emitting = true
 
 func _physics_process(delta: float) -> void:
-	if is_grounded:
+	if b_is_grounded:
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
+			b_prediction_velo_is_real = false;
 			jump_charge_time = 0.0
 
 		if is_charging_jump and Input.is_action_pressed("jump"):
 			jump_charge_time += delta
 			jump_charge_time = min(jump_charge_time, max_charge_time)
+			var charge_ratio = jump_charge_time / max_charge_time
+			var power : float= lerp(min_jump_power, max_jump_power, charge_ratio)
+			prediction_velocity = velocity + (power * grounded_normal);
 
-		if is_charging_jump and Input.is_action_just_released("jump"):
+		elif is_charging_jump: #no longer detects if the input was just released, this is so tabbing out can't trap you in jumping
 			perform_jump()
-
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	super._integrate_forces(state)
-	check_grounded(state)
-	if is_grounded:
-		handle_ground_movement(state)
-
-func check_grounded(state: PhysicsDirectBodyState2D):
-	#This required contact_moniter = true and max_contact_reported >= 1
-	
-	is_grounded = false
-	grounded_body = null
-	
-	for i in state.get_contact_count():
-		var collider = state.get_contact_collider_object(i)
-		if collider is GravitySource: #this means it currently ignores dirftPlanets
-			is_grounded = true
-			grounded_body = collider
-			surface_normal = state.get_contact_local_normal(i)
+			b_prediction_velo_is_real = true;
 			
-			#surface friction
-			#var gravity = collider.get_gravity_pull(global_position).length()
-			#var friction_amount = mass * gravity * surface_friction_coef
-			var friction_amount = 0.1
-			state.linear_velocity *= 1.0 - (friction_amount * state.step)
-			
-			return #Currently we stop after finding a first collision, idk what we sohuld do if there are several
-
 func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
 	super.set_thurst(direction, multiplier)
 	
-	if direction != Vector2.ZERO and not is_grounded:
+	if direction != Vector2.ZERO and not b_is_grounded:
 		start_thrust_particles(direction)
 	else:
 		thrust_particles.emitting = false
@@ -103,7 +76,7 @@ func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
 #	apply_central_impulse(jump_power * surface_normal)
 
 func perform_jump():
-	if not is_grounded:
+	if not b_is_grounded:
 		return
 
 	is_charging_jump = false
@@ -112,7 +85,7 @@ func perform_jump():
 
 	var final_power = lerp(min_jump_power, max_jump_power, charge_ratio)
 
-	apply_central_impulse(final_power * surface_normal)
+	velocity += final_power * grounded_normal
 
 	jump_charge_time = 0.0
 
@@ -120,7 +93,7 @@ func handle_ground_movement(state: PhysicsDirectBodyState2D):
 	if grounded_body == null:
 		return
 
-	var up_dir = surface_normal.normalized()
+	var up_dir = grounded_normal.normalized()
 
 	rotation = up_dir.angle() + PI/2
 

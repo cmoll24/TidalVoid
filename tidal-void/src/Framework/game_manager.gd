@@ -14,5 +14,5 @@ func register_gravity_source(new_source: GravitySource) -> void:
 func unregister_gravity_source(source : GravitySource) -> void:
 	gravity_sources.erase(source)	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
