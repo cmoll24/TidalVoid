@@ -191,7 +191,7 @@ func  apply_velocity() -> void:
 				var FrictionForce : float = (Vector2(NormalForce.y,-NormalForce.x) * friction_coefficient).length();
 				var fricDot : float = hitNormalPerp.dot(velocity.normalized());
 				velocity -= hitNormalPerp * fricDot * FrictionForce * get_physics_process_delta_time();	
-				#Check for grounding if we are touching a compatible class
+		#Check for grounding if we are touching a compatible class
 				if shape_cast.get_collider(i) is GravitySource:
 					var NormAccel : Vector2 = total_force.normalized();
 					#check that we are accelerating into it
