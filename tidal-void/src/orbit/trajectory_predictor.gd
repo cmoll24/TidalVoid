@@ -14,7 +14,7 @@ extends Node
 #@export var step_delta : float = 0.005
 var game_manager : GameManager
 
-@export var player : Player
+@export var player : DriftBody
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
@@ -28,10 +28,6 @@ func draw_trajectory() -> void:
 	var sim_pos = player.global_position
 	var sim_vel = player.prediction_velocity
 	var points : PackedVector2Array = [sim_pos]
-	
-	if player.is_grounded and player.is_charging_jump:
-		sim_vel = player.get_jump_vector()
-		
 	
 	for i in steps:
 		#simulate gravity
