@@ -23,20 +23,21 @@ fill = 1
 fill_from = Vector2(0.47826087, 0.5173913)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sijsn"]
-radius = 25.0
+radius = 30.0
 
-[node name="DriftPlanet" type="RigidBody2D" unique_id=1381837011]
-mass = 1000.0
-gravity_scale = 0.0
-custom_integrator = true
+[node name="DriftPlanet" type="StaticBody2D" unique_id=1380605901]
 script = ExtResource("1_sijsn")
+mass = 500.0
+elasticity = 0.1
 max_velocity = 2000.0
 start_in_orbit = true
+b_is_safe_collision = false
 metadata/_custom_type_script = "uid://c86h8qmjks2v6"
 
 [node name="Planet" type="StaticBody2D" parent="." unique_id=519984572 groups=["gravity_sources"]]
 script = ExtResource("1_7mmrp")
-collision_radius = 25.0
+mass = 500.0
+collision_radius = 30.0
 
 [node name="PullRadius" type="TextureRect" parent="Planet" unique_id=1929894957]
 material = SubResource("ShaderMaterial_s2205")
@@ -84,3 +85,6 @@ offset_bottom = -19.0
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=1324502118]
+target_position = Vector2(0, 0)

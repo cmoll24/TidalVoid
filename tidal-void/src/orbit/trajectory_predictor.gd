@@ -19,14 +19,14 @@ var game_manager : GameManager
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	draw_trajectory()
 
 func draw_trajectory() -> void:
 	var step = step_dist / ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 	
 	var sim_pos = player.global_position
-	var sim_vel = player.linear_velocity
+	var sim_vel = player.prediction_velocity
 	var points : PackedVector2Array = [sim_pos]
 	
 	if player.is_grounded and player.is_charging_jump:

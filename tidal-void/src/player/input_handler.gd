@@ -5,7 +5,7 @@ extends Node
 
 var reverse_thrust = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
 	
 	### METHOD 1 - using four axis

@@ -20,11 +20,20 @@ colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120
 
 [node name="Player" type="StaticBody2D" unique_id=1314638072]
 script = ExtResource("1_5f2sf")
-walk_speed = 100.0
+walk_speed = null
+min_jump_power = null
 max_jump_power = 400.0
-mass = 10.0
+max_charge_time = null
+mass = null
+velocity = null
+prediction_velocity = null
+b_prediction_velo_is_real = null
+min_stat_fric_velo = 0.002
 kinetic_friction_coefficient = 0.3
+min_dot_for_ground = 0.6
 elasticity = 0.5
+thrust_power = null
+max_velocity = null
 start_in_orbit = true
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
