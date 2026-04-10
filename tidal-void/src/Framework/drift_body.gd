@@ -34,6 +34,8 @@ var total_force : Vector2 = Vector2.ZERO
 
 var grounded_body : GravitySource
 
+var grounded_shape : CollisionShape2D
+
 var grounded_normal: Vector2 = Vector2.ZERO
 
 var grounded_buffer : int = 0
@@ -214,7 +216,7 @@ func set_ground(normal : Vector2,body : Node2D) -> void:
 	grounded_buffer = 3;
 	b_is_grounded = true;
 	grounded_body = body;
-		
+	grounded_shape = grounded_body.shape
 	
 	# Ideally subclasses do some sort of other logic like rotating the model or something
 	

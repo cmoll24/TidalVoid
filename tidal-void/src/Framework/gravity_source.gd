@@ -4,6 +4,7 @@ extends StaticBody2D
 @onready var pull_radius_circle = $PullRadius
 @onready var collision_radius_shape : CollisionShape2D = $CollisionShape2D
 @onready var texture_rect : TextureRect = $TextureRect
+@onready var shape : CollisionShape2D = $CollisionShape2D
 
 @export var mass : float = 1000.0
 const MASS_SCALE = 1000.0 #the masses must be big so this a multipler

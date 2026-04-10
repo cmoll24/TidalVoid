@@ -58,8 +58,7 @@ z_index = 1
 position = Vector2(360, 1932)
 max_jump_power = 300.0
 max_charge_time = 2.5
-min_dot_for_ground = 0.5
-elasticity = 0.8
+elasticity = null
 thrust_power = 15.0
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]

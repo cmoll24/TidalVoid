@@ -13,6 +13,7 @@ class_name Player
 @export var max_jump_power : float = 600.0
 @export var max_charge_time : float = 3.0  # seconds to reach full charge
 
+var walking_on_ground : bool = false
 var is_charging_jump : bool = false
 var jump_charge_time : float = 0.0
 
@@ -46,7 +47,7 @@ func start_thrust_particles(direction):
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	if b_is_grounded:
+	if b_is_grounded && walking_on_ground:
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
 			b_prediction_velo_is_real = false;
@@ -64,6 +65,11 @@ func _physics_process(delta: float) -> void:
 			b_prediction_velo_is_real = true;
 	else:
 		b_prediction_velo_is_real = true;
+		if(b_is_grounded && !walking_on_ground):
+			if(Input.is_action_pressed("jump")):
+				walking_on_ground = true
+	
+				
 	#Rotate the player
 	if(abs(rotation) >= 2*PI):
 		rotation = (fmod(rotation/PI,2)*PI)
@@ -79,28 +85,40 @@ func _physics_process(delta: float) -> void:
 	
 			
 func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
-	if(!b_is_grounded):
+	if(!(b_is_grounded && walking_on_ground)):
 		#Thruster behavior when off of the ground
 		super.set_thurst(direction, multiplier)
 		if direction != Vector2.ZERO:
 			start_thrust_particles(direction)
 		else:
 			thrust_particles.emitting = false
-	else:
-		#walking behavior when on the ground
-		thrust_particles.emitting = false
-	
-		if(direction.x != 0):
-			direction.x = 1 if direction.x > 0 else -1
-			thrust_multiplier = (walk_speed+ (gravity_force.length() * kinetic_friction_coefficient)) / thrust_power
-			var WalkAxis : Vector2 = Vector2(-grounded_normal.y, grounded_normal.x)
-			thrust_direction = lerp(WalkAxis * direction.x,-grounded_normal,
-			(1 - kinetic_friction_coefficient)/2)
+	if(b_is_grounded && walking_on_ground):
+		#exit this mode if we are moving away from the planet
+		#if(velocity.normalized().dot(grounded_normal) < -0.1):
+			#walking_on_ground = false
+			#grounded_buffer = 0
+			#return
+		
+		#circle implementation
+		if(grounded_shape.shape is CircleShape2D):
+			var player_loc : Vector2 = global_position - grounded_body.global_position
+			var mouse_loc : Vector2 = get_global_mouse_position()- grounded_body.global_position
+			var player_angle : float = player_loc.angle()
+			var mouse_angle : float = mouse_loc.angle()
+			var diff = mouse_angle - player_angle
+			var rot_spd = walk_speed/(2*PI*grounded_shape.shape.radius) * get_physics_process_delta_time()
+			var final_angle : float = player_angle
+			if(diff < rot_spd):
+				final_angle = mouse_angle
+			else:
+				final_angle += rot_spd if diff > 0 else -rot_spd
+			var new_pos = (Vector2.from_angle(final_angle)*
+			(grounded_shape.shape.radius+collision_shape.shape.radius))+ grounded_body.global_position
+			move_and_collide(new_pos-global_position)
+			
+			
 		else:
-			thrust_direction = Vector2.ZERO
-		
-
-		
+			printerr("Walking on ground only support circle shapes currently, invalid shape used")
 	
 		
 
