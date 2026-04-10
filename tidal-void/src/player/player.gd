@@ -30,9 +30,9 @@ func start_thrust_particles(direction):
 	var exhaust_direction = -direction
 	var spread = 0.1 * randf_range(-1, 1)
 	
-	var exhaust_speed : float = thrust_power * 12
+	var exhaust_speed : float = thrust_power * 10
 	
-	var total_velocity = exhaust_speed * exhaust_direction.rotated(spread)
+	var total_velocity = velocity + exhaust_speed * exhaust_direction.rotated(spread)
 	
 	var particle_speed = total_velocity.length()
 	var particle_direction = total_velocity.normalized()
