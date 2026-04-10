@@ -41,8 +41,12 @@ var grounded_buffer : int = 0
 
 var b_is_grounded: bool = false
 
-## Velocities below this value times friction will encounter static friction, stopping them, this isn't a very realistic way to go about it, but it does the best job
-@export var min_stat_fric_velo: float = 0.2
+## the coefficient of static friction(applies when velocity is low to none)
+@export var static_friction_coefficient : float = 0.6;
+
+## velocities below this threshold will be considered as 0 for static friction
+const STATIC_FRICTION_THRESHOLD: float = 0.005
+
 
 ## the coeficient for kinetic friction
 @export var kinetic_friction_coefficient : float = 0.4;
@@ -52,7 +56,7 @@ var b_is_grounded: bool = false
 ## (note that this system is gravity agnostic, fling something hard enough against a wall, and it is ground)
 @export var min_dot_for_ground: float = 0.5
 
-const MIN_MOVE_DISTANCE: float = 0.0
+const MIN_MOVE_DISTANCE: float = 0.001
 
 ## How much energy is conserved during collisions
 @export var elasticity: float = 0.8
@@ -64,6 +68,11 @@ var thrust_multiplier : float = 1.0
 @export var max_velocity : float = 400.0
 
 @export var start_in_orbit : bool = false
+
+## normally colision does an extra safety check at the end to absolutely prevent clipping
+## however, since this check is run through the engine and not manual, it can mess
+## up physics, especially if the object is meant to be unstoppable or very heavy
+@export var b_is_safe_collision : bool = true;
 
 var thrust_direction : Vector2 = Vector2.ZERO
 
@@ -133,8 +142,8 @@ func  apply_velocity() -> void:
 	#Skip tiny movements to optimize performance and prevent weird behavior from small amounts of residual velocity
 	if(true || abs(max(moveDelta.x,moveDelta.y)) > MIN_MOVE_DISTANCE): #temporarily disabled the MinMoveDist
 		#var InitialVelocity : Vector2 = velocity;
+		
 		#Trace what hits would happen with the current course of movement and save the initial hits
-	
 		shape_cast.target_position = moveDelta;
 		shape_cast.force_shapecast_update()
 		#Go through each hit
@@ -147,41 +156,56 @@ func  apply_velocity() -> void:
 			if (dot < 0):
 				#We have contact
 				#Save the old velocity
-				var oldVelocity : Vector2 = velocity;
+				#var oldVelocity : Vector2 = velocity; #not currently needed
 				#Simulate the base velocity change from the collision
 				var velocityAdjustment : Vector2 = hitNormal * dot;
-				velocity -= velocityAdjustment;
-						
-				#Apply the normal force (disabled for now unless we need it later)
-				#Asssuming for now that the gravity force is the only one present
-				var NormalForce : Vector2 = hitNormal * hitNormal.dot(total_force);
-				#forces[1] -= NormalForce;
-				var hitNormalPerp : Vector2 = Vector2(hitNormal.y,-hitNormal.x)
-				#Apply friction
-				if((velocity * hitNormalPerp).length() < min_stat_fric_velo):
-					#Static friction
-					var fricDot : float = hitNormalPerp.dot(velocity);
-					velocity -= hitNormalPerp * fricDot;
-				else:
-					#Kinetic friction
-					var FrictionForce : float = (Vector2(NormalForce.y,-NormalForce.x) * kinetic_friction_coefficient).length();
-					var fricDot : float = hitNormalPerp.dot(velocity.normalized());
-					velocity -= hitNormalPerp * fricDot * FrictionForce * get_physics_process_delta_time();
-				#Check for grounding
-				var NormAccel : Vector2 = total_force.normalized();
-				if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
-					#let set ground handle the details
-					set_ground(hitNormal,shape_cast.get_collider(i))
+				#See if we can get information about the mass of what we are hitting
 				#if we collided with another DriftBody, notify it and add impulse to simulate a special pawn collision
-				if (shape_cast.get_collider(i).is_class("DriftBody")):
+				if (shape_cast.get_collider(i) is DriftBody):
 					var other_body : DriftBody = shape_cast.get_collider(i)
-					if (other_body):
-						other_body.on_collide_with_other_drift_body(self);
-						other_body.add_impulse((oldVelocity - velocity) * mass * elasticity);
+					other_body.on_collide_with_other_drift_body(self);
+					var total_mass = mass + other_body.mass;
+					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
+					other_body.velocity += velocityAdjustment * mass/total_mass * avg_elasticity;
+					velocity -= velocityAdjustment * other_body.mass/total_mass * avg_elasticity;
+					on_collide_with_other_drift_body(other_body)
+				else:
+					#simply treat it as having infinite mass if it is not a drift body
+					velocity -= velocityAdjustment;
+						
+				#Get the normal force
+				var NormalForce : Vector2 = hitNormal * hitNormal.dot(total_force);
+				
+				#save the tangent to the normal force(direction doesn't matter as the dots will redirect it)
+				var hitNormalPerp : Vector2 = Vector2(hitNormal.y,-hitNormal.x)
+				
+				#Apply friction
+					#decide which coefficient of friction to use
+				var friction_coefficient : float = kinetic_friction_coefficient
+				if(velocity.length() < STATIC_FRICTION_THRESHOLD):
+					friction_coefficient = static_friction_coefficient
+				
+					#perform the application
+				var FrictionForce : float = (Vector2(NormalForce.y,-NormalForce.x) * friction_coefficient).length();
+				var fricDot : float = hitNormalPerp.dot(velocity.normalized());
+				velocity -= hitNormalPerp * fricDot * FrictionForce * get_physics_process_delta_time();	
+				#Check for grounding if we are touching a compatible class
+				if shape_cast.get_collider(i) is GravitySource:
+					var NormAccel : Vector2 = total_force.normalized();
+					#check that we are accelerating into it
+					if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
+						#set it as ground
+						set_ground(hitNormal,shape_cast.get_collider(i))
+		#Cap velocity
+		velocity.limit_length(max_velocity)
 		#Update MoveDelta
 		moveDelta = velocity * get_physics_process_delta_time();
-		
-	move_and_collide(moveDelta)
+	
+	#Apply MoveDelta
+	if(b_is_safe_collision):
+		move_and_collide(moveDelta)
+	else:
+		global_position += moveDelta
 	
 		
 func set_ground(normal : Vector2,body : Node2D) -> void:
@@ -189,8 +213,8 @@ func set_ground(normal : Vector2,body : Node2D) -> void:
 	# We have 3 ticks of time away from being grounded before we lose the status
 	grounded_buffer = 3;
 	b_is_grounded = true;
-	if(body.is_class("GravitySource")):
-		grounded_body = body;
+	grounded_body = body;
+		
 	
 	# Ideally subclasses do some sort of other logic like rotating the model or something
 	

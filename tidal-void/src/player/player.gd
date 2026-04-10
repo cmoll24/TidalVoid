@@ -30,7 +30,7 @@ func start_thrust_particles(direction):
 	var exhaust_direction = -direction
 	var spread = 0.1 * randf_range(-1, 1)
 	
-	var exhaust_speed : float = thrust_power * 10
+	var exhaust_speed : float = thrust_power * 12
 	
 	var total_velocity = exhaust_speed * exhaust_direction.rotated(spread)
 	
@@ -46,7 +46,6 @@ func start_thrust_particles(direction):
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	print(b_is_grounded)
 	if b_is_grounded:
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true

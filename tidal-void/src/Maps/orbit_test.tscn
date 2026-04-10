@@ -56,9 +56,8 @@ mass = 1500.0
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 z_index = 1
 position = Vector2(360, 1932)
-walk_speed = 150.0
-max_jump_power = 600.0
-min_stat_fric_velo = 0.2
+max_jump_power = 300.0
+max_charge_time = 2.5
 min_dot_for_ground = 0.5
 elasticity = 0.8
 thrust_power = 15.0
