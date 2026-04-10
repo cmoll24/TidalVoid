@@ -17,13 +17,14 @@ func _process(_delta: float) -> void:
 	
 	### METHOD 2 - using mouse direction
 	
-	if Input.is_action_pressed("thrust"):
+	var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
+	var player_screen_position = player.global_position - get_viewport().get_camera_2d().global_position
 	
-		var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
-		var player_screen_position = player.global_position - get_viewport().get_camera_2d().global_position
-		
-		var mouse_direction = (mouse_position - player_screen_position).normalized()
-		
+	var mouse_direction = (mouse_position - player_screen_position).normalized()
+	
+	player.mouse_direction = mouse_direction
+
+	if Input.is_action_pressed("thrust"):
 		thrust_direction = mouse_direction
 	
 	var thrust_multiplier = 1.0

@@ -22,6 +22,9 @@ var thruster_force : Vector2 = Vector2.ZERO
 ## total enumerated force
 var total_force : Vector2 = Vector2.ZERO
 
+#Ignores friction and collision for this layer while still checking for grounding
+var ignore_layer : int =  0 
+
 ################################################
 
 ##velocity used for prediction logic, enables things like predicting the player's jump
@@ -90,6 +93,7 @@ func _ready() -> void:
 	if(start_in_orbit):
 		call_deferred("orbit_dominant_body");
 	shape_cast.shape = collision_shape.shape
+	shape_cast.collision_mask = 127
 
 func orbit_dominant_body() -> void:
 	velocity = orbital_velocity(dominant_body, global_position)
@@ -154,8 +158,10 @@ func  apply_velocity() -> void:
 			var hitNormal : Vector2 = shape_cast.get_collision_normal(i)
 
 			var dot : float = hitNormal.dot(velocity)
-
-			if (dot < 0):
+			
+			var Collider : CollisionObject2D = shape_cast.get_collider(i)
+			
+			if (dot < 0 && (ignore_layer == 0 || Collider.collision_mask != ignore_layer)): #the collider must solely be on the ignore layer to be ignored
 				#We have contact
 				#Save the old velocity
 				#var oldVelocity : Vector2 = velocity; #not currently needed
@@ -192,12 +198,12 @@ func  apply_velocity() -> void:
 				var fricDot : float = hitNormalPerp.dot(velocity.normalized());
 				velocity -= hitNormalPerp * fricDot * FrictionForce * get_physics_process_delta_time();	
 		#Check for grounding if we are touching a compatible class
-				if shape_cast.get_collider(i) is GravitySource:
-					var NormAccel : Vector2 = total_force.normalized();
-					#check that we are accelerating into it
-					if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
-						#set it as ground
-						set_ground(hitNormal,shape_cast.get_collider(i))
+			if shape_cast.get_collider(i) is GravitySource:
+				var NormAccel : Vector2 = total_force.normalized();
+				#check that we are accelerating into it
+				if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
+					#set it as ground
+					set_ground(hitNormal,shape_cast.get_collider(i))
 		#Cap velocity
 		velocity.limit_length(max_velocity)
 		#Update MoveDelta

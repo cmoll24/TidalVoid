@@ -25,6 +25,8 @@ func _ready() -> void:
 		collision_radius_shape.shape = new_shape
 	texture_rect.scale = Vector2(collision_radius, collision_radius) / 50.0
 	texture_rect.position = -Vector2(collision_radius, collision_radius)
+	#all gravity sources exist on layer 2
+	collision_layer = 2
 
 func calculate_pull_radius() -> float:
 	# solve: (mass * MASS_SCALE) / distance^2 = threshold
