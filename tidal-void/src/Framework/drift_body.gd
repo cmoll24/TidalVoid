@@ -4,6 +4,7 @@ extends RigidBody2D
 @onready var gravity_source = $GravitySource
 
 @export var thrust_power : float = 50.0
+var thrust_multiplier : float = 1.0
 @export var max_velocity : float = 400.0
 
 @export var start_in_orbit : bool = false
@@ -25,7 +26,9 @@ func orbit_dominant_body() -> void:
 func _physics_process(_delta: float) -> void:
 	update_dominant_body()
 
-func set_thurst(direction : Vector2) -> void:
+func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
+	thrust_multiplier = multiplier
+	
 	if direction.length() > 0.1:
 		thrust_direction = direction.normalized()
 	else:
@@ -56,7 +59,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var new_vel  = state.linear_velocity + total_gravity * state.step
 	
 	if thrust_direction != Vector2.ZERO:
-		new_vel += thrust_direction * thrust_power * state.step
+		new_vel += thrust_direction * thrust_power * thrust_multiplier * state.step
 	
 	state.linear_velocity = new_vel.limit_length(max_velocity)
 	

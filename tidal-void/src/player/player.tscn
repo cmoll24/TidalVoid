@@ -21,6 +21,9 @@ colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120
 [node name="Player" type="RigidBody2D" unique_id=1840910455]
 gravity_scale = 0.0
 custom_integrator = true
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 500.0
 script = ExtResource("1_5f2sf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
