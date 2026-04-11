@@ -110,7 +110,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		b_prediction_velo_is_real = true;
 		if(b_is_grounded && !walking_on_ground):
-			if(Input.is_action_pressed("grab")):
+			if(Input.is_action_pressed("grab")) or \
+			  (velocity.length() < 1):
 				is_charging_jump = false
 				walking_on_ground = true
 		ignore_layer = 0;
