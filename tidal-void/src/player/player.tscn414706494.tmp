@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://dpc0b3n2r5f74"]
+
+[ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
+[ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="2_rxibo"]
+[ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="3_5f2sf"]
+[ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="4_5f2sf"]
+[ext_resource type="Script" uid="uid://8ghh3geko5ra" path="res://src/Background/static_background.gd" id="5_o822w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
+radius = 15.0
+
+[sub_resource type="Curve" id="Curve_5f2sf"]
+_data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_5f2sf"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.60912055, 0.8175896, 1)
+colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120000005, 0.120000005, 0.6862745, 0.71, 0.07810001, 0.07810001, 0.627451, 0, 0, 0, 0.43137255, 0.17, 0.17, 0.17, 0)
+
+[node name="Player" type="StaticBody2D" unique_id=1314638072]
+script = ExtResource("1_5f2sf")
+walk_speed = 620.0
+min_jump_power = 30.0
+max_jump_power = 220.0
+max_charge_time = null
+mass = 10.0
+velocity = null
+prediction_velocity = null
+b_prediction_velo_is_real = null
+static_friction_coefficient = 0.5
+kinetic_friction_coefficient = 0.3
+min_dot_for_ground = null
+elasticity = 0.5
+thrust_power = null
+max_velocity = null
+start_in_orbit = true
+b_is_safe_collision = null
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
+target_position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
+shape = SubResource("CircleShape2D_rc2ur")
+
+[node name="GravityLabel" type="Label" parent="." unique_id=1770463010]
+offset_left = -26.0
+offset_top = -33.0
+offset_right = 27.0
+offset_bottom = -19.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=168159882]
+amount = 20
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 90.0
+angle_max = 30.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_5f2sf")
+color_ramp = SubResource("Gradient_5f2sf")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=998047140]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 75.0
+offset_bottom = 75.0
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("2_rxibo")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2146207545]
+limit_enabled = false
+script = ExtResource("3_5f2sf")
+
+[node name="StarBackground" type="TextureRect" parent="Camera2D" unique_id=1208103608]
+z_index = -5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_5f2sf")
+stretch_mode = 1
+script = ExtResource("5_o822w")

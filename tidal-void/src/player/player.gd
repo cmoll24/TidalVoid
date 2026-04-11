@@ -82,12 +82,21 @@ func _physics_process(delta: float) -> void:
 			var player_loc_len : float = grounded_body.shape.shape.radius + collision_shape.shape.radius - 1
 			var player_angle : float = player_loc.angle()
 			var new_pos : Vector2
+			var horizontal_mov = Input.get_axis("thrust_left", "thrust_right")
 			if Input.is_action_pressed("thrust"):
-				#move when thrust is held
+				#move when thrust is held, mouse version
 				var mouse_loc : Vector2 = get_global_mouse_position()- grounded_body.global_position
 				var mouse_angle : float = mouse_loc.angle()
 				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
 				var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
+				new_pos = (Vector2.from_angle(final_angle)*
+				player_loc_len)+ grounded_body.global_position
+			elif horizontal_mov != 0:
+				#wasd, arrow keys version
+				horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
+				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
+				var final_angle : float = rotate_toward(player_angle,
+				player_angle + (rot_speed*horizontal_mov),rot_speed)
 				new_pos = (Vector2.from_angle(final_angle)*
 				player_loc_len)+ grounded_body.global_position
 			else:
