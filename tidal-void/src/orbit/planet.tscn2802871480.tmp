@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://p15eipntvile"]
 
-[ext_resource type="Script" uid="uid://becxcr68kkbk8" path="res://src/Framework/Planet.gd" id="1_louge"]
+[ext_resource type="Script" uid="uid://bh22uuxffk2bd" path="res://src/Framework/Planet.gd" id="1_louge"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="2_klrcr"]
 [ext_resource type="Material" uid="uid://d3kfjuqmr2fmj" path="res://assets/Materials/M_astroid1_pixelated.tres" id="2_mrftm"]
 [ext_resource type="Texture2D" uid="uid://drxyman8jyghj" path="res://assets/Textures/Environmental/astroid1_pixelated.png" id="3_ghhq2"]
+[ext_resource type="OccluderPolygon2D" uid="uid://btoktsu0ormd7" path="res://assets/Misc/CircleOccluderPoly.tres" id="5_louge"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klrcr"]
 radius = 50.0
@@ -24,9 +25,6 @@ height = 100
 fill = 1
 fill_from = Vector2(0.47826087, 0.5173913)
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_louge"]
-polygon = PackedVector2Array(1, 0, 0.98078525, 0.19509032, 0.9238795, 0.38268343, 0.8314696, 0.55557024, 0.70710677, 0.70710677, 0.55557024, 0.8314696, 0.38268343, 0.9238795, 0.19509032, 0.98078525, 6.123032e-17, 1, -0.19509032, 0.98078525, -0.38268343, 0.9238795, -0.55557024, 0.8314696, -0.70710677, 0.70710677, -0.8314696, 0.55557024, -0.9238795, 0.38268343, -0.98078525, 0.19509032, -1, 1.2246064e-16, -0.98078525, -0.19509032, -0.9238795, -0.38268343, -0.8314696, -0.55557024, -0.70710677, -0.70710677, -0.55557024, -0.8314696, -0.38268343, -0.9238795, -0.19509032, -0.98078525, -1.8369095e-16, -1, 0.19509032, -0.98078525, 0.38268343, -0.9238795, 0.55557024, -0.8314696, 0.70710677, -0.70710677, 0.8314696, -0.55557024, 0.9238795, -0.38268343, 0.98078525, -0.19509032)
-
 [node name="Planet" type="StaticBody2D" unique_id=519984572 groups=["gravity_sources"]]
 collision_layer = 2
 script = ExtResource("1_louge")
@@ -35,7 +33,6 @@ script = ExtResource("1_louge")
 shape = SubResource("CircleShape2D_klrcr")
 
 [node name="PullRadius" type="TextureRect" parent="." unique_id=1929894957]
-z_index = 120
 material = SubResource("ShaderMaterial_s2205")
 anchors_preset = 8
 anchor_left = 0.5
@@ -67,5 +64,5 @@ grow_vertical = 2
 texture = ExtResource("3_ghhq2")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1610394299]
-scale = Vector2(50, 50)
-occluder = SubResource("OccluderPolygon2D_louge")
+occluder = ExtResource("5_louge")
+occluder_light_mask = 1023

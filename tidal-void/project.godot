@@ -28,6 +28,7 @@ project/assembly_name="TidalVoid"
 
 gravity_sources=""
 game_managers="There should be exactly one game_manager in every scene involving orbits"
+player=""
 
 [input]
 

@@ -146,17 +146,21 @@ func get_jump_vector() -> Vector2:
 	
 	var angle_to_thrust = up_direction.angle_to(mouse_direction)
 	
-	var jump_angle = clampf(angle_to_thrust, -max_jump_angle, max_jump_angle)
+	if abs(angle_to_thrust) > max_jump_angle:
+		#instead of clamping the thrust angle, allow the player to cancel jumps by angling it at the planet
+		return Vector2.ZERO
 	
-	return power * up_direction.rotated(jump_angle)
+	return power * up_direction.rotated(angle_to_thrust)
 
 
 func perform_jump():
 	if not b_is_grounded:
 		return
-
+	
 	var jump_vector = get_jump_vector()
-
+	
+	if(jump_vector == Vector2.ZERO):
+		return
 	velocity += jump_vector
 
 	jump_charge_time = 0.0
