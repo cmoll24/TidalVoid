@@ -5,6 +5,8 @@ extends Node
 
 var reverse_thrust = false
 
+var controller_mode = false
+
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
 	
@@ -23,6 +25,18 @@ func _process(_delta: float) -> void:
 	var mouse_direction = (mouse_position - player_screen_position).normalized()
 	
 	player.mouse_direction = mouse_direction
+	
+	### METHOD 3 - using controller direction
+	
+	if controller_mode:
+		var controller_horizontal = Input.get_axis("controller_left", "controller_right")
+		var controller_vertical = Input.get_axis("controller_up", "controller_down")
+		var controller_direction = Vector2(controller_horizontal, controller_vertical)
+		
+		if Input.is_action_pressed("controller_thrust"):
+			thrust_direction = controller_direction
+			
+		player.mouse_direction = controller_direction
 
 	if Input.is_action_pressed("thrust"):
 		thrust_direction = mouse_direction
