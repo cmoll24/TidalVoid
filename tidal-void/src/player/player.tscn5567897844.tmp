@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="3_5f2sf"]
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="4_5f2sf"]
 [ext_resource type="Script" uid="uid://8ghh3geko5ra" path="res://src/Background/static_background.gd" id="5_o822w"]
-[ext_resource type="Texture2D" uid="uid://c83h6wwsj2w7w" path="res://assets/circle.png" id="6_jiejy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 15.0
@@ -19,16 +18,22 @@ interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.60912055, 0.8175896, 1)
 colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120000005, 0.120000005, 0.6862745, 0.71, 0.07810001, 0.07810001, 0.627451, 0, 0, 0, 0.43137255, 0.17, 0.17, 0.17, 0)
 
-[node name="Player" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
+[node name="Player" type="StaticBody2D" unique_id=1314638072]
 script = ExtResource("1_5f2sf")
-walk_speed = 620.0
-min_jump_power = 30.0
-max_jump_power = 220.0
-max_charge_time = 5.0
-mass = 10.0
-static_friction_coefficient = 0.5
+walk_speed = null
+min_jump_power = null
+max_jump_power = 400.0
+max_charge_time = null
+mass = null
+velocity = null
+prediction_velocity = null
+b_prediction_velo_is_real = null
+min_stat_fric_velo = 0.002
 kinetic_friction_coefficient = 0.3
+min_dot_for_ground = 0.6
 elasticity = 0.5
+thrust_power = null
+max_velocity = null
 start_in_orbit = true
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
@@ -87,13 +92,3 @@ grow_vertical = 2
 texture = ExtResource("4_5f2sf")
 stretch_mode = 1
 script = ExtResource("5_o822w")
-
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1545037244]
-light_mask = 1023
-color = Color(1, 1, 1, 0.49803922)
-range_item_cull_mask = 7
-shadow_enabled = true
-shadow_color = Color(0.03137255, 0.03137255, 0.03137255, 0.1254902)
-shadow_item_cull_mask = 1023
-texture = ExtResource("6_jiejy")
-texture_scale = 40.0

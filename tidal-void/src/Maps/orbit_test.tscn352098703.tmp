@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
-[ext_resource type="PackedScene" uid="uid://dxmtaaxojs4ro" path="res://src/Creatures/Friendly/Jeremy.tscn" id="10_lm5jn"]
+[ext_resource type="PackedScene" uid="uid://d28hex2r4exax" path="res://src/orbit/DriftPlanet.tscn" id="9_rhkje"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
@@ -30,9 +30,6 @@ grow_vertical = 2
 color = Color(0.011764706, 0.03529412, 0.050980393, 1)
 
 [node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_4vn8n")]
-
-[node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
-color = Color(0.49803922, 0.49803922, 0.49803922, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1815654548]
 environment = ExtResource("10_v2br0")
@@ -60,9 +57,7 @@ mass = 1500.0
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 z_index = 1
 position = Vector2(360, 1932)
-max_jump_power = 300.0
-max_charge_time = 2.5
-elasticity = null
+walk_speed = 150.0
 thrust_power = 15.0
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
@@ -127,8 +122,11 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 24
 text = "FPS"
 
-[node name="Jeremy" parent="." unique_id=406479146 instance=ExtResource("10_lm5jn")]
-offset_left = 708.0
-offset_top = 1794.0
-offset_right = 772.0
-offset_bottom = 1858.0
+[node name="DriftPlanet" parent="." unique_id=1381837011 instance=ExtResource("9_rhkje")]
+position = Vector2(1381, 147)
+mass = 1.0
+mass = 1.0
+velocity = Vector2(0, 0)
+prediction_velocity = Vector2(0, 0)
+b_prediction_velo_is_real = true
+thrust_power = 50.0

@@ -1,22 +1,22 @@
-class_name Player
+
 extends DriftBody
+class_name Player
 
 @onready var gravity_label = $GravityLabel
 
 @onready var thrust_particles = $ThrustParticles
 
 #@export var jump_power : float = 200.0
-@export var walk_speed : float = 100.0
+@export var walk_speed : float = 20
 
 @export var min_jump_power : float = 50.0
-@export var max_jump_power : float = 330.0
-@export var max_charge_time : float = 5.0  # seconds to reach full charge
+@export var max_jump_power : float = 600.0
+@export var max_charge_time : float = 4.0  # seconds to reach full charge
 
-var is_grounded : bool = false
-var grounded_body : GravitySource
-var surface_normal : Vector2 = Vector2.ZERO
+var walking_on_ground : bool = false
 var is_charging_jump : bool = false
 var jump_charge_time : float = 0.0
+
 var max_jump_angle : float = PI/2.5
 
 var mouse_direction : Vector2
@@ -25,9 +25,6 @@ var mouse_direction : Vector2
 
 func _ready() -> void:
 	super._ready()
-	
-	contact_monitor = true
-	max_contacts_reported = 1
 	
 	thrust_particles.emitting = false
 
@@ -40,7 +37,7 @@ func start_thrust_particles(direction):
 	
 	var exhaust_speed : float = thrust_power * 10
 	
-	var total_velocity = linear_velocity + exhaust_speed * exhaust_direction.rotated(spread)
+	var total_velocity = velocity + exhaust_speed * exhaust_direction.rotated(spread)
 	
 	var particle_speed = total_velocity.length()
 	var particle_direction = total_velocity.normalized()
@@ -54,109 +51,116 @@ func start_thrust_particles(direction):
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	
-	if is_grounded:
+	if b_is_grounded && walking_on_ground:
+		#Exit Condition
+		if(velocity.dot(grounded_normal) < -1):
+			walking_on_ground = false
+			grounded_buffer -= 1
+		
+		#Handle Jumping
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
+			b_prediction_velo_is_real = false;
 			jump_charge_time = 0.0
 
 		if is_charging_jump and Input.is_action_pressed("jump"):
 			jump_charge_time += delta
 			jump_charge_time = min(jump_charge_time, max_charge_time)
+			prediction_velocity = get_jump_vector();
 
-		if is_charging_jump and Input.is_action_just_released("jump"):
+		elif is_charging_jump: #no longer detects if the input was just released, this is so tabbing out can't trap you in jumping
 			perform_jump()
-
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	super._integrate_forces(state)
-	check_grounded(state)
-	if is_grounded:
-		handle_ground_movement(state)
-
-func check_grounded(state: PhysicsDirectBodyState2D):
-	#This required contact_moniter = true and max_contact_reported >= 1
-	
-	is_grounded = false
-	grounded_body = null
-	
-	for i in state.get_contact_count():
-		var collider = state.get_contact_collider_object(i)
-		if collider is GravitySource: #this means it currently ignores dirftPlanets
-			is_grounded = true
-			grounded_body = collider
-			surface_normal = state.get_contact_local_normal(i)
+			walking_on_ground = false
+			b_prediction_velo_is_real = true;
+		#Handle walking on ground
+		
+		#ignore collision with driftbodies
+		ignore_layer = 2
+		#circle implementation
+		if(grounded_shape.shape is CircleShape2D):
+			var player_loc : Vector2 = global_position - grounded_body.global_position
+			var player_loc_len : float = grounded_body.shape.shape.radius + collision_shape.shape.radius - 1
+			var player_angle : float = player_loc.angle()
+			var new_pos : Vector2
+			var horizontal_mov = Input.get_axis("thrust_left", "thrust_right")
+			if Input.is_action_pressed("thrust") or Input.is_action_pressed("controller_thrust"):
+				#move when thrust is held, mouse version
+				#var mouse_loc : Vector2 = get_global_mouse_position()- grounded_body.global_position
+				var mouse_angle : float = mouse_direction.angle()
+				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
+				var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
+				new_pos = (Vector2.from_angle(final_angle)*
+				player_loc_len)+ grounded_body.global_position
+			elif horizontal_mov != 0:
+				#wasd, arrow keys version
+				horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
+				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
+				var final_angle : float = rotate_toward(player_angle,
+				player_angle + (rot_speed*horizontal_mov),rot_speed)
+				new_pos = (Vector2.from_angle(final_angle)*
+				player_loc_len)+ grounded_body.global_position
+			else:
+				new_pos = (Vector2.from_angle(player_angle)*
+				player_loc_len)+ grounded_body.global_position
+			global_position = new_pos
 			
-			#surface friction
-			#var gravity = collider.get_gravity_pull(global_position).length()
-			#var friction_amount = mass * gravity * surface_friction_coef
-			var friction_amount = 0.1
-			state.linear_velocity *= 1.0 - (friction_amount * state.step)
 			
-			return #Currently we stop after finding a first collision, idk what we sohuld do if there are several
-
+		else:
+			printerr("Walking on ground only support circle shapes currently, invalid shape used")
+	else:
+		b_prediction_velo_is_real = true;
+		if(b_is_grounded && !walking_on_ground):
+			if(Input.is_action_pressed("grab")) or \
+			  (velocity.length() < 1):
+				is_charging_jump = false
+				walking_on_ground = true
+		ignore_layer = 0;
+				
+	#Rotate the player
+	var new_angle = (gravity_force.angle() - PI/2)
+	var rot_spd = PI * delta
+	rotation = rotate_toward(rotation,new_angle,rot_spd)
+	
+			
 func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
-	super.set_thurst(direction, multiplier)
-	
-	if direction != Vector2.ZERO and not is_grounded:
-		start_thrust_particles(direction)
+	if(!(b_is_grounded && walking_on_ground)):
+		#Thruster behavior when off of the ground
+		super.set_thurst(direction, multiplier)
+		if direction != Vector2.ZERO:
+			start_thrust_particles(direction)
+		else:
+			thrust_particles.emitting = false
 	else:
 		thrust_particles.emitting = false
-
-#func jump():
-#	if not is_grounded:
-#		return
-#	apply_central_impulse(jump_power * surface_normal)
+		
 
 func get_jump_vector() -> Vector2:
 	var charge_ratio = jump_charge_time / max_charge_time
 	var curved_ratio = pow(charge_ratio, 0.3) #I like the feel of this better
 	var power =  lerp(min_jump_power, max_jump_power, curved_ratio)
 	
-	var up_direction = surface_normal.normalized()
+	var up_direction = grounded_normal.normalized()
 	
 	if mouse_direction == Vector2.ZERO:
 		return power * up_direction
 	
 	var angle_to_thrust = up_direction.angle_to(mouse_direction)
 	
-	var jump_angle = clampf(angle_to_thrust, -max_jump_angle, max_jump_angle)
+	if abs(angle_to_thrust) > max_jump_angle:
+		#instead of clamping the thrust angle, allow the player to cancel jumps by angling it at the planet
+		return Vector2.ZERO
 	
-	return power * up_direction.rotated(jump_angle)
+	return power * up_direction.rotated(angle_to_thrust)
+
 
 func perform_jump():
-	if not is_grounded:
+	if not b_is_grounded:
 		return
-
-	is_charging_jump = false
 	
 	var jump_vector = get_jump_vector()
-
-	apply_central_impulse(jump_vector)
+	
+	if(jump_vector == Vector2.ZERO):
+		return
+	velocity += jump_vector
 
 	jump_charge_time = 0.0
-
-func handle_ground_movement(state: PhysicsDirectBodyState2D):
-	if grounded_body == null:
-		return
-
-	var up_dir = surface_normal.normalized()
-	rotation = up_dir.angle() + PI/2
-	state.angular_velocity = 0
-	
-	if thrust_direction == Vector2.ZERO:
-		return
-
-	#the vector parralel to up_dir
-	var tangent = Vector2(-up_dir.y, up_dir.x)
-
-	#var input_dir = 0
-	#if Input.is_action_pressed("thrust_left"):
-	#	input_dir -= 1
-	#if Input.is_action_pressed("thrust_right"):
-	#	input_dir += 1
-	var input_dir = thrust_direction.dot(tangent)
-
-	var target_velocity = tangent * input_dir * walk_speed
-
-	var radial_velocity = up_dir * state.linear_velocity.dot(up_dir)
-	state.linear_velocity = radial_velocity + target_velocity
