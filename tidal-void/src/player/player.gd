@@ -25,29 +25,6 @@ var mouse_direction : Vector2
 
 func _ready() -> void:
 	super._ready()
-	
-	thrust_particles.emitting = false
-
-func start_thrust_particles(direction):
-	#the particles must have speed scale of 1.0 for this to work
-	thrust_particles.speed_scale = 1.0
-	
-	var exhaust_direction = -direction
-	var spread = 0.1 * randf_range(-1, 1)
-	
-	var exhaust_speed : float = thrust_power * 10
-	
-	var total_velocity = velocity + exhaust_speed * exhaust_direction.rotated(spread)
-	
-	var particle_speed = total_velocity.length()
-	var particle_direction = total_velocity.normalized()
-	
-	# must use .rotated(-rotation) so that the direction does not depend on player rotation
-	thrust_particles.direction = particle_direction.rotated(-global_rotation)
-	thrust_particles.initial_velocity_min = particle_speed * 0.9
-	thrust_particles.initial_velocity_max = particle_speed * 1.1
-	
-	thrust_particles.emitting = true
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -122,16 +99,16 @@ func _physics_process(delta: float) -> void:
 	rotation = rotate_toward(rotation,new_angle,rot_spd)
 	
 			
-func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
+func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	if(!(b_is_grounded && walking_on_ground)):
 		#Thruster behavior when off of the ground
-		super.set_thurst(direction, multiplier)
+		super.set_thrust(direction, multiplier)
 		if direction != Vector2.ZERO:
-			start_thrust_particles(direction)
+			thrust_particles.start_thrust(direction, velocity, thrust_power)
 		else:
-			thrust_particles.emitting = false
+			thrust_particles.stop_thrust()
 	else:
-		thrust_particles.emitting = false
+		thrust_particles.stop_thrust()
 		
 
 func get_jump_vector() -> Vector2:

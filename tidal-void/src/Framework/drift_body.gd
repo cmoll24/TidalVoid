@@ -229,7 +229,7 @@ func set_ground(normal : Vector2,body : Node2D) -> void:
 func set_airborne() -> void:
 	b_is_grounded = false;
 
-func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
+func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	thrust_multiplier = multiplier
 	
 	if direction.length() > 0.1:

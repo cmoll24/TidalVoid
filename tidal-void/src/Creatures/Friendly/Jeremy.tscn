@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://msnuhmnwwql0" path="res://assets/Materials/M_sight_line_basic.tres" id="1_vxvtq"]
 [ext_resource type="Texture2D" uid="uid://bokq6aj31pvto" path="res://assets/Textures/Placeholder/Jeremy.png" id="2_6tgje"]
-[ext_resource type="Script" uid="uid://dmoywnbiqp1hx" path="res://src/Creatures/Creature.gd" id="3_6tgje"]
+[ext_resource type="Script" uid="uid://bvvu8ahclr7oe" path="res://src/Creatures/Friendly/jeremy.gd" id="3_6tgje"]
 
 [node name="Jeremy" type="TextureRect" unique_id=406479146]
 light_mask = 7

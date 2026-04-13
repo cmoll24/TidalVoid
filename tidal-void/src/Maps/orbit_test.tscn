@@ -8,12 +8,16 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
-[ext_resource type="PackedScene" uid="uid://dxmtaaxojs4ro" path="res://src/Creatures/Friendly/Jeremy.tscn" id="10_lm5jn"]
+[ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
+
+[sub_resource type="Gradient" id="Gradient_v2br0"]
+offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
+colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0.67058825, 0.33, 0.072600015, 0.32142, 0.38431373, 0.33, 0.05280001, 0.32076, 0)
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 script = ExtResource("1_hd3kg")
@@ -62,7 +66,7 @@ z_index = 1
 position = Vector2(360, 1932)
 max_jump_power = 300.0
 max_charge_time = 2.5
-elasticity = null
+elasticity = 0.8
 thrust_power = 15.0
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
@@ -127,8 +131,23 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 24
 text = "FPS"
 
-[node name="Jeremy" parent="." unique_id=406479146 instance=ExtResource("10_lm5jn")]
-offset_left = 617.0
-offset_top = 1803.0
-offset_right = 681.0
-offset_bottom = 1867.0
+[node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
+position = Vector2(268, 1803)
+thrust_power = 5.0
+
+[node name="Steven2" parent="." unique_id=2068943807 instance=ExtResource("10_lm5jn")]
+position = Vector2(1285, 1903)
+target_altitude = 300
+thrust_power = 5.0
+
+[node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
+line = NodePath("../Line2D2")
+steps = 100
+fake_steps = 2.0
+step_dist = 10.0
+player = NodePath("../Steven")
+
+[node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
+width = 3.0
+gradient = SubResource("Gradient_v2br0")
+antialiased = true

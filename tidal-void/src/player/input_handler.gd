@@ -49,6 +49,6 @@ func _process(_delta: float) -> void:
  	#	player.jump()
 	
 	if reverse_thrust:
-		player.set_thurst(thrust_direction.rotated(PI), thrust_multiplier)
+		player.set_thrust(thrust_direction.rotated(PI), thrust_multiplier)
 	else:
-		player.set_thurst(thrust_direction, thrust_multiplier)
+		player.set_thrust(thrust_direction, thrust_multiplier)

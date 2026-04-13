@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dpc0b3n2r5f74"]
 
 [ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
+[ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_o822w"]
 [ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="2_rxibo"]
 [ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="3_5f2sf"]
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="4_5f2sf"]
@@ -58,6 +59,7 @@ scale_amount_min = 10.0
 scale_amount_max = 15.0
 scale_amount_curve = SubResource("Curve_5f2sf")
 color_ramp = SubResource("Gradient_5f2sf")
+script = ExtResource("2_o822w")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=998047140]
 offset_left = -15.0

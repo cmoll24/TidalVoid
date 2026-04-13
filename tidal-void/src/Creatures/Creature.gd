@@ -1,12 +1,54 @@
-extends TextureRect
+class_name Creature
+extends DriftBody
 
-var game_manager : GameManager
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	game_manager = get_tree().get_first_node_in_group("game_managers")
+	start_in_orbit = true
+	super._ready()
 
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	creature_movement(delta)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func creature_movement(delta):
 	pass
+	
+func get_altitude(body : GravitySource):
+	return global_position.distance_to(body.global_position)
+
+func get_opposite_altitude(body : GravitySource) -> float:
+	var mu = body.mass * body.MASS_SCALE #mu = GM
+	var r_vec = global_position - body.global_position
+	var r = r_vec.length()
+	var v = velocity.length()
+	
+	#specific orbital energy = kinetic energy - potential energy
+	var energy = (v * v) / 2.0 - mu / r
+	#specific angular momentum: h = L/m
+	var h = r_vec.cross(velocity)
+	
+	#if h = 0, it is flying at/away from the source
+	if abs(h) < 0.001:
+		return -1.0
+	
+	#Vis-viva equation v^2 = mu * (2/r - 1/a)
+	
+	var h2 = h * h
+	#eccentricity
+	var ecc_sq = 1.0 + (2.0 * energy * h2) / (mu * mu)
+	
+	#test if it's a hyperolic or escape traj
+	if ecc_sq < 0.0:
+		return INF
+	
+	var ecc = sqrt(ecc_sq)
+	
+	#semi-latus rectum
+	var p = h2 / mu
+	
+	# periapsis and apoapsis distances from body center
+	var r_peri = p / (1.0 + ecc)
+	var r_apo  = p / (1.0 - ecc) if ecc < 1.0 else INF
+	
+	#find the opposite
+	var r_opposite = r_apo if r < (r_peri + r_apo) / 2.0 else r_peri
+	return r_opposite - body.collision_radius
