@@ -128,7 +128,7 @@ theme_override_font_sizes/font_size = 24
 text = "FPS"
 
 [node name="Jeremy" parent="." unique_id=406479146 instance=ExtResource("10_lm5jn")]
-offset_left = 708.0
-offset_top = 1794.0
-offset_right = 772.0
-offset_bottom = 1858.0
+offset_left = 416.0
+offset_top = 1656.0
+offset_right = 480.0
+offset_bottom = 1720.0
