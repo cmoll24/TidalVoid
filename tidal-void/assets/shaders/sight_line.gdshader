@@ -1,6 +1,5 @@
 shader_type canvas_item;
 uniform vec2 player_screen_uv;
-render_mode light_only;
 
 
 void fragment() {
