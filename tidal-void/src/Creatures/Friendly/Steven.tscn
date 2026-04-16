@@ -18,6 +18,7 @@ colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 1,
 
 [node name="Steven" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
 script = ExtResource("1_qvmga")
+start_in_orbit = true
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)

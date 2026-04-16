@@ -74,6 +74,9 @@ var thrust_multiplier : float = 1.0
 
 @export var start_in_orbit : bool = false
 
+### if start in orbit is true, this determines the direction of the orbit
+@export var start_orbit_dir : bool = true
+
 ## normally colision does an extra safety check at the end to absolutely prevent clipping
 ## however, since this check is run through the engine and not manual, it can mess
 ## up physics, especially if the object is meant to be unstoppable or very heavy
@@ -97,6 +100,8 @@ func _ready() -> void:
 
 func orbit_dominant_body() -> void:
 	velocity = orbital_velocity(dominant_body, global_position)
+	if(!start_orbit_dir):
+		velocity = -velocity
 
 func _physics_process(_delta: float) -> void:
 	update_dominant_body()

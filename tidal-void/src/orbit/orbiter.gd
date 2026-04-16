@@ -3,7 +3,6 @@ extends Area2D
 
 var game_manager : GameManager
 var velocity : Vector2 = Vector2.ZERO
-
 @onready var on_screen_notifier : VisibleOnScreenNotifier2D  = $VisibleOnScreenNotifier2D
 
 

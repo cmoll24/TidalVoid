@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5rwjyeanre2b" path="res://src/Collectables/collectable.gd" id="1_6f7qm"]
 [ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="2_d5o5p"]
+[ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="3_e2hv1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8g1sw"]
 
@@ -20,5 +21,9 @@ offset_right = 70.0
 offset_bottom = 70.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_d5o5p")
+
+[node name="VisionSource" type="Node" parent="." unique_id=802555007]
+script = ExtResource("3_e2hv1")
+metadata/_custom_type_script = "uid://cloexwtl4gxf3"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

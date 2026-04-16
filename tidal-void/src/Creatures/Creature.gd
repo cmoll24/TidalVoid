@@ -15,9 +15,9 @@ func creature_movement(delta):
 func get_altitude(body : GravitySource):
 	return global_position.distance_to(body.global_position)
 
-func get_opposite_altitude(body : GravitySource) -> float:
+func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	var mu = body.mass * body.MASS_SCALE #mu = GM
-	var r_vec = global_position - body.global_position
+	var r_vec = pos - body.global_position
 	var r = r_vec.length()
 	var v = velocity.length()
 	

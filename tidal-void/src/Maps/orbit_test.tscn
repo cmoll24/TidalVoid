@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_4vn8n"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
+[ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
@@ -34,6 +35,18 @@ grow_vertical = 2
 color = Color(0.011764706, 0.03529412, 0.050980393, 1)
 
 [node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_4vn8n")]
+
+[node name="SenseManager" type="Node" parent="GameManager" unique_id=1641885360]
+script = ExtResource("3_lm5jn")
+metadata/_custom_type_script = "uid://knbcbvqoq4eb"
+
+[node name="VisionTimer" type="Timer" parent="GameManager/SenseManager" unique_id=851488906]
+wait_time = 0.1
+autostart = true
+
+[node name="VisionRayCast" type="RayCast2D" parent="GameManager/SenseManager" unique_id=1339009786]
+target_position = Vector2(0, 0)
+collide_with_areas = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
 color = Color(0.49803922, 0.49803922, 0.49803922, 1)
@@ -134,11 +147,7 @@ text = "FPS"
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
 position = Vector2(268, 1803)
 thrust_power = 5.0
-
-[node name="Steven2" parent="." unique_id=2068943807 instance=ExtResource("10_lm5jn")]
-position = Vector2(1285, 1903)
-target_altitude = 300
-thrust_power = 5.0
+start_orbit_dir = false
 
 [node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D2")
