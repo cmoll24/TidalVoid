@@ -270,4 +270,6 @@ func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
 	var speed = sqrt((source.mass * source.MASS_SCALE) / distance)
 	return to_source.normalized().rotated(PI / 2.0) * speed	
 	
+func get_velocity() -> Vector2:
+	return velocity
 	

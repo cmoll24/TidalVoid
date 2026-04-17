@@ -29,10 +29,14 @@ var primary_v_source_time : float = 0
 ##squared
 var last_primary_source_dist : float = 0;
 
+var time_since_last_vision : float = 0;
+
+var time_before_hibernate : float = 12;
+
 ################################################
 
-###The altitude to go to when not actively chasing a target (squared)
-@export var default_altitude : float = 2500;
+
+
 
 func _ready() -> void:
 	super._ready()
@@ -45,18 +49,6 @@ func post_ready() -> void:
 	game_manager.sense_manager.vision_timer.timeout.connect(update_vision)
 	
 func creature_movement(_delta):
-	#set the target altitude to match the primary v source
-	if(dominant_body && primary_v_source):
-		var v_alt : float = dominant_body.global_position.distance_squared_to(primary_v_source.parent.global_position)
-		if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
-			#don't chase things out of orbit
-			primary_v_source = null
-		else:
-			target_altitude_sqr = v_alt
-	else:
-		target_altitude_sqr = min(
-			(dominant_body.pull_radius-20)**2,
-			get_square_altitude(dominant_body))
 	super.creature_movement(_delta)
 	
 func update_vision():
@@ -79,6 +71,10 @@ func update_vision():
 		else:
 			#enforce loyalty distance
 			highest_dist = last_primary_source_dist * v_source_loyalty_dist
+		time_since_last_vision = 0;
+	else:
+		time_since_last_vision += game_manager.sense_manager.vision_timer.wait_time
+	
 	
 	#set the primary source to the closest one
 	
@@ -88,8 +84,35 @@ func update_vision():
 			primary_v_source = v;
 			highest_dist = dist	
 			last_primary_source_dist = dist	
+			
+	# with vision complete, update the behavior
+	update_behavior()
 
 	
-	
+func update_behavior() -> void:
+	#check for hibernation
+	b_in_hibernation = time_since_last_vision > time_before_hibernate
+		
+	#set the target altitude to match the primary v source
+	if(dominant_body && primary_v_source):
+		var v_alt : float = dominant_body.global_position.distance_squared_to(primary_v_source.parent.global_position)
+		if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
+			#don't chase things out of orbit
+			primary_v_source = null
+		else:
+			target_altitude_sqr = v_alt
+		# get the dir
+		if(primary_v_source && primary_v_source.parent.has_method("get_velocity")):
+			var v_move_dir = (dominant_body.global_position - primary_v_source.parent.global_position)
+			# move dir is tangent to gravity
+			v_move_dir = Vector2(v_move_dir.y,-v_move_dir.x).normalized()
+			#move the opposite directiton to maximize chances of catching up
+			target_dir = (v_move_dir.dot(primary_v_source.parent.get_velocity()) < 0)
+	else:
+		##keep roughly in our orbit unless hibernating
+		if(!b_in_hibernation):
+			target_altitude_sqr = min(
+				(dominant_body.pull_radius-30)**2,
+				get_square_altitude(dominant_body))
 			
 		

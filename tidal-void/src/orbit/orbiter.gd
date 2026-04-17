@@ -63,3 +63,6 @@ func _physics_process(delta: float) -> void:
 	
 	velocity += total_gravity * delta
 	global_position += velocity * delta
+	
+func get_velocity() -> Vector2:
+	return velocity

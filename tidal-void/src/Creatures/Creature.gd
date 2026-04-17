@@ -2,8 +2,9 @@ class_name Creature
 extends DriftBody
 
 func _ready() -> void:
-	start_in_orbit = true
 	super._ready()
+	start_in_orbit = true
+	
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
