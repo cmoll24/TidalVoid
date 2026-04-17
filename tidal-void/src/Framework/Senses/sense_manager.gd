@@ -46,6 +46,8 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[vi
 		if((viewer.global_position - vs.parent.global_position).length_squared() > sight_dist_squared):
 			#if it is too far away, don't check it
 			continue
+		if(!vs || !vs.parent):
+			continue
 		#Perform the raycast
 		vision_raycast.target_position = vs.parent.global_position
 		vision_raycast.force_raycast_update();
@@ -54,7 +56,7 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[vi
 			var node := vision_raycast.get_collider() as Node
 			#We assume a very specific structure and naming scheme here
 			var out_vs : vision_source = node.get_node_or_null("VisionSource")
-			if(out_vs):
+			if(out_vs != null):
 				out.append(out_vs)
 	return out
 	

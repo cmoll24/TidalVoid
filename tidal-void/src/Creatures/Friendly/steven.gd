@@ -81,6 +81,11 @@ func update_vision():
 	for v in v_sources:
 		var dist : float =(global_position - v.parent.global_position).length_squared()
 		if(dist > highest_dist):
+			var v_alt : float = dominant_body.global_position.distance_squared_to(v.parent.global_position)
+			if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
+				#don't chase things out of orbit
+				continue
+			primary_v_source_time = v_source_loyalty_time
 			primary_v_source = v;
 			highest_dist = dist	
 			last_primary_source_dist = dist	
@@ -96,11 +101,7 @@ func update_behavior() -> void:
 	#set the target altitude to match the primary v source
 	if(dominant_body && primary_v_source):
 		var v_alt : float = dominant_body.global_position.distance_squared_to(primary_v_source.parent.global_position)
-		if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
-			#don't chase things out of orbit
-			primary_v_source = null
-		else:
-			target_altitude_sqr = v_alt
+		target_altitude_sqr = v_alt
 		# get the dir
 		if(primary_v_source && primary_v_source.parent.has_method("get_velocity")):
 			var v_move_dir = (dominant_body.global_position - primary_v_source.parent.global_position)
