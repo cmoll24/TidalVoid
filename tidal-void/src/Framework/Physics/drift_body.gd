@@ -245,7 +245,6 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 func update_dominant_body() -> void:
 	#the domiannt body is the grav source with the strongest pull
 	var strongest_pull = 0.0
-	dominant_body = null
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue

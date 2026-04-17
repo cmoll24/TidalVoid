@@ -12,8 +12,9 @@ func _physics_process(delta: float) -> void:
 func creature_movement(delta):
 	pass
 	
-func get_altitude(body : GravitySource):
-	return global_position.distance_to(body.global_position)
+func get_square_altitude(body : GravitySource):
+	return global_position.distance_squared_to(body.global_position)
+	
 
 func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	var mu = body.mass * body.MASS_SCALE #mu = GM

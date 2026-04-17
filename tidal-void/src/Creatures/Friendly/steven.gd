@@ -31,8 +31,8 @@ var last_primary_source_dist : float = 0;
 
 ################################################
 
-###The altitude to go to when not actively chasing a target
-@export var default_altitude : float = 50;
+###The altitude to go to when not actively chasing a target (squared)
+@export var default_altitude : float = 2500;
 
 func _ready() -> void:
 	super._ready()
@@ -47,14 +47,16 @@ func post_ready() -> void:
 func creature_movement(_delta):
 	#set the target altitude to match the primary v source
 	if(dominant_body && primary_v_source):
-		var v_alt : float = dominant_body.global_position.distance_to(primary_v_source.parent.global_position)
-		if(v_alt > dominant_body.pull_radius):
+		var v_alt : float = dominant_body.global_position.distance_squared_to(primary_v_source.parent.global_position)
+		if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
 			#don't chase things out of orbit
 			primary_v_source = null
 		else:
-			target_altitude = v_alt
+			target_altitude_sqr = v_alt
 	else:
-		target_altitude = default_altitude;
+		target_altitude_sqr = min(
+			(dominant_body.pull_radius-20)**2,
+			get_square_altitude(dominant_body))
 	super.creature_movement(_delta)
 	
 func update_vision():
