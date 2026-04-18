@@ -21,7 +21,7 @@ var primary_v_source : vision_source
 @export var v_source_loyalty_time : float = 3
 
 ### continue to follow the same source until one is closer by this factor
-### e.g. follow until the distance is twice as far
+### e.g. follow unless something twice as close appears
 @export var v_source_loyalty_dist : float = 2;
 
 var primary_v_source_time : float = 0
@@ -55,7 +55,7 @@ func update_vision():
 	#update array of all visible v_sources
 	v_sources = game_manager.sense_manager.check_vision(self,v_distance,v_types)
 	
-	var highest_dist : float = 0
+	var lowest_dist : float = 99999999999
 	
 	#Check loyalty to the primary source(prevent the creature from switching too often)
 	if(primary_v_source):
@@ -70,7 +70,7 @@ func update_vision():
 			last_primary_source_dist = 0;
 		else:
 			#enforce loyalty distance
-			highest_dist = last_primary_source_dist * v_source_loyalty_dist
+			lowest_dist = last_primary_source_dist / v_source_loyalty_dist
 		time_since_last_vision = 0;
 	else:
 		time_since_last_vision += game_manager.sense_manager.vision_timer.wait_time
@@ -80,14 +80,14 @@ func update_vision():
 	
 	for v in v_sources:
 		var dist : float =(global_position - v.parent.global_position).length_squared()
-		if(dist > highest_dist):
+		if(dist < lowest_dist):
 			var v_alt : float = dominant_body.global_position.distance_squared_to(v.parent.global_position)
 			if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
 				#don't chase things out of orbit
 				continue
 			primary_v_source_time = v_source_loyalty_time
 			primary_v_source = v;
-			highest_dist = dist	
+			lowest_dist = dist	
 			last_primary_source_dist = dist	
 			
 	# with vision complete, update the behavior
