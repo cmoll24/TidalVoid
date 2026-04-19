@@ -2,7 +2,18 @@
 
 [ext_resource type="Material" uid="uid://msnuhmnwwql0" path="res://assets/Materials/M_sight_line_basic.tres" id="1_vxvtq"]
 [ext_resource type="Texture2D" uid="uid://bokq6aj31pvto" path="res://assets/Textures/Placeholder/Jeremy.png" id="2_6tgje"]
-[ext_resource type="Script" uid="uid://bvvu8ahclr7oe" path="res://src/Creatures/Friendly/jeremy.gd" id="3_6tgje"]
+
+[sub_resource type="GDScript" id="GDScript_vxvtq"]
+script/source = "extends TextureRect
+
+var game_manager : GameManager
+
+func _ready() -> void:
+	game_manager = get_tree().get_first_node_in_group(\"game_managers\")
+
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="Jeremy" type="TextureRect" unique_id=406479146]
 light_mask = 7
@@ -14,4 +25,4 @@ offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("2_6tgje")
 stretch_mode = 3
-script = ExtResource("3_6tgje")
+script = SubResource("GDScript_vxvtq")

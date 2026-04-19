@@ -1,10 +1,10 @@
 extends Node
-class_name vision_source
+class_name VisionSource
 #You must name this VisionSource and place it as a direct child of 
 #the root in any scene instance for it to work
 
 ### Enum used for giving information about the type of source
-enum v_source_type {sPrey,mPrey,lPrey,sPRed,mPred,LPred,sFood}
+enum v_source_type {None,sPrey,mPrey,lPrey,sPRed,mPred,LPred,sFood}
 
 
 @onready var parent : Node2D

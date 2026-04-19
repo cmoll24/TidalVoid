@@ -7,7 +7,7 @@ class_name SenseManager
 
 @onready var vision_raycast : RayCast2D
 
-var vision_sources : Array[vision_source]
+var VisionSources : Array[VisionSource]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,17 +21,17 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 	
-func register_vision_source(source : vision_source) -> void:
-	vision_sources.append(source);
+func register_vision_source(source : VisionSource) -> void:
+	VisionSources.append(source);
 	
-func unregister_vision_source(source : vision_source) -> void:
-	vision_sources.erase(source);
+func unregister_vision_source(source : VisionSource) -> void:
+	VisionSources.erase(source);
 
-###Performs a raycast to all vision_sources(ignoring the viewer)
+###Performs a raycast to all VisionSources(ignoring the viewer)
 ###and returns anything the viewer can see
 ### use v_mask to include all the vision source types that matter, ie v_source_type.x | v_source_type.y
-func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[vision_source]:
-	var out : Array[vision_source]
+func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[VisionSource]:
+	var out : Array[VisionSource]
 	#Configure the raycast for the viewer
 	vision_raycast.clear_exceptions()
 	vision_raycast.add_exception(viewer)
@@ -39,8 +39,8 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[vi
 	#avoid taking expensive(not that expensive) square roots
 	var sight_dist_squared = sight_dist*sight_dist;
 	# check all the vision sources
-	for vs in vision_sources:
-		if(!(vs.v_type & v_mask)):
+	for vs in VisionSources:
+		if(!((1 << vs.v_type) & v_mask)):
 			# skip if the the vision source doesn't fit the bitmask
 			continue
 		if((viewer.global_position - vs.parent.global_position).length_squared() > sight_dist_squared):
@@ -55,7 +55,7 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[vi
 			#Check if we hit the vision source
 			var node := vision_raycast.get_collider() as Node
 			#We assume a very specific structure and naming scheme here
-			var out_vs : vision_source = node.get_node_or_null("VisionSource")
+			var out_vs : VisionSource = node.get_node_or_null("VisionSource")
 			if(out_vs != null):
 				out.append(out_vs)
 	return out

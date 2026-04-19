@@ -7,14 +7,14 @@ class_name Steven
 ### the max distance at which things can be seen by vision
 @export var v_distance : float = 1200
 
-### types of things it cares about in vision (bitmask), see vision_source.gd
+### types of things it cares about in vision (bitmask), see VisionSource.gd
 var v_types : int
 
 ### all visible vision sources
-var v_sources : Array[vision_source]
+var v_sources : Array[VisionSource]
 
 ### the primary visible vision source(the target)
-var primary_v_source : vision_source
+var primary_v_source : VisionSource
 
 ### the amount of time steven will continue to follow the
 ### same target even after it has gone out of sight
@@ -41,7 +41,7 @@ var time_before_hibernate : float = 12;
 func _ready() -> void:
 	super._ready()
 	#set the vision bitmask( use the | operator to add more)
-	v_types = vision_source.v_source_type.sFood
+	v_types = 1 << VisionSource.v_source_type.sFood
 	call_deferred("post_ready")
 	
 func post_ready() -> void:
