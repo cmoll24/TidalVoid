@@ -70,6 +70,7 @@ scale = Vector2(0.333, 0.333)
 texture = ExtResource("2_rxibo")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2146207545]
+ignore_rotation = false
 limit_enabled = false
 script = ExtResource("3_5f2sf")
 

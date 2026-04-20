@@ -16,6 +16,8 @@ func _process(_delta: float) -> void:
 	var vertical_thrust = Input.get_axis("thrust_up", "thrust_down")
 	
 	thrust_direction = Vector2(horizontal_thrust, vertical_thrust)
+	if not player.camera.ignore_rotation:
+		thrust_direction = thrust_direction.rotated(player.rotation)
 	
 	### METHOD 2 - using mouse direction
 	
@@ -23,7 +25,8 @@ func _process(_delta: float) -> void:
 	var player_screen_position = player.global_position - get_viewport().get_camera_2d().global_position
 	
 	var mouse_direction = (mouse_position - player_screen_position).normalized()
-	
+	if not player.camera.ignore_rotation:
+		mouse_direction = mouse_direction.rotated(player.rotation)
 	player.mouse_direction = mouse_direction
 	
 	### METHOD 3 - using controller direction

@@ -6,6 +6,8 @@ class_name Player
 
 @onready var thrust_particles = $ThrustParticles
 
+@onready var camera : Camera2D = $Camera2D
+
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 20
 
