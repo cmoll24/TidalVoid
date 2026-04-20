@@ -11,8 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
-[ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
-[ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -24,6 +22,17 @@ colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 script = ExtResource("1_hd3kg")
+
+[node name="StaticBackground" type="CanvasLayer" parent="." unique_id=891405338]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1790725163]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.011764706, 0.03529412, 0.050980393, 1)
 
 [node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_4vn8n")]
 
@@ -37,22 +46,10 @@ autostart = true
 
 [node name="VisionRayCast" type="RayCast2D" parent="GameManager/SenseManager" unique_id=1339009786]
 target_position = Vector2(0, 0)
-collision_mask = 7
 collide_with_areas = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
 color = Color(0.49803922, 0.49803922, 0.49803922, 1)
-
-[node name="StaticBackground" type="CanvasLayer" parent="." unique_id=891405338]
-layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1790725163]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.011764706, 0.03529412, 0.050980393, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1815654548]
 environment = ExtResource("10_v2br0")
@@ -148,7 +145,9 @@ theme_override_font_sizes/font_size = 24
 text = "FPS"
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
-position = Vector2(368, 1765)
+position = Vector2(268, 1803)
+thrust_power = 5.0
+start_orbit_dir = false
 
 [node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D2")
@@ -161,15 +160,3 @@ player = NodePath("../Steven")
 width = 3.0
 gradient = SubResource("Gradient_v2br0")
 antialiased = true
-
-[node name="Jeremiah" parent="." unique_id=1142549016 instance=ExtResource("12_2wvry")]
-position = Vector2(532, 820)
-
-[node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("12_2wvry")]
-position = Vector2(2043, 1863)
-
-[node name="Evil_Fred" parent="." unique_id=1502988588 instance=ExtResource("13_i4pkw")]
-position = Vector2(385, 530)
-
-[node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
-position = Vector2(2362, 1676)

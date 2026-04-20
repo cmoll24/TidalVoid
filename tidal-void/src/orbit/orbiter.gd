@@ -3,7 +3,6 @@ extends Area2D
 
 var game_manager : GameManager
 var velocity : Vector2 = Vector2.ZERO
-
 @onready var on_screen_notifier : VisibleOnScreenNotifier2D  = $VisibleOnScreenNotifier2D
 
 
@@ -64,3 +63,6 @@ func _physics_process(delta: float) -> void:
 	
 	velocity += total_gravity * delta
 	global_position += velocity * delta
+	
+func get_velocity() -> Vector2:
+	return velocity

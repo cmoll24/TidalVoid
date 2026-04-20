@@ -74,6 +74,9 @@ var thrust_multiplier : float = 1.0
 
 @export var start_in_orbit : bool = false
 
+### if start in orbit is true, this determines the direction of the orbit
+@export var start_orbit_dir : bool = true
+
 ## normally colision does an extra safety check at the end to absolutely prevent clipping
 ## however, since this check is run through the engine and not manual, it can mess
 ## up physics, especially if the object is meant to be unstoppable or very heavy
@@ -97,6 +100,8 @@ func _ready() -> void:
 
 func orbit_dominant_body() -> void:
 	velocity = orbital_velocity(dominant_body, global_position)
+	if(!start_orbit_dir):
+		velocity = -velocity
 
 func _physics_process(_delta: float) -> void:
 	update_dominant_body()
@@ -229,7 +234,7 @@ func set_ground(normal : Vector2,body : Node2D) -> void:
 func set_airborne() -> void:
 	b_is_grounded = false;
 
-func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
+func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	thrust_multiplier = multiplier
 	
 	if direction.length() > 0.1:
@@ -240,7 +245,6 @@ func set_thurst(direction : Vector2, multiplier : float = 1.0) -> void:
 func update_dominant_body() -> void:
 	#the domiannt body is the grav source with the strongest pull
 	var strongest_pull = 0.0
-	dominant_body = null
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue
@@ -266,4 +270,6 @@ func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
 	var speed = sqrt((source.mass * source.MASS_SCALE) / distance)
 	return to_source.normalized().rotated(PI / 2.0) * speed	
 	
+func get_velocity() -> Vector2:
+	return velocity
 	

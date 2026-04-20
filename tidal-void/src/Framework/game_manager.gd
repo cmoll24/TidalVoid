@@ -1,5 +1,8 @@
-class_name GameManager
 extends Node
+class_name GameManager
+
+
+@onready var sense_manager :SenseManager
 
 #universal array of gravity sources
 var gravity_sources : Array[GravitySource] = []
@@ -10,6 +13,7 @@ var player : Player
 func _ready() -> void:
 	gravity_sources.assign(get_tree().get_nodes_in_group("gravity_sources"))
 	player = get_tree().get_first_node_in_group("player")
+	sense_manager = $SenseManager
 
 func register_gravity_source(new_source: GravitySource) -> void:
 	gravity_sources.append(new_source)

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://b22uhmabgj8gn"]
+
+[ext_resource type="Script" uid="uid://mhhqnfsl8hb4" path="res://src/Creatures/Hostile/Evil_Fred.gd" id="1_511cb"]
+[ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_tf2pi"]
+[ext_resource type="Texture2D" uid="uid://cb518pl7547xl" path="res://assets/Textures/Placeholder/Evil_Fred.png" id="3_511cb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
+radius = 15.0
+
+[sub_resource type="Curve" id="Curve_5f2sf"]
+_data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_5f2sf"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
+colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 1, 0.12156863, 0.10980392, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
+
+[node name="Evil_Fred" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
+script = ExtResource("1_511cb")
+v_distance = 5000.0
+v_source_loyalty_time = 5.0
+v_source_loyalty_dist = 1.75
+thrust_power = 5.0
+start_in_orbit = true
+start_orbit_dir = false
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
+target_position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
+shape = SubResource("CircleShape2D_rc2ur")
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=168159882]
+amount = 20
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 90.0
+angle_max = 30.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_5f2sf")
+color_ramp = SubResource("Gradient_5f2sf")
+script = ExtResource("2_tf2pi")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=998047140]
+offset_left = -17.0
+offset_top = -15.0
+offset_right = 83.0
+offset_bottom = 81.0
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_511cb")

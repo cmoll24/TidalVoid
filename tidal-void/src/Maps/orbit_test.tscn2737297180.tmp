@@ -11,8 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
-[ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
-[ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -37,7 +35,6 @@ autostart = true
 
 [node name="VisionRayCast" type="RayCast2D" parent="GameManager/SenseManager" unique_id=1339009786]
 target_position = Vector2(0, 0)
-collision_mask = 7
 collide_with_areas = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
@@ -148,7 +145,25 @@ theme_override_font_sizes/font_size = 24
 text = "FPS"
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
-position = Vector2(368, 1765)
+position = Vector2(268, 1803)
+v_distance = 5000.0
+v_source_loyalty_time = 4.0
+v_source_loyalty_dist = 1.75
+default_altitude = 144000.0
+target_altitude_sqr = null
+target_dir = null
+mass = null
+velocity = null
+prediction_velocity = null
+b_prediction_velo_is_real = null
+static_friction_coefficient = null
+kinetic_friction_coefficient = null
+min_dot_for_ground = null
+elasticity = null
+thrust_power = 10.0
+max_velocity = null
+start_orbit_dir = false
+b_is_safe_collision = null
 
 [node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D2")
@@ -161,15 +176,3 @@ player = NodePath("../Steven")
 width = 3.0
 gradient = SubResource("Gradient_v2br0")
 antialiased = true
-
-[node name="Jeremiah" parent="." unique_id=1142549016 instance=ExtResource("12_2wvry")]
-position = Vector2(532, 820)
-
-[node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("12_2wvry")]
-position = Vector2(2043, 1863)
-
-[node name="Evil_Fred" parent="." unique_id=1502988588 instance=ExtResource("13_i4pkw")]
-position = Vector2(385, 530)
-
-[node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
-position = Vector2(2362, 1676)

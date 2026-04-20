@@ -1,5 +1,4 @@
 shader_type canvas_item;
-uniform vec2 player_screen_uv;
 
 
 void fragment() {
@@ -9,6 +8,7 @@ void fragment() {
 		//Save performance by skipping transparent pixels
 		discard;
 	}
+	vec2 player_screen_uv = vec2(0.5,0.5);
 	//Get the direction and distance
 	vec2 dir = normalize(SCREEN_UV - player_screen_uv);
 	float dist = 0.0001;
