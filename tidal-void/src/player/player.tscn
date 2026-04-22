@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_o822w"]
 [ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="3_5f2sf"]
-[ext_resource type="Texture2D" uid="uid://p7mxqgg62w8x" path="res://assets/Textures/Placeholder/astronaut.png" id="3_o822w"]
+[ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="3_o822w"]
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="4_5f2sf"]
 [ext_resource type="Script" uid="uid://8ghh3geko5ra" path="res://src/Background/static_background.gd" id="5_o822w"]
 [ext_resource type="Texture2D" uid="uid://c83h6wwsj2w7w" path="res://assets/circle.png" id="6_jiejy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
-radius = 15.0
+radius = 19.0
 
 [sub_resource type="Curve" id="Curve_5f2sf"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
