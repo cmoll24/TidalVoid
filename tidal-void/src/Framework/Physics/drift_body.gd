@@ -87,6 +87,13 @@ var thrust_direction : Vector2 = Vector2.ZERO
 ##########################################################
 
 
+var target_rotation : float = 0;
+
+@export var b_rotation_to_gravity : bool = true;
+
+###############################################################
+
+
 var game_manager : GameManager
 var dominant_body : GravitySource = null
 
@@ -96,7 +103,6 @@ func _ready() -> void:
 	if(start_in_orbit):
 		call_deferred("orbit_dominant_body");
 	shape_cast.shape = collision_shape.shape
-	shape_cast.collision_mask = 127
 
 func orbit_dominant_body() -> void:
 	velocity = orbital_velocity(dominant_body, global_position)
@@ -121,6 +127,14 @@ func _physics_process(_delta: float) -> void:
 	if(b_prediction_velo_is_real):
 		prediction_velocity = velocity
 	
+	#Rotate
+	if(b_rotation_to_gravity):
+		target_rotation = (gravity_force.angle() - PI/2)
+	update_rotation(_delta)
+
+func update_rotation(delta : float):
+	var rot_spd = PI * delta
+	rotation = rotate_toward(rotation,target_rotation,rot_spd)
 	
 
 ##Calculate the changes to velocity as a result of gravity and thrusters
@@ -159,12 +173,16 @@ func  apply_velocity() -> void:
 		shape_cast.force_shapecast_update()
 		#Go through each hit
 		for i in range(shape_cast.get_collision_count()):
+			
 			#Apply a simulated normal force
 			var hitNormal : Vector2 = shape_cast.get_collision_normal(i)
 
 			var dot : float = hitNormal.dot(velocity)
 			
 			var Collider : CollisionObject2D = shape_cast.get_collider(i)
+			
+			#if(Collider is PhysicsBody2D):
+				#Collider.oneway
 			
 			if (dot < 0 && (ignore_layer == 0 || Collider.collision_mask != ignore_layer)): #the collider must solely be on the ignore layer to be ignored
 				#We have contact

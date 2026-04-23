@@ -7,7 +7,6 @@ func _ready() -> void:
 	super._ready()
 	#set the vision bitmask( use the | operator to add more)
 	v_types = 1 << VisionSource.v_source_type.sPrey
-	call_deferred("post_ready")
 	
 func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	super.on_collide_with_other_drift_body(other);

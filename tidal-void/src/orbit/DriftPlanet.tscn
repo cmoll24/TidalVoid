@@ -297,6 +297,7 @@ fill_from = Vector2(0.47826087, 0.5173913)
 radius = 30.0
 
 [node name="DriftPlanet" type="StaticBody2D" unique_id=1380605901]
+collision_mask = 3
 script = SubResource("GDScript_7mmrp")
 mass = 500.0
 elasticity = 0.1

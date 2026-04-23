@@ -18,6 +18,8 @@ offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
 colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 0.047058824, 1, 0.5254902, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
 
 [node name="Jeremiah" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_lnscu")
 v_distance = 5000.0
 v_source_loyalty_time = 5.0
@@ -28,6 +30,7 @@ start_orbit_dir = false
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
 shape = SubResource("CircleShape2D_rc2ur")

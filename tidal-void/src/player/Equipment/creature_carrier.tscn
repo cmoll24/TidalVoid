@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://b56tl64vvewxi"]
+
+[ext_resource type="Script" uid="uid://c15qcqyp8vxjq" path="res://src/player/Equipment/creature_carrier.gd" id="1_wnmps"]
+[ext_resource type="Texture2D" uid="uid://b80xg8382yq71" path="res://assets/Textures/Placeholder/PLACEHOLDERCreatureCarrier.png" id="2_1i13m"]
+[ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_ypvpx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypvpx"]
+radius = 48.0
+height = 200.0
+
+[sub_resource type="Curve" id="Curve_lhdkr"]
+_data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_3npey"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
+colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 1, 0.120000005, 0.926667, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypvpx"]
+size = Vector2(96, 8)
+
+[node name="CreatureCarrier" type="StaticBody2D" unique_id=1283291436]
+collision_layer = 4
+script = ExtResource("1_wnmps")
+mass = 10.0
+start_in_orbit = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=568160610]
+scale = Vector2(3, 3)
+texture = ExtResource("2_1i13m")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=2074740384]
+target_position = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1055278484]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ypvpx")
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=173621513]
+position = Vector2(-90.395, 25.365)
+amount = 20
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 90.0
+angle_max = 30.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_lhdkr")
+color_ramp = SubResource("Gradient_3npey")
+script = ExtResource("3_ypvpx")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=268756097]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2041064688]
+polygon = PackedVector2Array(-60, -48, 64, -48, 64, -44, -60, -44, -60, 44, 60, 44, 64, 48, -64, 48)
+
+[node name="Bubble" type="StaticBody2D" parent="." unique_id=89911421]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bubble" unique_id=79878690]
+position = Vector2(68, -1.7484547e-07)
+shape = SubResource("RectangleShape2D_ypvpx")
+one_way_collision = true

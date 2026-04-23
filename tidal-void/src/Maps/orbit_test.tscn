@@ -13,6 +13,7 @@
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -79,7 +80,7 @@ mass = 1500.0
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 z_index = 1
-position = Vector2(360, 1932)
+position = Vector2(806, 1859)
 max_jump_power = 300.0
 max_charge_time = 2.5
 elasticity = 0.8
@@ -173,3 +174,6 @@ position = Vector2(385, 530)
 
 [node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
 position = Vector2(2362, 1676)
+
+[node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
+position = Vector2(344, 2026)

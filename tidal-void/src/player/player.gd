@@ -95,10 +95,6 @@ func _physics_process(delta: float) -> void:
 				walking_on_ground = true
 		ignore_layer = 0;
 				
-	#Rotate the player
-	var new_angle = (gravity_force.angle() - PI/2)
-	var rot_spd = PI * delta
-	rotation = rotate_toward(rotation,new_angle,rot_spd)
 	
 			
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
