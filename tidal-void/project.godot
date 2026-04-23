@@ -141,6 +141,7 @@ camera_rotation_lock={
 2d_physics/layer_1="static"
 2d_physics/layer_2="dynamic"
 2d_physics/layer_3="background"
+2d_physics/layer_4="bubble"
 2d_physics/navigation_engine="GodotNavigation2D"
 
 [physics]

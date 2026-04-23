@@ -83,8 +83,16 @@ z_index = 1
 position = Vector2(806, 1859)
 max_jump_power = 300.0
 max_charge_time = 2.5
+velocity = Vector2(0, 0)
+prediction_velocity = Vector2(0, 0)
+b_prediction_velo_is_real = true
+min_dot_for_ground = 0.5
 elasticity = 0.8
 thrust_power = 15.0
+max_velocity = 400.0
+start_orbit_dir = true
+b_is_safe_collision = true
+b_rotation_to_gravity = true
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")

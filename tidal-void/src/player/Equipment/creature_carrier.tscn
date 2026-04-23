@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://c15qcqyp8vxjq" path="res://src/player/Equipment/creature_carrier.gd" id="1_wnmps"]
 [ext_resource type="Texture2D" uid="uid://b80xg8382yq71" path="res://assets/Textures/Placeholder/PLACEHOLDERCreatureCarrier.png" id="2_1i13m"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_ypvpx"]
+[ext_resource type="Script" uid="uid://e5bcknpxfmgo" path="res://src/Framework/Physics/one_way_bubble.gd" id="4_23cqy"]
+[ext_resource type="Script" uid="uid://kba22tsgew3m" path="res://src/Framework/Physics/heavy_body.gd" id="4_lhdkr"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypvpx"]
-radius = 48.0
-height = 200.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23cqy"]
+size = Vector2(164, 96)
 
 [sub_resource type="Curve" id="Curve_lhdkr"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -24,18 +25,19 @@ size = Vector2(96, 8)
 collision_layer = 4
 script = ExtResource("1_wnmps")
 mass = 10.0
+elasticity = 2.0
 start_in_orbit = true
+start_orbit_dir = false
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=2074740384]
+target_position = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=568160610]
 scale = Vector2(3, 3)
 texture = ExtResource("2_1i13m")
 
-[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=2074740384]
-target_position = Vector2(0, 0)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1055278484]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_ypvpx")
+shape = SubResource("RectangleShape2D_23cqy")
 
 [node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=173621513]
 position = Vector2(-90.395, 25.365)
@@ -52,18 +54,22 @@ scale_amount_curve = SubResource("Curve_lhdkr")
 color_ramp = SubResource("Gradient_3npey")
 script = ExtResource("3_ypvpx")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=268756097]
+[node name="HeavyBody" type="StaticBody2D" parent="." unique_id=268756097]
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("4_lhdkr")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2041064688]
-polygon = PackedVector2Array(-60, -48, 64, -48, 64, -44, -60, -44, -60, 44, 60, 44, 64, 48, -64, 48)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HeavyBody" unique_id=2041064688]
+polygon = PackedVector2Array(-50, -35, -60, 0, -45, 40, 70, 40, 70, 48, -70, 48, -75, 0, -60, -48, 65, -48, 65, -40)
 
 [node name="Bubble" type="StaticBody2D" parent="." unique_id=89911421]
-collision_layer = 0
-collision_mask = 0
+rotation = 3.1415927
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("4_23cqy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bubble" unique_id=79878690]
-position = Vector2(68, -1.7484547e-07)
+position = Vector2(-68, 0)
+rotation = 4.712389
 shape = SubResource("RectangleShape2D_ypvpx")
 one_way_collision = true

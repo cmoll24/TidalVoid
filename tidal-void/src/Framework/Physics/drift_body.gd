@@ -200,9 +200,17 @@ func  apply_velocity() -> void:
 					other_body.velocity += velocityAdjustment * mass/total_mass * avg_elasticity;
 					velocity -= velocityAdjustment * other_body.mass/total_mass * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
+				#Treat it as having infinite mass if it is not a drift body 
+				elif (shape_cast.get_collider(i) is Bubble):
+						var bubble : Bubble = shape_cast.get_collider(i)
+						if(velocity.dot(Vector2.from_angle(bubble.global_rotation)) < 0):
+							velocity -= velocityAdjustment * 2; ##bubbles are bouncy
+				elif (shape_cast.get_collider(i) is HeavyBody):
+					var other_body : HeavyBody = shape_cast.get_collider(i)
+					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
+					velocity -= velocityAdjustment * 2 * avg_elasticity;		
 				else:
-					#simply treat it as having infinite mass if it is not a drift body
-					velocity -= velocityAdjustment;
+					velocity -= velocityAdjustment;	
 						
 				#Get the normal force
 				var NormalForce : Vector2 = hitNormal * hitNormal.dot(total_force);
@@ -221,12 +229,17 @@ func  apply_velocity() -> void:
 				var fricDot : float = hitNormalPerp.dot(velocity.normalized());
 				velocity -= hitNormalPerp * fricDot * FrictionForce * get_physics_process_delta_time();	
 		#Check for grounding if we are touching a compatible class
-			if shape_cast.get_collider(i) is GravitySource:
+			if shape_cast.get_collider(i) is GravitySource || shape_cast.get_collider(i) is HeavyBody:
 				var NormAccel : Vector2 = total_force.normalized();
 				#check that we are accelerating into it
 				if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
 					#set it as ground
-					set_ground(hitNormal,shape_cast.get_collider(i))
+					if shape_cast.get_collider(i) is GravitySource:
+						set_ground(hitNormal,shape_cast.get_collider(i))
+					else:
+						var hb_velo = shape_cast.get_collider(i).velocity
+						if(velocity.dot(hb_velo)) < 0:
+							velocity = hb_velo * 1.5
 		#Cap velocity
 		velocity.limit_length(max_velocity)
 		#Update MoveDelta
