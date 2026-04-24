@@ -114,7 +114,6 @@ func _physics_process(_delta: float) -> void:
 
 	#Apply the accerlation
 	apply_acceleration();
-
 	#Apply the velocity
 	apply_velocity();
 	
@@ -200,15 +199,18 @@ func  apply_velocity() -> void:
 					other_body.velocity += velocityAdjustment * mass/total_mass * avg_elasticity;
 					velocity -= velocityAdjustment * other_body.mass/total_mass * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
-				#Treat it as having infinite mass if it is not a drift body 
+				
 				elif (shape_cast.get_collider(i) is Bubble):
 						var bubble : Bubble = shape_cast.get_collider(i)
-						if(velocity.dot(Vector2.from_angle(bubble.global_rotation)) < 0):
-							velocity -= velocityAdjustment * 2; ##bubbles are bouncy
+						if(!bubble.can_penetrate_bubble(global_position,velocity)):
+							#bubbles are bouncy
+							velocity -= velocityAdjustment * 2;	
+				#Treat it as having infinite mass if it is not a drift body 
 				elif (shape_cast.get_collider(i) is HeavyBody):
 					var other_body : HeavyBody = shape_cast.get_collider(i)
 					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
-					velocity -= velocityAdjustment * 2 * avg_elasticity;		
+					#do question the physics here, they are a stand in until Heavybodies are fully fleshed out
+					velocity -= velocityAdjustment * 2*avg_elasticity;		
 				else:
 					velocity -= velocityAdjustment;	
 						

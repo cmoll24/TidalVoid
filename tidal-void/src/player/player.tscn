@@ -29,19 +29,10 @@ min_jump_power = 30.0
 max_jump_power = 220.0
 max_charge_time = 5.0
 mass = 10.0
-velocity = null
-prediction_velocity = null
-b_prediction_velo_is_real = null
 static_friction_coefficient = 0.5
 kinetic_friction_coefficient = 0.3
-min_dot_for_ground = null
 elasticity = 0.5
-thrust_power = null
-max_velocity = null
 start_in_orbit = true
-start_orbit_dir = null
-b_is_safe_collision = null
-b_rotation_to_gravity = null
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)

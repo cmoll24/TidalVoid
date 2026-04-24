@@ -9,11 +9,16 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
+[ext_resource type="Script" uid="uid://e5bcknpxfmgo" path="res://src/Framework/Physics/one_way_bubble.gd" id="7_76idn"]
+[ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="8_uk65k"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_voqfk"]
+radius = 44.0
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -74,6 +79,19 @@ position = Vector2(2371, 1902)
 mass = 22000.0
 collision_radius = 210.0
 
+[node name="Bubble" type="StaticBody2D" parent="." unique_id=990195542]
+position = Vector2(626, 1863)
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("7_76idn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bubble" unique_id=1420885407]
+shape = SubResource("CircleShape2D_voqfk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bubble" unique_id=1343004382]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_uk65k")
+
 [node name="Planet4" parent="." unique_id=1640720222 instance=ExtResource("1_4heml")]
 position = Vector2(530, 1882)
 mass = 1500.0
@@ -83,16 +101,8 @@ z_index = 1
 position = Vector2(806, 1859)
 max_jump_power = 300.0
 max_charge_time = 2.5
-velocity = Vector2(0, 0)
-prediction_velocity = Vector2(0, 0)
-b_prediction_velo_is_real = true
-min_dot_for_ground = 0.5
 elasticity = 0.8
 thrust_power = 15.0
-max_velocity = 400.0
-start_orbit_dir = true
-b_is_safe_collision = true
-b_rotation_to_gravity = true
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
@@ -173,9 +183,37 @@ antialiased = true
 
 [node name="Jeremiah" parent="." unique_id=1142549016 instance=ExtResource("12_2wvry")]
 position = Vector2(532, 820)
+target_altitude_sqr = 3600.0
+target_dir = true
+b_in_hibernation = false
+mass = 1.0
+velocity = Vector2(0, 0)
+prediction_velocity = Vector2(0, 0)
+b_prediction_velo_is_real = true
+static_friction_coefficient = 0.6
+kinetic_friction_coefficient = 0.4
+min_dot_for_ground = 0.5
+elasticity = 0.8
+max_velocity = 400.0
+b_is_safe_collision = true
+b_rotation_to_gravity = true
 
 [node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("12_2wvry")]
 position = Vector2(2043, 1863)
+target_altitude_sqr = 3600.0
+target_dir = true
+b_in_hibernation = false
+mass = 1.0
+velocity = Vector2(0, 0)
+prediction_velocity = Vector2(0, 0)
+b_prediction_velo_is_real = true
+static_friction_coefficient = 0.6
+kinetic_friction_coefficient = 0.4
+min_dot_for_ground = 0.5
+elasticity = 0.8
+max_velocity = 400.0
+b_is_safe_collision = true
+b_rotation_to_gravity = true
 
 [node name="Evil_Fred" parent="." unique_id=1502988588 instance=ExtResource("13_i4pkw")]
 position = Vector2(385, 530)
