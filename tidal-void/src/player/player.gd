@@ -11,13 +11,14 @@ class_name Player
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 20
 
-@export var min_jump_power : float = 50.0
+@export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 600.0
-@export var max_charge_time : float = 4.0  # seconds to reach full charge
+@export var max_charge_time : float = 12.0  # seconds to reach full charge
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
 var jump_charge_time : float = 0.0
+var jump_escape_speed : float = 0.0
 
 var max_jump_angle : float = PI/2.5
 
@@ -41,6 +42,7 @@ func _physics_process(delta: float) -> void:
 			is_charging_jump = true
 			b_prediction_velo_is_real = false;
 			jump_charge_time = 0.0
+			jump_escape_speed = escape_speed(grounded_body, global_position)
 
 		if is_charging_jump and Input.is_action_pressed("jump"):
 			jump_charge_time += delta
@@ -94,8 +96,6 @@ func _physics_process(delta: float) -> void:
 				is_charging_jump = false
 				walking_on_ground = true
 		ignore_layer = 0;
-				
-	
 			
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	if(!(b_is_grounded && walking_on_ground)):
@@ -111,8 +111,9 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 
 func get_jump_vector() -> Vector2:
 	var charge_ratio = jump_charge_time / max_charge_time
-	var curved_ratio = pow(charge_ratio, 0.3) #I like the feel of this better
-	var power =  lerp(min_jump_power, max_jump_power, curved_ratio)
+	var curved_ratio = pow(charge_ratio, 0.5) #I like the feel of this better
+	var max_jump = min(1.1 * jump_escape_speed, max_jump_power)
+	var power =  lerp(min_jump_power, max_jump, curved_ratio)
 	
 	var up_direction = grounded_normal.normalized()
 	
@@ -121,9 +122,11 @@ func get_jump_vector() -> Vector2:
 	
 	var angle_to_thrust = up_direction.angle_to(mouse_direction)
 	
-	if abs(angle_to_thrust) > max_jump_angle:
-		#instead of clamping the thrust angle, allow the player to cancel jumps by angling it at the planet
+	if abs(angle_to_thrust) > max_jump_angle * 1.2:
+	#	#instead of clamping the thrust angle, allow the player to cancel jumps by angling it at the planet
 		return Vector2.ZERO
+	elif abs(angle_to_thrust) > max_jump_angle:
+		angle_to_thrust = clampf(angle_to_thrust, -max_jump_angle, max_jump_angle)
 	
 	return power * up_direction.rotated(angle_to_thrust)
 
