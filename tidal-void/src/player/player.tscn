@@ -36,7 +36,7 @@ start_in_orbit = true
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)
-collision_mask = 11
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
 shape = SubResource("CircleShape2D_rc2ur")

@@ -9,16 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
-[ext_resource type="Script" uid="uid://e5bcknpxfmgo" path="res://src/Framework/Physics/one_way_bubble.gd" id="7_76idn"]
-[ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="8_uk65k"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_voqfk"]
-radius = 44.0
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -78,19 +73,6 @@ collision_radius = 70.0
 position = Vector2(2371, 1902)
 mass = 22000.0
 collision_radius = 210.0
-
-[node name="Bubble" type="StaticBody2D" parent="." unique_id=990195542]
-position = Vector2(626, 1863)
-collision_layer = 8
-collision_mask = 15
-script = ExtResource("7_76idn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bubble" unique_id=1420885407]
-shape = SubResource("CircleShape2D_voqfk")
-
-[node name="Sprite2D" type="Sprite2D" parent="Bubble" unique_id=1343004382]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("8_uk65k")
 
 [node name="Planet4" parent="." unique_id=1640720222 instance=ExtResource("1_4heml")]
 position = Vector2(530, 1882)

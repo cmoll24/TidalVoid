@@ -180,9 +180,19 @@ func  apply_velocity() -> void:
 			
 			var Collider : CollisionObject2D = shape_cast.get_collider(i)
 			
-			#if(Collider is PhysicsBody2D):
-				#Collider.oneway
-			
+			#check bubble
+			if (shape_cast.get_collider(i) is Bubble):
+						var bubble : Bubble = shape_cast.get_collider(i)
+						var shape_radius : float = 0;
+						if(collision_shape.shape is CircleShape2D):
+							shape_radius = collision_shape.shape.radius
+						else:
+							##rough estimate of radius
+							shape_radius =collision_shape.shape.get_rect().size.length()
+						#calculate bubble bounce, it is very possible that no bounce occurs
+						velocity = bubble.bounce_off_bubble(global_position,shape_radius,velocity);
+						continue
+
 			if (dot < 0 && (ignore_layer == 0 || Collider.collision_mask != ignore_layer)): #the collider must solely be on the ignore layer to be ignored
 				#We have contact
 				#Save the old velocity
@@ -199,12 +209,6 @@ func  apply_velocity() -> void:
 					other_body.velocity += velocityAdjustment * mass/total_mass * avg_elasticity;
 					velocity -= velocityAdjustment * other_body.mass/total_mass * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
-				
-				elif (shape_cast.get_collider(i) is Bubble):
-						var bubble : Bubble = shape_cast.get_collider(i)
-						if(!bubble.can_penetrate_bubble(global_position,velocity)):
-							#bubbles are bouncy
-							velocity -= velocityAdjustment * 2;	
 				#Treat it as having infinite mass if it is not a drift body 
 				elif (shape_cast.get_collider(i) is HeavyBody):
 					var other_body : HeavyBody = shape_cast.get_collider(i)
