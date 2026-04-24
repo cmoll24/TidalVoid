@@ -1,7 +1,6 @@
 extends PhysicsBody2D
 class_name DriftBody
 
-@onready var gravity_source = $GravitySource
 
 @onready var collision_shape : CollisionShape2D = $CollisionShape2D
 
@@ -12,6 +11,8 @@ class_name DriftBody
 
 ## the linear velocity of the body
 @export var velocity : Vector2 = Vector2.ZERO
+
+@export var gravity_source : GravitySource
 
 ## total enumerated gravity force
 var gravity_force : Vector2 = Vector2.ZERO
