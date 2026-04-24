@@ -9,11 +9,11 @@ class_name Player
 @onready var camera : Camera2D = $Camera2D
 
 #@export var jump_power : float = 200.0
-@export var walk_speed : float = 20
+@export var walk_speed : float = 620.0
 
 @export var min_jump_power : float = 10.0
-@export var max_jump_power : float = 600.0
-@export var max_charge_time : float = 12.0  # seconds to reach full charge
+@export var max_jump_power : float = 300.0
+@export var max_charge_time : float = 5.0  # seconds to reach full charge
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		if is_charging_jump and Input.is_action_pressed("jump"):
 			jump_charge_time += delta
 			jump_charge_time = min(jump_charge_time, max_charge_time)
-			prediction_velocity = get_jump_vector();
+			prediction_velocity = get_jump_vector().limit_length(max_velocity);
 
 		elif is_charging_jump: #no longer detects if the input was just released, this is so tabbing out can't trap you in jumping
 			perform_jump()
