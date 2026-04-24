@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
+[ext_resource type="PackedScene" path="res://src/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
@@ -141,6 +142,8 @@ position = Vector2(529, 1750)
 position = Vector2(761, 1710)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
+
+[node name="Inventory" parent="CanvasLayer" unique_id=263900093 instance=ExtResource("11_i4pkw")]
 
 [node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
 offset_right = 40.0
