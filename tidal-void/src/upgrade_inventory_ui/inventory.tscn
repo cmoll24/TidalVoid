@@ -1,14 +1,25 @@
 [gd_scene format=3 uid="uid://ddwdqbcegxc8r"]
 
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="1_pdobs"]
+[ext_resource type="Script" uid="uid://kny06iiea0jo" path="res://src/upgrade_inventory_ui/inventory.gd" id="1_up6s7"]
 
 [node name="Inventory" type="Control" unique_id=263900093]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_up6s7")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1273238412]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 250.0
+offset_right = 1500.0015
+offset_bottom = 750.0
+columns = 5
 
 [node name="StarNoiseTinnyBackground4" type="Sprite2D" parent="." unique_id=117186212]
 position = Vector2(959, 538.5)

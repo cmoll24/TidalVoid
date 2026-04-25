@@ -20,7 +20,7 @@ interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.60912055, 0.8175896, 1)
 colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120000005, 0.120000005, 0.6862745, 0.71, 0.07810001, 0.07810001, 0.627451, 0, 0, 0, 0.43137255, 0.17, 0.17, 0.17, 0)
 
-[node name="Player" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1139575510 groups=["player"]]
 script = ExtResource("1_5f2sf")
 walk_speed = 620.0
 min_jump_power = 30.0
