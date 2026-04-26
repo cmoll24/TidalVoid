@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://dme5g28pceimf"]
+
+[ext_resource type="Script" uid="uid://bspliey5vs6m3" path="res://src/upgrade_inventory_ui/upgrade_store_slot.gd" id="1_bitoj"]
+
+[node name="UpgradeStoreSlot" type="Control" unique_id=2078154960]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1120.0
+offset_bottom = -980.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="." unique_id=696584069]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19368976, 0.24063128, 0.6093482, 1)
+script = ExtResource("1_bitoj")
+
+[node name="upgrade_name" type="Label" parent="background" unique_id=1000419467]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 22.0
+offset_right = 166.0
+offset_bottom = 78.0
+
+[node name="description" type="Label" parent="background" unique_id=1522027774]
+layout_mode = 0
+offset_left = 193.0
+offset_top = 19.0
+offset_right = 443.0
+offset_bottom = 82.0
+
+[node name="cost" type="Label" parent="background" unique_id=348579442]
+layout_mode = 0
+offset_left = 454.0
+offset_top = 19.0
+offset_right = 592.0
+offset_bottom = 82.0
+
+[node name="buy_button" type="Button" parent="background" unique_id=1402475640]
+layout_mode = 0
+offset_left = 614.0
+offset_top = 17.0
+offset_right = 770.0
+offset_bottom = 84.0
+text = "Buy"
+
+[node name="insufficient" type="Label" parent="background" unique_id=662744899]
+layout_mode = 0
+offset_left = 796.0
+offset_top = 24.0
+offset_right = 984.0
+offset_bottom = 89.0

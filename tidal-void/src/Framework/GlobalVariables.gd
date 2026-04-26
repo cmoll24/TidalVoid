@@ -49,3 +49,17 @@ func remove_item(target_item):
 func player_reference(player):
 	player_node = player
 	
+func has_item(item_name: String, quantity: int) -> bool:
+	for i in range(inventory.size()):
+		if inventory[i] != null and inventory[i]["item_name"] == item_name:
+			return inventory[i]["quantity"] >= quantity
+	return false
+
+func remove_item_by_name(item_name: String, quantity: int):
+	for i in range(inventory.size()):
+		if inventory[i] != null and inventory[i]["item_name"] == item_name:
+			inventory[i]["quantity"] -= quantity
+			if inventory[i]["quantity"] <= 0:
+				inventory[i] = null
+			inventory_update.emit()
+			return

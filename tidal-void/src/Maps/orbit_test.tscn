@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="12_uk65k"]
 [ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/upgrade_inventory_ui/health_upgrade.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://cu3raj4y0jkcg" path="res://src/upgrade_inventory_ui/UpgradeStore.tscn" id="15_e5mfl"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -184,6 +185,9 @@ position = Vector2(529, 1750)
 position = Vector2(761, 1710)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
+
+[node name="UpgradeStore" parent="CanvasLayer" unique_id=1435990563 instance=ExtResource("15_e5mfl")]
+visible = false
 
 [node name="Inventory" parent="CanvasLayer" unique_id=263900093 instance=ExtResource("11_i4pkw")]
 
