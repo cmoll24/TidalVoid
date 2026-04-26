@@ -55,3 +55,9 @@ func _process(_delta: float) -> void:
 		player.set_thrust(thrust_direction.rotated(PI), thrust_multiplier)
 	else:
 		player.set_thrust(thrust_direction, thrust_multiplier)
+
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("propulsion"):
+		player.propulsion_ability()
