@@ -6,13 +6,15 @@ extends Node2D
 @export var item_effect = ""
 @export var item_name = ""
 @export var item_texture = Texture
+#this creates place to select different upgrades for items
+@export var upgrade: base_upgrade
 var scene_path = "res://src/upgrade_inventory_ui/inventory_item.tscn"
 @onready var icon_sprite = $Sprite2D
 
+# for checking if player is in inventory body
 var player_spotted = false
 
 func _ready():
-	
 	if not Engine.is_editor_hint():
 		icon_sprite.texture = item_texture
 	
@@ -21,10 +23,11 @@ func _process(_delta):
 	if Engine.is_editor_hint():
 		icon_sprite.texture = item_texture
 	
+	# player spotted check if player is in area. PIck up item if yes
 	if player_spotted:
 		pick_up_item()
 
-#holds attributes for inventory items
+#holds attributes for picked-up inventory items
 func pick_up_item():
 	var items = {
 		"quantity" = 1,
@@ -33,6 +36,7 @@ func pick_up_item():
 		"item_name" = item_name,
 		"item_texture" = item_texture,
 		"scene_path" = scene_path,
+		"upgrade" = upgrade,
 	}
 	#calls add item when player is trying to add items, and queue_free the item 
 	if GV.player_node:

@@ -12,19 +12,16 @@ var item = null
 
 func _on_item_button_mouse_entered() -> void:
 	#if there is item, then show detail panel
-	print("mouse enters slot")
 	if item != null:
 		use_or_drop.visible = false
 		detail.visible = true
 
 func _on_item_button_mouse_exited() -> void:
-	print("mouse exits slot")
 	#hide the detail panel
 	detail.visible = false
 
 
 func _on_item_button_pressed() -> void:
-	print("mouse clicked slot")
 	#turn on and off the use or drop panel
 	if item != null:
 		use_or_drop.visible = !use_or_drop.visible
@@ -45,10 +42,21 @@ func set_item_slot(new_item):
 	item_type.text = str(item["item_type"])
 
 	
-	#if effect is present, set effect to that item's descrip
+	# f effect is present, set effect to that item's descrip
 	if item["item_effect"] != "":
-		item_effect.text = str("new ", item["item_effect"])
+		item_effect.text = str(item["item_effect"])
 	else:
 		item_effect.text = ""
 	
-	
+# using the inventory item to apply upgrade to the user
+func _on_use_button_pressed() -> void:
+	# if item is there
+	if item != null:
+		# get the upgrade
+		var upgrade = item.get("upgrade")
+		# if upgrade is there
+		if upgrade != null:
+			# applies the effect
+			upgrade.apply_effect(GV.player_node)
+		# remove after use
+		GV.remove_item(item)

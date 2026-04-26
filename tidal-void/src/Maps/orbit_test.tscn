@@ -15,11 +15,28 @@
 [ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="11_76idn"]
 [ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
+[ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="12_uk65k"]
+[ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/upgrade_inventory_ui/health_upgrade.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
+
+[sub_resource type="Resource" id="Resource_voqfk"]
+script = ExtResource("12_voqfk")
+heal_amount = 30
+metadata/_custom_type_script = "uid://cfqw8if3wfy87"
+
+[sub_resource type="Resource" id="Resource_e5mfl"]
+script = ExtResource("12_voqfk")
+heal_amount = 30
+metadata/_custom_type_script = "uid://cfqw8if3wfy87"
+
+[sub_resource type="Resource" id="Resource_lfruh"]
+script = ExtResource("12_voqfk")
+heal_amount = 50
+metadata/_custom_type_script = "uid://cfqw8if3wfy87"
 
 [sub_resource type="Gradient" id="Gradient_v2br0"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -106,16 +123,26 @@ antialiased = true
 [node name="InventoryItem" parent="." unique_id=559685777 instance=ExtResource("11_6pfde")]
 position = Vector2(724, 1879)
 item_type = "consumable"
-item_effect = "regain health"
+item_effect = "+30 health"
 item_name = "cookie"
 item_texture = ExtResource("11_76idn")
+upgrade = SubResource("Resource_voqfk")
 
 [node name="InventoryItem2" parent="." unique_id=1781615185 instance=ExtResource("11_6pfde")]
-position = Vector2(644, 2012)
+position = Vector2(616, 1988)
 item_type = "consumable"
-item_effect = "regain health"
+item_effect = "+30 health"
 item_name = "cookie"
 item_texture = ExtResource("11_76idn")
+upgrade = SubResource("Resource_e5mfl")
+
+[node name="InventoryItem3" parent="." unique_id=1108248244 instance=ExtResource("11_6pfde")]
+position = Vector2(671, 1720)
+item_type = "buddy"
+item_effect = "+50 health ?!?"
+item_name = "Jim"
+item_texture = ExtResource("12_uk65k")
+upgrade = SubResource("Resource_lfruh")
 
 [node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
 position = Vector2(512.2966, 452.5486)
@@ -165,6 +192,13 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 24
 text = "FPS"
+
+[node name="HealthLable" type="Label" parent="CanvasLayer" unique_id=1834960123]
+offset_left = 100.0
+offset_right = 141.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "Health"
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
 position = Vector2(368, 1765)
