@@ -17,7 +17,7 @@ script = ExtResource("1_up6s7")
 layout_mode = 0
 offset_left = 500.0
 offset_top = 250.0
-offset_right = 1500.0015
+offset_right = 1500.0
 offset_bottom = 750.0
 columns = 5
 

@@ -12,21 +12,24 @@ var item = null
 
 func _on_item_button_mouse_entered() -> void:
 	#if there is item, then show detail panel
+	print("mouse enters slot")
 	if item != null:
 		use_or_drop.visible = false
 		detail.visible = true
 
 func _on_item_button_mouse_exited() -> void:
+	print("mouse exits slot")
 	#hide the detail panel
 	detail.visible = false
 
 
 func _on_item_button_pressed() -> void:
-	
+	print("mouse clicked slot")
 	#turn on and off the use or drop panel
 	if item != null:
 		use_or_drop.visible = !use_or_drop.visible
 
+#default empty slots
 func set_empty_slot():
 	icon.texture = null
 	quantity.text = ""
@@ -36,13 +39,11 @@ func set_item_slot(new_item):
 	
 	#now item is a new item
 	item = new_item
-	#icon.texture = item["texture"]
+	icon.texture = item["item_texture"]
 	quantity.text = str(item["quantity"])
-	print("quantity set")
 	item_name.text = str(item["item_name"])
-	print("item name set")
 	item_type.text = str(item["item_type"])
-	print("item type set")
+
 	
 	#if effect is present, set effect to that item's descrip
 	if item["item_effect"] != "":

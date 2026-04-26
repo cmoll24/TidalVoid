@@ -13,11 +13,12 @@ func _on_inventory_update():
 	for item in GV.inventory:
 		var slot = GV.inventory_slot_scene.instantiate()
 		grid_container.add_child(slot)
+		
+		#if there are no item when creating the slot, we make a empty slot
 		if item != null:
 			slot.set_item_slot(item)
-			
-func _process(delta):
-	pass
+		else:
+			slot.set_empty_slot()
 
 #Clears grid first to update the item
 func clear_grid():

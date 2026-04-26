@@ -104,7 +104,14 @@ gradient = SubResource("Gradient_je76y")
 antialiased = true
 
 [node name="InventoryItem" parent="." unique_id=559685777 instance=ExtResource("11_6pfde")]
-position = Vector2(710, 1884)
+position = Vector2(724, 1879)
+item_type = "consumable"
+item_effect = "regain health"
+item_name = "cookie"
+item_texture = ExtResource("11_76idn")
+
+[node name="InventoryItem2" parent="." unique_id=1781615185 instance=ExtResource("11_6pfde")]
+position = Vector2(644, 2012)
 item_type = "consumable"
 item_effect = "regain health"
 item_name = "cookie"

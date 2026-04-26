@@ -19,13 +19,15 @@ func add_item(items):
 		#if item exit in inventory AND it matches the name and effect type
 		if inventory[i] != null and inventory[i]["item_name"] == items["item_name"] and inventory[i]["item_effect"] == items["item_effect"]:
 			#updates the quantity
-			inventory[i]["item_quantity"] += items["item_quantity"]
+			inventory[i]["quantity"] += items["quantity"]
 			inventory_update.emit()
+			print(inventory)
 			return true
 		#if item does not exist, then we make a new one
 		elif inventory[i] == null:
 			inventory[i] = items
 			inventory_update.emit()
+			print(inventory)
 			return true
 			#if neither then dont add it into the inventory
 			

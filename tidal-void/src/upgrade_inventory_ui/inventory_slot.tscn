@@ -6,6 +6,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80d6s"]
 
 [node name="InventorySlot" type="Control" unique_id=1401665037]
+process_mode = 3
+visibility_layer = 4
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 0

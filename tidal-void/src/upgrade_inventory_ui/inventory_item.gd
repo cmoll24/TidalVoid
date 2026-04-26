@@ -9,7 +9,6 @@ extends Node2D
 var scene_path = "res://src/upgrade_inventory_ui/inventory_item.tscn"
 @onready var icon_sprite = $Sprite2D
 
-#this is something
 var player_spotted = false
 
 func _ready():
