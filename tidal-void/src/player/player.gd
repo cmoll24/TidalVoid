@@ -20,6 +20,14 @@ var is_charging_jump : bool = false
 var jump_charge_time : float = 0.0
 var jump_escape_speed : float = 0.0
 
+#This here is for player ability, the idea is to give the player
+#a propulsion or after burner in case the player leaves orbit
+#The max can be changed to whatever works but once the countdown hits 0,
+#it won't be returned till after the player redocks with their ship
+var propulsion_max : int = 3
+var propulsions_left : int = 3
+@export var propulsion_power : float = 300.0
+
 var max_jump_angle : float = PI/2.5
 
 var mouse_direction : Vector2
@@ -142,3 +150,11 @@ func perform_jump():
 	velocity += jump_vector
 
 	jump_charge_time = 0.0
+
+func propulsion_ability():
+	if propulsions_left > 0:
+		propulsions_left -= 1
+		velocity += (propulsion_power * mouse_direction)
+		
+func reset_abilities():
+	propulsions_left = propulsion_max
