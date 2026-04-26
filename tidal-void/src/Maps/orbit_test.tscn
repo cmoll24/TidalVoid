@@ -19,6 +19,8 @@
 [ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/upgrade_inventory_ui/health_upgrade.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://cu3raj4y0jkcg" path="res://src/upgrade_inventory_ui/UpgradeStore.tscn" id="15_e5mfl"]
+[ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/upgrade_inventory_ui/upgrade_store_item.gd" id="16_e7e7k"]
+[ext_resource type="Resource" uid="uid://baseyh7yi5kn" path="res://src/upgrade_inventory_ui/max_health_upgrade.tres" id="17_1e5fo"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -188,6 +190,7 @@ position = Vector2(761, 1710)
 
 [node name="UpgradeStore" parent="CanvasLayer" unique_id=1435990563 instance=ExtResource("15_e5mfl")]
 visible = false
+available_upgrades = Array[ExtResource("16_e7e7k")]([ExtResource("17_1e5fo")])
 
 [node name="Inventory" parent="CanvasLayer" unique_id=263900093 instance=ExtResource("11_i4pkw")]
 

@@ -11,6 +11,7 @@ offset_right = -1120.0
 offset_bottom = -980.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bitoj")
 
 [node name="background" type="ColorRect" parent="." unique_id=696584069]
 layout_mode = 1
@@ -21,7 +22,6 @@ offset_right = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.19368976, 0.24063128, 0.6093482, 1)
-script = ExtResource("1_bitoj")
 
 [node name="upgrade_name" type="Label" parent="background" unique_id=1000419467]
 layout_mode = 0
@@ -58,3 +58,5 @@ offset_left = 796.0
 offset_top = 24.0
 offset_right = 984.0
 offset_bottom = 89.0
+
+[connection signal="pressed" from="background/buy_button" to="." method="_on_buy_button_pressed"]
