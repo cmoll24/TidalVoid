@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c15qcqyp8vxjq" path="res://src/player/Equipment/creature_carrier.gd" id="1_wnmps"]
 [ext_resource type="Texture2D" uid="uid://d4lgugcg7afl8" path="res://assets/Textures/Player/CreatureCarrier_body.png" id="2_23cqy"]
+[ext_resource type="Texture2D" uid="uid://crth1ilhsljkh" path="res://assets/Textures/Player/PLACEHOLDER_Ridert.png" id="3_3npey"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_ypvpx"]
 [ext_resource type="Script" uid="uid://e5bcknpxfmgo" path="res://src/Framework/Physics/one_way_bubble.gd" id="4_23cqy"]
 [ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="5_lhdkr"]
@@ -37,6 +38,11 @@ collision_mask = 3
 position = Vector2(-62, 12)
 scale = Vector2(-0.1, 0.1)
 texture = ExtResource("2_23cqy")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=166721475]
+position = Vector2(-77, 7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_3npey")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1055278484]
 position = Vector2(-62, 12)

@@ -38,6 +38,7 @@ func _input(event: InputEvent) -> void:
 			ignore_rotation = true
 
 func _process(delta: float) -> void:
+	global_position = get_parent().player.global_position
 	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), 1.0 - exp(-zoom_smoothing * delta * 60.0))
 	

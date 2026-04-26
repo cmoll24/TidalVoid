@@ -1,12 +1,8 @@
 
-extends DriftBody
+extends PlayerPawn
 class_name Player
 
-@onready var gravity_label = $GravityLabel
 
-@onready var thrust_particles = $ThrustParticles
-
-@onready var camera : Camera2D = $Camera2D
 
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 620.0
@@ -39,6 +35,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
+	player_movement(delta)
+
+func player_movement(delta : float) -> void:
 	if b_is_grounded && walking_on_ground:
 		#Exit Condition
 		if(velocity.dot(grounded_normal) < -1):
@@ -63,8 +62,8 @@ func _physics_process(delta: float) -> void:
 			b_prediction_velo_is_real = true;
 		#Handle walking on ground
 		
-		#ignore collision with driftbodies
-		ignore_layer = 2
+		#ignore collision with static geometry
+		ignore_layer = 1
 		#circle implementation
 		if(grounded_shape.shape is CircleShape2D):
 			var player_loc : Vector2 = global_position - grounded_body.global_position
@@ -95,7 +94,7 @@ func _physics_process(delta: float) -> void:
 			
 			
 		else:
-			printerr("Walking on ground only support circle shapes currently, invalid shape used")
+			printerr("Walking on ground only supports circle shapes currently, invalid shape used")
 	else:
 		b_prediction_velo_is_real = true;
 		if(b_is_grounded && !walking_on_ground):
@@ -104,6 +103,7 @@ func _physics_process(delta: float) -> void:
 				is_charging_jump = false
 				walking_on_ground = true
 		ignore_layer = 0;
+	
 			
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	if(!(b_is_grounded && walking_on_ground)):
