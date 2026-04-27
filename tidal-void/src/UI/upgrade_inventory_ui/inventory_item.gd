@@ -8,7 +8,7 @@ extends Node2D
 @export var item_texture = Texture
 #this creates place to select different upgrades for items
 @export var effect: base_item_effect
-var scene_path = "res://src/upgrade_inventory_ui/inventory_item.tscn"
+var scene_path = "res://src/UI/upgrade_inventory_ui/inventory_item.tscn"
 @onready var icon_sprite = $Sprite2D
 
 # for checking if player is in inventory body

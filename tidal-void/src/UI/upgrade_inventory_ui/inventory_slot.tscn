@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dps340qvmhsor"]
 
-[ext_resource type="Script" uid="uid://dwe1ru6ik7gt7" path="res://src/upgrade_inventory_ui/inventory_slot.gd" id="1_v55le"]
+[ext_resource type="Script" uid="uid://dwe1ru6ik7gt7" path="res://src/UI/upgrade_inventory_ui/inventory_slot.gd" id="1_v55le"]
 [ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="2_s3dt7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80d6s"]

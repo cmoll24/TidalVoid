@@ -1,8 +1,9 @@
+class_name GlobalVariables
 extends Node
 
 var player_health = 100
-var player_node: Node = null
-@onready var inventory_slot_scene = preload("res://src/upgrade_inventory_ui/inventory_slot.tscn")
+var player_node: Player = null
+@onready var inventory_slot_scene = preload("res://src/UI/upgrade_inventory_ui/inventory_slot.tscn")
 
 # where our inventory item goes
 var inventory = []
@@ -46,7 +47,7 @@ func remove_item(target_item):
 			inventory_update.emit()
 			return
 	
-func player_reference(player):
+func player_reference(player : Player):
 	player_node = player
 	
 func has_item(item_name: String, quantity: int) -> bool:

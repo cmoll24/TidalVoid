@@ -6,7 +6,7 @@ extends Control
 #lists of uprgade store item resources assigned in inspector
 @export var available_upgrades: Array[upgrade_store_item] = []
 
-var store_slot_scene = preload("res://src/upgrade_inventory_ui/upgrade_store_slot.tscn")
+var store_slot_scene = preload("res://src/UI/upgrade_inventory_ui/upgrade_store_slot.tscn")
 
 func _ready():
 	back_button.pressed.connect(_on_back_button_pressed)

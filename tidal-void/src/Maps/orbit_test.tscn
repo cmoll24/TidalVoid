@@ -11,17 +11,17 @@
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
-[ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/upgrade_inventory_ui/inventory_item.tscn" id="11_6pfde"]
+[ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/UI/upgrade_inventory_ui/inventory_item.tscn" id="11_6pfde"]
 [ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="11_76idn"]
-[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
 [ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="12_uk65k"]
-[ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/upgrade_inventory_ui/health_increase_effect.gd" id="12_voqfk"]
+[ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/UI/upgrade_inventory_ui/health_increase_effect.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
-[ext_resource type="PackedScene" uid="uid://cu3raj4y0jkcg" path="res://src/upgrade_inventory_ui/UpgradeStore.tscn" id="15_e5mfl"]
-[ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/upgrade_inventory_ui/upgrade_store_item.gd" id="16_e7e7k"]
-[ext_resource type="Resource" uid="uid://baseyh7yi5kn" path="res://src/upgrade_inventory_ui/max_health_upgrade.tres" id="17_1e5fo"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://cu3raj4y0jkcg" path="res://src/UI/upgrade_inventory_ui/UpgradeStore.tscn" id="15_e5mfl"]
+[ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/UI/upgrade_inventory_ui/upgrade_store_item.gd" id="16_e7e7k"]
+[ext_resource type="Resource" uid="uid://baseyh7yi5kn" path="res://src/UI/upgrade_inventory_ui/max_health_upgrade.tres" id="17_1e5fo"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -108,7 +108,7 @@ elasticity = 0.8
 thrust_power = 15.0
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
-player = NodePath("../CreatureCarrier")
+player = NodePath("../Player")
 
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
