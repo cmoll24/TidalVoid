@@ -84,6 +84,7 @@ z_index = 1
 position = Vector2(806, 1859)
 max_jump_power = 300.0
 max_charge_time = 2.5
+propulsion_power = 150.0
 elasticity = 0.8
 thrust_power = 15.0
 
