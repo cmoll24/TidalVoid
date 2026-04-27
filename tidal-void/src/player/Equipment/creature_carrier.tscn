@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b56tl64vvewxi"]
+
+[ext_resource type="Script" uid="uid://c15qcqyp8vxjq" path="res://src/player/Equipment/creature_carrier.gd" id="1_wnmps"]
+[ext_resource type="Texture2D" uid="uid://d4lgugcg7afl8" path="res://assets/Textures/Player/CreatureCarrier_body.png" id="2_23cqy"]
+[ext_resource type="Texture2D" uid="uid://crth1ilhsljkh" path="res://assets/Textures/Player/PLACEHOLDER_Ridert.png" id="3_3npey"]
+[ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_ypvpx"]
+[ext_resource type="Script" uid="uid://e5bcknpxfmgo" path="res://src/Framework/Physics/one_way_bubble.gd" id="4_23cqy"]
+[ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="5_lhdkr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3npey"]
+radius = 20.0
+
+[sub_resource type="Curve" id="Curve_lhdkr"]
+_data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_3npey"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
+colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 0.27450982, 0.6431373, 0.9254902, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lhdkr"]
+radius = 44.0
+
+[node name="CreatureCarrier" type="StaticBody2D" unique_id=1283291436]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_wnmps")
+mass = 10.0
+elasticity = 2.0
+thrust_power = 80.0
+start_in_orbit = true
+b_rotation_to_gravity = false
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=2074740384]
+target_position = Vector2(0, 0)
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=568160610]
+position = Vector2(-62, 12)
+scale = Vector2(-0.1, 0.1)
+texture = ExtResource("2_23cqy")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=166721475]
+position = Vector2(-77, 7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_3npey")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1055278484]
+position = Vector2(-62, 12)
+shape = SubResource("CircleShape2D_3npey")
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=173621513]
+position = Vector2(-82, 23)
+amount = 20
+direction = Vector2(-1, 0)
+spread = 10.06
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 90.0
+angle_max = 30.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_lhdkr")
+color_ramp = SubResource("Gradient_3npey")
+script = ExtResource("3_ypvpx")
+
+[node name="Bubble" type="StaticBody2D" parent="." unique_id=89911421]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("4_23cqy")
+inner_radius = 30.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bubble" unique_id=79878690]
+shape = SubResource("CircleShape2D_lhdkr")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bubble" unique_id=684946758]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_lhdkr")

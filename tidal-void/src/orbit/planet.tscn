@@ -14,21 +14,21 @@ shader_parameter/radius = 0.50000002375
 shader_parameter/edge_smoothness = 0.0
 
 [sub_resource type="Gradient" id="Gradient_klrcr"]
-offsets = PackedFloat32Array(0, 0.6987952, 0.9096386, 1)
-colors = PackedColorArray(1, 1, 0.5254902, 0, 1, 1, 0.5254902, 0.042721722, 1, 1, 0.5254902, 0.13725491, 1, 1, 0.5254902, 0)
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0.043137256)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_s2205"]
 gradient = SubResource("Gradient_klrcr")
-width = 100
-height = 100
+width = 500
+height = 500
 fill = 1
-fill_from = Vector2(0.47826087, 0.5173913)
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_louge"]
 polygon = PackedVector2Array(1, 0, 0.98078525, 0.19509032, 0.9238795, 0.38268343, 0.8314696, 0.55557024, 0.70710677, 0.70710677, 0.55557024, 0.8314696, 0.38268343, 0.9238795, 0.19509032, 0.98078525, 6.123032e-17, 1, -0.19509032, 0.98078525, -0.38268343, 0.9238795, -0.55557024, 0.8314696, -0.70710677, 0.70710677, -0.8314696, 0.55557024, -0.9238795, 0.38268343, -0.98078525, 0.19509032, -1, 1.2246064e-16, -0.98078525, -0.19509032, -0.9238795, -0.38268343, -0.8314696, -0.55557024, -0.70710677, -0.70710677, -0.55557024, -0.8314696, -0.38268343, -0.9238795, -0.19509032, -0.98078525, -1.8369095e-16, -1, 0.19509032, -0.98078525, 0.38268343, -0.9238795, 0.55557024, -0.8314696, 0.70710677, -0.70710677, 0.8314696, -0.55557024, 0.9238795, -0.38268343, 0.98078525, -0.19509032)
 
 [node name="Planet" type="StaticBody2D" unique_id=519984572 groups=["gravity_sources"]]
-collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_louge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1343489286]
@@ -42,10 +42,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_s2205")
