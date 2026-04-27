@@ -89,7 +89,7 @@ elasticity = 0.8
 thrust_power = 15.0
 
 [node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
-player = NodePath("../Player")
+player = NodePath("../CreatureCarrier")
 
 [node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")

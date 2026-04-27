@@ -26,8 +26,6 @@ var propulsions_left : int = 3
 
 var max_jump_angle : float = PI/2.5
 
-var mouse_direction : Vector2
-
 #var surface_friction_coef : float = 0.001
 
 func _ready() -> void:

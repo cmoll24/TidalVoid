@@ -28,7 +28,9 @@ collision_mask = 3
 script = ExtResource("1_wnmps")
 mass = 10.0
 elasticity = 2.0
+thrust_power = 80.0
 start_in_orbit = true
+b_rotation_to_gravity = false
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=2074740384]
 target_position = Vector2(0, 0)
@@ -51,7 +53,7 @@ shape = SubResource("CircleShape2D_3npey")
 [node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=173621513]
 position = Vector2(-82, 23)
 amount = 20
-direction = Vector2(0, 0)
+direction = Vector2(-1, 0)
 spread = 10.06
 gravity = Vector2(0, 0)
 initial_velocity_min = 70.0
