@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="upgrade_store_item" format=3 uid="uid://baseyh7yi5kn"]
 
 [ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/upgrade_inventory_ui/upgrade_store_item.gd" id="1_460l7"]
-[ext_resource type="Script" uid="uid://dli3xt7g6vq1d" path="res://src/upgrade_inventory_ui/max_health_uprade.gd" id="2_osi3d"]
+[ext_resource type="Script" uid="uid://dli3xt7g6vq1d" path="res://src/upgrade_inventory_ui/max_health_upgrade.gd" id="2_osi3d"]
 
 [sub_resource type="Resource" id="Resource_1qe83"]
 script = ExtResource("2_osi3d")

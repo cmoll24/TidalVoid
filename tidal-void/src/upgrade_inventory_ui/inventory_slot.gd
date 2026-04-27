@@ -53,10 +53,10 @@ func _on_use_button_pressed() -> void:
 	# if item is there
 	if item != null:
 		# get the upgrade
-		var upgrade = item.get("upgrade")
+		var effect = item.get("effect")
 		# if upgrade is there
-		if upgrade != null:
+		if effect != null:
 			# applies the effect
-			upgrade.apply_effect(GV.player_node)
+			effect.apply_effect(GV.player_node)
 		# remove after use
 		GV.remove_item(item)

@@ -7,7 +7,7 @@ extends Node2D
 @export var item_name = ""
 @export var item_texture = Texture
 #this creates place to select different upgrades for items
-@export var upgrade: base_upgrade
+@export var effect: base_item_effect
 var scene_path = "res://src/upgrade_inventory_ui/inventory_item.tscn"
 @onready var icon_sprite = $Sprite2D
 
@@ -36,7 +36,7 @@ func pick_up_item():
 		"item_name" = item_name,
 		"item_texture" = item_texture,
 		"scene_path" = scene_path,
-		"upgrade" = upgrade,
+		"effect" = effect,
 	}
 	#calls add item when player is trying to add items, and queue_free the item 
 	if GV.player_node:

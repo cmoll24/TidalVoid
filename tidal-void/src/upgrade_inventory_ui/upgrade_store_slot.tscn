@@ -7,7 +7,7 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1120.0
+offset_right = -1060.0
 offset_bottom = -980.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -58,5 +58,6 @@ offset_left = 796.0
 offset_top = 24.0
 offset_right = 984.0
 offset_bottom = 89.0
+text = "Insufficient!"
 
 [connection signal="pressed" from="background/buy_button" to="." method="_on_buy_button_pressed"]
