@@ -29,7 +29,10 @@ var max_jump_angle : float = PI/2.5
 #var surface_friction_coef : float = 0.001
 
 func _ready() -> void:
+	GV.player_reference(self)
 	super._ready()
+	if self.is_in_group("player"):
+		print("in player")
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)

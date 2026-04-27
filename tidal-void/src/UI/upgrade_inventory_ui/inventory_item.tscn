@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b7xfx826u4njb"]
+
+[ext_resource type="Script" uid="uid://nghglfygt4k2" path="res://src/UI/upgrade_inventory_ui/inventory_item.gd" id="1_0074f"]
+[ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="2_itdu0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4fhm2"]
+radius = 33.06055
+
+[node name="InventoryItem" type="Node2D" unique_id=559685777 groups=["items"]]
+script = ExtResource("1_0074f")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2128452468]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=658466756]
+shape = SubResource("CircleShape2D_4fhm2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=670359287]
+texture = ExtResource("2_itdu0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
