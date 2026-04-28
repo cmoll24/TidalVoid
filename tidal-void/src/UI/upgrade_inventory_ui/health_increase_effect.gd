@@ -1,4 +1,3 @@
-@tool
 class_name health_increase_effect
 extends base_item_effect
 
@@ -7,6 +6,7 @@ extends base_item_effect
 # you can dynamically change health ammount
 @export var heal_amount = 10
 
+### player not used
 func apply_effect(player: Node) -> void:
 	GV.player_health += heal_amount
 	print("new health is now: ", GV.player_health)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ddwdqbcegxc8r"]
 
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="1_pdobs"]
-[ext_resource type="Script" uid="uid://kny06iiea0jo" path="res://src/upgrade_inventory_ui/inventory.gd" id="1_up6s7"]
+[ext_resource type="Script" uid="uid://kny06iiea0jo" path="res://src/UI/upgrade_inventory_ui/inventory.gd" id="1_up6s7"]
 
 [node name="Inventory" type="Control" unique_id=263900093]
 process_mode = 3

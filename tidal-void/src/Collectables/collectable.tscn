@@ -7,6 +7,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8g1sw"]
 
 [node name="Collectable" type="Area2D" unique_id=1685557867]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_6f7qm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884730571]

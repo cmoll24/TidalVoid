@@ -40,6 +40,7 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[Vi
 	var sight_dist_squared = sight_dist*sight_dist;
 	# check all the vision sources
 	for vs in VisionSources:
+		
 		if(!((1 << vs.v_type) & v_mask)):
 			# skip if the the vision source doesn't fit the bitmask
 			continue

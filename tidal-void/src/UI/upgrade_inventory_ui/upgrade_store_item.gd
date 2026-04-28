@@ -1,4 +1,3 @@
-@tool
 class_name upgrade_store_item
 extends Resource
 

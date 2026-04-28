@@ -1,4 +1,3 @@
-@tool
 class_name base_item_effect
 extends Resource
 

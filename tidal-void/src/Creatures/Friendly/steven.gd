@@ -42,6 +42,8 @@ func _ready() -> void:
 	super._ready()
 	#set the vision bitmask( use the | operator to add more)
 	v_types = 1 << VisionSource.v_source_type.sFood
+	v_types = 127
+	call_deferred("post_ready")
 	
 func post_ready() -> void:
 	##Hook up to the vision timer

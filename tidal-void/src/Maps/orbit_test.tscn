@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 [ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/UI/upgrade_inventory_ui/inventory_item.tscn" id="11_6pfde"]
-[ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="11_76idn"]
 [ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
 [ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="12_uk65k"]
@@ -27,6 +26,10 @@
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
 
+[sub_resource type="Gradient" id="Gradient_v2br0"]
+offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
+colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0.67058825, 0.33, 0.072600015, 0.32142, 0.38431373, 0.33, 0.05280001, 0.32076, 0)
+
 [sub_resource type="Resource" id="Resource_e7e7k"]
 script = ExtResource("12_voqfk")
 metadata/_custom_type_script = "uid://cfqw8if3wfy87"
@@ -38,10 +41,6 @@ metadata/_custom_type_script = "uid://cfqw8if3wfy87"
 [sub_resource type="Resource" id="Resource_65noi"]
 script = ExtResource("12_voqfk")
 metadata/_custom_type_script = "uid://cfqw8if3wfy87"
-
-[sub_resource type="Gradient" id="Gradient_v2br0"]
-offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
-colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0.67058825, 0.33, 0.072600015, 0.32142, 0.38431373, 0.33, 0.05280001, 0.32076, 0)
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 script = ExtResource("1_hd3kg")
@@ -121,30 +120,6 @@ player = NodePath("../Player")
 width = 3.0
 gradient = SubResource("Gradient_je76y")
 antialiased = true
-
-[node name="InventoryItem" parent="." unique_id=559685777 instance=ExtResource("11_6pfde")]
-position = Vector2(724, 1879)
-item_type = "consumable"
-item_effect = "+30 health"
-item_name = "cookie"
-item_texture = ExtResource("11_76idn")
-effect = SubResource("Resource_e7e7k")
-
-[node name="InventoryItem2" parent="." unique_id=1781615185 instance=ExtResource("11_6pfde")]
-position = Vector2(616, 1988)
-item_type = "consumable"
-item_effect = "+30 health"
-item_name = "cookie"
-item_texture = ExtResource("11_76idn")
-effect = SubResource("Resource_1e5fo")
-
-[node name="InventoryItem3" parent="." unique_id=1108248244 instance=ExtResource("11_6pfde")]
-position = Vector2(671, 1720)
-item_type = "buddy"
-item_effect = "+50 health ?!?"
-item_name = "Jim"
-item_texture = ExtResource("12_uk65k")
-effect = SubResource("Resource_65noi")
 
 [node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
 position = Vector2(512.2966, 452.5486)
@@ -262,4 +237,24 @@ position = Vector2(385, 530)
 position = Vector2(2362, 1676)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
-position = Vector2(344, 2026)
+position = Vector2(1375, 1532)
+
+[node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("11_6pfde")]
+position = Vector2(724, 1879)
+item_type = "consumable"
+item_effect = "+30 health"
+effect = SubResource("Resource_e7e7k")
+
+[node name="InventoryItem2" parent="." unique_id=850590550 instance=ExtResource("11_6pfde")]
+position = Vector2(616, 1988)
+item_type = "consumable"
+item_effect = "+30 health"
+effect = SubResource("Resource_1e5fo")
+
+[node name="InventoryItem3" parent="." unique_id=1248647999 instance=ExtResource("11_6pfde")]
+position = Vector2(671, 1720)
+item_type = "buddy"
+item_effect = "+50 health ?!?"
+item_name = "Jim"
+item_texture = ExtResource("12_uk65k")
+effect = SubResource("Resource_65noi")
