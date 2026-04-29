@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_hd3kg"]
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_4vn8n"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
-[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
+[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="3_gen7d"]
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
@@ -98,18 +98,13 @@ position = Vector2(530, 1882)
 mass = 1500.0
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-z_index = 1
 position = Vector2(806, 1859)
-max_jump_power = 300.0
-max_charge_time = 2.5
-propulsion_power = 150.0
-elasticity = 0.8
-thrust_power = 15.0
 
-[node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
+[node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
+predictor = NodePath("../PlayerTrajectoryPredictor")
 
-[node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
+[node name="PlayerTrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
 steps = 500
 fake_steps = 0.0
@@ -198,37 +193,11 @@ antialiased = true
 
 [node name="Jeremiah" parent="." unique_id=1142549016 instance=ExtResource("12_2wvry")]
 position = Vector2(532, 820)
-target_altitude_sqr = 3600.0
-target_dir = true
-b_in_hibernation = false
-mass = 1.0
-velocity = Vector2(0, 0)
-prediction_velocity = Vector2(0, 0)
-b_prediction_velo_is_real = true
-static_friction_coefficient = 0.6
-kinetic_friction_coefficient = 0.4
-min_dot_for_ground = 0.5
-elasticity = 0.8
 max_velocity = 400.0
-b_is_safe_collision = true
-b_rotation_to_gravity = true
 
 [node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("12_2wvry")]
 position = Vector2(2043, 1863)
-target_altitude_sqr = 3600.0
-target_dir = true
-b_in_hibernation = false
-mass = 1.0
-velocity = Vector2(0, 0)
-prediction_velocity = Vector2(0, 0)
-b_prediction_velo_is_real = true
-static_friction_coefficient = 0.6
-kinetic_friction_coefficient = 0.4
-min_dot_for_ground = 0.5
-elasticity = 0.8
 max_velocity = 400.0
-b_is_safe_collision = true
-b_rotation_to_gravity = true
 
 [node name="Evil_Fred" parent="." unique_id=1502988588 instance=ExtResource("13_i4pkw")]
 position = Vector2(385, 530)
@@ -237,7 +206,7 @@ position = Vector2(385, 530)
 position = Vector2(2362, 1676)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
-position = Vector2(1375, 1532)
+position = Vector2(657, 1772)
 
 [node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("11_6pfde")]
 position = Vector2(724, 1879)

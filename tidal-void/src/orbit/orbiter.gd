@@ -42,7 +42,7 @@ func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
 	
 	var to_source = source.global_position - pos
 	var distance = to_source.length()
-	var speed = sqrt((source.mass * source.MASS_SCALE) / distance)
+	var speed = sqrt((source.mass) / distance)
 	return to_source.normalized().rotated(PI / 2.0) * speed
 
 func get_dominant_body() -> GravitySource:

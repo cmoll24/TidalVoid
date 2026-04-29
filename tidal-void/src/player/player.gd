@@ -10,6 +10,8 @@ class_name Player
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 300.0
 @export var max_charge_time : float = 5.0  # seconds to reach full charge
+###max distance at which the player can interact with things with the use action
+@export var use_distance : float = 20
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
@@ -29,7 +31,6 @@ var max_jump_angle : float = PI/2.5
 #var surface_friction_coef : float = 0.001
 
 func _ready() -> void:
-	GV.player_reference(self)
 	super._ready()
 	if self.is_in_group("player"):
 		print("in player")
@@ -138,6 +139,35 @@ func get_jump_vector() -> Vector2:
 		angle_to_thrust = clampf(angle_to_thrust, -max_jump_angle, max_jump_angle)
 	
 	return power * up_direction.rotated(angle_to_thrust)
+
+func action_use() -> void:
+	
+	# perform a raycast to see what the mouse is pointing at
+	
+	var space_state = get_world_2d().direct_space_state
+	
+	#start at the edge of the player
+	var start : Vector2 = global_position +(mouse_direction*collision_shape.shape.radius) 
+	#end use_distance away in the direction of the mouse
+	var end : Vector2 = start + (mouse_direction*use_distance)
+	
+	
+	var query = PhysicsRayQueryParameters2D.create(start, end,shape_cast.collision_mask,[self.get_rid()])
+
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		if(result.collider is PlayerPawn):
+			# if we hit a player pawn, swtich to it
+			controller.possess_pawn(result.collider)
+
+func start_possess(player_controller : PlayerController) -> void:
+	super.start_possess(player_controller)
+	GV.player_reference(self)
+
+func stop_possess() -> void:
+	super.stop_possess()
+	queue_free()
 
 
 func perform_jump():

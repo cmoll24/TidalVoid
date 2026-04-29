@@ -104,6 +104,7 @@ func _ready() -> void:
 	if(start_in_orbit):
 		call_deferred("orbit_dominant_body");
 	shape_cast.shape = collision_shape.shape
+	shape_cast.enabled = false
 
 func orbit_dominant_body() -> void:
 	velocity = orbital_velocity(dominant_body, global_position)
@@ -305,7 +306,7 @@ func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
 	
 	var to_source = source.global_position - pos
 	var distance = to_source.length()
-	var speed = sqrt((source.mass * source.MASS_SCALE) / distance)
+	var speed = sqrt((source.mass) / distance)
 	return to_source.normalized().rotated(PI / 2.0) * speed	
 
 func escape_speed(source : GravitySource, pos : Vector2) -> float:
@@ -315,7 +316,7 @@ func escape_speed(source : GravitySource, pos : Vector2) -> float:
 	var to_source = source.global_position - pos
 	var distance = to_source.length()
 	#v_esc = sqrt(2*mu / r)
-	var esc_speed = sqrt((2 * source.mass * source.MASS_SCALE) / distance)
+	var esc_speed = sqrt((2 * source.mass) / distance)
 	return esc_speed
 
 func get_velocity() -> Vector2:

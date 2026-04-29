@@ -18,6 +18,7 @@ var pull_radius : float = 600.0
 var velocity : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	mass = mass*MASS_SCALE
 	pull_radius = calculate_pull_radius()
 	pull_radius_circle.scale = Vector2(pull_radius, pull_radius) / (pull_radius_circle.size / 2)#because scale is diameter
 	pull_radius_circle.position = -Vector2(pull_radius, pull_radius)#/ 2.0
@@ -32,18 +33,19 @@ func _ready() -> void:
 	collision_layer = 1
 
 func calculate_pull_radius() -> float:
-	# solve: (mass * MASS_SCALE) / distance^2 = threshold
-	# therefore: distance = sqrt((mass * MASS_SCALE) / threshold)
-	return sqrt((mass * MASS_SCALE) / negligible_threshold)
+	# solve: (mass) / distance^2 = threshold
+	# therefore: distance = sqrt((mass) / threshold)
+	return sqrt((mass) / negligible_threshold)
 
 func get_gravity_pull(from_positon : Vector2) -> Vector2:
 	var offset_distance = global_position - from_positon
-	var distance = offset_distance.length()
+	#now just squared given that no sqrt was ever necessary
+	var distance_sqr = offset_distance.length_squared()
 	
-	if distance > pull_radius or distance < no_grav_radius:
+	if distance_sqr > pull_radius**2 or distance_sqr < no_grav_radius: #no grav radius is just 1 by default, so the square is skipped
 		return Vector2.ZERO
 	
 	#strength = M / R^2
-	var strength = (mass * MASS_SCALE) / max(distance**2, 5000.0)
+	var strength = (mass) / max(distance_sqr, 5000.0)
 	
 	return offset_distance.normalized() * strength

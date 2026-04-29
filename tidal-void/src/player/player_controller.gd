@@ -1,13 +1,20 @@
-class_name InputHandler
+class_name PlayerController
 extends Node
 
 @export var player : PlayerPawn
+
+@export var predictor : TrajectoryPredictor
 
 @onready var camera : Camera2D = $Camera2D
 
 var reverse_thrust = false
 
 var controller_mode = false
+
+func _ready() -> void:
+	if(player):
+		predictor.player = player
+		player.start_possess(self)
 
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -63,3 +70,12 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("propulsion"):
 		player.propulsion_ability()
+	elif event.is_action_pressed("Use"):
+		player.action_use()
+		
+		
+func possess_pawn(pawn : PlayerPawn):
+	player.stop_possess();
+	pawn.start_possess(self);
+	player = pawn;
+	predictor.player = pawn

@@ -20,6 +20,9 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
 
 func _physics_process(_delta: float) -> void:
+	if(!player):
+		line.points = []
+		return
 	draw_trajectory()
 
 func draw_trajectory() -> void:

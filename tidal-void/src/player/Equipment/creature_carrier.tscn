@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_ypvpx"]
 [ext_resource type="Script" uid="uid://e5bcknpxfmgo" path="res://src/Framework/Physics/one_way_bubble.gd" id="4_23cqy"]
 [ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="5_lhdkr"]
+[ext_resource type="Texture2D" uid="uid://de18s33ido0h7" path="res://assets/Textures/Placeholder/PLACEHOLDER_beamlightpng.png" id="7_jkqj7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3npey"]
 radius = 20.0
@@ -36,12 +37,12 @@ b_rotation_to_gravity = false
 target_position = Vector2(0, 0)
 collision_mask = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=568160610]
+[node name="CarrierSprite" type="Sprite2D" parent="." unique_id=568160610]
 position = Vector2(-62, 12)
 scale = Vector2(-0.1, 0.1)
 texture = ExtResource("2_23cqy")
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=166721475]
+[node name="PlayerSprite" type="Sprite2D" parent="." unique_id=166721475]
 position = Vector2(-77, 7)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_3npey")
@@ -74,6 +75,12 @@ inner_radius = 30.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bubble" unique_id=79878690]
 shape = SubResource("CircleShape2D_lhdkr")
 
-[node name="Sprite2D" type="Sprite2D" parent="Bubble" unique_id=684946758]
+[node name="BubbleSprite" type="Sprite2D" parent="Bubble" unique_id=684946758]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_lhdkr")
+
+[node name="HeadLights" type="PointLight2D" parent="." unique_id=710515519]
+rotation = 3.1415927
+texture = ExtResource("7_jkqj7")
+offset = Vector2(-2510, 0)
+texture_scale = 20.0

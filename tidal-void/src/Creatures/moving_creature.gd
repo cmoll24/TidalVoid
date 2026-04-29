@@ -54,7 +54,7 @@ func creature_movement(_delta):
 	var velocity_grounded_threshold_sqr :float = 400 
 		
 	if(b_is_grounded && velocity.length_squared() < velocity_grounded_threshold_sqr):
-		velocity += move_dir * sqrt((dominant_body.mass * (dominant_body.MASS_SCALE) / 
+		velocity += move_dir * sqrt((dominant_body.mass / 
 		dominant_body.global_position.distance_to(global_position))) * 1.2
 	
 	var velocity_deviation = (

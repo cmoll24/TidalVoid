@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://ee06mynd5n8m"]
 
-[ext_resource type="Script" uid="uid://dbyb832bdnt1x" path="res://src/player/input_handler.gd" id="1_drilq"]
+[ext_resource type="Script" uid="uid://dbyb832bdnt1x" path="res://src/player/player_controller.gd" id="1_drilq"]
 [ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="2_t7ix8"]
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="3_l5yw8"]
 [ext_resource type="Script" uid="uid://8ghh3geko5ra" path="res://src/Background/static_background.gd" id="4_yc8dy"]
 
-[node name="InputHandler" type="Node" unique_id=1484923074]
+[node name="PlayerController" type="Node" unique_id=1484923074]
 script = ExtResource("1_drilq")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=554495306]
