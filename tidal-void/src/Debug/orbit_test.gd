@@ -2,10 +2,10 @@ extends Node2D
 
 @onready var fps_label = $CanvasLayer/FPSLabel
 @onready var health_lable = $CanvasLayer/HealthLable
-@onready var inventory_ui = $CanvasLayer/Inventory
+@onready var pause_menu = $CanvasLayer/PauseMenu
 
 func _ready():
-	inventory_ui.hide()
+	pause_menu.hide()
 
 func _process(_delta: float) -> void:
 	#open_inventory()

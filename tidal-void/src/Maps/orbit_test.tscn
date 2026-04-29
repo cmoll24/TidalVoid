@@ -12,8 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 [ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/UI/upgrade_inventory_ui/inventory_item.tscn" id="11_6pfde"]
+[ext_resource type="PackedScene" uid="uid://wrhgmm5ucxlb" path="res://src/UI/upgrade_inventory_ui/PauseMenu.tscn" id="11_65noi"]
 [ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
+[ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="12_g3nao"]
 [ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="12_uk65k"]
 [ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/UI/upgrade_inventory_ui/health_increase_effect.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
@@ -159,11 +161,20 @@ position = Vector2(761, 1710)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
 
-[node name="UpgradeStore" parent="CanvasLayer" unique_id=1435990563 instance=ExtResource("15_e5mfl")]
+[node name="PauseMenu" parent="CanvasLayer" unique_id=45118600 instance=ExtResource("11_65noi")]
+
+[node name="StarNoiseTinnyBackground4" type="Sprite2D" parent="CanvasLayer/PauseMenu" unique_id=1406567271]
+position = Vector2(959, 538.5)
+scale = Vector2(1.8730469, 1.0517577)
+texture = ExtResource("12_g3nao")
+
+[node name="UpgradeStore" parent="CanvasLayer/PauseMenu" unique_id=1435990563 instance=ExtResource("15_e5mfl")]
 visible = false
+layout_mode = 1
 available_upgrades = Array[ExtResource("16_e7e7k")]([ExtResource("17_1e5fo")])
 
-[node name="Inventory" parent="CanvasLayer" unique_id=263900093 instance=ExtResource("11_i4pkw")]
+[node name="Inventory" parent="CanvasLayer/PauseMenu" unique_id=263900093 instance=ExtResource("11_i4pkw")]
+layout_mode = 1
 
 [node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
 offset_right = 40.0
@@ -172,6 +183,7 @@ theme_override_font_sizes/font_size = 24
 text = "FPS"
 
 [node name="HealthLable" type="Label" parent="CanvasLayer" unique_id=1834960123]
+process_mode = 3
 offset_left = 100.0
 offset_right = 141.0
 offset_bottom = 34.0
