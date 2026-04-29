@@ -36,24 +36,25 @@ func _physics_process(_delta: float) -> void:
 		player.global_position = spawn_pos
 		#possess the player
 		controller.call_deferred('possess_pawn',player)
-		
-	## ensure we cannot get too close to a planet so as to be unable to leave
-	var dist_sq : float = global_position.distance_squared_to(dominant_body.global_position)
-	var thrust_output = thrust_power * thrust_multiplier * 0.8 #little wiggle room
-	if dominant_body and ((dominant_body.mass / dist_sq) > thrust_output):
-		## if we are too close, push back to the edge
-		var dir :Vector2 = (global_position-dominant_body.global_position).normalized()
-		var min_dist = sqrt(dominant_body.mass/thrust_output)
-		
-		global_position = dominant_body.global_position + dir * min_dist
-		
-		#Cancel inward radial velocity
-		var radial_speed = velocity.dot(-dir)
-		if radial_speed > 0:
-			planet_thrust_particles.start_thrust(dir, velocity, 40)
-			velocity += 1.1 * dir * radial_speed
-	else:
-		planet_thrust_particles.stop_thrust()
+	
+	if dominant_body:
+		## ensure we cannot get too close to a planet so as to be unable to leave
+		var dist_sq : float = global_position.distance_squared_to(dominant_body.global_position)
+		var thrust_output = thrust_power * thrust_multiplier * 0.8 #little wiggle room
+		if (dominant_body.mass / dist_sq) > thrust_output:
+			## if we are too close, push back to the edge
+			var dir :Vector2 = (global_position-dominant_body.global_position).normalized()
+			var min_dist = sqrt(dominant_body.mass/thrust_output)
+			
+			global_position = dominant_body.global_position + dir * min_dist
+			
+			#Cancel inward radial velocity
+			var radial_speed = velocity.dot(-dir)
+			if radial_speed > 0:
+				planet_thrust_particles.start_thrust(dir, velocity, 40)
+				velocity += 1.1 * dir * radial_speed
+		else:
+			planet_thrust_particles.stop_thrust()
 	
 		
 func start_possess(player_controller :PlayerController) -> void:
