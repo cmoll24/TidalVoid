@@ -12,6 +12,9 @@ class_name MovingCreature
 ###when hibernating, movement will not be made except to escape deep space
 @export var b_in_hibernation : bool = false
 
+### if greater than 0, behavior is disabled and time will be brought down
+@export var stun_time : float = 0
+
 func _ready() -> void:
 		super._ready()
 		target_dir = start_orbit_dir
@@ -25,6 +28,9 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 		thrust_particles.stop_thrust()
 
 func creature_movement(_delta):
+	if stun_time > 0:
+		return
+	
 	if not dominant_body:
 		return
 	
@@ -74,4 +80,14 @@ func creature_movement(_delta):
 	else:
 		move_dir = -move_dir
 		set_thrust(move_dir + velocity_deviation)
+	
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	#decrement stun time
+	stun_time -= delta	
 		
+@warning_ignore("unused_parameter")
+func on_collide_with_bubble(bubble : Bubble) -> void:
+	stun_time = 1
+	b_in_hibernation = true
+	set_thrust(Vector2.ZERO)

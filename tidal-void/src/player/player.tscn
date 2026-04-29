@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_o822w"]
 [ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="3_o822w"]
-[ext_resource type="Texture2D" uid="uid://c83h6wwsj2w7w" path="res://assets/circle.png" id="6_jiejy"]
+[ext_resource type="Texture2D" uid="uid://dfms40uf6fvh0" path="res://assets/Textures/Placeholder/PLACEHOLDER_circle_light.png" id="4_244u8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 19.0
@@ -71,5 +71,5 @@ range_item_cull_mask = 7
 shadow_enabled = true
 shadow_color = Color(0.03137255, 0.03137255, 0.03137255, 0.1254902)
 shadow_item_cull_mask = 1023
-texture = ExtResource("6_jiejy")
-texture_scale = 40.0
+texture = ExtResource("4_244u8")
+texture_scale = 32.0

@@ -37,18 +37,12 @@ func _physics_process(_delta: float) -> void:
 		
 	## ensure we cannot get too close to a planet so as to be unable to leave
 	var dist : float =global_position.distance_squared_to(dominant_body.global_position)
-	var thrust_output = thrust_power * thrust_multiplier*0.9 #little wiggle room
+	var thrust_output = thrust_power * thrust_multiplier*0.8 #little wiggle room
 	if dominant_body and dominant_body.mass/dist > thrust_output:
 		## if we are too close, push back to the edge
 		var dir :Vector2 = (global_position-dominant_body.global_position).normalized()
 		var min_dist = sqrt(dominant_body.mass/thrust_output)
 		global_position = dominant_body.global_position + dir*min_dist
-		var dot :float = dir.dot(velocity);
-		if(dot < 0):
-			#if velocity is pointing towards the planet, adjust it to point perpendicular
-			var perp : Vector2 = Vector2(dir.y,-dir.x);
-			#set velocity to its projection onto perp + a little extra away
-			velocity = lerp(perp,dir,0.1)*perp.dot(velocity);
 			
 	
 		

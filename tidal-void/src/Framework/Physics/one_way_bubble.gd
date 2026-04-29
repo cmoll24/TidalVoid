@@ -5,7 +5,7 @@ class_name Bubble
 @export var inner_radius: float = 40;
 
 ### minimum velocity to bounce back with
-@export var min_bounce_strength : float = 0.1;
+@export var min_bounce_strength : float = 1;
 
 var velocity : Vector2 = Vector2.ZERO
 
@@ -28,7 +28,7 @@ func bounce_off_bubble(pos : Vector2, collision_radius : float, velo : Vector2) 
 	if(dist  + collision_radius > inner_radius):
 		#normalize diff
 		diff = diff/dist;
-		var dot : float = diff.dot(velo)
+		var dot : float = diff.dot(velo - velocity) # account for our own velocity
 		#if the velocity is trying to escape the bubble, send it towards the center
 		if(dot < 0):
 			return velocity + (diff * max(abs(dot),min_bounce_strength))

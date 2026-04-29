@@ -191,8 +191,12 @@ func  apply_velocity() -> void:
 						else:
 							##rough estimate of radius
 							shape_radius =collision_shape.shape.get_rect().size.length()
-						#calculate bubble bounce, it is very possible that no bounce occurs
-						velocity = bubble.bounce_off_bubble(global_position,shape_radius,velocity);
+						#calculate bubble bounce, it is very possible that no bounce occurs, in which case the velocity is unchanged
+						var bounce_velocity :Vector2 = bubble.bounce_off_bubble(global_position,shape_radius,velocity);
+						if(bounce_velocity != velocity):
+							on_collide_with_bubble(bubble)
+						velocity = bounce_velocity
+						
 						continue
 
 			if (dot < 0 && (ignore_layer == 0 || Collider.collision_mask != ignore_layer)): #the collider must solely be on the ignore layer to be ignored
@@ -300,6 +304,11 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	pass
 	#For subclasses
 
+@warning_ignore("unused_parameter")	
+func on_collide_with_bubble(bubble : Bubble) -> void:
+	pass
+	#For subclasses
+	
 func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
 	if not source:
 		return Vector2.ZERO

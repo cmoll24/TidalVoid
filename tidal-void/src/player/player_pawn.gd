@@ -27,5 +27,5 @@ func start_possess(player_controller : PlayerController) -> void:
 func stop_possess() -> void:
 	#you can tell if you are possessed or not by checking the controller
 	controller = null
-	thrust_direction = Vector2.ZERO
+	set_thrust(Vector2.ZERO)
 	

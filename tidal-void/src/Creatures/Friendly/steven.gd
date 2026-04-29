@@ -53,6 +53,9 @@ func creature_movement(_delta):
 	super.creature_movement(_delta)
 	
 func update_vision():
+	#do nothing if stunned
+	if stun_time > 0:
+		return
 	#update array of all visible v_sources
 	v_sources = game_manager.sense_manager.check_vision(self,v_distance,v_types)
 	
@@ -116,5 +119,3 @@ func update_behavior() -> void:
 			target_altitude_sqr = min(
 				(dominant_body.pull_radius-30)**2,
 				get_square_altitude(dominant_body))
-			
-		
