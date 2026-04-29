@@ -27,5 +27,4 @@ func populate_store():
 		
 func _on_back_button_pressed():
 	#hides store and make inventory visible
-	visible = false
-	get_parent().get_node("Inventory").visible = true
+	get_parent().show_inventory()

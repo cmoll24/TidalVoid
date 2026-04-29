@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://wrhgmm5ucxlb"]
+
+[ext_resource type="Script" uid="uid://dxuqt3pdqp5cm" path="res://src/UI/upgrade_inventory_ui/pause_menu.gd" id="1_ikix3"]
+
+[node name="PauseMenu" type="Control" unique_id=45118600]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ikix3")

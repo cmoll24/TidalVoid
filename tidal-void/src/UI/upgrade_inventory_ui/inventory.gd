@@ -9,26 +9,8 @@ func _ready():
 	_on_inventory_update()
 	upgrades_button.pressed.connect(_on_upgrades_button_pressed)
 	
-func _input(event):
-	# shows inventory when pressing the I key
-	if event.is_action_pressed("inventory"):
-		print("turn visible")
-		
-		# gets the upgrade store node
-		var upgrade_store = get_parent().get_node("UpgradeStore")
-		# if EITHER inventory or store visible
-		if visible or upgrade_store.visible:
-			# then when press I, closes both
-			visible = false
-			upgrade_store.visible = false
-		# else just open the inventory
-		else:
-			visible = true
-
-# make upgrade store appear when button is pressed
 func _on_upgrades_button_pressed():
-	visible = false
-	get_parent().get_node("UpgradeStore").visible = true
+	get_parent().show_upgrade_store()
 	
 func _on_inventory_update():
 	# we clear grid first, update the new inventory list, and put them back in

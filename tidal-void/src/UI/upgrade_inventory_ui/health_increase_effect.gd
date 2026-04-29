@@ -8,5 +8,6 @@ extends base_item_effect
 
 ### player not used
 func apply_effect(player: Node) -> void:
+	print(GV.player_health)
 	GV.player_health += heal_amount
 	print("new health is now: ", GV.player_health)
