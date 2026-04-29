@@ -9,7 +9,7 @@ class_name Player
 
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 300.0
-@export var max_charge_time : float = 5.0  # seconds to reach full charge
+@export var max_charge_time : float = 2.5  # seconds to reach full charge
 ###max distance at which the player can interact with things with the use action
 @export var use_distance : float = 20
 
@@ -101,7 +101,7 @@ func player_movement(delta : float) -> void:
 		b_prediction_velo_is_real = true;
 		if(b_is_grounded && !walking_on_ground):
 			if(Input.is_action_pressed("grab")) or \
-			  (velocity.length() < 1):
+			  (velocity.length_squared() < 1):
 				is_charging_jump = false
 				walking_on_ground = true
 		ignore_layer = 0;

@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cu3raj4y0jkcg" path="res://src/UI/upgrade_inventory_ui/UpgradeStore.tscn" id="15_e5mfl"]
 [ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/UI/upgrade_inventory_ui/upgrade_store_item.gd" id="16_e7e7k"]
 [ext_resource type="Resource" uid="uid://baseyh7yi5kn" path="res://src/UI/upgrade_inventory_ui/max_health_upgrade.tres" id="17_1e5fo"]
+[ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_1e5fo"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -98,7 +99,7 @@ position = Vector2(530, 1882)
 mass = 1500.0
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-position = Vector2(806, 1859)
+position = Vector2(1792, 1932)
 
 [node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
@@ -206,7 +207,7 @@ position = Vector2(385, 530)
 position = Vector2(2362, 1676)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
-position = Vector2(657, 1772)
+position = Vector2(1673, 1760)
 
 [node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("11_6pfde")]
 position = Vector2(724, 1879)
@@ -227,3 +228,6 @@ item_effect = "+50 health ?!?"
 item_name = "Jim"
 item_texture = ExtResource("12_uk65k")
 effect = SubResource("Resource_65noi")
+
+[node name="Leaper" parent="." unique_id=984884791 instance=ExtResource("22_1e5fo")]
+position = Vector2(2111, 1764)
