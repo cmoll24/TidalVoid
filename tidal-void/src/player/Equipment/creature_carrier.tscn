@@ -8,12 +8,17 @@
 [ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="5_lhdkr"]
 [ext_resource type="Texture2D" uid="uid://de18s33ido0h7" path="res://assets/Textures/Placeholder/PLACEHOLDER_beamlightpng.png" id="7_jkqj7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3npey"]
-radius = 20.0
-
 [sub_resource type="Curve" id="Curve_lhdkr"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_jkqj7"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
+colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 0.90097445, 0.41676223, 0.6959504, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3npey"]
+radius = 20.0
 
 [sub_resource type="Gradient" id="Gradient_3npey"]
 interpolation_color_space = 2
@@ -32,6 +37,21 @@ elasticity = 2.0
 thrust_power = 80.0
 start_in_orbit = true
 b_rotation_to_gravity = false
+
+[node name="ThrustParticles2" type="CPUParticles2D" parent="." unique_id=963839452]
+position = Vector2(-65, 24)
+amount = 20
+direction = Vector2(-1, 0)
+spread = 10.06
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 90.0
+angle_max = 30.0
+scale_amount_min = 15.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_lhdkr")
+color_ramp = SubResource("Gradient_jkqj7")
+script = ExtResource("3_ypvpx")
 
 [node name="PlayerSprite" type="Sprite2D" parent="." unique_id=166721475]
 position = Vector2(-81, 7)

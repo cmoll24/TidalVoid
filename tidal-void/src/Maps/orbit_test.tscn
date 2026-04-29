@@ -99,7 +99,8 @@ position = Vector2(530, 1882)
 mass = 1500.0
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-position = Vector2(1792, 1932)
+position = Vector2(2064, 1709)
+start_orbit_dir = false
 
 [node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
@@ -188,6 +189,7 @@ step_dist = 10.0
 player = NodePath("../Steven")
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
+visible = false
 width = 3.0
 gradient = SubResource("Gradient_v2br0")
 antialiased = true
@@ -207,7 +209,7 @@ position = Vector2(385, 530)
 position = Vector2(2362, 1676)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
-position = Vector2(1673, 1760)
+position = Vector2(2820, 2449)
 
 [node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("11_6pfde")]
 position = Vector2(724, 1879)

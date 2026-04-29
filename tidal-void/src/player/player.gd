@@ -8,10 +8,10 @@ class_name Player
 @export var walk_speed : float = 620.0
 
 @export var min_jump_power : float = 10.0
-@export var max_jump_power : float = 300.0
+@export var max_jump_power : float = 350.0
 @export var max_charge_time : float = 2.5  # seconds to reach full charge
 ###max distance at which the player can interact with things with the use action
-@export var use_distance : float = 20
+@export var use_distance : float = 80
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false

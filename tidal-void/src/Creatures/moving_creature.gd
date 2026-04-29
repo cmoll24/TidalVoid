@@ -84,7 +84,7 @@ func creature_movement(_delta):
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	#decrement stun time
-	stun_time -= delta	
+	stun_time -= delta
 		
 @warning_ignore("unused_parameter")
 func on_collide_with_bubble(bubble : Bubble) -> void:
