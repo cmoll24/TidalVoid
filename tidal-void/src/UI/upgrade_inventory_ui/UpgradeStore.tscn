@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cu3raj4y0jkcg"]
+
+[ext_resource type="Script" uid="uid://b2xuaru1uie5d" path="res://src/UI/upgrade_inventory_ui/upgrade_store.gd" id="1_8je6h"]
+
+[node name="UpgradeStore" type="Control" unique_id=1435990563]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8je6h")
+
+[node name="Label" type="Label" parent="." unique_id=1973187159]
+layout_mode = 0
+offset_left = 316.0
+offset_top = 90.0
+offset_right = 998.0
+offset_bottom = 214.0
+theme_override_font_sizes/font_size = 90
+text = "Upgrade store"
+
+[node name="StoreGrid" type="VBoxContainer" parent="." unique_id=1735068561]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 236.0
+offset_right = 1892.0
+offset_bottom = 1043.0
+
+[node name="BackButton" type="Button" parent="." unique_id=2060848018]
+layout_mode = 0
+offset_left = 1220.0
+offset_top = 98.0
+offset_right = 1484.0
+offset_bottom = 224.0
+theme_override_font_sizes/font_size = 30
+text = "Back"

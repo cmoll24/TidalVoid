@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b7xfx826u4njb"]
+
+[ext_resource type="Script" uid="uid://nghglfygt4k2" path="res://src/UI/upgrade_inventory_ui/inventory_item.gd" id="1_0074f"]
+[ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="2_itdu0"]
+[ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/UI/upgrade_inventory_ui/health_increase_effect.gd" id="3_v8ml3"]
+
+[sub_resource type="Resource" id="Resource_gkepk"]
+script = ExtResource("3_v8ml3")
+metadata/_custom_type_script = "uid://cfqw8if3wfy87"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4fhm2"]
+radius = 33.06055
+
+[node name="InventoryItem" type="Area2D" unique_id=2082957781 groups=["items"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_0074f")
+item_type = "cookie"
+item_effect = "health increase"
+item_name = "cookie"
+item_texture = ExtResource("2_itdu0")
+effect = SubResource("Resource_gkepk")
+metadata/_custom_type_script = "uid://nghglfygt4k2"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1987118997]
+texture = ExtResource("2_itdu0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=658466756]
+shape = SubResource("CircleShape2D_4fhm2")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=474276740]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered_inventory"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

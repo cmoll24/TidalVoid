@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="upgrade_store_item" format=3 uid="uid://baseyh7yi5kn"]
+
+[ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/UI/upgrade_inventory_ui/upgrade_store_item.gd" id="1_460l7"]
+[ext_resource type="Script" uid="uid://dli3xt7g6vq1d" path="res://src/UI/upgrade_inventory_ui/max_health_upgrade.gd" id="2_osi3d"]
+
+[sub_resource type="Resource" id="Resource_1qe83"]
+script = ExtResource("2_osi3d")
+metadata/_custom_type_script = "uid://dli3xt7g6vq1d"
+
+[resource]
+script = ExtResource("1_460l7")
+upgrade_name = "Max Health Up"
+description = "Max health + 10"
+cost_item_name = "cookie"
+upgrade = SubResource("Resource_1qe83")
+metadata/_custom_type_script = "uid://dghfmgv0f06eg"

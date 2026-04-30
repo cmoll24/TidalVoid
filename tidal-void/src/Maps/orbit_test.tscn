@@ -4,16 +4,26 @@
 [ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_hd3kg"]
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_4vn8n"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
-[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
+[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="3_gen7d"]
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
-[ext_resource type="PackedScene" path="res://src/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/UI/upgrade_inventory_ui/inventory_item.tscn" id="11_6pfde"]
+[ext_resource type="PackedScene" uid="uid://wrhgmm5ucxlb" path="res://src/UI/upgrade_inventory_ui/PauseMenu.tscn" id="11_65noi"]
+[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
+[ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="12_g3nao"]
+[ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="12_uk65k"]
+[ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/UI/upgrade_inventory_ui/health_increase_effect.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://cu3raj4y0jkcg" path="res://src/UI/upgrade_inventory_ui/UpgradeStore.tscn" id="15_e5mfl"]
+[ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/UI/upgrade_inventory_ui/upgrade_store_item.gd" id="16_e7e7k"]
+[ext_resource type="Resource" uid="uid://baseyh7yi5kn" path="res://src/UI/upgrade_inventory_ui/max_health_upgrade.tres" id="17_1e5fo"]
+[ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_1e5fo"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -22,6 +32,18 @@ colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 
 [sub_resource type="Gradient" id="Gradient_v2br0"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0.67058825, 0.33, 0.072600015, 0.32142, 0.38431373, 0.33, 0.05280001, 0.32076, 0)
+
+[sub_resource type="Resource" id="Resource_e7e7k"]
+script = ExtResource("12_voqfk")
+metadata/_custom_type_script = "uid://cfqw8if3wfy87"
+
+[sub_resource type="Resource" id="Resource_1e5fo"]
+script = ExtResource("12_voqfk")
+metadata/_custom_type_script = "uid://cfqw8if3wfy87"
+
+[sub_resource type="Resource" id="Resource_65noi"]
+script = ExtResource("12_voqfk")
+metadata/_custom_type_script = "uid://cfqw8if3wfy87"
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
 script = ExtResource("1_hd3kg")
@@ -79,17 +101,14 @@ position = Vector2(530, 1882)
 mass = 1500.0
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-z_index = 1
-position = Vector2(360, 1932)
-max_jump_power = 300.0
-max_charge_time = 2.5
-elasticity = 0.8
-thrust_power = 15.0
+position = Vector2(2064, 1709)
+start_orbit_dir = false
 
-[node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
+[node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
+predictor = NodePath("../PlayerTrajectoryPredictor")
 
-[node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
+[node name="PlayerTrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
 steps = 500
 fake_steps = 0.0
@@ -142,13 +161,34 @@ position = Vector2(761, 1710)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
 
-[node name="Inventory" parent="CanvasLayer" unique_id=263900093 instance=ExtResource("11_i4pkw")]
+[node name="PauseMenu" parent="CanvasLayer" unique_id=45118600 instance=ExtResource("11_65noi")]
+
+[node name="StarNoiseTinnyBackground4" type="Sprite2D" parent="CanvasLayer/PauseMenu" unique_id=1406567271]
+position = Vector2(959, 538.5)
+scale = Vector2(1.8730469, 1.0517577)
+texture = ExtResource("12_g3nao")
+
+[node name="UpgradeStore" parent="CanvasLayer/PauseMenu" unique_id=1435990563 instance=ExtResource("15_e5mfl")]
+visible = false
+layout_mode = 1
+available_upgrades = Array[ExtResource("16_e7e7k")]([ExtResource("17_1e5fo")])
+
+[node name="Inventory" parent="CanvasLayer/PauseMenu" unique_id=263900093 instance=ExtResource("11_i4pkw")]
+layout_mode = 1
 
 [node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 24
 text = "FPS"
+
+[node name="HealthLable" type="Label" parent="CanvasLayer" unique_id=1834960123]
+process_mode = 3
+offset_left = 100.0
+offset_right = 141.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "Health"
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
 position = Vector2(368, 1765)
@@ -161,18 +201,47 @@ step_dist = 10.0
 player = NodePath("../Steven")
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
+visible = false
 width = 3.0
 gradient = SubResource("Gradient_v2br0")
 antialiased = true
 
 [node name="Jeremiah" parent="." unique_id=1142549016 instance=ExtResource("12_2wvry")]
 position = Vector2(532, 820)
+max_velocity = 400.0
 
 [node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("12_2wvry")]
 position = Vector2(2043, 1863)
+max_velocity = 400.0
 
 [node name="Evil_Fred" parent="." unique_id=1502988588 instance=ExtResource("13_i4pkw")]
 position = Vector2(385, 530)
 
 [node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
 position = Vector2(2362, 1676)
+
+[node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
+position = Vector2(2820, 2449)
+
+[node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("11_6pfde")]
+position = Vector2(724, 1879)
+item_type = "consumable"
+item_effect = "+30 health"
+effect = SubResource("Resource_e7e7k")
+
+[node name="InventoryItem2" parent="." unique_id=850590550 instance=ExtResource("11_6pfde")]
+position = Vector2(616, 1988)
+item_type = "consumable"
+item_effect = "+30 health"
+effect = SubResource("Resource_1e5fo")
+
+[node name="InventoryItem3" parent="." unique_id=1248647999 instance=ExtResource("11_6pfde")]
+position = Vector2(671, 1720)
+item_type = "buddy"
+item_effect = "+50 health ?!?"
+item_name = "Jim"
+item_texture = ExtResource("12_uk65k")
+effect = SubResource("Resource_65noi")
+
+[node name="Leaper" parent="." unique_id=984884791 instance=ExtResource("22_1e5fo")]
+position = Vector2(2111, 1764)

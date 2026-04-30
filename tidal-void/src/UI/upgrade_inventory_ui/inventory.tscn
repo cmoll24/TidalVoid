@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://ddwdqbcegxc8r"]
+
+[ext_resource type="Script" uid="uid://kny06iiea0jo" path="res://src/UI/upgrade_inventory_ui/inventory.gd" id="1_up6s7"]
+
+[node name="Inventory" type="Control" unique_id=263900093]
+process_mode = 3
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_up6s7")
+
+[node name="Resume" type="Button" parent="." unique_id=1526894254]
+z_index = 1
+layout_mode = 0
+offset_left = 796.0
+offset_top = 67.0
+offset_right = 1197.0
+offset_bottom = 98.0
+text = "Inventory Menu (Press I again to resume)"
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1273238412]
+custom_minimum_size = Vector2(1000, 600)
+layout_mode = 0
+offset_left = 390.0
+offset_top = 250.0
+offset_right = 1500.0
+offset_bottom = 872.0
+theme_override_constants/h_separation = 200
+theme_override_constants/v_separation = 50
+columns = 5
+
+[node name="UpgradesButton" type="Button" parent="." unique_id=510495911]
+layout_mode = 0
+offset_left = 1360.0
+offset_top = 49.0
+offset_right = 1714.0
+offset_bottom = 124.0
+text = "Upgrades"

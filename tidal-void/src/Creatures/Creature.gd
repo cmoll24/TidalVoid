@@ -18,7 +18,7 @@ func get_square_altitude(body : GravitySource):
 	
 
 func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
-	var mu = body.mass * body.MASS_SCALE #mu = GM
+	var mu = body.mass #mu = GM
 	var r_vec = pos - body.global_position
 	var r = r_vec.length()
 	var v = velocity.length()

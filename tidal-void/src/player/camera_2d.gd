@@ -8,6 +8,10 @@ extends Camera2D
 
 var target_zoom : float = 1.0
 
+var is_centered : bool = true
+var camera_global_position : Vector2 = Vector2.ZERO
+var drag_mouse_start_position : Vector2 = Vector2.ZERO
+
 func _ready() -> void:
 	target_zoom = zoom.x
 
@@ -16,7 +20,34 @@ func _input(event: InputEvent) -> void:
 		target_zoom = clamp(target_zoom * (1.0 + zoom_speed), min_zoom, max_zoom)
 	elif event.is_action("zoom_out"):
 		target_zoom = clamp(target_zoom / (1.0 + zoom_speed), min_zoom, max_zoom)
+	elif event.is_action_pressed("camera_drag"):
+		is_centered = false
+		ignore_rotation = true
+		var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
+		camera_global_position = global_position
+		drag_mouse_start_position = camera_global_position + mouse_position / zoom
+	elif event.is_action_pressed("center_camera"):
+		is_centered = true
+		position = Vector2.ZERO
+	elif event.is_action_pressed("camera_rotation_lock"):
+		if ignore_rotation:
+			ignore_rotation = false
+			is_centered = true
+			position = Vector2.ZERO
+		else:
+			ignore_rotation = true
 
 func _process(delta: float) -> void:
+	global_position = get_parent().player.global_position
 	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), 1.0 - exp(-zoom_smoothing * delta * 60.0))
+	
+	if not is_centered:
+		roaming_camera_process(delta)
+
+func roaming_camera_process(_delta : float) -> void:
+	global_position = camera_global_position
+	
+	if Input.is_action_pressed("camera_drag"):
+		var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
+		camera_global_position = (drag_mouse_start_position - mouse_position / zoom)

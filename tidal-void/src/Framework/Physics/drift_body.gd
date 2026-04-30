@@ -1,7 +1,6 @@
 extends PhysicsBody2D
 class_name DriftBody
 
-@onready var gravity_source = $GravitySource
 
 @onready var collision_shape : CollisionShape2D = $CollisionShape2D
 
@@ -12,6 +11,8 @@ class_name DriftBody
 
 ## the linear velocity of the body
 @export var velocity : Vector2 = Vector2.ZERO
+
+@export var gravity_source : GravitySource
 
 ## total enumerated gravity force
 var gravity_force : Vector2 = Vector2.ZERO
@@ -70,7 +71,7 @@ const MIN_MOVE_DISTANCE: float = 0.001
 
 @export var thrust_power : float = 50.0
 var thrust_multiplier : float = 1.0
-@export var max_velocity : float = 400.0
+@export var max_velocity : float = 500.0
 
 @export var start_in_orbit : bool = false
 
@@ -87,6 +88,13 @@ var thrust_direction : Vector2 = Vector2.ZERO
 ##########################################################
 
 
+var target_rotation : float = 0;
+
+@export var b_rotation_to_gravity : bool = true;
+
+###############################################################
+
+
 var game_manager : GameManager
 var dominant_body : GravitySource = null
 
@@ -96,7 +104,7 @@ func _ready() -> void:
 	if(start_in_orbit):
 		call_deferred("orbit_dominant_body");
 	shape_cast.shape = collision_shape.shape
-	shape_cast.collision_mask = 127
+	shape_cast.enabled = false
 
 func orbit_dominant_body() -> void:
 	velocity = orbital_velocity(dominant_body, global_position)
@@ -108,7 +116,6 @@ func _physics_process(_delta: float) -> void:
 
 	#Apply the accerlation
 	apply_acceleration();
-
 	#Apply the velocity
 	apply_velocity();
 	
@@ -121,6 +128,14 @@ func _physics_process(_delta: float) -> void:
 	if(b_prediction_velo_is_real):
 		prediction_velocity = velocity
 	
+	#Rotate
+	if(b_rotation_to_gravity):
+		target_rotation = (gravity_force.angle() - PI/2)
+	update_rotation(_delta)
+
+func update_rotation(delta : float):
+	var rot_spd = PI * delta
+	rotation = rotate_toward(rotation,target_rotation,rot_spd)
 	
 
 ##Calculate the changes to velocity as a result of gravity and thrusters
@@ -159,6 +174,7 @@ func  apply_velocity() -> void:
 		shape_cast.force_shapecast_update()
 		#Go through each hit
 		for i in range(shape_cast.get_collision_count()):
+			
 			#Apply a simulated normal force
 			var hitNormal : Vector2 = shape_cast.get_collision_normal(i)
 
@@ -166,6 +182,23 @@ func  apply_velocity() -> void:
 			
 			var Collider : CollisionObject2D = shape_cast.get_collider(i)
 			
+			#check bubble
+			if (shape_cast.get_collider(i) is Bubble):
+						var bubble : Bubble = shape_cast.get_collider(i)
+						var shape_radius : float = 0;
+						if(collision_shape.shape is CircleShape2D):
+							shape_radius = collision_shape.shape.radius
+						else:
+							##rough estimate of radius
+							shape_radius =collision_shape.shape.get_rect().size.length()
+						#calculate bubble bounce, it is very possible that no bounce occurs, in which case the velocity is unchanged
+						var bounce_velocity :Vector2 = bubble.bounce_off_bubble(global_position,shape_radius,velocity);
+						if(bounce_velocity != velocity):
+							on_collide_with_bubble(bubble)
+						velocity = bounce_velocity
+						
+						continue
+
 			if (dot < 0 && (ignore_layer == 0 || Collider.collision_mask != ignore_layer)): #the collider must solely be on the ignore layer to be ignored
 				#We have contact
 				#Save the old velocity
@@ -182,9 +215,14 @@ func  apply_velocity() -> void:
 					other_body.velocity += velocityAdjustment * mass/total_mass * avg_elasticity;
 					velocity -= velocityAdjustment * other_body.mass/total_mass * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
+				#Treat it as having infinite mass if it is not a drift body 
+				elif (shape_cast.get_collider(i) is HeavyBody):
+					var other_body : HeavyBody = shape_cast.get_collider(i)
+					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
+					#do question the physics here, they are a stand in until Heavybodies are fully fleshed out
+					velocity -= velocityAdjustment * 2*avg_elasticity;		
 				else:
-					#simply treat it as having infinite mass if it is not a drift body
-					velocity -= velocityAdjustment;
+					velocity -= velocityAdjustment;	
 						
 				#Get the normal force
 				var NormalForce : Vector2 = hitNormal * hitNormal.dot(total_force);
@@ -203,12 +241,17 @@ func  apply_velocity() -> void:
 				var fricDot : float = hitNormalPerp.dot(velocity.normalized());
 				velocity -= hitNormalPerp * fricDot * FrictionForce * get_physics_process_delta_time();	
 		#Check for grounding if we are touching a compatible class
-			if shape_cast.get_collider(i) is GravitySource:
+			if shape_cast.get_collider(i) is GravitySource || shape_cast.get_collider(i) is HeavyBody:
 				var NormAccel : Vector2 = total_force.normalized();
 				#check that we are accelerating into it
 				if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
 					#set it as ground
-					set_ground(hitNormal,shape_cast.get_collider(i))
+					if shape_cast.get_collider(i) is GravitySource:
+						set_ground(hitNormal,shape_cast.get_collider(i))
+					else:
+						var hb_velo = shape_cast.get_collider(i).velocity
+						if(velocity.dot(hb_velo)) < 0:
+							velocity = hb_velo * 1.5
 		#Cap velocity
 		velocity.limit_length(max_velocity)
 		#Update MoveDelta
@@ -261,15 +304,30 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	pass
 	#For subclasses
 
+@warning_ignore("unused_parameter")	
+func on_collide_with_bubble(bubble : Bubble) -> void:
+	pass
+	#For subclasses
+	
 func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
 	if not source:
 		return Vector2.ZERO
 	
 	var to_source = source.global_position - pos
 	var distance = to_source.length()
-	var speed = sqrt((source.mass * source.MASS_SCALE) / distance)
+	var speed = sqrt((source.mass) / distance)
 	return to_source.normalized().rotated(PI / 2.0) * speed	
+
+func escape_speed(source : GravitySource, pos : Vector2) -> float:
+	if not source:
+		return 0.0
 	
+	var to_source = source.global_position - pos
+	var distance = to_source.length()
+	#v_esc = sqrt(2*mu / r)
+	var esc_speed = sqrt((2 * source.mass) / distance)
+	return esc_speed
+
 func get_velocity() -> Vector2:
 	return velocity
 	

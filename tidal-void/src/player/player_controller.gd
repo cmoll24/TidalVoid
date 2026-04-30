@@ -1,11 +1,20 @@
-class_name InputHandler
+class_name PlayerController
 extends Node
 
-@export var player : Player
+@export var player : PlayerPawn
+
+@export var predictor : TrajectoryPredictor
+
+@onready var camera : Camera2D = $Camera2D
 
 var reverse_thrust = false
 
 var controller_mode = false
+
+func _ready() -> void:
+	if(player):
+		predictor.player = player
+		player.start_possess(self)
 
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -16,7 +25,7 @@ func _process(_delta: float) -> void:
 	var vertical_thrust = Input.get_axis("thrust_up", "thrust_down")
 	
 	thrust_direction = Vector2(horizontal_thrust, vertical_thrust)
-	if not player.camera.ignore_rotation:
+	if not camera.ignore_rotation:
 		thrust_direction = thrust_direction.rotated(player.rotation)
 	
 	### METHOD 2 - using mouse direction
@@ -25,7 +34,7 @@ func _process(_delta: float) -> void:
 	var player_screen_position = player.global_position - get_viewport().get_camera_2d().global_position
 	
 	var mouse_direction = (mouse_position - player_screen_position).normalized()
-	if not player.camera.ignore_rotation:
+	if not camera.ignore_rotation:
 		mouse_direction = mouse_direction.rotated(player.rotation)
 	player.mouse_direction = mouse_direction
 	
@@ -55,3 +64,18 @@ func _process(_delta: float) -> void:
 		player.set_thrust(thrust_direction.rotated(PI), thrust_multiplier)
 	else:
 		player.set_thrust(thrust_direction, thrust_multiplier)
+
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("propulsion"):
+		player.propulsion_ability()
+	elif event.is_action_pressed("Use"):
+		player.action_use()
+		
+		
+func possess_pawn(pawn : PlayerPawn):
+	player.stop_possess();
+	pawn.start_possess(self);
+	player = pawn;
+	predictor.player = pawn

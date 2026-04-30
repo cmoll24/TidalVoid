@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ojym1xpw04vj"]
+
+[ext_resource type="Script" uid="uid://nkq1kn87yqrw" path="res://src/Creatures/Friendly/leaper.gd" id="1_xu21f"]
+[ext_resource type="Texture2D" uid="uid://cidwwoyyvtfl2" path="res://assets/Textures/Placeholder/leaper.png" id="2_v6l51"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
+radius = 24.0
+
+[node name="Leaper" type="StaticBody2D" unique_id=1314638072]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_xu21f")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
+target_position = Vector2(0, 0)
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
+shape = SubResource("CircleShape2D_rc2ur")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=974945902]
+position = Vector2(0.9999999, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_v6l51")
+
+[node name="JumpTimer" type="Timer" parent="." unique_id=1728503043]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

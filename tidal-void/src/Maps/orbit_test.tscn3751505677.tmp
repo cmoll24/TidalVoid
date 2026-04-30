@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://bcsp2j6ktrslb"]
+
+[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/orbit/planet.tscn" id="1_4heml"]
+[ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_hd3kg"]
+[ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_4vn8n"]
+[ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
+[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/InputHandler.tscn" id="3_gen7d"]
+[ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_lm5jn"]
+[ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
+[ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
+[ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
+[ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
+[ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
+[ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/upgrade_inventory_ui/inventory_item.tscn" id="11_6pfde"]
+[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/upgrade_inventory_ui/inventory.tscn" id="11_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
+[ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
+
+[sub_resource type="Gradient" id="Gradient_je76y"]
+offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
+
+[sub_resource type="Gradient" id="Gradient_v2br0"]
+offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
+colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0.67058825, 0.33, 0.072600015, 0.32142, 0.38431373, 0.33, 0.05280001, 0.32076, 0)
+
+[node name="OrbitTestScene" type="Node2D" unique_id=730832755]
+script = ExtResource("1_hd3kg")
+
+[node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_4vn8n")]
+
+[node name="SenseManager" type="Node" parent="GameManager" unique_id=1641885360]
+script = ExtResource("3_lm5jn")
+metadata/_custom_type_script = "uid://knbcbvqoq4eb"
+
+[node name="VisionTimer" type="Timer" parent="GameManager/SenseManager" unique_id=851488906]
+wait_time = 0.1
+autostart = true
+
+[node name="VisionRayCast" type="RayCast2D" parent="GameManager/SenseManager" unique_id=1339009786]
+target_position = Vector2(0, 0)
+collision_mask = 7
+collide_with_areas = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
+color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+
+[node name="StaticBackground" type="CanvasLayer" parent="." unique_id=891405338]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1790725163]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.011764706, 0.03529412, 0.050980393, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1815654548]
+environment = ExtResource("10_v2br0")
+camera_attributes = ExtResource("4_lm5jn")
+
+[node name="Planet" parent="." unique_id=519984572 instance=ExtResource("1_4heml")]
+position = Vector2(423, 690)
+mass = 8000.0
+collision_radius = 120.0
+
+[node name="Planet2" parent="." unique_id=1740166484 instance=ExtResource("1_4heml")]
+position = Vector2(1587, 318)
+mass = 1600.0
+collision_radius = 70.0
+
+[node name="Planet3" parent="." unique_id=219364871 instance=ExtResource("1_4heml")]
+position = Vector2(2371, 1902)
+mass = 22000.0
+collision_radius = 210.0
+
+[node name="Planet4" parent="." unique_id=1640720222 instance=ExtResource("1_4heml")]
+position = Vector2(530, 1882)
+mass = 1500.0
+
+[node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
+z_index = 1
+position = Vector2(360, 1932)
+max_jump_power = 300.0
+max_charge_time = 2.5
+elasticity = 0.8
+thrust_power = 15.0
+
+[node name="InputHandler" parent="." unique_id=1484923074 node_paths=PackedStringArray("player") instance=ExtResource("3_gen7d")]
+player = NodePath("../Player")
+
+[node name="TrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
+line = NodePath("../Line2D")
+steps = 500
+fake_steps = 0.0
+step_dist = 1.0
+player = NodePath("../Player")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=203975512]
+width = 3.0
+gradient = SubResource("Gradient_je76y")
+antialiased = true
+
+[node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
+position = Vector2(512.2966, 452.5486)
+
+[node name="Collectable2" parent="." unique_id=241563427 instance=ExtResource("5_axjf6")]
+position = Vector2(655, 991)
+
+[node name="Collectable3" parent="." unique_id=84615810 instance=ExtResource("5_axjf6")]
+position = Vector2(1369, 381)
+
+[node name="Collectable4" parent="." unique_id=1964092763 instance=ExtResource("5_axjf6")]
+position = Vector2(1545, 555)
+
+[node name="Collectable5" parent="." unique_id=1892822805 instance=ExtResource("5_axjf6")]
+position = Vector2(782, 552)
+
+[node name="Collectable6" parent="." unique_id=1945323454 instance=ExtResource("5_axjf6")]
+position = Vector2(830, 532)
+
+[node name="Collectable7" parent="." unique_id=342270177 instance=ExtResource("5_axjf6")]
+position = Vector2(873, 505)
+
+[node name="Collectable8" parent="." unique_id=574767553 instance=ExtResource("5_axjf6")]
+position = Vector2(909, 478)
+
+[node name="Collectable9" parent="." unique_id=148827875 instance=ExtResource("5_axjf6")]
+position = Vector2(1911, 1212)
+
+[node name="Collectable10" parent="." unique_id=512758479 instance=ExtResource("5_axjf6")]
+position = Vector2(2142, 1630)
+
+[node name="Collectable11" parent="." unique_id=1526817881 instance=ExtResource("5_axjf6")]
+position = Vector2(257, 1870)
+
+[node name="Collectable12" parent="." unique_id=27494866 instance=ExtResource("5_axjf6")]
+position = Vector2(529, 1750)
+
+[node name="Collectable13" parent="." unique_id=1474240198 instance=ExtResource("5_axjf6")]
+position = Vector2(761, 1710)
+
+[node name="InventoryItem" parent="." unique_id=559685777 instance=ExtResource("11_6pfde")]
+item_name = "<null>"
+item_texture = ""
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
+
+[node name="Inventory" parent="CanvasLayer" unique_id=263900093 instance=ExtResource("11_i4pkw")]
+
+[node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
+text = "FPS"
+
+[node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
+position = Vector2(368, 1765)
+
+[node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
+line = NodePath("../Line2D2")
+steps = 100
+fake_steps = 2.0
+step_dist = 10.0
+player = NodePath("../Steven")
+
+[node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
+width = 3.0
+gradient = SubResource("Gradient_v2br0")
+antialiased = true
+
+[node name="Jeremiah" parent="." unique_id=1142549016 instance=ExtResource("12_2wvry")]
+position = Vector2(532, 820)
+
+[node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("12_2wvry")]
+position = Vector2(2043, 1863)
+
+[node name="Evil_Fred" parent="." unique_id=1502988588 instance=ExtResource("13_i4pkw")]
+position = Vector2(385, 530)
+
+[node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
+position = Vector2(2362, 1676)
