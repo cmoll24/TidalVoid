@@ -31,7 +31,7 @@ radius = 44.0
 [node name="CreatureCarrier" type="StaticBody2D" unique_id=1283291436]
 collision_layer = 2
 script = ExtResource("1_wnmps")
-mass = 1000.0
+mass = 100.0
 elasticity = 2.0
 thrust_power = 80.0
 start_in_orbit = true
