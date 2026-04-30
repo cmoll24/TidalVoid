@@ -98,10 +98,12 @@ bubble_slow_fraction = 100.0
 shape = SubResource("CircleShape2D_lhdkr")
 
 [node name="BubbleSprite" type="Sprite2D" parent="Bubble" unique_id=684946758]
+z_index = 4
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_lhdkr")
 
 [node name="HeadLights" type="PointLight2D" parent="." unique_id=710515519]
+z_index = 2
 rotation = 3.1415927
 texture = ExtResource("7_jkqj7")
 offset = Vector2(-2500, 0)
