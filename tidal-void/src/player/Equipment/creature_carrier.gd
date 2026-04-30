@@ -7,6 +7,9 @@ class_name CreatureCarrier
 
 @onready var planet_thrust_particles : ThrustParticles = $ThrustParticles2
 
+#ship_clearance is the length of ship
+@export var ship_clearance : float = 160.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -41,10 +44,14 @@ func _physics_process(_delta: float) -> void:
 		## ensure we cannot get too close to a planet so as to be unable to leave
 		var dist_sq : float = global_position.distance_squared_to(dominant_body.global_position)
 		var thrust_output = thrust_power * thrust_multiplier * 0.8 #little wiggle room
-		if (dominant_body.mass / dist_sq) > thrust_output:
+		
+		#The closest distance that the ship can be to any planet
+		var minimum_clearance_dist : float = ship_clearance + dominant_body.collision_radius
+		
+		if ((dominant_body.mass / dist_sq) > thrust_output) or (dist_sq < minimum_clearance_dist**2):
 			## if we are too close, push back to the edge
 			var dir :Vector2 = (global_position-dominant_body.global_position).normalized()
-			var min_dist = sqrt(dominant_body.mass/thrust_output)
+			var min_dist = max(sqrt(dominant_body.mass/thrust_output), minimum_clearance_dist)
 			
 			global_position = dominant_body.global_position + dir * min_dist
 			
