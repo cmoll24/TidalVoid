@@ -3,6 +3,7 @@ class_name PlayerPawn
 
 @onready var thrust_particles = $ThrustParticles
 
+#the direction of the playerPawn to the mouse
 var mouse_direction : Vector2
 
 var controller : PlayerController
