@@ -75,8 +75,8 @@ func player_movement(delta : float) -> void:
 			var horizontal_mov = Input.get_axis("thrust_left", "thrust_right")
 			if Input.is_action_pressed("thrust") or Input.is_action_pressed("controller_thrust"):
 				#move when thrust is held, mouse version
-				#var mouse_loc : Vector2 = get_global_mouse_position()- grounded_body.global_position
-				var mouse_angle : float = mouse_direction.angle()
+				var mouse_loc : Vector2 = get_global_mouse_position() - grounded_body.global_position
+				var mouse_angle : float = mouse_loc.angle()
 				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
 				var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
 				new_pos = (Vector2.from_angle(final_angle)*
@@ -159,11 +159,12 @@ func action_use() -> void:
 	if result:
 		if(result.collider is PlayerPawn):
 			# if we hit a player pawn, swtich to it
-			controller.possess_pawn(result.collider)
+			controller.possess_pawn(result.collider, velocity)
 
-func start_possess(player_controller : PlayerController) -> void:
-	super.start_possess(player_controller)
+func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
+	super.start_possess(player_controller, previous_pawn_velocity)
 	GV.player_reference(self)
+	velocity = previous_pawn_velocity
 
 func stop_possess() -> void:
 	super.stop_possess()

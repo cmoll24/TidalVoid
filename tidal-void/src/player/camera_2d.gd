@@ -12,7 +12,10 @@ var is_centered : bool = true
 var camera_global_position : Vector2 = Vector2.ZERO
 var drag_mouse_start_position : Vector2 = Vector2.ZERO
 
+var player_controller : PlayerController
+
 func _ready() -> void:
+	player_controller = get_parent()
 	target_zoom = zoom.x
 
 func _input(event: InputEvent) -> void:
@@ -38,9 +41,14 @@ func _input(event: InputEvent) -> void:
 			ignore_rotation = true
 
 func _process(delta: float) -> void:
-	global_position = get_parent().player.global_position
+	global_position = player_controller.player.global_position
 	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), 1.0 - exp(-zoom_smoothing * delta * 60.0))
+	
+	if not ignore_rotation:
+		rotation = player_controller.player.rotation
+	else:
+		rotation = 0.0
 	
 	if not is_centered:
 		roaming_camera_process(delta)

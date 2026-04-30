@@ -11,7 +11,7 @@ func start_thrust(thrust_direction, velocity, thrust_power):
 	var exhaust_direction = -thrust_direction
 	var spread = 0.1 * randf_range(-1, 1)
 	
-	var exhaust_speed : float = thrust_power * 10
+	var exhaust_speed : float = 100 + thrust_power
 	
 	var total_velocity = velocity + exhaust_speed * exhaust_direction.rotated(spread)
 	

@@ -3,6 +3,7 @@ class_name PlayerPawn
 
 @onready var thrust_particles = $ThrustParticles
 
+#the direction of the playerPawn to the mouse
 var mouse_direction : Vector2
 
 var controller : PlayerController
@@ -20,7 +21,7 @@ func propulsion_ability():
 	pass
 	
 ### called when the controller takes possession of this pawn
-func start_possess(player_controller : PlayerController) -> void:
+func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	controller = player_controller
 	
 ### called when the controller stops taking possession of this pawn	

@@ -5,7 +5,7 @@ extends Node
 
 @export var predictor : TrajectoryPredictor
 
-@onready var camera : Camera2D = $Camera2D
+@onready var camera : ZoomCamera = $Camera2D
 
 var reverse_thrust = false
 
@@ -14,7 +14,7 @@ var controller_mode = false
 func _ready() -> void:
 	if(player):
 		predictor.player = player
-		player.start_possess(self)
+		player.start_possess(self, Vector2.ZERO)
 
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -30,11 +30,11 @@ func _process(_delta: float) -> void:
 	
 	### METHOD 2 - using mouse direction
 	
-	var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
-	var player_screen_position = player.global_position - get_viewport().get_camera_2d().global_position
-	
-	var mouse_direction = (mouse_position - player_screen_position).normalized()
+	var mouse_world_position = camera.get_global_mouse_position()
+
+	var mouse_direction = (mouse_world_position - player.global_position).normalized()
 	if not camera.ignore_rotation:
+		camera.rotation = player.rotation
 		mouse_direction = mouse_direction.rotated(player.rotation)
 	player.mouse_direction = mouse_direction
 	
@@ -74,8 +74,8 @@ func _input(event: InputEvent) -> void:
 		player.action_use()
 		
 		
-func possess_pawn(pawn : PlayerPawn):
+func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	player.stop_possess();
-	pawn.start_possess(self);
+	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
 	predictor.player = pawn
