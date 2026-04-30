@@ -30,7 +30,6 @@ radius = 44.0
 
 [node name="CreatureCarrier" type="StaticBody2D" unique_id=1283291436]
 collision_layer = 2
-collision_mask = 3
 script = ExtResource("1_wnmps")
 mass = 1000.0
 elasticity = 2.0
