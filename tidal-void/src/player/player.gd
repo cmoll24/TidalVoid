@@ -159,11 +159,12 @@ func action_use() -> void:
 	if result:
 		if(result.collider is PlayerPawn):
 			# if we hit a player pawn, swtich to it
-			controller.possess_pawn(result.collider)
+			controller.possess_pawn(result.collider, velocity)
 
-func start_possess(player_controller : PlayerController) -> void:
-	super.start_possess(player_controller)
+func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
+	super.start_possess(player_controller, previous_pawn_velocity)
 	GV.player_reference(self)
+	velocity = previous_pawn_velocity
 
 func stop_possess() -> void:
 	super.stop_possess()

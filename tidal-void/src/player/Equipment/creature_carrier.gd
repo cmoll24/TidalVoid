@@ -21,7 +21,7 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	if direction != Vector2.ZERO:
 		super.set_thrust(Vector2.from_angle(global_rotation), multiplier)
 		target_rotation = direction.angle();
-		thrust_particles.start_thrust(Vector2.ZERO, velocity, thrust_power)
+		thrust_particles.start_thrust(Vector2.from_angle(rotation), velocity, thrust_power)
 	else:
 		super.set_thrust(Vector2.ZERO, multiplier)
 		thrust_particles.stop_thrust()
@@ -34,11 +34,11 @@ func _physics_process(_delta: float) -> void:
 		var spawn_pos :Vector2 = global_position + (Vector2.from_angle(global_rotation)*50)
 		#spawn the player
 		var player_scene  = preload("res://src/player/player.tscn")
-		var player :PlayerPawn = player_scene.instantiate()
+		var player : PlayerPawn = player_scene.instantiate()
 		get_tree().get_root().add_child(player)
 		player.global_position = spawn_pos
 		#possess the player
-		controller.call_deferred('possess_pawn',player)
+		controller.call_deferred('possess_pawn', player, velocity)
 	
 	if dominant_body:
 		## ensure we cannot get too close to a planet so as to be unable to leave
@@ -64,8 +64,8 @@ func _physics_process(_delta: float) -> void:
 			planet_thrust_particles.stop_thrust()
 	
 		
-func start_possess(player_controller :PlayerController) -> void:
-	super.start_possess(player_controller)
+func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
+	super.start_possess(player_controller, previous_pawn_velocity)
 	player_sprite.visible = true
 	head_lights.enabled = true
 	

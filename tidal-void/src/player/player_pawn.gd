@@ -21,7 +21,7 @@ func propulsion_ability():
 	pass
 	
 ### called when the controller takes possession of this pawn
-func start_possess(player_controller : PlayerController) -> void:
+func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	controller = player_controller
 	
 ### called when the controller stops taking possession of this pawn	

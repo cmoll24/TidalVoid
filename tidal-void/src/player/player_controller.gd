@@ -14,7 +14,7 @@ var controller_mode = false
 func _ready() -> void:
 	if(player):
 		predictor.player = player
-		player.start_possess(self)
+		player.start_possess(self, Vector2.ZERO)
 
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -74,8 +74,8 @@ func _input(event: InputEvent) -> void:
 		player.action_use()
 		
 		
-func possess_pawn(pawn : PlayerPawn):
+func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	player.stop_possess();
-	pawn.start_possess(self);
+	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
 	predictor.player = pawn
