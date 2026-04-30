@@ -89,9 +89,10 @@ script = ExtResource("3_ypvpx")
 
 [node name="Bubble" type="StaticBody2D" parent="." unique_id=89911421]
 collision_layer = 8
-collision_mask = 15
+collision_mask = 0
 script = ExtResource("4_23cqy")
 inner_radius = 30.0
+bubble_slow_fraction = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bubble" unique_id=79878690]
 shape = SubResource("CircleShape2D_lhdkr")
