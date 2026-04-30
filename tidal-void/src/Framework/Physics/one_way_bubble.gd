@@ -16,15 +16,25 @@ class_name Bubble
 ### fraction of velocity reflected back from the bubble when trying to escape
 @export var bubble_reflect_fraction : float = 0.6
 
+@onready var CollisionShape : CollisionShape2D = $BubbleCollider
+
+@onready var Sprite : Sprite2D = $BubbleSprite
+
+@export var b_bubble_enabled : bool = true
+
 var velocity : Vector2 = Vector2.ZERO
 
 var last_velocity : Vector2 = Vector2.ZERO
 
 var last_pos : Vector2 = Vector2.ZERO
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	last_pos = global_position
+	if(!b_bubble_enabled):
+		b_bubble_enabled = true;
+		toggle_bubble()
 	
 func _physics_process(delta: float) -> void:
 	velocity = (global_position - last_pos)/delta
@@ -54,3 +64,15 @@ func bounce_off_bubble(pos : Vector2, collision_radius : float, velo : Vector2) 
 		##keep things trapped in the bubble
 		return lerp(velo,velocity,bubble_slow_fraction*get_physics_process_delta_time())
 	return velo
+	
+func toggle_bubble():
+	b_bubble_enabled = !b_bubble_enabled
+	if(!b_bubble_enabled):
+		# bubbles just got turned off
+		CollisionShape.disabled = true
+		Sprite.visible = false
+	else:
+		# bubbles just got turned on
+		CollisionShape.disabled = false
+		Sprite.visible = true
+		

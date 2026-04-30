@@ -1,6 +1,9 @@
 class_name Creature
 extends DriftBody
 
+### if greater than 0, behavior is disabled and time will be brought down
+@export var stun_time : float = 0
+
 func _ready() -> void:
 	super._ready()
 	start_in_orbit = true
@@ -8,6 +11,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
+	#decrement stun time
+	stun_time -= delta
+	# run creature movement
 	creature_movement(delta)
 
 func creature_movement(delta):

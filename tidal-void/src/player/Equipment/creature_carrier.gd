@@ -10,6 +10,11 @@ class_name CreatureCarrier
 #ship_clearance is the length of ship
 @export var ship_clearance : float = 160.0
 
+@onready var bubble : Bubble = $Bubble
+
+### instantaneous velocity change to creatures in the carrier when the bubble is deactivated
+@export var bubble_push : float = 25
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -73,3 +78,23 @@ func stop_possess() -> void:
 	super.stop_possess()
 	player_sprite.visible = false
 	head_lights.enabled = false
+	
+func action_use() -> void:
+	bubble.toggle_bubble()
+	
+	#upon disabling the bubble, push all creatures in it away from the vehicle
+	if(!bubble.b_bubble_enabled):
+		var space_state = get_world_2d().direct_space_state
+		
+		var params : PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+		params.shape = bubble.CollisionShape.shape
+		params.transform = transform
+		params.collision_mask = 2
+		
+		var results : Array[Dictionary] = space_state.intersect_shape(params,16)
+		
+		for result in results:
+			var collider = result["collider"]
+			if(collider is Creature):
+				collider.velocity += Vector2.from_angle(global_rotation)*bubble_push
+		

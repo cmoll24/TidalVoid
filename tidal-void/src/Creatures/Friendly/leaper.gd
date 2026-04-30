@@ -1,4 +1,5 @@
 extends Creature
+class_name Leaper
 
 @onready var jump_timer = $JumpTimer
 

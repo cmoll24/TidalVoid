@@ -12,9 +12,6 @@ class_name MovingCreature
 ###when hibernating, movement will not be made except to escape deep space
 @export var b_in_hibernation : bool = false
 
-### if greater than 0, behavior is disabled and time will be brought down
-@export var stun_time : float = 0
-
 func _ready() -> void:
 		super._ready()
 		target_dir = start_orbit_dir
@@ -83,8 +80,6 @@ func creature_movement(_delta):
 	
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-	#decrement stun time
-	stun_time -= delta
 		
 @warning_ignore("unused_parameter")
 func on_collide_with_bubble(bubble : Bubble) -> void:
