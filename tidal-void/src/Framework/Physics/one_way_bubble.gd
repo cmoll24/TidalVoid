@@ -5,7 +5,13 @@ class_name Bubble
 @export var inner_radius: float = 40;
 
 ### minimum velocity to bounce back with
-@export var min_bounce_strength : float = 1;
+@export var min_bounce_strength : float = 0.5;
+
+### the speed at which the velocity of drifbodies in the bubble is reduced per second
+@export var bubble_slow_speed : float = 10
+
+### fraction of velocity reflected back from the bubble when trying to escape
+@export var bubble_reflect_fraction : float = 0.6
 
 var velocity : Vector2 = Vector2.ZERO
 
@@ -31,5 +37,8 @@ func bounce_off_bubble(pos : Vector2, collision_radius : float, velo : Vector2) 
 		var dot : float = diff.dot(velo - velocity) # account for our own velocity
 		#if the velocity is trying to escape the bubble, send it towards the center
 		if(dot < 0):
-			return velocity + (diff * max(abs(dot),min_bounce_strength))
+			return velocity + ((diff * max(abs(dot),min_bounce_strength))*bubble_reflect_fraction)
+	else:
+		##keep things trapped in the bubble
+		return velo.move_toward(velocity,bubble_slow_speed * get_physics_process_delta_time())
 	return velo
