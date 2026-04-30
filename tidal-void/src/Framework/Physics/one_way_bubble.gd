@@ -1,10 +1,10 @@
 extends PhysicsBody2D
 class_name Bubble
 
-### the inner radius of the bubble, no collisions occur here
+### the inner radius of the bubble, things within this radius are not considered to be bouncing off the edges
 @export var inner_radius: float = 40;
 
-### the outer radius of the bubble, anything beyond this distance will be released(should be larger than collision radius)
+### the outer radius of the bubble, anything beyond this distance will be released(should be slightly larger than collision radius)
 @export var outer_radius: float = 47;
 
 ### minimum velocity to bounce back with
