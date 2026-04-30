@@ -4,6 +4,9 @@ class_name Bubble
 ### the inner radius of the bubble, no collisions occur here
 @export var inner_radius: float = 40;
 
+### the outer radius of the bubble, anything beyond this distance will be released(should be larger than collision radius)
+@export var outer_radius: float = 47;
+
 ### minimum velocity to bounce back with
 @export var min_bounce_strength : float = 2;
 
@@ -36,6 +39,9 @@ func _physics_process(delta: float) -> void:
 func bounce_off_bubble(pos : Vector2, collision_radius : float, velo : Vector2) -> Vector2:
 	var diff : Vector2 = global_position - pos
 	var dist : float = diff.length()
+	if(dist > outer_radius):
+		### release the object if it is outside of the outer radiuss
+		return velo
 	#check that we are touching the edge of the bubble and not the middle
 	if(dist  + collision_radius > inner_radius):
 		#normalize diff
