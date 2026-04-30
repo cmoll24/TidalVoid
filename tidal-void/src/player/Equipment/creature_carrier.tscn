@@ -70,7 +70,6 @@ texture = ExtResource("2_23cqy")
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=2074740384]
 target_position = Vector2(0, 0)
-collision_mask = 3
 
 [node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=173621513]
 position = Vector2(-82, 23)
