@@ -9,13 +9,13 @@ class_name Player
 
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 350.0
-@export var max_charge_time : float = 2.5  # seconds to reach full charge
 ###max distance at which the player can interact with things with the use action
 @export var use_distance : float = 80
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
-var jump_charge_time : float = 0.0
+var jump_charge_ratio : float = 0.0
+var jump_charge_speed : float = 0.005
 var jump_escape_speed : float = 0.0
 
 ####################################################### used for the creature holding mechanic
@@ -57,12 +57,10 @@ func player_movement(delta : float) -> void:
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
 			b_prediction_velo_is_real = false;
-			jump_charge_time = 0.0
+			jump_charge_ratio = 0.5
 			jump_escape_speed = escape_speed(grounded_body, global_position)
 
 		if is_charging_jump and Input.is_action_pressed("jump"):
-			jump_charge_time += delta
-			jump_charge_time = min(jump_charge_time, max_charge_time)
 			prediction_velocity = get_jump_vector().limit_length(max_velocity);
 
 		elif is_charging_jump: #no longer detects if the input was just released, this is so tabbing out can't trap you in jumping
@@ -127,8 +125,7 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 		
 
 func get_jump_vector() -> Vector2:
-	var charge_ratio = jump_charge_time / max_charge_time
-	var curved_ratio = pow(charge_ratio, 0.5) #I like the feel of this better
+	var curved_ratio = pow(jump_charge_ratio, 0.5) #I like the feel of this better
 	var max_jump = min(1.1 * jump_escape_speed, max_jump_power)
 	var power =  lerp(min_jump_power, max_jump, curved_ratio)
 	
@@ -205,7 +202,7 @@ func perform_jump():
 		return
 	velocity += jump_vector
 
-	jump_charge_time = 0.0
+	jump_charge_ratio = 0.0
 
 func propulsion_ability():
 	if propulsions_left > 0:
@@ -214,3 +211,9 @@ func propulsion_ability():
 		
 func reset_abilities():
 	propulsions_left = propulsion_max
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action("inc_jump"):
+		jump_charge_ratio = clamp(jump_charge_ratio + jump_charge_speed, 0.0, 1.0)
+	elif event.is_action("dec_jump"):
+		jump_charge_ratio = clamp(jump_charge_ratio - jump_charge_speed, 0.0, 1.0)

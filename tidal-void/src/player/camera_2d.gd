@@ -19,11 +19,12 @@ func _ready() -> void:
 	target_zoom = zoom.x
 
 func _input(event: InputEvent) -> void:
-	if event.is_action("zoom_in"):
-		target_zoom = clamp(target_zoom * (1.0 + zoom_speed), min_zoom, max_zoom)
-	elif event.is_action("zoom_out"):
-		target_zoom = clamp(target_zoom / (1.0 + zoom_speed), min_zoom, max_zoom)
-	elif event.is_action_pressed("camera_drag"):
+	if not Input.is_action_pressed("jump"):
+		if event.is_action("zoom_in"):
+			target_zoom = clamp(target_zoom * (1.0 + zoom_speed), min_zoom, max_zoom)
+		elif event.is_action("zoom_out"):
+			target_zoom = clamp(target_zoom / (1.0 + zoom_speed), min_zoom, max_zoom)
+	if event.is_action_pressed("camera_drag"):
 		is_centered = false
 		ignore_rotation = true
 		var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
