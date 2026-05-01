@@ -1,8 +1,12 @@
 class_name Creature
 extends DriftBody
 
+enum creature_size_type {none ,small ,medium ,large ,leviathan}
+
 ### if greater than 0, behavior is disabled and time will be brought down
 @export var stun_time : float = 0
+
+@export var creature_size : creature_size_type = creature_size_type.small
 
 func _ready() -> void:
 	super._ready()
