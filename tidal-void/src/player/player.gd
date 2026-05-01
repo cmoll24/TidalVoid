@@ -18,6 +18,13 @@ var is_charging_jump : bool = false
 var jump_charge_time : float = 0.0
 var jump_escape_speed : float = 0.0
 
+####################################################### used for the creature holding mechanic
+### the velocity applied to things the player throws
+@export var throw_velocity : float = 75
+### the amount of time a creature is stunned for after holding
+@export var hold_stun_time : float = 1
+var held_creature : Creature = null
+
 #This here is for player ability, the idea is to give the player
 #a propulsion or after burner in case the player leaves orbit
 #The max can be changed to whatever works but once the countdown hits 0,
@@ -140,26 +147,43 @@ func get_jump_vector() -> Vector2:
 	
 	return power * up_direction.rotated(angle_to_thrust)
 
-func action_use() -> void:
+func action_use(pressed : bool)  -> void:
 	
-	# perform a raycast to see what the mouse is pointing at
-	
-	var space_state = get_world_2d().direct_space_state
-	
-	#start at the edge of the player
-	var start : Vector2 = global_position +(mouse_direction*collision_shape.shape.radius) 
-	#end use_distance away in the direction of the mouse
-	var end : Vector2 = start + (mouse_direction*use_distance)
-	
-	
-	var query = PhysicsRayQueryParameters2D.create(start, end,shape_cast.collision_mask,[self.get_rid()])
+	if(pressed):
+		# perform a raycast to see what the mouse is pointing at
+		
+		var space_state = get_world_2d().direct_space_state
+		
+		#start at the edge of the player
+		var start : Vector2 = global_position +(mouse_direction*collision_shape.shape.radius) 
+		#end use_distance away in the direction of the mouse
+		var end : Vector2 = start + (mouse_direction*use_distance)
+		
+		
+		var query = PhysicsRayQueryParameters2D.create(start, end,shape_cast.collision_mask,[self.get_rid()])
 
-	var result = space_state.intersect_ray(query)
-	
-	if result:
-		if(result.collider is PlayerPawn):
-			# if we hit a player pawn, swtich to it
-			controller.possess_pawn(result.collider, velocity)
+		var result = space_state.intersect_ray(query)
+		
+		if result:
+			if(result.collider is PlayerPawn):
+				# if we hit a player pawn, swtich to it
+				controller.possess_pawn(result.collider, velocity)
+			elif(result.collider is Creature and result.collider.creature_size == Creature.creature_size_type.small):
+				# if we hit a small creature, hold it
+				held_creature = result.collider
+				held_creature.stun_time = hold_stun_time
+				held_creature.velocity = velocity
+	else:
+		if(held_creature and held_creature.stun_time > 0):
+			## if holding a stunned creature, attempt a throw
+			#first check that the creature is still close
+			var max_dist = use_distance + collision_shape.shape.radius
+			if(held_creature.global_position.distance_squared_to(global_position) < max_dist**2):
+				#close enough, throw it
+				held_creature.add_impulse(mouse_direction*max(throw_velocity,gravity_force.length()))
+				held_creature.stun_time = hold_stun_time
+			
+		held_creature = null
 
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	super.start_possess(player_controller, previous_pawn_velocity)

@@ -36,7 +36,7 @@ func creature_movement(_delta):
 	# return from deep space
 	if(get_square_altitude(dominant_body) > dominant_body.pull_radius ** 2):
 		var dir : Vector2 = (dominant_body.global_position - global_position).normalized();
-		var min_compliance = 50;
+		var min_compliance = 40;
 		if(velocity.dot(dir) < min_compliance):
 			set_thrust(dir)
 		return

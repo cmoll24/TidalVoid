@@ -74,12 +74,14 @@ func start_possess(player_controller : PlayerController, previous_pawn_velocity 
 	player_sprite.visible = true
 	head_lights.enabled = true
 	
-func stop_possess() -> void:
+func	stop_possess() -> void:
 	super.stop_possess()
 	player_sprite.visible = false
 	head_lights.enabled = false
 	
-func action_use() -> void:
+func action_use(pressed : bool) -> void:
+	if(!pressed):
+		return
 	bubble.toggle_bubble()
 	
 	#upon disabling the bubble, push all creatures in it away from the vehicle

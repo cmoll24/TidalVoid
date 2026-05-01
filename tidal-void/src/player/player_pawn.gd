@@ -13,7 +13,7 @@ func _ready() -> void:
 	super._ready()
 	
 ###called when the use input is detected, override this function if you want something to happen
-func action_use() -> void:
+func action_use(pressed : bool) -> void:
 	pass
 
 ###called when the propulsion key is pressed
