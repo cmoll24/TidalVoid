@@ -33,8 +33,8 @@ func update_dominant_body() -> void:
 	if target_asteroid == dominant_body:
 		pick_next_asteroid()
 
-func creature_movement(_delta):	
-	if jump_attemps > 0:
+func creature_movement(_delta):
+	if b_is_grounded and jump_attemps > 0:
 		set_airborne()
 		walking_on_ground = false
 		velocity = get_jump_vector()
