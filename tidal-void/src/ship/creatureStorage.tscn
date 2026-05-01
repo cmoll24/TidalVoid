@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cke2qtkpx6xc5"]
+
+[ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="1_fasdo"]
+[ext_resource type="Script" uid="uid://ct20noj6rvube" path="res://src/ship/creatureStorageScript.gd" id="1_ycuta"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycuta"]
+radius = 100.0
+
+[node name="CreatureStorage" type="StaticBody2D" unique_id=10157181]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_ycuta")
+inner_radius = 95.0
+outer_radius = 102.0
+min_bounce_strength = 10.0
+bubble_reflect_fraction = 0.9
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=190645434]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_fasdo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1423001153]
+shape = SubResource("CircleShape2D_ycuta")
