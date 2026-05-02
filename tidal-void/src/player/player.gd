@@ -1,4 +1,3 @@
-
 extends PlayerPawn
 class_name Player
 
@@ -9,8 +8,6 @@ class_name Player
 
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 350.0
-###max distance at which the player can interact with things with the use action
-@export var use_distance : float = 80
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
@@ -24,6 +21,14 @@ var jump_escape_speed : float = 0.0
 ### the amount of time a creature is stunned for after holding
 @export var hold_stun_time : float = 1
 var held_creature : Creature = null
+
+#########################################################
+#the player can interact with things in this area
+@onready var interact_area : Area2D = $InteractArea
+
+var interact_dir : Vector2 = Vector2.ZERO
+
+var interact_source : InteractSource = null
 
 #This here is for player ability, the idea is to give the player
 #a propulsion or after burner in case the player leaves orbit
@@ -45,6 +50,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	player_movement(delta)
+	update_interact_source()
 
 func player_movement(delta : float) -> void:
 	if b_is_grounded && walking_on_ground:
@@ -145,23 +151,32 @@ func get_jump_vector() -> Vector2:
 	return power * up_direction.rotated(angle_to_thrust)
 
 func action_use(pressed : bool)  -> void:
-	
 	if(pressed):
-		# perform a raycast to see what the mouse is pointing at
+		if(!interact_source):
+			return; ## we need an interact source
+			
+		var diff : Vector2 = interact_source.global_position - global_position
+		var dist : float = diff.length()
+		var dir : Vector2 = diff/dist
 		
+		# perform a raycast to see if we can touch the interact source(plus ensures we get the closest thing distance wise)
+			
 		var space_state = get_world_2d().direct_space_state
 		
 		#start at the edge of the player
-		var start : Vector2 = global_position +(mouse_direction*collision_shape.shape.radius) 
+		var start : Vector2 = global_position +(dir*collision_shape.shape.radius) 
 		#end use_distance away in the direction of the mouse
-		var end : Vector2 = start + (mouse_direction*use_distance)
+		var end : Vector2 = start + (dir*dist)
 		
 		
-		var query = PhysicsRayQueryParameters2D.create(start, end,shape_cast.collision_mask,[self.get_rid()])
+		var query = PhysicsRayQueryParameters2D.create(start, end,2,[self.get_rid()])
 
 		var result = space_state.intersect_ray(query)
 		
 		if result:
+			var source : InteractSource = result.collider.get_node_or_null("InteractSource")
+			if(source):
+				source.interact()
 			if(result.collider is PlayerPawn):
 				# if we hit a player pawn, swtich to it
 				controller.possess_pawn(result.collider, velocity)
@@ -173,22 +188,59 @@ func action_use(pressed : bool)  -> void:
 	else:
 		if(held_creature and held_creature.stun_time > 0):
 			## if holding a stunned creature, attempt a throw
-			#first check that the creature is still close
-			var max_dist = use_distance + collision_shape.shape.radius
-			if(held_creature.global_position.distance_squared_to(global_position) < max_dist**2):
+			#first check that the creature is still interactable
+			if(held_creature in interact_area.get_overlapping_bodies()):
 				#close enough, throw it
 				held_creature.add_impulse(mouse_direction*max(throw_velocity,gravity_force.length()))
 				held_creature.stun_time = hold_stun_time
 			
 		held_creature = null
+		
+func update_interact_source() -> void:
+	# look at all interactable things
+	var largest_dot : float = -9999;
+	var closest_source : InteractSource = null;
+	for thing in interact_area.get_overlapping_bodies():
+		var source : InteractSource = thing.get_node_or_null("InteractSource")
+		if(!source):
+			continue
+		### get information on the position and direction
+		var diff : Vector2 = thing.global_position - global_position;
+		var dist : float = diff.length();
+		var dir : Vector2 = diff/dist;
+		var dot :  = dir.dot(mouse_direction);
+		###update visuals
+		source.enable_interact_sprite(-dir)
+		source.set_highlight(false)
+		### check if this is the closest source
+		if(dot > largest_dot):
+			largest_dot = dot;
+			closest_source = source;
+			
+	interact_source = closest_source	
+		
+	if !closest_source:
+		return # only continue if there was anything in the interact area
+		
+	#highlight the closest source
+	closest_source.set_highlight(true)
+	
+	
 
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	super.start_possess(player_controller, previous_pawn_velocity)
-	GV.player_reference(self)
+	#GV.player_reference(self)
 	velocity = previous_pawn_velocity
 
 func stop_possess() -> void:
 	super.stop_possess()
+	### hide interact icons
+	for thing in interact_area.get_overlapping_bodies():
+		var source : InteractSource = thing.get_node_or_null("InteractSource")
+		if(!source):
+			continue
+		source.disable_interact_sprite()
+	### destroy
 	queue_free()
 
 
@@ -217,3 +269,9 @@ func _input(event: InputEvent) -> void:
 		jump_charge_ratio = clamp(jump_charge_ratio + jump_charge_speed, 0.0, 1.0)
 	elif event.is_action("dec_jump"):
 		jump_charge_ratio = clamp(jump_charge_ratio - jump_charge_speed, 0.0, 1.0)
+
+
+func _on_interact_area_body_exited(body: Node2D) -> void:
+	var source : InteractSource = body.get_node_or_null("InteractSource")
+	if(source):
+		source.disable_interact_sprite()
