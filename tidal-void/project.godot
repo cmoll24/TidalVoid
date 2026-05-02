@@ -13,7 +13,8 @@ config_version=5
 config/name="TidalVoid"
 run/main_scene="uid://bcsp2j6ktrslb"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/image="uid://dvaawcw7g3nxj"
+config/icon="uid://p7mxqgg62w8x"
 
 [autoload]
 

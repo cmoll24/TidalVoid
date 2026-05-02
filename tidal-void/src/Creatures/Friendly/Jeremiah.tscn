@@ -26,6 +26,7 @@ script = ExtResource("1_lnscu")
 v_distance = 5000.0
 v_source_loyalty_time = 5.0
 v_source_loyalty_dist = 1.75
+mass = 2.0
 thrust_power = 5.0
 start_in_orbit = true
 start_orbit_dir = false

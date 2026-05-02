@@ -218,9 +218,6 @@ max_velocity = 400.0
 position = Vector2(2043, 1863)
 max_velocity = 400.0
 
-[node name="Evil_Fred" parent="." unique_id=1502988588 instance=ExtResource("13_i4pkw")]
-position = Vector2(385, 530)
-
 [node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
 position = Vector2(2362, 1676)
 

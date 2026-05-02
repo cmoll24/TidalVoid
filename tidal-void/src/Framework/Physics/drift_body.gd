@@ -104,6 +104,7 @@ func _ready() -> void:
 	if(start_in_orbit):
 		call_deferred("orbit_dominant_body");
 	shape_cast.shape = collision_shape.shape
+	shape_cast.scale = Vector2(1.02,1.02) # slight padding on the shapecast to prevent Godot's collision detection from messing things up
 	shape_cast.enabled = false
 
 func orbit_dominant_body() -> void:

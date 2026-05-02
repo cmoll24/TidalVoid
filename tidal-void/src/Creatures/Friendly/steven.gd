@@ -42,7 +42,6 @@ func _ready() -> void:
 	super._ready()
 	#set the vision bitmask( use the | operator to add more)
 	v_types = 1 << VisionSource.v_source_type.sFood
-	v_types = 127
 	call_deferred("post_ready")
 	
 func post_ready() -> void:
@@ -117,5 +116,5 @@ func update_behavior() -> void:
 		##keep roughly in our orbit unless hibernating
 		if(!b_in_hibernation):
 			target_altitude_sqr = min(
-				(dominant_body.pull_radius-30)**2,
+				(dominant_body.pull_radius-20)**2,
 				get_square_altitude(dominant_body))

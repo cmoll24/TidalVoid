@@ -200,7 +200,7 @@ func action_use(pressed : bool)  -> void:
 			#first check that the creature is still interactable
 			if(held_creature in interact_area.get_overlapping_bodies()):
 				#close enough, throw it
-				held_creature.add_impulse(mouse_direction*max(throw_velocity,gravity_force.length()))
+				held_creature.velocity += mouse_direction*max(throw_velocity,gravity_force.length())
 				held_creature.stun_time = hold_stun_time
 			
 		held_creature = null

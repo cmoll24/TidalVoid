@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dfms40uf6fvh0" path="res://assets/Textures/Placeholder/PLACEHOLDER_circle_light.png" id="4_244u8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
-radius = 21.0
+radius = 20.0
 
 [sub_resource type="Curve" id="Curve_5f2sf"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
