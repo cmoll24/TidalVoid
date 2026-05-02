@@ -19,6 +19,15 @@ func _ready() -> void:
 	target_zoom = zoom.x
 
 func _input(event: InputEvent) -> void:
+	#Pinch Zoom
+	if event is InputEventMagnifyGesture:
+		var factor = event.factor
+		target_zoom = clamp(
+			target_zoom / factor,  
+			min_zoom,
+			max_zoom
+		)
+		
 	if event.is_action("zoom_in"):
 		target_zoom = clamp(target_zoom * (1.0 + zoom_speed), min_zoom, max_zoom)
 	elif event.is_action("zoom_out"):
