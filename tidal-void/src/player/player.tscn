@@ -17,6 +17,9 @@ interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.60912055, 0.8175896, 1)
 colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120000005, 0.120000005, 0.6862745, 0.71, 0.07810001, 0.07810001, 0.627451, 0, 0, 0, 0.43137255, 0.17, 0.17, 0.17, 0)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_244u8"]
+radius = 80.0
+
 [node name="Player" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
 collision_layer = 2
 collision_mask = 3
@@ -28,6 +31,7 @@ static_friction_coefficient = 0.5
 kinetic_friction_coefficient = 0.3
 elasticity = 0.5
 thrust_power = 15.0
+max_velocity = 10000.0
 start_in_orbit = true
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
@@ -73,3 +77,12 @@ shadow_color = Color(0.03137255, 0.03137255, 0.03137255, 0.1254902)
 shadow_item_cull_mask = 1023
 texture = ExtResource("4_244u8")
 texture_scale = 32.0
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=1331845340]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1539383539]
+shape = SubResource("CircleShape2D_244u8")
+
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

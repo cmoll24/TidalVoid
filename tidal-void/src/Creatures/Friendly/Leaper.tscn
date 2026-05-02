@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://nkq1kn87yqrw" path="res://src/Creatures/Friendly/leaper.gd" id="1_xu21f"]
 [ext_resource type="Texture2D" uid="uid://cidwwoyyvtfl2" path="res://assets/Textures/Placeholder/leaper.png" id="2_v6l51"]
+[ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="3_ikb0v"]
+[ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="4_72tiv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 24.0
@@ -26,5 +28,16 @@ texture = ExtResource("2_v6l51")
 [node name="JumpTimer" type="Timer" parent="." unique_id=1728503043]
 wait_time = 2.0
 one_shot = true
+
+[node name="InteractSource" type="Node2D" parent="." unique_id=408777580]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("3_ikb0v")
+metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1739009762]
+z_index = 20
+position = Vector2(0, -40)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_72tiv")
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

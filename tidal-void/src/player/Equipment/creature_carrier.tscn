@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cvqn1xfyn3ufi" path="res://assets/Textures/Player/playerside.png" id="4_jkqj7"]
 [ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="5_lhdkr"]
 [ext_resource type="Texture2D" uid="uid://de18s33ido0h7" path="res://assets/Textures/Placeholder/PLACEHOLDER_beamlightpng.png" id="7_jkqj7"]
+[ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="8_5c75x"]
+[ext_resource type="Texture2D" uid="uid://dm05xrilkgciu" path="res://assets/Textures/Placeholder/PLACEHOLDER_enter_icon.png" id="9_f44oo"]
 
 [sub_resource type="Curve" id="Curve_lhdkr"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -107,3 +109,15 @@ rotation = 3.1415927
 texture = ExtResource("7_jkqj7")
 offset = Vector2(-2500, 0)
 texture_scale = 20.0
+
+[node name="InteractSource" type="Node2D" parent="." unique_id=1584869018]
+position = Vector2(-65.71, 12.1)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("8_5c75x")
+b_lock_interact_sprite_rotation = true
+metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1762251464]
+z_index = 20
+position = Vector2(0, -50)
+texture = ExtResource("9_f44oo")

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://mhhqnfsl8hb4" path="res://src/Creatures/Hostile/Evil_Fred.gd" id="1_511cb"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_tf2pi"]
 [ext_resource type="Texture2D" uid="uid://cb518pl7547xl" path="res://assets/Textures/Placeholder/Evil_Fred.png" id="3_511cb"]
+[ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="4_hbj42"]
+[ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="5_g6gnr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 15.0
@@ -55,3 +57,14 @@ offset_right = 83.0
 offset_bottom = 81.0
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("3_511cb")
+
+[node name="InteractSource" type="Node2D" parent="." unique_id=1117815970]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_hbj42")
+metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=71208850]
+z_index = 20
+position = Vector2(0, -40)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_g6gnr")

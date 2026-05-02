@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bed3ebjxe4vsg" path="res://src/Creatures/Friendly/steven.gd" id="1_qvmga"]
 [ext_resource type="Texture2D" uid="uid://bdwyrbnfqtcjj" path="res://assets/Textures/Placeholder/floater.png" id="2_marqm"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_qvmga"]
+[ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="4_u2jf1"]
+[ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="5_qdldh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 15.0
@@ -56,3 +58,14 @@ offset_right = 83.0
 offset_bottom = 81.0
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("2_marqm")
+
+[node name="InteractSource" type="Node2D" parent="." unique_id=1951169287]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_u2jf1")
+metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=688165430]
+z_index = 20
+position = Vector2(0, -40)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_qdldh")
