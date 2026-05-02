@@ -104,6 +104,11 @@ collision_radius = 210.0
 position = Vector2(530, 1882)
 mass = 1500.0
 
+[node name="Line2D" type="Line2D" parent="." unique_id=203975512]
+width = 3.0
+gradient = SubResource("Gradient_je76y")
+antialiased = true
+
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 position = Vector2(617, 1827)
 start_orbit_dir = false
@@ -118,11 +123,6 @@ steps = 500
 fake_steps = 0.0
 step_dist = 1.0
 player = NodePath("../Player")
-
-[node name="Line2D" type="Line2D" parent="." unique_id=203975512]
-width = 3.0
-gradient = SubResource("Gradient_je76y")
-antialiased = true
 
 [node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
 position = Vector2(512.2966, 452.5486)

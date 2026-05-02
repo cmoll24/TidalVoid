@@ -70,6 +70,7 @@ func player_movement(delta : float) -> void:
 			perform_jump()
 			walking_on_ground = false
 			b_prediction_velo_is_real = true;
+			update_traj_color.emit(Color.WHITE)
 		#Handle walking on ground
 		
 		#ignore collision with static geometry
