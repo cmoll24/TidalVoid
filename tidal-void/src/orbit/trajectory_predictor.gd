@@ -18,6 +18,12 @@ var game_manager : GameManager
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
+	
+	if player is Player:
+		player.update_traj_color.connect(set_color)
+
+func set_color(new_color : Color):
+	line.modulate = new_color
 
 func _physics_process(_delta: float) -> void:
 	if(!player):

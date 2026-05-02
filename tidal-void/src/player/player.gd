@@ -11,9 +11,6 @@ class_name Player
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
-var jump_charge_ratio : float = 0.0
-var jump_charge_speed : float = 0.005
-var jump_escape_speed : float = 0.0
 
 ####################################################### used for the creature holding mechanic
 ### the velocity applied to things the player throws
@@ -42,6 +39,8 @@ var max_jump_angle : float = PI/2.5
 
 #var surface_friction_coef : float = 0.001
 
+signal update_traj_color(new_color : Color)
+
 func _ready() -> void:
 	super._ready()
 	if self.is_in_group("player"):
@@ -63,8 +62,6 @@ func player_movement(delta : float) -> void:
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
 			b_prediction_velo_is_real = false;
-			jump_charge_ratio = 0.5
-			jump_escape_speed = escape_speed(grounded_body, global_position)
 
 		if is_charging_jump and Input.is_action_pressed("jump"):
 			prediction_velocity = get_jump_vector().limit_length(max_velocity);
@@ -136,11 +133,14 @@ func get_jump_vector() -> Vector2:
 	#the jump angle from the ground normal
 	var jump_angle : float = up_direction.angle_to(mouse_direction)
 	
-	if abs(jump_angle) > max_jump_angle * 1.2:
+	if abs(jump_angle) > max_jump_angle * 1.5:
 	#	#instead of clamping the thrust angle, allow the player to cancel jumps by angling it at the planet
 		return Vector2.ZERO
 	elif abs(jump_angle) > max_jump_angle:
 		jump_angle = clampf(jump_angle, -max_jump_angle, max_jump_angle)
+		update_traj_color.emit(Color.WEB_GRAY)
+	else:
+		update_traj_color.emit(Color.WHITE)
 		
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var start_r: float = global_position.distance_to(dominant_body.global_position)
@@ -262,8 +262,6 @@ func perform_jump():
 		return
 	velocity += jump_vector
 
-	jump_charge_ratio = 0.0
-
 func propulsion_ability():
 	if propulsions_left > 0:
 		propulsions_left -= 1
@@ -271,13 +269,6 @@ func propulsion_ability():
 		
 func reset_abilities():
 	propulsions_left = propulsion_max
-	
-func _input(event: InputEvent) -> void:
-	if event.is_action("inc_jump"):
-		jump_charge_ratio = clamp(jump_charge_ratio + jump_charge_speed, 0.0, 1.0)
-	elif event.is_action("dec_jump"):
-		jump_charge_ratio = clamp(jump_charge_ratio - jump_charge_speed, 0.0, 1.0)
-
 
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")
