@@ -131,24 +131,32 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 		
 
 func get_jump_vector() -> Vector2:
-	var curved_ratio = pow(jump_charge_ratio, 0.5) #I like the feel of this better
-	var max_jump = min(1.1 * jump_escape_speed, max_jump_power)
-	var power =  lerp(min_jump_power, max_jump, curved_ratio)
-	
 	var up_direction = grounded_normal.normalized()
 	
-	if mouse_direction == Vector2.ZERO:
-		return power * up_direction
+	#the jump angle from the ground normal
+	var jump_angle : float = up_direction.angle_to(mouse_direction)
 	
-	var angle_to_thrust = up_direction.angle_to(mouse_direction)
-	
-	if abs(angle_to_thrust) > max_jump_angle * 1.2:
+	if abs(jump_angle) > max_jump_angle * 1.2:
 	#	#instead of clamping the thrust angle, allow the player to cancel jumps by angling it at the planet
 		return Vector2.ZERO
-	elif abs(angle_to_thrust) > max_jump_angle:
-		angle_to_thrust = clampf(angle_to_thrust, -max_jump_angle, max_jump_angle)
+	elif abs(jump_angle) > max_jump_angle:
+		jump_angle = clampf(jump_angle, -max_jump_angle, max_jump_angle)
+		
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var start_r: float = global_position.distance_to(dominant_body.global_position)
+	var target_r: float = mouse_pos.distance_to(dominant_body.global_position)
 	
-	return power * up_direction.rotated(angle_to_thrust)
+	if target_r <= start_r:
+		return Vector2.ZERO
+	
+	var mu = dominant_body.mass
+	
+	#orbital transfer energy
+	var jump_power = sqrt(mu * 2.0 * (1.0/start_r - 1.0/target_r))
+	
+	jump_power = clampf(jump_power, min_jump_power, max_jump_power)
+
+	return jump_power * up_direction.rotated(jump_angle)
 
 func action_use(pressed : bool)  -> void:
 	if(pressed):
