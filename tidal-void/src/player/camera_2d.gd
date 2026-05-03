@@ -6,16 +6,30 @@ extends Camera2D
 @export var zoom_speed : float = 0.05
 @export var zoom_smoothing : float = 0.1
 
+@export var charge_speed : float = .5
+@export var return_speed : float = .1
+@export var max_charge_zoom_in : float = -0.4   # zoom IN while holding
+
+@export var shake_strength : float = 4.0
+@export var high_velocity_mult : float = .008
+
 var target_zoom : float = 1.0
 
 var is_centered : bool = true
 var camera_global_position : Vector2 = Vector2.ZERO
 var drag_mouse_start_position : Vector2 = Vector2.ZERO
 
+var jump_charge : float = 0.0
+var jump_zoom_offset : float = 0.0
+var jump_release_impulse : float = 0.0
+var jumped = false
+
 var player_controller : PlayerController
+var player : Player
 
 func _ready() -> void:
 	player_controller = get_parent()
+	player = player_controller.player
 	target_zoom = zoom.x
 
 func _input(event: InputEvent) -> void:
@@ -51,8 +65,48 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	global_position = player_controller.player.global_position
+	# camera shake at high velocities
+	if player.velocity.length() > 250:
+		var shake = Vector2(
+			randf_range(-1, 1),
+			randf_range(-1, 1)
+		) * high_velocity_mult * player.velocity.length()
+		
+		offset = shake
+		
+	# JUMP CHARGE EFFECT 
+	if player.is_charging_jump and Input.is_action_pressed("jump"):
+		if not player.b_is_grounded:
+			return
+		jumped = true
+		jump_charge = clamp(jump_charge + delta * charge_speed, 0.0, 1.0)
+		
+		# zoom IN while charging
+		jump_zoom_offset = lerp(0.0, max_charge_zoom_in, jump_charge)
+		print(jump_zoom_offset)
+		
+		# small camera shake
+		var shake = Vector2(
+			randf_range(-1, 1),
+			randf_range(-1, 1)
+		) * shake_strength * jump_charge
+		
+		offset = shake
+	else:
+		jump_charge = 0
+		if jump_zoom_offset < 0.0:
+			print(jump_zoom_offset)
+			jump_zoom_offset += (delta * return_speed)
+		else:
+			jump_zoom_offset = 0.0
+	
 	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
-	zoom = zoom.lerp(Vector2(target_zoom, target_zoom), 1.0 - exp(-zoom_smoothing * delta * 60.0))
+	var final_zoom_value = target_zoom + jump_zoom_offset
+
+	zoom = zoom.lerp(
+		Vector2(final_zoom_value, final_zoom_value),
+		1.0 - exp(-zoom_smoothing * delta * 60.0)
+	)
 	
 	if not ignore_rotation:
 		rotation = player_controller.player.rotation
