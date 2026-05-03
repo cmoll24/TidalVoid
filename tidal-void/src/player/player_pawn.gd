@@ -8,6 +8,12 @@ var mouse_direction : Vector2
 
 var controller : PlayerController
 
+var last_velocity : Vector2 = Vector2.ZERO
+
+var smoothed_delta_velocity : float = 0
+
+var INVERSE_PHYSICS_DELTA : float = 60
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -19,6 +25,12 @@ func action_use(pressed : bool) -> void:
 ###called when the propulsion key is pressed
 func propulsion_ability():
 	pass
+	
+func _physics_process(_delta: float) -> void:
+	super._physics_process(_delta)
+	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA
+	smoothed_delta_velocity = lerp(smoothed_delta_velocity,delta_velocity,_delta)
+	last_velocity = velocity
 	
 ### called when the controller takes possession of this pawn
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:

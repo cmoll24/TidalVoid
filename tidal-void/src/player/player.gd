@@ -11,6 +11,8 @@ class_name Player
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
+### records the jump power for camera effects
+var last_jump_power : float = 0
 
 ####################################################### used for the creature holding mechanic
 ### the velocity applied to things the player throws
@@ -156,6 +158,8 @@ func get_jump_vector() -> Vector2:
 	var jump_power = sqrt(mu * 2.0 * (1.0/start_r - 1.0/target_r))
 	
 	jump_power = clampf(jump_power, min_jump_power, max_jump_power)
+	
+	last_jump_power = jump_power
 
 	return jump_power * up_direction.rotated(jump_angle)
 

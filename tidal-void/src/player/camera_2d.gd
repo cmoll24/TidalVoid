@@ -13,7 +13,10 @@ extends Camera2D
 @export var max_charge_zoom_in : float = -0.2   # zoom IN while holding
 
 @export var shake_strength : float = 4.0
+@export var jump_shake_strength : float = 2.0
 @export var high_velocity_mult : float = 0.01
+### jump power must exceed this value for shake
+@export var jump_power_shake_threshold = 100
 
 var target_zoom : float = 1.0
 
@@ -98,7 +101,7 @@ func apply_camera_shake(delta):
 		offset = shake
 		
 	# JUMP CHARGE EFFECT 
-	if player.is_charging_jump and Input.is_action_pressed("jump"):
+	if player.is_charging_jump and Input.is_action_pressed("jump") and player.last_jump_power > jump_power_shake_threshold:
 		if not player.b_is_grounded:
 			return
 		jumped = true
@@ -112,7 +115,7 @@ func apply_camera_shake(delta):
 		var shake = Vector2(
 			randf_range(-1, 1),
 			randf_range(-1, 1)
-		) * shake_strength * jump_charge
+		) * jump_shake_strength * jump_charge*(player.last_jump_power/player.max_jump_power)
 		
 		offset = shake
 	else:
