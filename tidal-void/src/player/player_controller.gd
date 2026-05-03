@@ -33,9 +33,6 @@ func _process(_delta: float) -> void:
 	var mouse_world_position = camera.get_global_mouse_position()
 
 	var mouse_direction = (mouse_world_position - player.global_position).normalized()
-	if not camera.ignore_rotation:
-		camera.rotation = player.rotation
-		mouse_direction = mouse_direction.rotated(player.rotation)
 	player.mouse_direction = mouse_direction
 	
 	### METHOD 3 - using controller direction

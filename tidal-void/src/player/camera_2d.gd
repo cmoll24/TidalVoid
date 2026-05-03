@@ -6,12 +6,14 @@ extends Camera2D
 @export var zoom_speed : float = 0.05
 @export var zoom_smoothing : float = 0.1
 
+@export var map_zoom_threshold : float = 0.3
+
 @export var charge_speed : float = .5
 @export var return_speed : float = .1
-@export var max_charge_zoom_in : float = -0.4   # zoom IN while holding
+@export var max_charge_zoom_in : float = -0.2   # zoom IN while holding
 
 @export var shake_strength : float = 4.0
-@export var high_velocity_mult : float = .008
+@export var high_velocity_mult : float = 0.01
 
 var target_zoom : float = 1.0
 
@@ -65,12 +67,33 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	global_position = player_controller.player.global_position
+
+	if not ignore_rotation:
+		rotation = player.rotation
+	else:
+		rotation = 0.0
+	
+	if is_centered and zoom.x > map_zoom_threshold:
+		apply_camera_shake(delta)
+	
+	if not is_centered:
+		roaming_camera_process(delta)
+	
+	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
+	var final_zoom_value = clamp(target_zoom * (1.0 + jump_zoom_offset), min_zoom, max_zoom)
+	
+	zoom = zoom.lerp(
+		Vector2(final_zoom_value, final_zoom_value),
+		1.0 - exp(-zoom_smoothing * delta * 60.0)
+	)
+	
+func apply_camera_shake(delta):
 	# camera shake at high velocities
 	if player.velocity.length() > 250:
 		var shake = Vector2(
 			randf_range(-1, 1),
 			randf_range(-1, 1)
-		) * high_velocity_mult * player.velocity.length()
+		) * high_velocity_mult * (200 - player.velocity.length())
 		
 		offset = shake
 		
@@ -81,9 +104,9 @@ func _process(delta: float) -> void:
 		jumped = true
 		jump_charge = clamp(jump_charge + delta * charge_speed, 0.0, 1.0)
 		
-		# zoom IN while charging
+		# zoom OUT while charging
 		jump_zoom_offset = lerp(0.0, max_charge_zoom_in, jump_charge)
-		print(jump_zoom_offset)
+		#print(jump_zoom_offset)
 		
 		# small camera shake
 		var shake = Vector2(
@@ -95,26 +118,10 @@ func _process(delta: float) -> void:
 	else:
 		jump_charge = 0
 		if jump_zoom_offset < 0.0:
-			print(jump_zoom_offset)
+			#print(jump_zoom_offset)
 			jump_zoom_offset += (delta * return_speed)
 		else:
 			jump_zoom_offset = 0.0
-	
-	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
-	var final_zoom_value = target_zoom + jump_zoom_offset
-
-	zoom = zoom.lerp(
-		Vector2(final_zoom_value, final_zoom_value),
-		1.0 - exp(-zoom_smoothing * delta * 60.0)
-	)
-	
-	if not ignore_rotation:
-		rotation = player_controller.player.rotation
-	else:
-		rotation = 0.0
-	
-	if not is_centered:
-		roaming_camera_process(delta)
 
 func roaming_camera_process(_delta : float) -> void:
 	global_position = camera_global_position
