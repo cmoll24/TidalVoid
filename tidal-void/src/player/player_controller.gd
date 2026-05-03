@@ -74,6 +74,7 @@ func _input(event: InputEvent) -> void:
 		
 		
 func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
+	camera.player = pawn
 	player.stop_possess();
 	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;

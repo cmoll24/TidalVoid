@@ -12,6 +12,9 @@ var last_velocity : Vector2 = Vector2.ZERO
 
 var smoothed_delta_velocity : float = 0
 
+### changes the rate at which the delta velocity is smoothed for camera effects, higher -> faster smoothing
+@export var delta_velocity_smooth_factor : float = 2
+
 var INVERSE_PHYSICS_DELTA : float = 60
 
 # Called when the node enters the scene tree for the first time.
@@ -29,7 +32,7 @@ func propulsion_ability():
 func _physics_process(_delta: float) -> void:
 	super._physics_process(_delta)
 	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA
-	smoothed_delta_velocity = lerp(smoothed_delta_velocity,delta_velocity,_delta)
+	smoothed_delta_velocity = lerp(smoothed_delta_velocity,delta_velocity,_delta*delta_velocity_smooth_factor)
 	last_velocity = velocity
 	
 ### called when the controller takes possession of this pawn
