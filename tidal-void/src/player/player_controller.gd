@@ -78,4 +78,4 @@ func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	player.stop_possess();
 	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
-	predictor.player = pawn
+	predictor.update_player(player)

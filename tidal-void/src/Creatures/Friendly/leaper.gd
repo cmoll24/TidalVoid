@@ -85,4 +85,5 @@ func _on_jump_timer_timeout() -> void:
 	jump_attemps = 2
 
 func on_collide_with_bubble(bubble : Bubble) -> void:
-	velocity = Vector2.ZERO
+	#velocity = Vector2.ZERO
+	pass

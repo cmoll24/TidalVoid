@@ -37,6 +37,7 @@ bubble_push = 50.0
 mass = 100.0
 elasticity = 2.0
 thrust_power = 80.0
+max_velocity = 600.0
 start_in_orbit = true
 b_rotation_to_gravity = false
 

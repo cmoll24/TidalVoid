@@ -67,6 +67,9 @@ func _physics_process(_delta: float) -> void:
 				velocity += 1.1 * dir * radial_speed
 		else:
 			planet_thrust_particles.stop_thrust()
+			
+	### apply velocity colors
+	update_traj_color.emit(lerp(Color.BLUE, Color.AQUA,velocity.length_squared()/122500))
 	
 		
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:

@@ -19,5 +19,5 @@ bubble_reflect_fraction = 0.9
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_fasdo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1423001153]
+[node name="BubbleCollider" type="CollisionShape2D" parent="." unique_id=1423001153]
 shape = SubResource("CircleShape2D_ycuta")

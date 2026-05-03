@@ -15,6 +15,8 @@ var smoothed_delta_velocity : float = 0
 ### changes the rate at which the delta velocity is smoothed for camera effects, higher -> faster smoothing
 @export var delta_velocity_smooth_factor : float = 2
 
+signal update_traj_color(new_color : Color)
+
 var INVERSE_PHYSICS_DELTA : float = 60
 
 # Called when the node enters the scene tree for the first time.

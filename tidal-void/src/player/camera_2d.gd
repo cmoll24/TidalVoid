@@ -98,6 +98,8 @@ func apply_camera_shake(delta):
 		) * high_delta_velocity_mult * (80 - player.smoothed_delta_velocity)
 		
 		offset = shake
+	else:
+		offset = Vector2.ZERO
 		
 	# JUMP CHARGE EFFECT 
 	if player is Player and player.is_charging_jump and Input.is_action_pressed("jump") and player.last_jump_power > jump_power_shake_threshold:

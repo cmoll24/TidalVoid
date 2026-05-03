@@ -41,12 +41,8 @@ var max_jump_angle : float = PI/2.5
 
 #var surface_friction_coef : float = 0.001
 
-signal update_traj_color(new_color : Color)
-
 func _ready() -> void:
 	super._ready()
-	if self.is_in_group("player"):
-		print("in player")
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -109,6 +105,7 @@ func player_movement(delta : float) -> void:
 		else:
 			printerr("Walking on ground only supports circle shapes currently, invalid shape used")
 	else:
+		update_traj_color.emit(lerp(Color.WHITE, Color.ORANGE,velocity.length_squared()/122500))
 		b_prediction_velo_is_real = true;
 		if(b_is_grounded && !walking_on_ground):
 			if(Input.is_action_pressed("grab")) or \
