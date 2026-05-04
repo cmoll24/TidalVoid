@@ -43,6 +43,9 @@ var max_jump_angle : float = PI/2.5
 
 func _ready() -> void:
 	super._ready()
+	GV.player_reference(self)
+	if self.is_in_group("player"):
+		print("in player")
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)

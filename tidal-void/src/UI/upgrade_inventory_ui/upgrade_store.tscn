@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://ddwdqbcegxc8r"]
+[gd_scene format=3 uid="uid://0jcjajg2e6oy"]
 
-[ext_resource type="Script" uid="uid://kny06iiea0jo" path="res://src/UI/upgrade_inventory_ui/inventory.gd" id="1_up6s7"]
+[ext_resource type="Script" uid="uid://upgrade_store_gd" path="res://src/UI/upgrade_inventory_ui/upgrade_store.gd" id="1_upgstore"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weer4"]
 bg_color = Color(0.7254902, 0.90588236, 0.9647059, 1)
@@ -40,7 +40,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Inventory" type="Control" unique_id=1178399043]
+[node name="UpgradeStore" type="Control" unique_id=2200000001]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,9 +51,9 @@ offset_right = -106.0
 offset_bottom = -83.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_up6s7")
+script = ExtResource("1_upgstore")
 
-[node name="ButtonBackground" type="Panel" parent="." unique_id=1518912905]
+[node name="ButtonBackground" type="Panel" parent="." unique_id=2200000002]
 layout_mode = 0
 offset_left = -34.0
 offset_top = -14.0
@@ -61,7 +61,7 @@ offset_right = 1718.0
 offset_bottom = 101.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_weer4")
 
-[node name="PanelContainer" type="PanelContainer" parent="." unique_id=853731929]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2200000003]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,25 +70,24 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gomoy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1303153996]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=2200000004]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="TabBar" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=301097375]
+[node name="TabBar" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=2200000005]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_constants/separation = 100
 
-[node name="InventoryTab" type="Button" parent="PanelContainer/VBoxContainer/TabBar" unique_id=1109612567]
+[node name="InventoryTab" type="Button" parent="PanelContainer/VBoxContainer/TabBar" unique_id=2200000006]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0.2627451, 0.4, 1)
-theme_override_colors/icon_normal_color = Color(0.2891341, 0.3229169, 0.82608396, 1)
 theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_gsq3i")
 text = "Inventory"
 
-[node name="UpgradesButton" type="Button" parent="PanelContainer/VBoxContainer/TabBar" unique_id=413043042]
+[node name="UpgradesTab" type="Button" parent="PanelContainer/VBoxContainer/TabBar" unique_id=2200000007]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0.2627451, 0.4, 1)
@@ -96,7 +95,7 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_uxrcu")
 text = "Upgrades"
 
-[node name="JournalTab" type="Button" parent="PanelContainer/VBoxContainer/TabBar" unique_id=729647443]
+[node name="JournalTab" type="Button" parent="PanelContainer/VBoxContainer/TabBar" unique_id=2200000008]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0.2627451, 0.4, 1)
@@ -104,14 +103,17 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_84srl")
 text = "Journal"
 
-[node name="BodyRow" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=302551837]
+[node name="BodyRow" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=2200000009]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 30
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/BodyRow" unique_id=1313896781]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/BodyRow" unique_id=2200000010]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/h_separation = 80
-theme_override_constants/v_separation = 40
-columns = 10
+size_flags_vertical = 3
+
+[node name="StoreGrid" type="VBoxContainer" parent="PanelContainer/VBoxContainer/BodyRow/ScrollContainer" unique_id=2200000011]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20

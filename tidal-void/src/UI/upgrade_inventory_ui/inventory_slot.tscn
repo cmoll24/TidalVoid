@@ -3,7 +3,56 @@
 [ext_resource type="Script" uid="uid://dwe1ru6ik7gt7" path="res://src/UI/upgrade_inventory_ui/inventory_slot.gd" id="1_v55le"]
 [ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="2_s3dt7"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ligvq"]
+bg_color = Color(1, 1, 1, 0.59607846)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_067aj"]
+bg_color = Color(0.6117647, 0.7137255, 0.98039216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgyql"]
+bg_color = Color(0.10980392, 0.11372549, 0.4509804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0e1w"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80d6s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jq5j"]
+bg_color = Color(0.427493, 0.42749307, 0.42749295, 0.65882355)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1eu15"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5294118)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_106va"]
+bg_color = Color(0.6, 0.6, 0.6, 0.5294118)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="InventorySlot" type="Control" unique_id=1401665037]
 process_mode = 3
@@ -14,14 +63,11 @@ offset_right = 100.0
 offset_bottom = 100.0
 script = ExtResource("1_v55le")
 
-[node name="background" type="ColorRect" parent="." unique_id=1427399101]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.08101963, 4.5724214e-06, 0.39309964, 1)
+[node name="background" type="Panel" parent="." unique_id=1007564780]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ligvq")
 
 [node name="icon" type="Sprite2D" parent="background" unique_id=1112900210]
 position = Vector2(50, 50)
@@ -33,62 +79,73 @@ offset_left = 10.0
 offset_top = 2.0
 offset_right = 48.325
 offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1"
 
-[node name="detail" type="ColorRect" parent="." unique_id=854556048]
+[node name="detail" type="Panel" parent="." unique_id=975075705]
 visible = false
 layout_mode = 0
 offset_left = -100.0
 offset_top = -60.0
 offset_right = 100.0
 offset_bottom = -10.0
-color = Color(0.16436303, 0.1677965, 0.5496786, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_067aj")
 
 [node name="item_name" type="Label" parent="detail" unique_id=1760515080]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 57.0
+offset_bottom = 24.0
 text = "NAME"
 
 [node name="item_type" type="Label" parent="detail" unique_id=253690744]
 layout_mode = 0
+offset_left = 11.0
 offset_top = 25.0
-offset_right = 40.0
+offset_right = 51.0
 offset_bottom = 48.0
 text = "TYPE"
 
 [node name="item_effect" type="Label" parent="detail" unique_id=1098973879]
 layout_mode = 0
-offset_left = 100.0
-offset_right = 155.0
+offset_left = 83.0
+offset_right = 138.0
 offset_bottom = 23.0
 text = "EFFECT"
 
-[node name="use_or_drop" type="ColorRect" parent="." unique_id=1787384811]
+[node name="use_or_drop" type="Panel" parent="." unique_id=318654789]
 visible = false
 layout_mode = 0
 offset_left = -90.0
 offset_top = 20.0
-offset_right = -10.0
-offset_bottom = 80.0
+offset_right = -7.0
+offset_bottom = 93.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgyql")
 
 [node name="use_button" type="Button" parent="use_or_drop" unique_id=109364507]
 layout_mode = 0
-offset_left = 5.0
+offset_left = 5.5
 offset_top = 5.0
-offset_right = 75.0
-offset_bottom = 25.0
+offset_right = 75.5
+offset_bottom = 36.0
 text = "USE"
 
 [node name="drop_button" type="Button" parent="use_or_drop" unique_id=328025769]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 30.0
-offset_right = 75.0
-offset_bottom = 50.0
+offset_left = 6.0
+offset_top = 37.0
+offset_right = 76.0
+offset_bottom = 68.0
 text = "DROP"
 
-[node name="item_button" type="Button" parent="." unique_id=653958945]
+[node name="button_panel" type="Panel" parent="." unique_id=732836221]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i0e1w")
+
+[node name="item_button" type="Button" parent="button_panel" unique_id=653958945]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -96,8 +153,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_80d6s")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4jq5j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1eu15")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_106va")
 
 [connection signal="pressed" from="use_or_drop/use_button" to="." method="_on_use_button_pressed"]
-[connection signal="mouse_entered" from="item_button" to="." method="_on_item_button_mouse_entered"]
-[connection signal="mouse_exited" from="item_button" to="." method="_on_item_button_mouse_exited"]
-[connection signal="pressed" from="item_button" to="." method="_on_item_button_pressed"]
+[connection signal="mouse_entered" from="button_panel/item_button" to="." method="_on_item_button_mouse_entered"]
+[connection signal="mouse_exited" from="button_panel/item_button" to="." method="_on_item_button_mouse_exited"]
+[connection signal="pressed" from="button_panel/item_button" to="." method="_on_item_button_pressed"]

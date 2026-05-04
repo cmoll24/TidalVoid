@@ -1,7 +1,7 @@
 extends Control
 
-@onready var grid_container = $GridContainer
-@onready var upgrades_button = $UpgradesButton
+@onready var grid_container = $PanelContainer/VBoxContainer/BodyRow/GridContainer
+@onready var upgrades_button = $PanelContainer/VBoxContainer/TabBar/UpgradesButton
 
 func _ready():
 	# GV function signal to update inventory UI

@@ -30,8 +30,6 @@ func add_item(items):
 			inventory[i] = items
 			inventory_update.emit()
 			return true
-			
-		inventory_update.emit()
 	
 func remove_item(target_item):
 	# goes thru items 0 - 19
