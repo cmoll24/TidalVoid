@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://d2kanj13jye30"]
+
+[ext_resource type="Script" uid="uid://djlbq54g6pirl" path="res://src/Maps/planets/pom_planet.gd" id="1_gf8nj"]
+[ext_resource type="Texture2D" uid="uid://ec2x5n30ype6" path="res://assets/Textures/Environmental/pom_planet.png" id="2_j0ye2"]
+[ext_resource type="Texture2D" uid="uid://1g0a7r0ec1bt" path="res://assets/Textures/Environmental/pom_crystal.png" id="3_m5uke"]
+[ext_resource type="Texture2D" uid="uid://oets3y74obwf" path="res://assets/Textures/Environmental/pom_ring.png" id="4_trm3t"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_8xp0m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
+radius = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
+shader = ExtResource("5_8xp0m")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0.043137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pf5yv"]
+gradient = SubResource("Gradient_klrcr")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_63lv5"]
+polygon = PackedVector2Array(1, 0, 0.98078525, 0.19509032, 0.9238795, 0.38268343, 0.8314696, 0.55557024, 0.70710677, 0.70710677, 0.55557024, 0.8314696, 0.38268343, 0.9238795, 0.19509032, 0.98078525, 6.123032e-17, 1, -0.19509032, 0.98078525, -0.38268343, 0.9238795, -0.55557024, 0.8314696, -0.70710677, 0.70710677, -0.8314696, 0.55557024, -0.9238795, 0.38268343, -0.98078525, 0.19509032, -1, 1.2246064e-16, -0.98078525, -0.19509032, -0.9238795, -0.38268343, -0.8314696, -0.55557024, -0.70710677, -0.70710677, -0.55557024, -0.8314696, -0.38268343, -0.9238795, -0.19509032, -0.98078525, -1.8369095e-16, -1, 0.19509032, -0.98078525, 0.38268343, -0.9238795, 0.55557024, -0.8314696, 0.70710677, -0.70710677, 0.8314696, -0.55557024, 0.9238795, -0.38268343, 0.98078525, -0.19509032)
+
+[node name="PomPlanet" type="StaticBody2D" unique_id=2060639823 groups=["gravity_sources"]]
+collision_mask = 7
+script = ExtResource("1_gf8nj")
+mass = 15000.0
+collision_radius = 200.0
+metadata/_custom_type_script = "uid://becxcr68kkbk8"
+
+[node name="PlanetTexture" type="TextureRect" parent="." unique_id=1814879757]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -771.0
+offset_top = -787.0
+offset_right = 765.0
+offset_bottom = 749.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_j0ye2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
+shape = SubResource("CircleShape2D_f54en")
+
+[node name="Foreground" type="TextureRect" parent="." unique_id=838847746]
+z_index = 10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -774.0
+offset_top = -800.0
+offset_right = 762.0
+offset_bottom = 736.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_m5uke")
+
+[node name="Ring" type="TextureRect" parent="." unique_id=617574165]
+z_index = 20
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -774.0
+offset_top = -800.0
+offset_right = 762.0
+offset_bottom = 736.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_trm3t")
+
+[node name="PullRadius" type="TextureRect" parent="." unique_id=986787955]
+z_index = 120
+material = SubResource("ShaderMaterial_ps4nm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_pf5yv")
+stretch_mode = 3
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1451583254]
+scale = Vector2(50, 50)
+occluder = SubResource("OccluderPolygon2D_63lv5")

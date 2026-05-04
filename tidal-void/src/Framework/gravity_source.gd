@@ -27,8 +27,9 @@ func _ready() -> void:
 		new_shape.radius = collision_radius
 		collision_radius_shape.shape = new_shape
 
-	texture_rect.scale = Vector2(collision_radius, collision_radius) / 50.0
-	texture_rect.position = -Vector2(collision_radius, collision_radius)
+	if texture_rect:
+		texture_rect.scale = Vector2(collision_radius, collision_radius) / 50.0
+		texture_rect.position = -Vector2(collision_radius, collision_radius)
 	#all gravity sources exist on layer 1
 	collision_layer = 1
 

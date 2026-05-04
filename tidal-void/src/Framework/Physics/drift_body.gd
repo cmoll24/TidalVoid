@@ -174,11 +174,8 @@ func  apply_velocity() -> void:
 		shape_cast.target_position = moveDelta;
 		shape_cast.force_shapecast_update()
 		
-		b_is_safe_collision = false #If it's not supposed to collide don't move_and_collide
-		
 		#Go through each hit
 		for i in range(shape_cast.get_collision_count()):
-			b_is_safe_collision = true #It is supposed to collide
 			
 			#Apply a simulated normal force
 			var hitNormal : Vector2 = shape_cast.get_collision_normal(i)

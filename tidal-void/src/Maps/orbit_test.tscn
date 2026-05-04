@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bcsp2j6ktrslb"]
 
-[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/orbit/planet.tscn" id="1_4heml"]
+[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/Maps/planets/planet.tscn" id="1_4heml"]
 [ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_hd3kg"]
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_4vn8n"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/UI/upgrade_inventory_ui/upgrade_store_item.gd" id="16_e7e7k"]
 [ext_resource type="Resource" uid="uid://baseyh7yi5kn" path="res://src/UI/upgrade_inventory_ui/max_health_upgrade.tres" id="17_1e5fo"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_1e5fo"]
+[ext_resource type="PackedScene" uid="uid://d2kanj13jye30" path="res://src/Maps/planets/PomPlanet.tscn" id="26_hcif7"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -104,13 +105,16 @@ collision_radius = 210.0
 position = Vector2(530, 1882)
 mass = 1500.0
 
+[node name="PomPlanet" parent="." unique_id=2060639823 instance=ExtResource("26_hcif7")]
+position = Vector2(1169, 4206)
+
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
 width = 3.0
 gradient = SubResource("Gradient_je76y")
 antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-position = Vector2(617, 1827)
+position = Vector2(781, 3443)
 collision_layer = 14
 start_orbit_dir = false
 
@@ -223,7 +227,7 @@ max_velocity = 400.0
 position = Vector2(2362, 1676)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
-position = Vector2(2820, 2449)
+position = Vector2(1609, 3357)
 
 [node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("11_6pfde")]
 position = Vector2(724, 1879)
