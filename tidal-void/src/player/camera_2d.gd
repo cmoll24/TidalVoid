@@ -95,7 +95,7 @@ func apply_camera_shake(delta):
 		var shake = Vector2(
 			randf_range(-1, 1),
 			randf_range(-1, 1)
-		) * high_delta_velocity_mult * (80 - player.smoothed_delta_velocity)
+		) * high_delta_velocity_mult * (93 - player.smoothed_delta_velocity)
 		
 		offset = shake
 	else:
