@@ -25,3 +25,11 @@ func unregister_gravity_source(source : GravitySource) -> void:
 func _process(_delta: float) -> void:
 	pass
 		
+static func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
+	if not source:
+		return Vector2.ZERO
+	
+	var to_source = source.global_position - pos
+	var distance = to_source.length()
+	var speed = sqrt((source.mass) / distance)
+	return to_source.normalized().rotated(PI / 2.0) * speed	

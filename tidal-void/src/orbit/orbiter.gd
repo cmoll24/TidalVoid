@@ -3,6 +3,9 @@ extends Area2D
 
 var game_manager : GameManager
 var velocity : Vector2 = Vector2.ZERO
+@export var b_start_in_orbit : bool = true
+@export var b_start_in_orbit_dir : bool = true
+
 @onready var on_screen_notifier : VisibleOnScreenNotifier2D  = $VisibleOnScreenNotifier2D
 
 
@@ -13,7 +16,10 @@ func _ready() -> void:
 	call_deferred("after_ready");
 
 func after_ready() -> void:
-	velocity = orbital_velocity(get_dominant_body(), global_position)
+	if(b_start_in_orbit):
+		velocity = GameManager.orbital_velocity(get_dominant_body(), global_position)
+		if(b_start_in_orbit_dir):
+			velocity = -velocity
 	
 	
 	var line : Line2D = Line2D.new()
@@ -35,15 +41,6 @@ func after_ready() -> void:
 	collectable_traj_predict.fake_steps = 5;
 	get_parent().add_child.call_deferred(collectable_traj_predict)
 	
-	
-func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
-	if not source:
-		return Vector2.ZERO
-	
-	var to_source = source.global_position - pos
-	var distance = to_source.length()
-	var speed = sqrt((source.mass) / distance)
-	return to_source.normalized().rotated(PI / 2.0) * speed
 
 func get_dominant_body() -> GravitySource:
 	var strongest_pull = 0.0

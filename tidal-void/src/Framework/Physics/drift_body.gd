@@ -108,7 +108,7 @@ func _ready() -> void:
 	shape_cast.enabled = false
 
 func orbit_dominant_body() -> void:
-	velocity = orbital_velocity(dominant_body, global_position)
+	velocity = GameManager.orbital_velocity(dominant_body, global_position)
 	if(!start_orbit_dir):
 		velocity = -velocity
 
@@ -310,15 +310,6 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 func on_collide_with_bubble(bubble : Bubble) -> void:
 	pass
 	#For subclasses
-	
-func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
-	if not source:
-		return Vector2.ZERO
-	
-	var to_source = source.global_position - pos
-	var distance = to_source.length()
-	var speed = sqrt((source.mass) / distance)
-	return to_source.normalized().rotated(PI / 2.0) * speed	
 
 func escape_speed(source : GravitySource, pos : Vector2) -> float:
 	if not source:

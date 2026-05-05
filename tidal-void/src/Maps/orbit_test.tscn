@@ -251,3 +251,6 @@ effect = SubResource("Resource_65noi")
 
 [node name="Leaper" parent="." unique_id=984884791 instance=ExtResource("22_1e5fo")]
 position = Vector2(2111, 1764)
+
+[node name="Steven2" parent="." unique_id=2145063656 instance=ExtResource("10_lm5jn")]
+position = Vector2(788, 4046)

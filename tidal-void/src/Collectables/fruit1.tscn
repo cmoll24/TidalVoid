@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://ee2peu4oiiit"]
+
+[ext_resource type="Script" uid="uid://c5rwjyeanre2b" path="res://src/Collectables/collectable.gd" id="1_uvbnf"]
+[ext_resource type="Texture2D" uid="uid://bqafvnh5dali2" path="res://assets/Textures/Placeholder/PLACEHOLDER_tree_fruit.png" id="2_uvbnf"]
+[ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="3_ejq71"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8g1sw"]
+
+[node name="Collectable" type="Area2D" unique_id=1685557867]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_uvbnf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884730571]
+shape = SubResource("RectangleShape2D_8g1sw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1869384330]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=674163667]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 70.0
+offset_bottom = 70.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_uvbnf")
+
+[node name="VisionSource" type="Node" parent="." unique_id=802555007]
+script = ExtResource("3_ejq71")
+metadata/_custom_type_script = "uid://cloexwtl4gxf3"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

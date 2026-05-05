@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://d3cw5nfd57o48"]
+
+[ext_resource type="Script" uid="uid://cho6a8c73cng4" path="res://src/Creatures/Plants/fruit_tree.gd" id="1_j5wqp"]
+[ext_resource type="Material" uid="uid://c8q5qclnaug07" path="res://assets/Materials/M_plant_shake.tres" id="2_j5wqp"]
+[ext_resource type="Texture2D" uid="uid://7sgikgn673gx" path="res://assets/Textures/Placeholder/PLACEHOLDER_fruit_tree.png" id="2_kcd40"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5wqp"]
+size = Vector2(20, 123.5)
+
+[sub_resource type="Animation" id="Animation_kcd40"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_j5wqp"]
+resource_name = "fruit_tree_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tsdme"]
+_data = {
+&"RESET": SubResource("Animation_kcd40"),
+&"fruit_tree_open": SubResource("Animation_j5wqp")
+}
+
+[node name="FruitTree" type="Node2D" unique_id=1925077876]
+script = ExtResource("1_j5wqp")
+fruit_spawn_offset = Vector2(0, -60)
+max_fruit_velocity_boost = 100.0
+metadata/_custom_type_script = "uid://cho6a8c73cng4"
+
+[node name="ShakeArea" type="Area2D" parent="." unique_id=595026967]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShakeArea" unique_id=1489029611]
+position = Vector2(0, -0.25)
+shape = SubResource("RectangleShape2D_j5wqp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1399022502]
+material = ExtResource("2_j5wqp")
+texture = ExtResource("2_kcd40")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D" unique_id=1326369348]
+libraries/ = SubResource("AnimationLibrary_tsdme")
+playback_auto_capture = false
+
+[node name="ReleaseFruitTimer" type="Timer" parent="." unique_id=1356561586]
+process_callback = 0
+wait_time = 10.0
+autostart = true
+
+[connection signal="body_entered" from="ShakeArea" to="." method="_on_shake_area_body_entered"]
+[connection signal="timeout" from="ReleaseFruitTimer" to="." method="play_open_anim"]

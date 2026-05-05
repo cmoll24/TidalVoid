@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://1g0a7r0ec1bt" path="res://assets/Textures/Environmental/pom_crystal.png" id="3_m5uke"]
 [ext_resource type="Texture2D" uid="uid://oets3y74obwf" path="res://assets/Textures/Environmental/pom_ring.png" id="4_trm3t"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_8xp0m"]
+[ext_resource type="PackedScene" uid="uid://d3cw5nfd57o48" path="res://src/Creatures/Plants/fruit_tree.tscn" id="6_j0ye2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
 radius = 50.0
@@ -72,7 +73,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("3_m5uke")
 
 [node name="Ring" type="TextureRect" parent="." unique_id=617574165]
-z_index = 20
+z_index = -1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -107,3 +108,7 @@ stretch_mode = 3
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1451583254]
 scale = Vector2(50, 50)
 occluder = SubResource("OccluderPolygon2D_63lv5")
+
+[node name="FruitTree" parent="." unique_id=1616595866 instance=ExtResource("6_j0ye2")]
+position = Vector2(251, -25)
+rotation = -4.707153

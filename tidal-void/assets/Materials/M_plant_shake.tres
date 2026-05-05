@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c8q5qclnaug07"]
+
+[ext_resource type="Shader" uid="uid://dlv62lur20x65" path="res://assets/shaders/plant_shake.gdshader" id="1_pgrvw"]
+
+[resource]
+shader = ExtResource("1_pgrvw")
+shader_parameter/shake_amount = 0.2
+shader_parameter/start_time = 0.0
+shader_parameter/shake_left = true
