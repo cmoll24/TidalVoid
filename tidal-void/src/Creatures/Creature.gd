@@ -64,3 +64,6 @@ func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	#find the opposite
 	var r_opposite = r_apo if r < (r_peri + r_apo) / 2.0 else r_peri
 	return r_opposite - body.collision_radius
+	
+func die():
+	queue_free();

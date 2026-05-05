@@ -114,7 +114,7 @@ gradient = SubResource("Gradient_je76y")
 antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-position = Vector2(781, 3443)
+position = Vector2(885, 3532)
 collision_layer = 14
 start_orbit_dir = false
 
@@ -169,6 +169,7 @@ position = Vector2(529, 1750)
 position = Vector2(761, 1710)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
+visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=45118600 instance=ExtResource("11_65noi")]
 
@@ -250,7 +251,7 @@ item_texture = ExtResource("12_uk65k")
 effect = SubResource("Resource_65noi")
 
 [node name="Leaper" parent="." unique_id=984884791 instance=ExtResource("22_1e5fo")]
-position = Vector2(2111, 1764)
+position = Vector2(505, 679)
 
 [node name="Steven2" parent="." unique_id=2145063656 instance=ExtResource("10_lm5jn")]
 position = Vector2(788, 4046)

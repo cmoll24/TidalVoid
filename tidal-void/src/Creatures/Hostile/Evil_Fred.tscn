@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="5_g6gnr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
-radius = 15.0
+radius = 35.0
 
 [sub_resource type="Curve" id="Curve_5f2sf"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -25,8 +25,8 @@ script = ExtResource("1_511cb")
 v_distance = 5000.0
 v_source_loyalty_time = 5.0
 v_source_loyalty_dist = 1.75
-mass = 2.0
-thrust_power = 5.0
+mass = 20.0
+thrust_power = 10.0
 start_in_orbit = true
 start_orbit_dir = false
 
@@ -52,11 +52,11 @@ color_ramp = SubResource("Gradient_5f2sf")
 script = ExtResource("2_tf2pi")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=998047140]
-offset_left = -17.0
-offset_top = -15.0
-offset_right = 83.0
-offset_bottom = 81.0
-scale = Vector2(0.333, 0.333)
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 65.0
+offset_bottom = 65.0
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("3_511cb")
 
 [node name="InteractSource" type="Node2D" parent="." unique_id=1117815970]

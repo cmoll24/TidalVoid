@@ -35,9 +35,6 @@ var time_before_hibernate : float = 12;
 
 ################################################
 
-
-
-
 func _ready() -> void:
 	super._ready()
 	#set the vision bitmask( use the | operator to add more)
@@ -58,7 +55,7 @@ func update_vision():
 	#update array of all visible v_sources
 	v_sources = game_manager.sense_manager.check_vision(self,v_distance,v_types)
 	
-	var lowest_dist : float = 99999999999
+	var lowest_dist : float = INF
 	
 	#Check loyalty to the primary source(prevent the creature from switching too often)
 	if(primary_v_source):

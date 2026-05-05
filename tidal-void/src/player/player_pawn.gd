@@ -19,6 +19,8 @@ signal update_traj_color(new_color : Color)
 
 var INVERSE_PHYSICS_DELTA : float = 60
 
+@export var death_pawn_path : String = "res://src/player/dead_player.tscn"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -41,9 +43,25 @@ func _physics_process(_delta: float) -> void:
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	controller = player_controller
 	
+	
 ### called when the controller stops taking possession of this pawn	
 func stop_possess() -> void:
 	#you can tell if you are possessed or not by checking the controller
 	controller = null
 	set_thrust(Vector2.ZERO)
+	
+func die() -> void:
+	#on death
+	var player_scene  = load(death_pawn_path)
+	var player : PlayerPawn = player_scene.instantiate()
+	get_tree().get_root().add_child(player)
+	player.global_position = global_position
+	#possess the player
+	call_deferred('finish_death', player)
+	collision_mask = 0
+	shape_cast.collision_mask = 0
+	
+func finish_death(new_player : PlayerPawn) -> void:
+	controller.possess_pawn(new_player,velocity)
+	queue_free()
 	

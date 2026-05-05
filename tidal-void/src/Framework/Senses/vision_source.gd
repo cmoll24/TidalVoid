@@ -4,7 +4,7 @@ class_name VisionSource
 #the root in any scene instance for it to work
 
 ### Enum used for giving information about the type of source
-enum v_source_type {None,sPrey,mPrey,lPrey,sPRed,mPred,LPred,sFood}
+enum v_source_type {None,sPrey,mPrey,lPrey,sPred,mPred,LPred,sFood}
 
 
 @onready var parent : Node2D
