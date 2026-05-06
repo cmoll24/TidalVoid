@@ -312,6 +312,4 @@ b_is_safe_collision = null
 b_rotation_to_gravity = null
 
 [node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("27_bdxtq")]
-position = Vector2(1176, 4199)
-v_distance = 1000.0
-v_source_loyalty_time = 1.0
+position = Vector2(1173, 4197)

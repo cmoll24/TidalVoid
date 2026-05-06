@@ -142,7 +142,7 @@ func creature_movement(_delta):
 			#move to the center of the planet to hide
 			set_thrust(dominant_body.global_position - global_position)
 		else:
-			set_thrust((dominant_body.global_position - global_position).rotated(90))
+			set_thrust((dominant_body.global_position - global_position).rotated(0.5))
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	thrust_multiplier = multiplier
 	
