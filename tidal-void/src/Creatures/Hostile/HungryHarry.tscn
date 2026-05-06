@@ -40,6 +40,7 @@ points = PackedVector2Array(0, 0, 0, 512)
 width = 64.0
 texture = ExtResource("4_udy5y")
 texture_mode = 2
+joint_mode = 2
 
 [node name="BodyCollision" type="StaticBody2D" parent="." unique_id=39198648]
 physics_interpolation_mode = 2

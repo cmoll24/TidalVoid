@@ -295,7 +295,7 @@ effect = SubResource("Resource_65noi")
 position = Vector2(505, 679)
 
 [node name="Steven2" parent="." unique_id=2145063656 instance=ExtResource("10_lm5jn")]
-position = Vector2(788, 4046)
+position = Vector2(1595, 4533)
 target_altitude_sqr = null
 target_dir = null
 stun_time = null
