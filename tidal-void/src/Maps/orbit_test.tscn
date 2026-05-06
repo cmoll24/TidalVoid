@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_1e5fo"]
 [ext_resource type="PackedScene" uid="uid://d2kanj13jye30" path="res://src/Maps/planets/PomPlanet.tscn" id="26_hcif7"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="27_bdxtq"]
+[ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="28_vkjj7"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -312,3 +313,7 @@ b_rotation_to_gravity = null
 
 [node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("27_bdxtq")]
 position = Vector2(1173, 4197)
+
+[node name="ShipBody" parent="." unique_id=1522743882 instance=ExtResource("28_vkjj7")]
+z_index = 0
+position = Vector2(-1309.2389, 3019.6692)

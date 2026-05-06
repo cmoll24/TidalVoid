@@ -61,7 +61,7 @@ func player_movement(delta : float) -> void:
 		
 		#Set player velocity to 0 when they are grounded
 		#This stops them from building velocity due to collision when grounded
-		velocity = Vector2.ZERO
+		velocity = lerp(velocity, Vector2.ZERO, delta)
 		
 		#Handle Jumping
 		if Input.is_action_just_pressed("jump"):
