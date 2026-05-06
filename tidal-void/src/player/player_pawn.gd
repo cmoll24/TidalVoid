@@ -62,6 +62,7 @@ func die() -> void:
 	shape_cast.collision_mask = 0
 	
 func finish_death(new_player : PlayerPawn) -> void:
-	controller.possess_pawn(new_player,velocity)
-	queue_free()
+	if(controller):
+		controller.possess_pawn(new_player,velocity)
+		queue_free()
 	

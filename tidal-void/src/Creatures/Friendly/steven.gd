@@ -16,6 +16,8 @@ var v_sources : Array[VisionSource]
 ### the primary visible vision source(the target)
 var primary_v_source : VisionSource
 
+var v_exceptions : Array[RID] = []
+
 ### the amount of time steven will continue to follow the
 ### same target even after it has gone out of sight
 @export var v_source_loyalty_time : float = 3
@@ -53,7 +55,7 @@ func update_vision():
 	if stun_time > 0:
 		return
 	#update array of all visible v_sources
-	v_sources = game_manager.sense_manager.check_vision(self,v_distance,v_types)
+	v_sources = game_manager.sense_manager.check_vision(self,v_distance,v_types,v_exceptions)
 	
 	var lowest_dist : float = INF
 	

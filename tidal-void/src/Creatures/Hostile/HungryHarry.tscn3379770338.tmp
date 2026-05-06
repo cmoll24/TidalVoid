@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://25tfa7kghc3q"]
+
+[ext_resource type="Script" uid="uid://cfncu7u18wwgo" path="res://src/Creatures/Hostile/Hungry_Harry.gd" id="1_fa72h"]
+[ext_resource type="Texture2D" uid="uid://b4ikoo55v2qf4" path="res://assets/Textures/Placeholder/PLACEHOLDER_WormHead.png" id="2_f3ssv"]
+[ext_resource type="Texture2D" uid="uid://ddqjrpcomxjys" path="res://assets/Textures/Placeholder/PLACEHOLDER_WormMiddleLong.png" id="4_udy5y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_udy5y"]
+radius = 32.0
+
+[node name="HungryHarry" type="StaticBody2D" unique_id=1520081079]
+collision_layer = 2
+collision_mask = 11
+script = ExtResource("1_fa72h")
+worm_length = null
+line_point_num = 512
+worm_thickness = null
+body_collider_num = null
+stun_time = null
+creature_size = 3
+mass = 50.0
+velocity = null
+prediction_velocity = null
+b_prediction_velo_is_real = null
+static_friction_coefficient = null
+kinetic_friction_coefficient = null
+min_dot_for_ground = null
+elasticity = 0.2
+thrust_power = null
+max_velocity = 600.0
+start_in_orbit = null
+start_orbit_dir = null
+b_is_safe_collision = false
+b_rotation_to_gravity = false
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=267736086]
+target_position = Vector2(0, 0)
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1142692789]
+shape = SubResource("CircleShape2D_udy5y")
+
+[node name="Head" type="Sprite2D" parent="." unique_id=894255847]
+texture = ExtResource("2_f3ssv")
+
+[node name="Body" type="Line2D" parent="." unique_id=1620822522]
+top_level = true
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 512)
+width = 64.0
+texture = ExtResource("4_udy5y")
+texture_mode = 2
+
+[node name="BodyCollision" type="StaticBody2D" parent="." unique_id=39198648]
+physics_interpolation_mode = 2
+top_level = true
+collision_layer = 2
+collision_mask = 0

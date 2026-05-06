@@ -142,23 +142,31 @@ func update_rotation(delta : float):
 ##Calculate the changes to velocity as a result of gravity and thrusters
 func  apply_acceleration() -> void:
 	
+	update_gravity_force()
+	
+	var new_vel  = velocity + (gravity_force * get_physics_process_delta_time())
+	
+	update_thruster_force()
+	
+	new_vel +=  thruster_force * get_physics_process_delta_time()
+		
+	total_force = thruster_force + gravity_force
+	velocity = new_vel.limit_length(max_velocity)
+	
+func update_gravity_force() -> void:
 	gravity_force = Vector2.ZERO
 	
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue
 		gravity_force += body.get_gravity_pull(global_position)
-	
-	var new_vel  = velocity + (gravity_force * get_physics_process_delta_time())
-	
+
+func update_thruster_force() -> void:
 	if thrust_direction != Vector2.ZERO:
 		thruster_force = thrust_direction * thrust_power * thrust_multiplier
-		new_vel +=  thruster_force * get_physics_process_delta_time()
 	else:
 		thruster_force = Vector2.ZERO
-		
-	total_force = thruster_force + gravity_force
-	velocity = new_vel.limit_length(max_velocity)
+	
 
 ##Calculate the changes to velocity as a result of gravity and thrusters
 func  apply_velocity() -> void:
@@ -214,8 +222,8 @@ func  apply_velocity() -> void:
 					other_body.on_collide_with_other_drift_body(self);
 					var total_mass = mass + other_body.mass;
 					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
-					other_body.velocity += velocityAdjustment * mass/total_mass * avg_elasticity;
-					velocity -= velocityAdjustment * other_body.mass/total_mass * avg_elasticity;
+					other_body.velocity += velocityAdjustment * (mass/total_mass) * avg_elasticity;
+					velocity -= velocityAdjustment * (other_body.mass/total_mass) * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
 				#Treat it as having infinite mass if it is not a drift body 
 				elif (shape_cast.get_collider(i) is HeavyBody):

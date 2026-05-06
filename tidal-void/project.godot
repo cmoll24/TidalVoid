@@ -20,6 +20,12 @@ config/icon="uid://p7mxqgg62w8x"
 
 GV="*uid://c0of8p7a71mna"
 
+[debug]
+
+gdscript/warnings/unused_variable=0
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/size/viewport_width=1920
