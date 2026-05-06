@@ -72,8 +72,8 @@ texture = ExtResource("3_o822w")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1545037244]
 light_mask = 1023
-color = Color(1, 1, 1, 0.49803922)
-range_item_cull_mask = 7
+color = Color(0.9411765, 0.9411765, 1, 0.49803922)
+range_item_cull_mask = 15
 shadow_color = Color(0.03137255, 0.03137255, 0.03137255, 0.1254902)
 shadow_item_cull_mask = 1023
 texture = ExtResource("4_244u8")
