@@ -15,7 +15,7 @@ outer_radius = 102.0
 min_bounce_strength = 10.0
 bubble_reflect_fraction = 0.9
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=190645434]
+[node name="BubbleSprite" type="Sprite2D" parent="." unique_id=190645434]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_fasdo")
 

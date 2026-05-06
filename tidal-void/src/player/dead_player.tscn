@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2dqgjasxlyip"]
 
-[ext_resource type="Script" uid="uid://cw1aw7kdt6xcn" path="res://src/player/dead_player.gd" id="1_hc4sr"]
+[ext_resource type="Script" path="res://src/player/dead_player.gd" id="1_hc4sr"]
 [ext_resource type="Texture2D" uid="uid://xs4s4xeiqu5q" path="res://assets/Textures/Placeholder/PLACEHOLDER_Dead_Playert.png" id="2_g4ji4"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_ue86n"]
 
@@ -21,6 +21,7 @@ offsets = PackedFloat32Array(0, 0.41629955, 1)
 colors = PackedColorArray(1, 0.05490196, 0.101960786, 1, 0.7607843, 0.03137255, 0.078431375, 0.8235294, 0.41960785, 0, 0.043137256, 0)
 
 [node name="DeadPlayer" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
+z_index = 5
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_hc4sr")
