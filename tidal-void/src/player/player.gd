@@ -80,37 +80,37 @@ func player_movement(delta : float) -> void:
 		
 		#ignore collision with static geometry
 		ignore_layer = 1
-		#circle implementation
-		if(grounded_shape.shape is CircleShape2D):
-			var player_loc : Vector2 = global_position - grounded_body.global_position
-			var player_loc_len : float = grounded_body.shape.shape.radius + collision_shape.shape.radius - 1
-			var player_angle : float = player_loc.angle()
-			var new_pos : Vector2
-			var horizontal_mov = Input.get_axis("thrust_left", "thrust_right")
-			if Input.is_action_pressed("thrust") or Input.is_action_pressed("controller_thrust"):
-				#move when thrust is held, mouse version
-				var mouse_loc : Vector2 = get_global_mouse_position() - grounded_body.global_position
-				var mouse_angle : float = mouse_loc.angle()
-				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
-				var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
-				new_pos = (Vector2.from_angle(final_angle)*
-				player_loc_len)+ grounded_body.global_position
-			elif horizontal_mov != 0:
-				#wasd, arrow keys version
-				horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
-				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
-				var final_angle : float = rotate_toward(player_angle,
-				player_angle + (rot_speed*horizontal_mov),rot_speed)
-				new_pos = (Vector2.from_angle(final_angle)*
-				player_loc_len)+ grounded_body.global_position
-			else:
-				new_pos = (Vector2.from_angle(player_angle)*
-				player_loc_len)+ grounded_body.global_position
-			global_position = new_pos
-			
-			
+		
+		var player_loc : Vector2 = global_position - grounded_body.global_position
+		var player_loc_len : float = collision_shape.shape.radius
+		if(grounded_shape is CircleShape2D):
+			player_loc_len += grounded_body.collision_radius- 1
 		else:
-			printerr("Walking on ground only supports circle shapes currently, invalid shape used")
+			print("collided with non circle gravity source")
+			player_loc_len += grounded_body.global_position.distance_to(grounded_point) - 1
+		var player_angle : float = player_loc.angle()
+		var new_pos : Vector2
+		var horizontal_mov = Input.get_axis("thrust_left", "thrust_right")
+		if Input.is_action_pressed("thrust") or Input.is_action_pressed("controller_thrust"):
+			#move when thrust is held, mouse version
+			var mouse_loc : Vector2 = get_global_mouse_position() - grounded_body.global_position
+			var mouse_angle : float = mouse_loc.angle()
+			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
+			var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
+			new_pos = (Vector2.from_angle(final_angle)*
+			player_loc_len)+ grounded_body.global_position
+		elif horizontal_mov != 0:
+			#wasd, arrow keys version
+			horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
+			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
+			var final_angle : float = rotate_toward(player_angle,
+			player_angle + (rot_speed*horizontal_mov),rot_speed)
+			new_pos = (Vector2.from_angle(final_angle)*
+			player_loc_len)+ grounded_body.global_position
+		else:
+			new_pos = (Vector2.from_angle(player_angle)*
+			player_loc_len)+ grounded_body.global_position
+		global_position = new_pos
 	else:
 		update_traj_color.emit(lerp(Color.WHITE, Color.ORANGE,velocity.length_squared()/122500))
 		b_prediction_velo_is_real = true;

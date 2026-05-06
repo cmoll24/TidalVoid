@@ -38,9 +38,11 @@ var ignore_layer : int =  0
 
 var grounded_body : GravitySource
 
-var grounded_shape : CollisionShape2D
+var grounded_shape : Shape2D
 
 var grounded_normal: Vector2 = Vector2.ZERO
+
+var grounded_point : Vector2 = Vector2.ZERO
 
 var grounded_buffer : int = 0
 
@@ -257,7 +259,7 @@ func  apply_velocity() -> void:
 				if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
 					#set it as ground
 					if shape_cast.get_collider(i) is GravitySource:
-						set_ground(hitNormal,shape_cast.get_collider(i))
+						set_ground(hitNormal, shape_cast.get_collider(i),shape_cast.get_collision_point(i),shape_cast.get_collider_shape(i))
 					else:
 						var hb_velo = shape_cast.get_collider(i).velocity
 						if(velocity.dot(hb_velo)) < 0:
@@ -274,13 +276,21 @@ func  apply_velocity() -> void:
 		global_position += moveDelta
 	
 		
-func set_ground(normal : Vector2,body : Node2D) -> void:
+func set_ground(normal : Vector2,body : Node2D,point : Vector2, shape_idx : int) -> void:
 	grounded_normal = normal;
 	# We have 3 ticks of time away from being grounded before we lose the status
 	grounded_buffer = 3;
 	b_is_grounded = true;
 	grounded_body = body;
-	grounded_shape = grounded_body.shape
+	grounded_point = point
+	
+	#why the hell do I have to work so hard to get a shape, Godot is such a trash engine
+	var owner_id = body.shape_find_owner(shape_idx)
+	var internal_shape_idx = body.shape_owner_get_shape_index(owner_id, shape_idx)
+	grounded_shape = body.shape_owner_get_shape(owner_id, internal_shape_idx)
+	
+
+
 	
 	# Ideally subclasses do some sort of other logic like rotating the model or something
 	

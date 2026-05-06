@@ -36,6 +36,7 @@ elasticity = 0.5
 thrust_power = 15.0
 max_velocity = 10000.0
 start_in_orbit = true
+b_is_safe_collision = false
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)

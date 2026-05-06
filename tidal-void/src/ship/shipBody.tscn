@@ -96,18 +96,12 @@ collision_mask = 2
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerDetector" unique_id=488470937]
 polygon = PackedVector2Array(-112, 117, 0, 131, 107, 117, 168, 80, 156, -45, 139, -103, 73, -151, 0, -183, -76, -151, -132, -118, -156, -52, -173, 70)
 
-[node name="ShipHullLeft" type="StaticBody2D" parent="." unique_id=724581821]
-collision_mask = 7
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ShipHullLeft" unique_id=1651184948]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1651184948]
 polygon = PackedVector2Array(-74, -168, -116, -142, -148, -110, -166, -61, -178, -17, -179, 35, -182, 83, -177, 108, -119, 134, -110, 107, -168, 78, -166, 28, -163, -23, -140, -100, -80, -148)
 
-[node name="ShipHullRight" type="StaticBody2D" parent="." unique_id=720560601]
-collision_mask = 7
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="ShipHullRight" unique_id=752854145]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="." unique_id=752854145]
 position = Vector2(-1, 0)
-rotation = 3.1415927
+rotation = -3.1415925
 scale = Vector2(1, -1)
 polygon = PackedVector2Array(-74, -168, -116, -142, -148, -110, -166, -61, -178, -17, -179, 35, -182, 83, -177, 108, -119, 134, -110, 107, -168, 78, -166, 28, -163, -23, -140, -100, -80, -148)
 
