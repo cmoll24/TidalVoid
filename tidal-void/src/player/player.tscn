@@ -74,11 +74,10 @@ texture = ExtResource("3_o822w")
 light_mask = 1023
 color = Color(1, 1, 1, 0.49803922)
 range_item_cull_mask = 7
-shadow_enabled = true
 shadow_color = Color(0.03137255, 0.03137255, 0.03137255, 0.1254902)
 shadow_item_cull_mask = 1023
 texture = ExtResource("4_244u8")
-texture_scale = 32.0
+texture_scale = 20.0
 
 [node name="InteractArea" type="Area2D" parent="." unique_id=1331845340]
 collision_layer = 0

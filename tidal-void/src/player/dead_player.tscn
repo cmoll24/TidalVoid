@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cw1aw7kdt6xcn" path="res://src/player/dead_player.gd" id="1_hc4sr"]
 [ext_resource type="Texture2D" uid="uid://xs4s4xeiqu5q" path="res://assets/Textures/Placeholder/PLACEHOLDER_Dead_Playert.png" id="2_g4ji4"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_ue86n"]
-[ext_resource type="Texture2D" uid="uid://dfms40uf6fvh0" path="res://assets/Textures/Placeholder/PLACEHOLDER_circle_light.png" id="4_4rkr8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 20.0
@@ -65,13 +64,3 @@ initial_velocity_min = 10.78
 initial_velocity_max = 101.08
 scale_amount_max = 5.0
 color_ramp = SubResource("Gradient_hc4sr")
-
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1433214997]
-light_mask = 1023
-color = Color(1, 1, 1, 0.49803922)
-range_item_cull_mask = 7
-shadow_enabled = true
-shadow_color = Color(0.03137255, 0.03137255, 0.03137255, 0.1254902)
-shadow_item_cull_mask = 1023
-texture = ExtResource("4_4rkr8")
-texture_scale = 32.0
