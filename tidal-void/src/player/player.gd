@@ -59,11 +59,15 @@ func player_movement(delta : float) -> void:
 			walking_on_ground = false
 			grounded_buffer -= 1
 		
+		#Set player velocity to 0 when they are grounded
+		#This stops them from building velocity due to collision when grounded
+		velocity = Vector2.ZERO
+		
 		#Handle Jumping
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
 			b_prediction_velo_is_real = false;
-
+		
 		if is_charging_jump and Input.is_action_pressed("jump"):
 			prediction_velocity = get_jump_vector().limit_length(max_velocity);
 

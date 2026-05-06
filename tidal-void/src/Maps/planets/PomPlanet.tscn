@@ -33,7 +33,7 @@ polygon = PackedVector2Array(1, 0, 0.98078525, 0.19509032, 0.9238795, 0.38268343
 collision_mask = 7
 script = ExtResource("1_gf8nj")
 mass = 15000.0
-collision_radius = 200.0
+collision_radius = 197.0
 metadata/_custom_type_script = "uid://becxcr68kkbk8"
 
 [node name="PlanetTexture" type="TextureRect" parent="." unique_id=1814879757]
