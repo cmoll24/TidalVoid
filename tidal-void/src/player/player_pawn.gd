@@ -19,6 +19,8 @@ signal update_traj_color(new_color : Color)
 
 var INVERSE_PHYSICS_DELTA : float = 60
 
+var b_dead : bool = false
+
 @export var death_pawn_path : String = "res://src/player/dead_player.tscn"
 
 # Called when the node enters the scene tree for the first time.
@@ -51,6 +53,8 @@ func stop_possess() -> void:
 	set_thrust(Vector2.ZERO)
 	
 func die() -> void:
+	if(b_dead):
+		return #this isn't sekiro, only die once
 	#on death
 	var player_scene  = load(death_pawn_path)
 	var player : PlayerPawn = player_scene.instantiate()
@@ -60,6 +64,7 @@ func die() -> void:
 	call_deferred('finish_death', player)
 	collision_mask = 0
 	shape_cast.collision_mask = 0
+	b_dead = true
 	
 func finish_death(new_player : PlayerPawn) -> void:
 	if(controller):

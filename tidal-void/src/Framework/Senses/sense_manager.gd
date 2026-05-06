@@ -53,6 +53,8 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int,exceptions :
 		
 		var query = PhysicsRayQueryParameters2D.create(start, end,3,[viewer.get_rid()]+exceptions)
 		
+		query.collide_with_areas = true
+		
 		var result = space_state.intersect_ray(query)
 		
 		if(result and result.collider):
