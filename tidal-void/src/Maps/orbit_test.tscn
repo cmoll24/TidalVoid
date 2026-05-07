@@ -116,7 +116,7 @@ gradient = SubResource("Gradient_je76y")
 antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-position = Vector2(-1294, 2090)
+position = Vector2(728, 3849)
 collision_layer = 14
 start_orbit_dir = false
 

@@ -5,6 +5,9 @@ extends Planet
 
 @onready var player_detector = $PlayerDetector
 
+@export var inside_ship_radius : float = 182
+
+
 func _ready() -> void:
 	super._ready()
 	show_exterior()

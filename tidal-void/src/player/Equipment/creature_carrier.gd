@@ -7,8 +7,8 @@ class_name CreatureCarrier
 
 @onready var planet_thrust_particles : ThrustParticles = $ThrustParticles2
 
-#ship_clearance is the length of ship
-@export var ship_clearance : float = 160.0
+#ship_clearance is the length of vehicle
+@export var vehicle_clearance : float = 160.0
 
 @onready var bubble : Bubble = $Bubble
 
@@ -50,8 +50,11 @@ func _physics_process(_delta: float) -> void:
 		var dist_sq : float = global_position.distance_squared_to(dominant_body.global_position)
 		var thrust_output = thrust_power * thrust_multiplier * 0.8 #little wiggle room
 		
-		#The closest distance that the ship can be to any planet
-		var minimum_clearance_dist : float = ship_clearance + dominant_body.collision_radius
+		#The closest distance that the vehicle can be to any planet
+		var minimum_clearance_dist : float = vehicle_clearance + dominant_body.collision_radius
+		
+		if dominant_body is Ship:
+			minimum_clearance_dist += dominant_body.inside_ship_radius
 		
 		if ((dominant_body.mass / dist_sq) > thrust_output) or (dist_sq < minimum_clearance_dist**2):
 			## if we are too close, push back to the edge
