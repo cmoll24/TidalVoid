@@ -1,6 +1,20 @@
 [gd_scene format=3 uid="uid://ddwdqbcegxc8r"]
 
 [ext_resource type="Script" uid="uid://kny06iiea0jo" path="res://src/UI/upgrade_inventory_ui/inventory.gd" id="1_up6s7"]
+[ext_resource type="Script" uid="uid://dghfmgv0f06eg" path="res://src/UI/upgrade_inventory_ui/upgrade_store_item.gd" id="2_gsq3i"]
+[ext_resource type="Script" uid="uid://dli3xt7g6vq1d" path="res://src/UI/upgrade_inventory_ui/max_health_upgrade.gd" id="3_uxrcu"]
+
+[sub_resource type="Resource" id="Resource_84srl"]
+script = ExtResource("3_uxrcu")
+metadata/_custom_type_script = "uid://dli3xt7g6vq1d"
+
+[sub_resource type="Resource" id="Resource_uxrcu"]
+script = ExtResource("2_gsq3i")
+upgrade_name = "Max Health up"
+description = "+10 max health"
+cost_item_name = "cookie"
+upgrade = SubResource("Resource_84srl")
+metadata/_custom_type_script = "uid://dghfmgv0f06eg"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weer4"]
 bg_color = Color(0.7254902, 0.90588236, 0.9647059, 1)
@@ -52,6 +66,7 @@ offset_bottom = -83.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_up6s7")
+available_upgrades = Array[ExtResource("2_gsq3i")]([SubResource("Resource_uxrcu")])
 
 [node name="ButtonBackground" type="Panel" parent="." unique_id=1518912905]
 layout_mode = 0
@@ -105,6 +120,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_84srl")
 text = "Journal"
 
 [node name="BodyRow" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=302551837]
+custom_minimum_size = Vector2(1700, 700)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 30
@@ -112,6 +128,18 @@ theme_override_constants/separation = 30
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/BodyRow" unique_id=1313896781]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/h_separation = 80
 theme_override_constants/v_separation = 40
 columns = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/BodyRow" unique_id=100757661]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StoreGrid" type="VBoxContainer" parent="PanelContainer/VBoxContainer/BodyRow/ScrollContainer" unique_id=1410238076]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20

@@ -4,7 +4,6 @@ extends Control
 # It owns the pause/unpause logic and the I key toggle.
 
 @onready var inventory = $Inventory
-@onready var upgrade_store = $UpgradeStore
 @onready var health_label = $"../HealthLable"
 
 func _process(delta):
@@ -15,7 +14,6 @@ func _ready():
 	hide()
 	# if we open it, inventory needs to show first, then upgrade_store
 	inventory.show()
-	upgrade_store.hide()
 
 func _input(event):
 	if event.is_action_pressed("inventory"):
@@ -27,7 +25,6 @@ func _input(event):
 
 func open_pause_menu():
 	inventory.show()
-	upgrade_store.hide()
 	#show() to show the pause menu itself
 	show()
 	get_tree().paused = true
@@ -35,13 +32,3 @@ func open_pause_menu():
 func close_pause_menu():
 	hide()
 	get_tree().paused = false
-
-#Called by Inventorys upgrade
-func show_upgrade_store():
-	inventory.hide()
-	upgrade_store.show()
-
-#Called by UpgradeStores back
-func show_inventory():
-	upgrade_store.hide()
-	inventory.show()
