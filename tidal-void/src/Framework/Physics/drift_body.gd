@@ -284,11 +284,10 @@ func set_ground(normal : Vector2,body : Node2D,point : Vector2, shape_idx : int)
 	grounded_body = body;
 	grounded_point = point
 	
-	#why the hell do I have to work so hard to get a shape, Godot is such a trash engine
+	#Find the owner (CollisionShape2D or CollisonPolygon2D node) using global index
 	var owner_id = body.shape_find_owner(shape_idx)
-	var internal_shape_idx = body.shape_owner_get_shape_index(owner_id, shape_idx)
-	grounded_shape = body.shape_owner_get_shape(owner_id, internal_shape_idx)
-	
+	#Godot seems to always put the shape at local index 0
+	grounded_shape = body.shape_owner_get_shape(owner_id, 0)
 
 
 	
