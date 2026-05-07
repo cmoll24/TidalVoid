@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dmxufpq4sg6e1"]
+
+[ext_resource type="Script" uid="uid://ctgxy8ecenxb5" path="res://src/UI/journal_ui/default_journal_button.gd" id="1_efj18"]
+
+[node name="DefaultJournalButton" type="Button" unique_id=1604876683]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 556.0
+offset_bottom = 256.0
+script = ExtResource("1_efj18")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -9,6 +9,82 @@ var player_node: Player = null
 var inventory = []
 signal inventory_update
 
+# Defines the dictionary for creature for journal
+var creature_button_dict = {
+	"creature1": {
+		"asset": "res://assets/Textures/Placeholder/Evil_Fred.png",
+		"found": false,
+		"name": "Evil Fred",
+		"story": "Fred...But not good",
+		"adapt": "Normally we see Fred as good, but they're in space now, so they adapted to be evil",
+		"diet": "Surpisingly a pretty healthy diet...except for the mushrooms...the bad ones",
+		"behavior": "We say he's evil, but he's acts like Fred except he doesn't recycle"
+	},
+	"creature2": {
+		"asset": "res://assets/Textures/Placeholder/floater.png",
+		"found": false,
+		"name": "Floater",
+		"story": "Never gonna guess what it does",
+		"adapt": "I think it was a rock that wanted to prove it's other rock friends wrong. Please read Land of the Lusterous",
+		"diet": "Microbes or something I think",
+		"behavior": "You'll really never guess what it does"
+	},
+	"creature3": {
+		"asset": "res://assets/Textures/Placeholder/Jeremy.png",
+		"found": false,
+		"name": "Jermey",
+		"story": "You are not worthy enough for their story",
+		"adapt": "Not worthy",
+		"diet": "Nuhuh, ask them",
+		"behavior": "Look Jermey is a good guy, literally go up and say hi, you can learn this from them yourself"
+	},
+	"creature4": {
+		"asset": "res://assets/Textures/Placeholder/leaper.png",
+		"found": false,
+		"name": "Leaper",
+		"story": "*Insert the floater joke here*",
+		"adapt": "I think this was a bunch of worms that didn't want to be in the ground anymore, or an octopus",
+		"diet": "Have no idea, been watching it for 100 hours and it's just been jumping in place",
+		"behavior": "You get the joke"
+	},
+	"creature5": {
+		"asset": "res://assets/Textures/Placeholder/Thick_Jim.png",
+		"found": false,
+		"name": "Thick Jim",
+		"story": "Jim...but ate a little to much Arby's",
+		"adapt": "Looks like he ended up this way because finals were coming up and he kept snacking (also Arby's)",
+		"diet": "Salad, yeah, he's really trying to slim down",
+		"behavior": "Jogs every morning, goes to the gym after doing work, pretty normal guy"
+	},
+	"creature6": {
+		"asset": "res://assets/Textures/Placeholder/astronaut.png",
+		"found": false,
+		"name": "Astronaut",
+		"story": "Oh shiii- that me",
+		"adapt": "With this treasure, I summon Eight-Handled Sword Divergent Sila Divine General Mahoraga",
+		"diet": "Panda Express, yeah I don't want to cook",
+		"behavior": "Crying at 12:47 AM on the dot, every day"
+	},
+	"creature7": {
+		"asset": "res://assets/Textures/Placeholder/cookie.png",
+		"found": false,
+		"name": "Cookie",
+		"story": "It's...a cookie...",
+		"adapt": "What do you want, it's a cookie",
+		"diet": "...They can't eat...",
+		"behavior": "Look, if you can show me a cookie can do things on it's own, that 5 bucks for you"
+	},
+	"creature8": {
+		"asset": "res://assets/circle.png",
+		"found": false,
+		"name": "Circle",
+		"story": "ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE",
+		"adapt": "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. A sing lap should be completed every time you hear this sound. ding Remember to run in a straight line and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark. Get ready!… Start. ",
+		"diet": "Your Mother",
+		"behavior": "Stealing Social Security Numbers"
+	}
+}
+
 func _process(_delta):
 	pass
 

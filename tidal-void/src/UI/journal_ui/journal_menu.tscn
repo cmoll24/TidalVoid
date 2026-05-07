@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bp6i18gogltl4"]
+
+[ext_resource type="Script" uid="uid://c3ghme5psvy73" path="res://src/UI/journal_ui/journal_menu.gd" id="1_uaiwo"]
+[ext_resource type="PackedScene" uid="uid://vak3jxmqq1yd" path="res://src/UI/journal_ui/default_info_screen.tscn" id="2_ifkcg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5rn85"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uaiwo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ifkcg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ld56"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uv1cx"]
+
+[sub_resource type="Theme" id="Theme_als4j"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_5rn85")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_uaiwo")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_ifkcg")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_4ld56")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_uv1cx")
+
+[node name="JournalMenu" type="CanvasLayer" unique_id=977520043]
+script = ExtResource("1_uaiwo")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=730986647]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 423.0
+grow_vertical = 2
+color = Color(0.32156864, 0, 0.61960787, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=575136983]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 161.0
+offset_right = 424.0
+grow_vertical = 2
+theme = SubResource("Theme_als4j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=435737880]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DefaultInfoScreen" parent="." unique_id=899219241 instance=ExtResource("2_ifkcg")]
+offset_left = -1496.0
