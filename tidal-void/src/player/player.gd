@@ -59,9 +59,12 @@ func player_movement(delta : float) -> void:
 			walking_on_ground = false
 			grounded_buffer -= 1
 		
-		#Set player velocity to 0 when they are grounded
-		#This stops them from building velocity due to collision when grounded
-		velocity = lerp(velocity, Vector2.ZERO, delta)
+		else:
+			#Set player velocity to 0 when they are grounded
+			#This stops them from building velocity due to collision when grounded
+			velocity = Vector2.ZERO
+			#Also need to set the delta velcoity to zero to stop the shaking
+			smoothed_delta_velocity = 0
 		
 		#Handle Jumping
 		if Input.is_action_just_pressed("jump"):

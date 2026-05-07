@@ -116,7 +116,7 @@ gradient = SubResource("Gradient_je76y")
 antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-position = Vector2(728, 3849)
+position = Vector2(257, 904)
 collision_layer = 14
 start_orbit_dir = false
 
@@ -173,6 +173,7 @@ position = Vector2(761, 1710)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=45118600 instance=ExtResource("11_65noi")]
+visible = false
 
 [node name="StarNoiseTinnyBackground4" type="Sprite2D" parent="CanvasLayer/PauseMenu" unique_id=1406567271]
 position = Vector2(959, 538.5)

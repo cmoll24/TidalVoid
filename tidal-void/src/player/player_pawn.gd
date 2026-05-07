@@ -13,7 +13,7 @@ var last_velocity : Vector2 = Vector2.ZERO
 var smoothed_delta_velocity : float = 0
 
 ### changes the rate at which the delta velocity is smoothed for camera effects, higher -> faster smoothing
-@export var delta_velocity_smooth_factor : float = 2
+@export var delta_velocity_smooth_factor : float = 2.0
 
 signal update_traj_color(new_color : Color)
 
@@ -35,10 +35,10 @@ func action_use(pressed : bool) -> void:
 func propulsion_ability():
 	pass
 	
-func _physics_process(_delta: float) -> void:
-	super._physics_process(_delta)
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
 	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA
-	smoothed_delta_velocity = lerp(smoothed_delta_velocity,delta_velocity,_delta*delta_velocity_smooth_factor)
+	smoothed_delta_velocity = lerp(smoothed_delta_velocity,delta_velocity,delta*delta_velocity_smooth_factor)
 	last_velocity = velocity
 	
 ### called when the controller takes possession of this pawn

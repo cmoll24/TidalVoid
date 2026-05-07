@@ -81,9 +81,9 @@ func _process(delta: float) -> void:
 	if not is_centered:
 		roaming_camera_process(delta)
 	
-	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 	var final_zoom_value = clamp(target_zoom * (1.0 + jump_zoom_offset), min_zoom, max_zoom)
 	
+	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 	zoom = zoom.lerp(
 		Vector2(final_zoom_value, final_zoom_value),
 		1.0 - exp(-zoom_smoothing * delta * 60.0)
@@ -95,11 +95,11 @@ func apply_camera_shake(delta):
 		var shake = Vector2(
 			randf_range(-1, 1),
 			randf_range(-1, 1)
-		) * high_delta_velocity_mult * (93 - player.smoothed_delta_velocity)
+		) * high_delta_velocity_mult * (player.smoothed_delta_velocity - 93)
 		
-		offset = shake
+		apply_screen_shake(shake)
 	else:
-		offset = Vector2.ZERO
+		apply_screen_shake(Vector2.ZERO)
 		
 	# JUMP CHARGE EFFECT 
 	if player is Player and player.is_charging_jump and Input.is_action_pressed("jump") and player.last_jump_power > jump_power_shake_threshold:
@@ -118,7 +118,7 @@ func apply_camera_shake(delta):
 			randf_range(-1, 1)
 		) * jump_shake_strength * jump_charge*(player.last_jump_power/player.max_jump_power)
 		
-		offset = shake
+		apply_screen_shake(shake)
 	else:
 		jump_charge = 0
 		if jump_zoom_offset < 0.0:
@@ -126,6 +126,12 @@ func apply_camera_shake(delta):
 			jump_zoom_offset += (delta * return_speed)
 		else:
 			jump_zoom_offset = 0.0
+
+func apply_screen_shake(pixeL_offset : Vector2):
+	#Dividing by c means that whe you zoom in we only shake the camera
+	#by screen pixels values of pixel offset which stops it from being too shaky
+	var c = max(zoom.x, 1.0)
+	offset = pixeL_offset / c
 
 func roaming_camera_process(_delta : float) -> void:
 	global_position = camera_global_position
