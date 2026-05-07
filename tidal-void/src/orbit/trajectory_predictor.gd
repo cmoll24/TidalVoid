@@ -21,9 +21,15 @@ func _ready() -> void:
 	
 	if(player is PlayerPawn):
 		update_player(player)
-	
+
+func remove_target():
+	player = null
+
+func set_target(drift_body : DriftBody):
+	player = drift_body
+
 func update_player(pawn : PlayerPawn):
-	player = pawn
+	set_target(pawn)
 	player.update_traj_color.connect(set_color)
 
 func set_color(new_color : Color):

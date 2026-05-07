@@ -34,6 +34,9 @@ func update_dominant_body() -> void:
 		pick_next_asteroid()
 
 func creature_movement(_delta):
+	if stun_time > 0:
+		return
+	
 	if b_is_grounded and jump_attemps > 0:
 		set_airborne()
 		walking_on_ground = false

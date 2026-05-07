@@ -7,14 +7,15 @@ extends Node
 
 @onready var camera : ZoomCamera = $Camera2D
 
+@export var throw_predictor : TrajectoryPredictor
+
 var reverse_thrust = false
 
 var controller_mode = false
 
 func _ready() -> void:
 	if(player):
-		predictor.player = player
-		player.start_possess(self, Vector2.ZERO)
+		start_possess(player, Vector2.ZERO)
 
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -76,6 +77,13 @@ func _input(event: InputEvent) -> void:
 func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	camera.player = pawn
 	player.stop_possess();
+	
+	start_possess(pawn, previous_pawn_velocity)
+
+func start_possess(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
 	predictor.update_player(player)
+	
+	if player is Player:
+		player.throw_trajectory = throw_predictor

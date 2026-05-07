@@ -18,8 +18,10 @@ var last_jump_power : float = 0
 ### the velocity applied to things the player throws
 @export var throw_velocity : float = 75
 ### the amount of time a creature is stunned for after holding
-@export var hold_stun_time : float = 1
+@export var hold_stun_time : float = 3
 var held_creature : Creature = null
+
+var throw_trajectory : TrajectoryPredictor
 
 #########################################################
 #the player can interact with things in this area
@@ -51,6 +53,12 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	player_movement(delta)
 	update_interact_source()
+	
+	if held_creature:
+		if held_creature not in interact_area.get_overlapping_bodies():
+			remove_held_creature()
+		else:
+			held_creature.prediction_velocity = get_throw_velocity(held_creature)
 
 func player_movement(delta : float) -> void:
 	if b_is_grounded && walking_on_ground:
@@ -205,17 +213,48 @@ func action_use(pressed : bool)  -> void:
 				held_creature = result.collider
 				held_creature.stun_time = hold_stun_time
 				held_creature.velocity = velocity
+				
+				held_creature.b_prediction_velo_is_real = false
+				throw_trajectory.set_target(held_creature)
 	else:
 		if(held_creature and held_creature.stun_time > 0):
 			## if holding a stunned creature, attempt a throw
 			#first check that the creature is still interactable
 			if(held_creature in interact_area.get_overlapping_bodies()):
 				#close enough, throw it
-				held_creature.velocity += mouse_direction*max(throw_velocity,gravity_force.length())
+				held_creature.b_prediction_velo_is_real = true
+				
+				held_creature.velocity = get_throw_velocity(held_creature)
 				held_creature.stun_time = hold_stun_time
-			
-		held_creature = null
 		
+		remove_held_creature()
+
+func remove_held_creature():
+	throw_trajectory.remove_target()
+	held_creature = null
+
+func get_throw_velocity(body : DriftBody) -> Vector2:
+	var max_throw_power = max(throw_velocity,gravity_force.length())
+	
+	if not dominant_body:
+		return mouse_direction * max_throw_power
+	
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var start_r: float = body.global_position.distance_to(dominant_body.global_position)
+	var target_r: float = mouse_pos.distance_to(dominant_body.global_position)
+	
+	if target_r <= start_r:
+		return Vector2.ZERO
+	
+	var mu = dominant_body.mass
+	
+	#orbital transfer energy
+	var throw_power = sqrt(mu * 2.0 * (1.0/start_r - 1.0/target_r))
+	
+	throw_power = clampf(throw_power, 0.0, max_throw_power)
+	
+	return mouse_direction * throw_power
+
 func update_interact_source() -> void:
 	# look at all interactable things
 	var largest_dot : float = -9999;

@@ -117,16 +117,31 @@ position = Vector2(257, 904)
 collision_layer = 14
 start_orbit_dir = false
 
-[node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor") instance=ExtResource("3_gen7d")]
+[node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor", "throw_predictor") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
 predictor = NodePath("../PlayerTrajectoryPredictor")
+throw_predictor = NodePath("../PlayerThrowPredictor")
 
 [node name="PlayerTrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D")
 steps = 500
 fake_steps = 0.0
 step_dist = 1.0
+collision_radius = 15.0
 player = NodePath("../Player")
+
+[node name="ThrowLine" type="Line2D" parent="." unique_id=1719763425]
+modulate = Color(0.6627451, 0.60784316, 1, 1)
+width = 3.0
+gradient = SubResource("Gradient_je76y")
+antialiased = true
+
+[node name="PlayerThrowPredictor" parent="." unique_id=885680685 node_paths=PackedStringArray("line") instance=ExtResource("4_je76y")]
+line = NodePath("../ThrowLine")
+steps = 500
+fake_steps = 0.0
+step_dist = 1.0
+collision_radius = 15.0
 
 [node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
 position = Vector2(512.2966, 452.5486)
@@ -196,25 +211,13 @@ text = "Health"
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
 position = Vector2(394, 2023)
-target_altitude_sqr = null
-target_dir = null
-stun_time = null
-creature_size = null
-velocity = null
-prediction_velocity = null
-b_prediction_velo_is_real = null
-static_friction_coefficient = null
-kinetic_friction_coefficient = null
-min_dot_for_ground = null
-elasticity = null
-b_is_safe_collision = null
-b_rotation_to_gravity = null
 
 [node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D2")
 steps = 100
 fake_steps = 2.0
 step_dist = 10.0
+collision_radius = 15.0
 player = NodePath("../Steven")
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
@@ -225,39 +228,11 @@ antialiased = true
 
 [node name="Jeremiah" parent="." unique_id=1142549016 instance=ExtResource("12_2wvry")]
 position = Vector2(532, 820)
-target_altitude_sqr = null
-target_dir = null
-b_in_hibernation = null
-stun_time = null
-creature_size = null
-velocity = null
-prediction_velocity = null
-b_prediction_velo_is_real = null
-static_friction_coefficient = null
-kinetic_friction_coefficient = null
-min_dot_for_ground = null
-elasticity = null
 max_velocity = 400.0
-b_is_safe_collision = null
-b_rotation_to_gravity = null
 
 [node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("12_2wvry")]
 position = Vector2(2043, 1863)
-target_altitude_sqr = null
-target_dir = null
-b_in_hibernation = null
-stun_time = null
-creature_size = null
-velocity = null
-prediction_velocity = null
-b_prediction_velo_is_real = null
-static_friction_coefficient = null
-kinetic_friction_coefficient = null
-min_dot_for_ground = null
-elasticity = null
 max_velocity = 400.0
-b_is_safe_collision = null
-b_rotation_to_gravity = null
 
 [node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
 position = Vector2(2362, 1676)
@@ -290,19 +265,6 @@ position = Vector2(505, 679)
 
 [node name="Steven2" parent="." unique_id=2145063656 instance=ExtResource("10_lm5jn")]
 position = Vector2(1595, 4533)
-target_altitude_sqr = null
-target_dir = null
-stun_time = null
-creature_size = null
-velocity = null
-prediction_velocity = null
-b_prediction_velo_is_real = null
-static_friction_coefficient = null
-kinetic_friction_coefficient = null
-min_dot_for_ground = null
-elasticity = null
-b_is_safe_collision = null
-b_rotation_to_gravity = null
 
 [node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("27_bdxtq")]
 position = Vector2(1173, 4197)
