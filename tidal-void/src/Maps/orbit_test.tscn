@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_1e5fo"]
+[ext_resource type="PackedScene" uid="uid://cc2fk6i6auegu" path="res://src/Maps/planets/WaterPlanet.tscn" id="26_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://d2kanj13jye30" path="res://src/Maps/planets/PomPlanet.tscn" id="26_hcif7"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="27_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="28_vkjj7"]
@@ -113,7 +114,7 @@ gradient = SubResource("Gradient_je76y")
 antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
-position = Vector2(257, 904)
+position = Vector2(4023, 2978)
 collision_layer = 14
 start_orbit_dir = false
 
@@ -127,7 +128,6 @@ line = NodePath("../Line2D")
 steps = 500
 fake_steps = 0.0
 step_dist = 1.0
-collision_radius = 15.0
 player = NodePath("../Player")
 
 [node name="ThrowLine" type="Line2D" parent="." unique_id=1719763425]
@@ -141,7 +141,6 @@ line = NodePath("../ThrowLine")
 steps = 500
 fake_steps = 0.0
 step_dist = 1.0
-collision_radius = 15.0
 
 [node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
 position = Vector2(512.2966, 452.5486)
@@ -217,7 +216,6 @@ line = NodePath("../Line2D2")
 steps = 100
 fake_steps = 2.0
 step_dist = 10.0
-collision_radius = 15.0
 player = NodePath("../Steven")
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
@@ -272,3 +270,6 @@ position = Vector2(1173, 4197)
 [node name="ShipBody" parent="." unique_id=1522743882 instance=ExtResource("28_vkjj7")]
 z_index = 0
 position = Vector2(-1309.2389, 3019.6692)
+
+[node name="WaterPlanet" parent="." unique_id=215448769 instance=ExtResource("26_bdxtq")]
+position = Vector2(4474.5264, 3159.5303)
