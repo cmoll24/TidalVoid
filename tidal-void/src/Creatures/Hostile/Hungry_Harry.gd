@@ -32,7 +32,6 @@ var b_near_surface : bool = false
 
 @onready var head : Sprite2D = $Head
 
-@onready var tail : Sprite2D = $Tail
 
 @onready var body_collision : StaticBody2D = $BodyCollision
 
@@ -190,6 +189,8 @@ func play_dig_particles():
 	#make the particles emit
 	dig_particles.emitting = true
 	
+func set_ground(normal : Vector2,body : Node2D,point : Vector2, shape_idx : int) -> void:
+	pass
 	
 func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	super.on_collide_with_other_drift_body(other);
