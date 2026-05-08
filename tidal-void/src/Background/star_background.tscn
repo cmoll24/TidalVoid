@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://d18tatnwudnjj"]
+
+[ext_resource type="Texture2D" uid="uid://cmrgu8g4brp4" path="res://assets/Textures/Placeholder/test_background.png" id="1_puydu"]
+[ext_resource type="Script" uid="uid://8ghh3geko5ra" path="res://src/Background/static_background.gd" id="2_jfky6"]
+[ext_resource type="Texture2D" path="res://assets/Backgrounds/Untitled_Artwork-1 (1).png" id="3_ygmfp"]
+
+[node name="StarBackground" type="Control" unique_id=1051069734]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_jfky6")
+
+[node name="StarBackground" type="TextureRect" parent="." unique_id=1292664541]
+self_modulate = Color(1, 1, 1, 0.12100001)
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("1_puydu")
+
+[node name="StarBackground2" type="TextureRect" parent="." unique_id=255576379]
+visible = false
+z_index = -5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1157.5
+offset_top = -1110.0
+offset_right = 1157.5
+offset_bottom = 1110.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_ygmfp")

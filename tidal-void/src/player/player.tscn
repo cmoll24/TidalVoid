@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_o822w"]
-[ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="3_o822w"]
+[ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="3_5f2sf"]
 [ext_resource type="Texture2D" uid="uid://dfms40uf6fvh0" path="res://assets/Textures/Placeholder/PLACEHOLDER_circle_light.png" id="4_244u8"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="5_5f2sf"]
 
@@ -70,7 +70,7 @@ script = ExtResource("2_o822w")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1020679138]
 scale = Vector2(0.08, 0.08)
-texture = ExtResource("3_o822w")
+texture = ExtResource("3_5f2sf")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1545037244]
 light_mask = 1023
