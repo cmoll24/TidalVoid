@@ -6,6 +6,10 @@ const float RippleRate2 = 0.1f;
 const vec2 Dir = vec2(0.447f,0.894f);
 
 void fragment() {
+	float alpha = texture(TEXTURE, UV).a;
+	if(alpha < 0.1){
+		discard;
+	}
 	vec2 DeltaUV = vec2(0);
 	float TimeFunc = ((0.5f-mod((TIME*RippleRate),1)));
 	TimeFunc = TimeFunc*TimeFunc;
@@ -19,7 +23,7 @@ void fragment() {
 	
 	DeltaUV = Dir*TimeScalar*RippleStrength*RippleScalar;
 	COLOR = texture(TEXTURE, mod(UV+DeltaUV,vec2(1)));
-	COLOR.a = texture(TEXTURE, UV).a;
+	COLOR.a = alpha;
 }
 
 //void light() {
