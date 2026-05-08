@@ -274,7 +274,7 @@ z_index = 0
 position = Vector2(-1309.2389, 3019.6692)
 
 [node name="WaterPlanet" parent="." unique_id=215448769 instance=ExtResource("26_bdxtq")]
-position = Vector2(4474.5264, 3159.5303)
+position = Vector2(4869, 3478)
 
 [node name="ShroudComposite" parent="." unique_id=445053664 instance=ExtResource("27_vkjj7")]
-position = Vector2(4453, 3195)
+position = Vector2(4816, 3378)

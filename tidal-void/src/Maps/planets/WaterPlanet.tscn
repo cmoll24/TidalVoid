@@ -29,7 +29,7 @@ fill_from = Vector2(0.5, 0.5)
 z_index = 2
 collision_mask = 7
 script = ExtResource("1_imy56")
-mass = 12000.0
+mass = 18000.0
 collision_radius = 210.0
 metadata/_custom_type_script = "uid://becxcr68kkbk8"
 
