@@ -1,4 +1,4 @@
-extends TextureRect
+extends Control
 #This script is to make the star background appear static when the camera zooms and rotates
 
 var camera_parent : ZoomCamera
