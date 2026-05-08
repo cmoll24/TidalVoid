@@ -286,8 +286,8 @@ func set_ground(normal : Vector2,body : Node2D,point : Vector2, shape_idx : int)
 	
 	#get the shape from the shape index
 	var owner_id = body.shape_find_owner(shape_idx)
-	grounded_shape = body.shape_owner_get_shape(owner_id, shape_idx)
-
+	#get the shape assuming 0
+	grounded_shape = body.shape_owner_get_shape(owner_id,0)
 
 	
 	# Ideally subclasses do some sort of other logic like rotating the model or something

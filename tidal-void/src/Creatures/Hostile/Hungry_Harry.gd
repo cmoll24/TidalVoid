@@ -32,7 +32,6 @@ var b_near_surface : bool = false
 
 @onready var head : Sprite2D = $Head
 
-
 @onready var body_collision : StaticBody2D = $BodyCollision
 
 @onready var dig_particles : CPUParticles2D = $DigParticles
@@ -85,7 +84,7 @@ func _physics_process(delta: float) -> void:
 			if(dist_sqr > (dominant_body.collision_radius)**2):
 				if(b_in_planet):
 					#limit the velocity so we cannot escape
-					velocity.limit_length(escape_speed(dominant_body,global_position)*0.5);
+					velocity = velocity.limit_length(escape_speed(dominant_body,global_position)*0.8);
 				b_in_planet = false
 			else:
 				#play dig particles if we just descended from space

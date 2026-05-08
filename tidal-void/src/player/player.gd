@@ -65,7 +65,7 @@ func player_movement(delta : float) -> void:
 		#Exit Condition
 		if(velocity.dot(grounded_normal) < -1):
 			walking_on_ground = false
-			grounded_buffer -= 1
+			grounded_buffer = 0
 		
 		else:
 			#Set player velocity to 0 when they are grounded
