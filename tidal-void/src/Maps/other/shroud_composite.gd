@@ -17,11 +17,12 @@ func _ready() -> void:
 			var tiles = []
 			##assumes equal size in all dimensions
 			var size : float = node.size.x * node.scale.x
+			var center_position = node.global_position + Vector2(size,size)/2
 			#check all corners of tshe shape to ensure it is included in relavant tiles
-			for x in range(0,3): #the global position is the top left corner
-				for y in range(0,3):
+			for x in range(-1,2):
+				for y in range(-1,2):
 					var offset = Vector2(x,y)
-					var tile : Vector2 = ((node.global_position + offset*size)/shroud_tile_size).round()
+					var tile : Vector2 = ((center_position+ offset*size)/shroud_tile_size).round()
 					if(tiles.find(tile) == -1):
 						#add the tile if it wasn't there before
 						tiles.append(tile)
@@ -46,6 +47,6 @@ func _physics_process(delta: float) -> void:
 				#fade the shroud out based on the player's proximity
 				#we actually want this to be squared for smooth transition
 				var size = node.size.x * node.scale.x
-				var dist_sqr = body.global_position.distance_squared_to(node.global_position+Vector2(size,size))
+				var dist_sqr = body.global_position.distance_squared_to(node.global_position+Vector2(size,size)/2)
 				var alpha : float = dist_sqr/(size**2)
 				node.self_modulate = Color(1,1,1,alpha)
