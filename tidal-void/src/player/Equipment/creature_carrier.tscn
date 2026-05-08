@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="8_5c75x"]
 [ext_resource type="Texture2D" uid="uid://dm05xrilkgciu" path="res://assets/Textures/Placeholder/PLACEHOLDER_enter_icon.png" id="9_f44oo"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="10_f44oo"]
+[ext_resource type="Texture2D" uid="uid://co43005anjumx" path="res://assets/Textures/Placeholder/PLACEHOLDER_fuel_tank.png" id="11_u62k1"]
+[ext_resource type="Texture2D" uid="uid://b13h10khxicd" path="res://assets/Textures/Placeholder/PLACEHOLDER_fuelbar.png" id="12_5xigg"]
 
 [sub_resource type="Curve" id="Curve_lhdkr"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -129,3 +131,22 @@ texture = ExtResource("9_f44oo")
 script = ExtResource("10_f44oo")
 v_type = 2
 metadata/_custom_type_script = "uid://cloexwtl4gxf3"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1588764202]
+position = Vector2(-4, 20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_u62k1")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=471982527]
+z_index = -1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = 18.0
+offset_right = 2.0
+offset_bottom = 34.0
+grow_vertical = 2
+rotation = -0.10471976
+scale = Vector2(1.15, 0.4)
+texture = ExtResource("12_5xigg")

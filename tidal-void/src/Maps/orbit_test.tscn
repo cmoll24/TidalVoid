@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://cc2fk6i6auegu" path="res://src/Maps/planets/WaterPlanet.tscn" id="26_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://d2kanj13jye30" path="res://src/Maps/planets/PomPlanet.tscn" id="26_hcif7"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="27_bdxtq"]
+[ext_resource type="PackedScene" uid="uid://d3lmvfi52a6nk" path="res://src/Maps/other/ShroudComposite.tscn" id="27_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="28_vkjj7"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
@@ -234,7 +235,7 @@ position = Vector2(2043, 1863)
 max_velocity = 400.0
 
 [node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
-position = Vector2(2362, 1676)
+position = Vector2(4135, 2752)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
 position = Vector2(1609, 3357)
@@ -274,3 +275,6 @@ position = Vector2(-1309.2389, 3019.6692)
 
 [node name="WaterPlanet" parent="." unique_id=215448769 instance=ExtResource("26_bdxtq")]
 position = Vector2(4474.5264, 3159.5303)
+
+[node name="ShroudComposite" parent="." unique_id=445053664 instance=ExtResource("27_vkjj7")]
+position = Vector2(4453, 3195)

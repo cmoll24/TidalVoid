@@ -44,6 +44,7 @@ func _physics_process(delta: float) -> void:
 ### called when the controller takes possession of this pawn
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	controller = player_controller
+	game_manager.register_revealing_source(self)
 	
 	
 ### called when the controller stops taking possession of this pawn	
@@ -51,6 +52,7 @@ func stop_possess() -> void:
 	#you can tell if you are possessed or not by checking the controller
 	controller = null
 	set_thrust(Vector2.ZERO)
+	game_manager.unregister_revealing_source(self)
 	
 func die() -> void:
 	if(b_dead):
