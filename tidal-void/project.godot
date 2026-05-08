@@ -162,6 +162,7 @@ propulsion={
 
 [layer_names]
 
+2d_render/layer_2="HideInMap"
 2d_physics/layer_1="static"
 2d_physics/layer_2="dynamic"
 2d_physics/layer_3="background"

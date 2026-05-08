@@ -7,7 +7,15 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_udy5y"]
 radius = 32.0
 
+[sub_resource type="Gradient" id="Gradient_f3ssv"]
+offsets = PackedFloat32Array(0, 0.6051948, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.94781816, 0.94781816, 0.94781816, 0.8727273, 0.59, 0.59, 0.59, 0)
+
+[sub_resource type="Gradient" id="Gradient_udy5y"]
+colors = PackedColorArray(0.49, 0.2394467, 0.20090002, 1, 1, 1, 1, 1)
+
 [node name="HungryHarry" type="StaticBody2D" unique_id=1520081079]
+visibility_layer = 2
 collision_layer = 2
 collision_mask = 11
 script = ExtResource("1_fa72h")
@@ -31,10 +39,12 @@ collision_mask = 10
 shape = SubResource("CircleShape2D_udy5y")
 
 [node name="Head" type="Sprite2D" parent="." unique_id=894255847]
+visibility_layer = 2
 texture = ExtResource("2_f3ssv")
 
 [node name="Body" type="Line2D" parent="." unique_id=1620822522]
 top_level = true
+visibility_layer = 2
 texture_repeat = 2
 points = PackedVector2Array(0, 0, 0, 512)
 width = 64.0
@@ -47,3 +57,26 @@ physics_interpolation_mode = 2
 top_level = true
 collision_layer = 2
 collision_mask = 0
+
+[node name="DigParticles" type="CPUParticles2D" parent="." unique_id=1757022277]
+top_level = true
+visibility_layer = 2
+emitting = false
+amount = 30
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(5, 15)
+particle_flag_align_y = true
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 140.0
+scale_amount_min = 5.0
+scale_amount_max = 15.0
+color = Color(0.46666667, 0.4745098, 0.4509804, 1)
+color_ramp = SubResource("Gradient_f3ssv")
+color_initial_ramp = SubResource("Gradient_udy5y")
+hue_variation_min = -0.11
+hue_variation_max = 0.13

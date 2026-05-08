@@ -44,6 +44,7 @@ _data = {
 }
 
 [node name="FruitTree" type="Node2D" unique_id=1925077876]
+visibility_layer = 2
 script = ExtResource("1_j5wqp")
 fruit_spawn_offset = Vector2(0, -60)
 max_fruit_velocity_boost = 100.0

@@ -97,7 +97,6 @@ func player_movement(delta : float) -> void:
 		if(grounded_shape is CircleShape2D):
 			player_loc_len += grounded_body.collision_radius- 1
 		else:
-			print("collided with non circle gravity source")
 			player_loc_len += grounded_body.global_position.distance_to(grounded_point) - 1
 		var player_angle : float = player_loc.angle()
 		var new_pos : Vector2

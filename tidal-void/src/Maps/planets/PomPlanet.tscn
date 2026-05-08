@@ -56,6 +56,7 @@ texture = ExtResource("2_j0ye2")
 shape = SubResource("CircleShape2D_f54en")
 
 [node name="Foreground" type="TextureRect" parent="." unique_id=838847746]
+visibility_layer = 2
 z_index = 10
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,6 +74,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("3_m5uke")
 
 [node name="Ring" type="TextureRect" parent="." unique_id=617574165]
+visibility_layer = 2
 z_index = -1
 anchors_preset = 8
 anchor_left = 0.5

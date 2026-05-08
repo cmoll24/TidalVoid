@@ -12,6 +12,7 @@ metadata/_custom_type_script = "uid://cfqw8if3wfy87"
 radius = 33.06055
 
 [node name="InventoryItem" type="Area2D" unique_id=2082957781 groups=["items"]]
+visibility_layer = 2
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_0074f")

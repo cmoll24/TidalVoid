@@ -113,6 +113,7 @@ gradient = SubResource("Gradient_je76y")
 antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
+visibility_layer = 3
 position = Vector2(257, 904)
 collision_layer = 14
 start_orbit_dir = false
@@ -127,7 +128,6 @@ line = NodePath("../Line2D")
 steps = 500
 fake_steps = 0.0
 step_dist = 1.0
-collision_radius = 15.0
 player = NodePath("../Player")
 
 [node name="ThrowLine" type="Line2D" parent="." unique_id=1719763425]
@@ -141,7 +141,6 @@ line = NodePath("../ThrowLine")
 steps = 500
 fake_steps = 0.0
 step_dist = 1.0
-collision_radius = 15.0
 
 [node name="Collectable" parent="." unique_id=1685557867 instance=ExtResource("5_axjf6")]
 position = Vector2(512.2966, 452.5486)
@@ -217,7 +216,6 @@ line = NodePath("../Line2D2")
 steps = 100
 fake_steps = 2.0
 step_dist = 10.0
-collision_radius = 15.0
 player = NodePath("../Steven")
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
