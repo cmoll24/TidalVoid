@@ -39,7 +39,6 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	#Fade shrouds out when they are near a light source/player
 	for body in game_manager.revealing_sources:
-		print("body")
 		var tile_coords : Vector2 = (body.global_position/ shroud_tile_size).round()
 		var nodes = shroud_lookup.get(tile_coords)
 		if(nodes):
