@@ -116,7 +116,7 @@ antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 visibility_layer = 3
-position = Vector2(257, 904)
+position = Vector2(1549, 1895)
 collision_layer = 14
 start_orbit_dir = false
 
