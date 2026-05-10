@@ -6,7 +6,7 @@ extends Camera2D
 @export var zoom_speed : float = 0.05
 @export var zoom_smoothing : float = 0.1
 
-@export var map_zoom_threshold : float = 0.3
+@export var map_zoom_threshold : float = 0.2
 
 @export var charge_speed : float = .5
 @export var return_speed : float = .1
