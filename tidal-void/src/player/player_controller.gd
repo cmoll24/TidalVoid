@@ -5,7 +5,9 @@ extends Node
 
 @export var predictor : TrajectoryPredictor
 
-@onready var camera : Camera2D = $Camera2D
+@onready var camera : ZoomCamera = $Camera2D
+
+@export var throw_predictor : TrajectoryPredictor
 
 var reverse_thrust = false
 
@@ -13,8 +15,8 @@ var controller_mode = false
 
 func _ready() -> void:
 	if(player):
-		predictor.player = player
-		player.start_possess(self)
+		start_possess(player, Vector2.ZERO)
+		player.call_deferred("apply_save_state")
 
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -30,12 +32,9 @@ func _process(_delta: float) -> void:
 	
 	### METHOD 2 - using mouse direction
 	
-	var mouse_position = get_viewport().get_mouse_position() - (get_viewport().get_visible_rect().size / 2)
-	var player_screen_position = player.global_position - get_viewport().get_camera_2d().global_position
-	
-	var mouse_direction = (mouse_position - player_screen_position).normalized()
-	if not camera.ignore_rotation:
-		mouse_direction = mouse_direction.rotated(player.rotation)
+	var mouse_world_position = camera.get_global_mouse_position()
+
+	var mouse_direction = (mouse_world_position - player.global_position).normalized()
 	player.mouse_direction = mouse_direction
 	
 	### METHOD 3 - using controller direction
@@ -71,11 +70,22 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("propulsion"):
 		player.propulsion_ability()
 	elif event.is_action_pressed("Use"):
-		player.action_use()
+		player.action_use(true)
+	elif event.is_action_released("Use"):
+		player.action_use(false)
 		
 		
-func possess_pawn(pawn : PlayerPawn):
+func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
+	camera.player = pawn
 	player.stop_possess();
-	pawn.start_possess(self);
+	
+	start_possess(pawn, previous_pawn_velocity)
+
+func start_possess(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
+	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
-	predictor.player = pawn
+	predictor.update_player(player)
+	GV.player_reference(player)
+	
+	if player is Player:
+		player.throw_trajectory = throw_predictor

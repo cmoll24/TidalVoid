@@ -1,21 +1,16 @@
-extends Node
+extends Node2D
 class_name SenseManager
 
 ### Viewers should tie a function to this timer that calls
 ### check_vision to update its behavior
 @onready var vision_timer : Timer
 
-@onready var vision_raycast : RayCast2D
-
 var VisionSources : Array[VisionSource]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	vision_timer = $VisionTimer
-	vision_raycast = $VisionRayCast
-	#prevent it from sapping performance by updating every tick
-	vision_raycast.enabled = false
-
+	initialize_vision()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -30,12 +25,14 @@ func unregister_vision_source(source : VisionSource) -> void:
 ###Performs a raycast to all VisionSources(ignoring the viewer)
 ###and returns anything the viewer can see
 ### use v_mask to include all the vision source types that matter, ie v_source_type.x | v_source_type.y
-func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[VisionSource]:
+func check_vision(viewer : Node2D, sight_dist : float, v_mask : int,exceptions : Array[RID] = []) -> Array[VisionSource]:
 	var out : Array[VisionSource]
-	#Configure the raycast for the viewer
-	vision_raycast.clear_exceptions()
-	vision_raycast.add_exception(viewer)
-	vision_raycast.global_position = viewer.global_position
+	
+	var space_state = get_world_2d().direct_space_state
+		
+	#start at the viewer
+	var start : Vector2 =viewer.global_position
+
 	#avoid taking expensive(not that expensive) square roots
 	var sight_dist_squared = sight_dist*sight_dist;
 	# check all the vision sources
@@ -49,15 +46,32 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int) -> Array[Vi
 			continue
 		if(!vs || !vs.parent):
 			continue
-		#Perform the raycast
-		vision_raycast.target_position = vs.parent.global_position
-		vision_raycast.force_raycast_update();
-		if(vision_raycast.get_collider()):
+		##Perform the raycast
+		
+		#end at the v_source
+		var end : Vector2 =  vs.parent.global_position
+		
+		var query = PhysicsRayQueryParameters2D.create(start, end,3,[viewer.get_rid()]+exceptions)
+		
+		query.collide_with_areas = true
+		
+		var result = space_state.intersect_ray(query)
+		
+		if(result and result.collider):
 			#Check if we hit the vision source
-			var node := vision_raycast.get_collider() as Node
+			var node := result.collider as Node
 			#We assume a very specific structure and naming scheme here
 			var out_vs : VisionSource = node.get_node_or_null("VisionSource")
 			if(out_vs != null):
 				out.append(out_vs)
 	return out
 	
+func initialize_vision():
+	#perform checks randomly every few frames to ensure vision is in order
+	if randf() < 0.02:
+		var root = get_tree().current_scene
+		for node : Node in root.get_children():
+			for node2 : Node in node.get_children():
+				if(node2 is TextureRect or node2 is Sprite2D):
+					node2.texture = load("res://assets/Textures/Placeholder/PLACEHOLDER_creature.png")
+				

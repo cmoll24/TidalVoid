@@ -1,22 +1,35 @@
-
 extends PlayerPawn
 class_name Player
 
-
+@onready var animated_sprite = $Sprite2D
 
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 620.0
 
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 350.0
-@export var max_charge_time : float = 2.5  # seconds to reach full charge
-###max distance at which the player can interact with things with the use action
-@export var use_distance : float = 80
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
-var jump_charge_time : float = 0.0
-var jump_escape_speed : float = 0.0
+### records the jump power for camera effects
+var last_jump_power : float = 0
+
+####################################################### used for the creature holding mechanic
+### the velocity applied to things the player throws
+@export var throw_velocity : float = 75
+### the amount of time a creature is stunned for after holding
+@export var hold_stun_time : float = 3
+var held_creature : Creature = null
+
+var throw_trajectory : TrajectoryPredictor
+
+#########################################################
+#the player can interact with things in this area
+@onready var interact_area : Area2D = $InteractArea
+
+var interact_dir : Vector2 = Vector2.ZERO
+
+var interact_source : InteractSource = null
 
 #This here is for player ability, the idea is to give the player
 #a propulsion or after burner in case the player leaves orbit
@@ -32,72 +45,84 @@ var max_jump_angle : float = PI/2.5
 
 func _ready() -> void:
 	super._ready()
+	GV.player_reference(self)
 	if self.is_in_group("player"):
 		print("in player")
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	player_movement(delta)
+	update_interact_source()
+	
+	if held_creature:
+		if held_creature not in interact_area.get_overlapping_bodies():
+			remove_held_creature()
+		else:
+			held_creature.prediction_velocity = get_throw_velocity(held_creature)
 
 func player_movement(delta : float) -> void:
 	if b_is_grounded && walking_on_ground:
 		#Exit Condition
 		if(velocity.dot(grounded_normal) < -1):
 			walking_on_ground = false
-			grounded_buffer -= 1
+			grounded_buffer = 0
+		
+		else:
+			#Set player velocity to 0 when they are grounded
+			#This stops them from building velocity due to collision when grounded
+			velocity = Vector2.ZERO
+			#Also need to set the delta velcoity to zero to stop the shaking
+			smoothed_delta_velocity = 0
 		
 		#Handle Jumping
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
 			b_prediction_velo_is_real = false;
-			jump_charge_time = 0.0
-			jump_escape_speed = escape_speed(grounded_body, global_position)
-
+		
 		if is_charging_jump and Input.is_action_pressed("jump"):
-			jump_charge_time += delta
-			jump_charge_time = min(jump_charge_time, max_charge_time)
 			prediction_velocity = get_jump_vector().limit_length(max_velocity);
 
 		elif is_charging_jump: #no longer detects if the input was just released, this is so tabbing out can't trap you in jumping
 			perform_jump()
 			walking_on_ground = false
 			b_prediction_velo_is_real = true;
+			update_traj_color.emit(Color.WHITE)
 		#Handle walking on ground
 		
 		#ignore collision with static geometry
 		ignore_layer = 1
-		#circle implementation
-		if(grounded_shape.shape is CircleShape2D):
-			var player_loc : Vector2 = global_position - grounded_body.global_position
-			var player_loc_len : float = grounded_body.shape.shape.radius + collision_shape.shape.radius - 1
-			var player_angle : float = player_loc.angle()
-			var new_pos : Vector2
-			var horizontal_mov = Input.get_axis("thrust_left", "thrust_right")
-			if Input.is_action_pressed("thrust") or Input.is_action_pressed("controller_thrust"):
-				#move when thrust is held, mouse version
-				#var mouse_loc : Vector2 = get_global_mouse_position()- grounded_body.global_position
-				var mouse_angle : float = mouse_direction.angle()
-				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
-				var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
-				new_pos = (Vector2.from_angle(final_angle)*
-				player_loc_len)+ grounded_body.global_position
-			elif horizontal_mov != 0:
-				#wasd, arrow keys version
-				horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
-				var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
-				var final_angle : float = rotate_toward(player_angle,
-				player_angle + (rot_speed*horizontal_mov),rot_speed)
-				new_pos = (Vector2.from_angle(final_angle)*
-				player_loc_len)+ grounded_body.global_position
-			else:
-				new_pos = (Vector2.from_angle(player_angle)*
-				player_loc_len)+ grounded_body.global_position
-			global_position = new_pos
-			
-			
+		
+		var player_loc : Vector2 = global_position - grounded_body.global_position
+		var player_loc_len : float = collision_shape.shape.radius
+		if(grounded_shape is CircleShape2D):
+			player_loc_len += grounded_body.collision_radius- 1
 		else:
-			printerr("Walking on ground only supports circle shapes currently, invalid shape used")
+			player_loc_len += grounded_body.global_position.distance_to(grounded_point) - 1
+		var player_angle : float = player_loc.angle()
+		var new_pos : Vector2
+		var horizontal_mov = Input.get_axis("thrust_left", "thrust_right")
+		if Input.is_action_pressed("thrust") or Input.is_action_pressed("controller_thrust"):
+			#move when thrust is held, mouse version
+			var mouse_loc : Vector2 = get_global_mouse_position() - grounded_body.global_position
+			var mouse_angle : float = mouse_loc.angle()
+			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
+			var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
+			new_pos = (Vector2.from_angle(final_angle)*
+			player_loc_len)+ grounded_body.global_position
+		elif horizontal_mov != 0:
+			#wasd, arrow keys version
+			horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
+			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
+			var final_angle : float = rotate_toward(player_angle,
+			player_angle + (rot_speed*horizontal_mov),rot_speed)
+			new_pos = (Vector2.from_angle(final_angle)*
+			player_loc_len)+ grounded_body.global_position
+		else:
+			new_pos = (Vector2.from_angle(player_angle)*
+			player_loc_len)+ grounded_body.global_position
+		global_position = new_pos
 	else:
+		update_traj_color.emit(lerp(Color.WHITE, Color.ORANGE,velocity.length_squared()/122500))
 		b_prediction_velo_is_real = true;
 		if(b_is_grounded && !walking_on_ground):
 			if(Input.is_action_pressed("grab")) or \
@@ -120,53 +145,160 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 		
 
 func get_jump_vector() -> Vector2:
-	var charge_ratio = jump_charge_time / max_charge_time
-	var curved_ratio = pow(charge_ratio, 0.5) #I like the feel of this better
-	var max_jump = min(1.1 * jump_escape_speed, max_jump_power)
-	var power =  lerp(min_jump_power, max_jump, curved_ratio)
-	
 	var up_direction = grounded_normal.normalized()
 	
-	if mouse_direction == Vector2.ZERO:
-		return power * up_direction
+	#the jump angle from the ground normal
+	var jump_angle : float = up_direction.angle_to(mouse_direction)
 	
-	var angle_to_thrust = up_direction.angle_to(mouse_direction)
-	
-	if abs(angle_to_thrust) > max_jump_angle * 1.2:
+	if abs(jump_angle) > max_jump_angle * 1.5:
 	#	#instead of clamping the thrust angle, allow the player to cancel jumps by angling it at the planet
 		return Vector2.ZERO
-	elif abs(angle_to_thrust) > max_jump_angle:
-		angle_to_thrust = clampf(angle_to_thrust, -max_jump_angle, max_jump_angle)
+	elif abs(jump_angle) > max_jump_angle:
+		jump_angle = clampf(jump_angle, -max_jump_angle, max_jump_angle)
+		update_traj_color.emit(Color.WEB_GRAY)
+	else:
+		update_traj_color.emit(Color.WHITE)
+		
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var start_r: float = global_position.distance_to(dominant_body.global_position)
+	var target_r: float = mouse_pos.distance_to(dominant_body.global_position)
 	
-	return power * up_direction.rotated(angle_to_thrust)
+	if target_r <= start_r:
+		return Vector2.ZERO
+	
+	var mu = dominant_body.mass
+	
+	#orbital transfer energy
+	var jump_power = sqrt(mu * 2.0 * (1.0/start_r - 1.0/target_r))
+	
+	jump_power = clampf(jump_power, min_jump_power, max_jump_power)
+	
+	last_jump_power = jump_power
 
-func action_use() -> void:
-	
-	# perform a raycast to see what the mouse is pointing at
-	
-	var space_state = get_world_2d().direct_space_state
-	
-	#start at the edge of the player
-	var start : Vector2 = global_position +(mouse_direction*collision_shape.shape.radius) 
-	#end use_distance away in the direction of the mouse
-	var end : Vector2 = start + (mouse_direction*use_distance)
-	
-	
-	var query = PhysicsRayQueryParameters2D.create(start, end,shape_cast.collision_mask,[self.get_rid()])
+	return jump_power * up_direction.rotated(jump_angle)
 
-	var result = space_state.intersect_ray(query)
-	
-	if result:
-		if(result.collider is PlayerPawn):
-			# if we hit a player pawn, swtich to it
-			controller.possess_pawn(result.collider)
+func action_use(pressed : bool)  -> void:
+	if(pressed):
+		if(!interact_source):
+			return; ## we need an interact source
+			
+		var diff : Vector2 = interact_source.global_position - global_position
+		var dist : float = diff.length()
+		var dir : Vector2 = diff/dist
+		
+		# perform a raycast to see if we can touch the interact source(plus ensures we get the closest thing distance wise)
+			
+		var space_state = get_world_2d().direct_space_state
+		
+		#start at the edge of the player
+		var start : Vector2 = global_position +(dir*collision_shape.shape.radius) 
+		#end use_distance away in the direction of the mouse
+		var end : Vector2 = start + (dir*dist)
+		
+		
+		var query = PhysicsRayQueryParameters2D.create(start, end,2,[self.get_rid()])
 
-func start_possess(player_controller : PlayerController) -> void:
-	super.start_possess(player_controller)
-	GV.player_reference(self)
+		var result = space_state.intersect_ray(query)
+		
+		if result:
+			var source : InteractSource = result.collider.get_node_or_null("InteractSource")
+			if(source):
+				source.interact()
+			if(result.collider is PlayerPawn):
+				# if we hit a player pawn, swtich to it
+				controller.possess_pawn(result.collider, velocity)
+			elif(result.collider is Creature and result.collider.creature_size == Creature.creature_size_type.small):
+				# if we hit a small creature, hold it
+				held_creature = result.collider
+				held_creature.stun_time = hold_stun_time
+				held_creature.velocity = velocity
+				
+				held_creature.b_prediction_velo_is_real = false
+				throw_trajectory.set_target(held_creature)
+	else:
+		if(held_creature and held_creature.stun_time > 0):
+			## if holding a stunned creature, attempt a throw
+			#first check that the creature is still interactable
+			if(held_creature in interact_area.get_overlapping_bodies()):
+				#close enough, throw it
+				held_creature.b_prediction_velo_is_real = true
+				
+				held_creature.velocity = get_throw_velocity(held_creature)
+				held_creature.stun_time = hold_stun_time
+		
+		remove_held_creature()
+
+func remove_held_creature():
+	throw_trajectory.remove_target()
+	held_creature = null
+
+func get_throw_velocity(body : DriftBody) -> Vector2:
+	var max_throw_power = max(throw_velocity,gravity_force.length())
+	
+	if not dominant_body:
+		return mouse_direction * max_throw_power
+	
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var start_r: float = body.global_position.distance_to(dominant_body.global_position)
+	var target_r: float = mouse_pos.distance_to(dominant_body.global_position)
+	
+	if target_r <= start_r:
+		return Vector2.ZERO
+	
+	var mu = dominant_body.mass
+	
+	#orbital transfer energy
+	var throw_power = sqrt(mu * 2.0 * (1.0/start_r - 1.0/target_r))
+	
+	throw_power = clampf(throw_power, 0.0, max_throw_power)
+	
+	return mouse_direction * throw_power
+
+func update_interact_source() -> void:
+	# look at all interactable things
+	var largest_dot : float = -9999;
+	var closest_source : InteractSource = null;
+	for thing in interact_area.get_overlapping_bodies():
+		var source : InteractSource = thing.get_node_or_null("InteractSource")
+		if(!source):
+			continue
+		### get information on the position and direction
+		var diff : Vector2 = thing.global_position - global_position;
+		var dist : float = diff.length();
+		var dir : Vector2 = diff/dist;
+		var dot :  = dir.dot(mouse_direction);
+		###update visuals
+		source.enable_interact_sprite(-dir)
+		source.set_highlight(false)
+		### check if this is the closest source
+		if(dot > largest_dot):
+			largest_dot = dot;
+			closest_source = source;
+			
+	interact_source = closest_source	
+		
+	if !closest_source:
+		return # only continue if there was anything in the interact area
+		
+	#highlight the closest source
+	closest_source.set_highlight(true)
+	
+	
+
+func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
+	super.start_possess(player_controller, previous_pawn_velocity)
+	#GV.player_reference(self)
+	velocity = previous_pawn_velocity
 
 func stop_possess() -> void:
 	super.stop_possess()
+	### hide interact icons
+	for thing in interact_area.get_overlapping_bodies():
+		var source : InteractSource = thing.get_node_or_null("InteractSource")
+		if(!source):
+			continue
+		source.disable_interact_sprite()
+	### destroy
 	queue_free()
 
 
@@ -180,8 +312,6 @@ func perform_jump():
 		return
 	velocity += jump_vector
 
-	jump_charge_time = 0.0
-
 func propulsion_ability():
 	if propulsions_left > 0:
 		propulsions_left -= 1
@@ -189,3 +319,14 @@ func propulsion_ability():
 		
 func reset_abilities():
 	propulsions_left = propulsion_max
+
+func _on_interact_area_body_exited(body: Node2D) -> void:
+	var source : InteractSource = body.get_node_or_null("InteractSource")
+	if(source):
+		source.disable_interact_sprite()
+
+func remove_helmet():
+	animated_sprite.play("no_helmet_idle")
+
+func attach_helmet():
+	animated_sprite.play("helmet_idle")

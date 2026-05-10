@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://c1qr8x2b5xsl6"]
+
+[ext_resource type="Script" uid="uid://cjewok7kleuvt" path="res://src/ship/ship_body.gd" id="1_u2ul3"]
+[ext_resource type="Texture2D" uid="uid://boa2j1h20bept" path="res://assets/Textures/Placeholder/Ship_concept.png" id="2_wyrio"]
+[ext_resource type="Texture2D" uid="uid://d0mbylb1nwbl8" path="res://assets/Textures/Placeholder/Ship_concept_exterior.png" id="3_ys1q4"]
+[ext_resource type="PackedScene" uid="uid://cke2qtkpx6xc5" path="res://src/ship/creatureStorage.tscn" id="5_1il6y"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_4quqm"]
+[ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="6_4jr7v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
+radius = 68.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
+shader = ExtResource("5_4quqm")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(0.39607844, 0.8117647, 0.9764706, 0, 0.39607844, 0.8117647, 0.9764706, 0, 0.39607844, 0.8117647, 0.9764706, 0.043137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pf5yv"]
+gradient = SubResource("Gradient_klrcr")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="ShipBody" type="StaticBody2D" unique_id=2060639823 groups=["gravity_sources"]]
+z_index = 2
+collision_mask = 7
+script = ExtResource("1_u2ul3")
+mass = 4000.0
+collision_radius = 68.0
+metadata/_custom_type_script = "uid://becxcr68kkbk8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
+shape = SubResource("CircleShape2D_f54en")
+
+[node name="ShipTexture" type="TextureRect" parent="." unique_id=1814879757]
+visibility_layer = 65
+z_index = -2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -664.99994
+offset_top = -536.0
+offset_right = 678.00006
+offset_bottom = 1695.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.495, 0.24)
+texture = ExtResource("2_wyrio")
+
+[node name="ShipTextureExterior" type="TextureRect" parent="." unique_id=1791420780]
+visible = false
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -543.5989
+offset_top = -301.79202
+offset_right = 566.4011
+offset_bottom = 497.20798
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.495, 0.24)
+texture = ExtResource("3_ys1q4")
+
+[node name="PullRadius" type="TextureRect" parent="." unique_id=986787955]
+z_index = 120
+material = SubResource("ShaderMaterial_ps4nm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_pf5yv")
+stretch_mode = 3
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=1292149882]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerDetector" unique_id=488470937]
+polygon = PackedVector2Array(-112, 117, 0, 131, 107, 117, 168, 80, 156, -45, 139, -103, 73, -151, 0, -183, -76, -151, -132, -118, -156, -52, -173, 70)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1651184948]
+polygon = PackedVector2Array(-74, -168, -116, -142, -148, -110, -166, -61, -178, -17, -179, 35, -182, 83, -177, 108, -119, 134, -110, 107, -168, 78, -166, 28, -163, -23, -140, -100, -80, -148)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="." unique_id=752854145]
+position = Vector2(-1, 0)
+rotation = -3.1415925
+scale = Vector2(1, -1)
+polygon = PackedVector2Array(-74, -168, -116, -142, -148, -110, -166, -61, -178, -17, -179, 35, -182, 83, -177, 108, -119, 134, -110, 107, -168, 78, -166, 28, -163, -23, -140, -100, -80, -148)
+
+[node name="CreatureStorage" parent="." unique_id=10157181 instance=ExtResource("5_1il6y")]
+position = Vector2(-7, 443)
+
+[node name="Leaper" parent="CreatureStorage" unique_id=1314638072 instance=ExtResource("6_4jr7v")]
+position = Vector2(-22.420532, -32.44635)
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

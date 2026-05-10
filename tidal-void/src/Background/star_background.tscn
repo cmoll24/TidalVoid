@@ -1,0 +1,224 @@
+[gd_scene format=3 uid="uid://d18tatnwudnjj"]
+
+[ext_resource type="Texture2D" uid="uid://up7uepa6xbxn" path="res://assets/Backgrounds/Untitled_Artwork-1.png" id="2_ccw8l"]
+[ext_resource type="Script" uid="uid://8ghh3geko5ra" path="res://src/Background/static_background.gd" id="2_jfky6"]
+[ext_resource type="Texture2D" uid="uid://dv12f1jbun3lm" path="res://assets/Backgrounds/Untitled_Artwork-3.png" id="3_rv8vy"]
+[ext_resource type="Texture2D" uid="uid://buyr45lexfcnp" path="res://assets/Backgrounds/Untitled_Artwork-4.png" id="4_di5k0"]
+[ext_resource type="Texture2D" uid="uid://1p1y5fjly0wu" path="res://assets/Backgrounds/Untitled_Artwork-5.png" id="5_d5dp7"]
+[ext_resource type="Texture2D" uid="uid://ilq4np1lvov4" path="res://assets/Backgrounds/Untitled_Artwork-6.png" id="6_xsit5"]
+[ext_resource type="Texture2D" uid="uid://ge7moom7miqp" path="res://assets/Backgrounds/Untitled_Artwork-7.png" id="7_hi4m7"]
+[ext_resource type="Texture2D" uid="uid://dkqychkhvp4kt" path="res://assets/Backgrounds/Untitled_Artwork-8.png" id="8_8dg8b"]
+[ext_resource type="Texture2D" uid="uid://doj33kgufbfpc" path="res://assets/Backgrounds/Untitled_Artwork-9.png" id="9_euiwt"]
+[ext_resource type="Texture2D" uid="uid://c3mjt3hqyct8d" path="res://assets/Backgrounds/Untitled_Artwork-10.png" id="10_hq3fh"]
+[ext_resource type="Texture2D" uid="uid://bk6tpxvh6ug15" path="res://assets/Backgrounds/Untitled_Artwork-11.png" id="11_5wsq0"]
+[ext_resource type="Texture2D" uid="uid://c8rwlgmbdks3a" path="res://assets/Backgrounds/Untitled_Artwork-12.png" id="12_ju7gq"]
+[ext_resource type="Texture2D" uid="uid://b73r5smvgvh8e" path="res://assets/Backgrounds/Untitled_Artwork-13.png" id="13_swh85"]
+[ext_resource type="Texture2D" uid="uid://bbkw5lsv088gg" path="res://assets/Backgrounds/Untitled_Artwork-14.png" id="14_uemqj"]
+[ext_resource type="Texture2D" uid="uid://dvuntx1v8114x" path="res://assets/Backgrounds/Untitled_Artwork-15.png" id="15_4o3ea"]
+[ext_resource type="Texture2D" uid="uid://cdcfkcshl4mmv" path="res://assets/Backgrounds/Untitled_Artwork-16.png" id="16_ak047"]
+[ext_resource type="Texture2D" uid="uid://cpg726eguvxdo" path="res://assets/Backgrounds/Untitled_Artwork-18.png" id="17_qrh53"]
+
+[node name="StarBackground" type="Control" unique_id=1051069734]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_jfky6")
+
+[node name="StarBackground" type="TextureRect" parent="." unique_id=1292664541]
+visible = false
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_ccw8l")
+stretch_mode = 1
+
+[node name="StarBackground2" type="TextureRect" parent="." unique_id=1624023065]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_rv8vy")
+
+[node name="StarBackground3" type="TextureRect" parent="." unique_id=88022259]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_di5k0")
+
+[node name="StarBackground4" type="TextureRect" parent="." unique_id=1953731637]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("5_d5dp7")
+
+[node name="StarBackground5" type="TextureRect" parent="." unique_id=1412788039]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("6_xsit5")
+
+[node name="StarBackground6" type="TextureRect" parent="." unique_id=1787229064]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("7_hi4m7")
+
+[node name="StarBackground7" type="TextureRect" parent="." unique_id=1816214490]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("8_8dg8b")
+stretch_mode = 1
+
+[node name="StarBackground8" type="TextureRect" parent="." unique_id=517461938]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("9_euiwt")
+stretch_mode = 1
+
+[node name="StarBackground9" type="TextureRect" parent="." unique_id=226794041]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("10_hq3fh")
+stretch_mode = 1
+
+[node name="StarBackground10" type="TextureRect" parent="." unique_id=1998287239]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("11_5wsq0")
+stretch_mode = 1
+
+[node name="StarBackground11" type="TextureRect" parent="." unique_id=1516998819]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("12_ju7gq")
+stretch_mode = 1
+
+[node name="StarBackground12" type="TextureRect" parent="." unique_id=1826918349]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("13_swh85")
+stretch_mode = 1
+
+[node name="StarBackground13" type="TextureRect" parent="." unique_id=1804958921]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("14_uemqj")
+stretch_mode = 1
+
+[node name="StarBackground14" type="TextureRect" parent="." unique_id=1434703791]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("15_4o3ea")
+stretch_mode = 1
+
+[node name="StarBackground15" type="TextureRect" parent="." unique_id=1177413852]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("16_ak047")
+stretch_mode = 1
+
+[node name="StarBackground16" type="TextureRect" parent="." unique_id=629040150]
+z_index = -5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("17_qrh53")

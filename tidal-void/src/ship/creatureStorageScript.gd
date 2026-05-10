@@ -1,0 +1,2 @@
+extends Bubble
+class_name CreatureStorage

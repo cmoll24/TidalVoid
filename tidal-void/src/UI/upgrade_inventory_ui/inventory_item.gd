@@ -24,10 +24,7 @@ func _process(_delta):
 	#keep updating the item sprite as engine is running
 	#if Engine.is_editor_hint():
 	#	icon_sprite.texture = item_texture
-	
-	# player spotted check if player is in area. PIck up item if yes
-	if player_spotted:
-		pick_up_item()
+	pass
 
 #holds attributes for picked-up inventory items
 func pick_up_item():
@@ -41,6 +38,8 @@ func pick_up_item():
 		"effect" = effect,
 	}
 	#calls add item when player is trying to add items, and queue_free the item 
+	print("pick up item called")
+	print("GV player node: ", GV.player_node)
 	if GV.player_node:
 		GV.add_item(items)
 		self.queue_free()
@@ -48,6 +47,8 @@ func pick_up_item():
 func _on_body_entered_inventory(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_spotted = true
+		print("player spotted")
+		pick_up_item()
 		
 
 func _on_body_exited(body: Node2D) -> void:

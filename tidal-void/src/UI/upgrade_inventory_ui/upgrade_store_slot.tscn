@@ -1,63 +1,88 @@
 [gd_scene format=3 uid="uid://dme5g28pceimf"]
 
-[ext_resource type="Script" uid="uid://bspliey5vs6m3" path="res://src/upgrade_inventory_ui/upgrade_store_slot.gd" id="1_bitoj"]
+[ext_resource type="Script" uid="uid://bspliey5vs6m3" path="res://src/UI/upgrade_inventory_ui/upgrade_store_slot.gd" id="1_bitoj"]
 
-[node name="UpgradeStoreSlot" type="Control" unique_id=2078154960]
-layout_mode = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0b4a"]
+bg_color = Color(0.20594689, 0.33536026, 0.5653843, 0.62352943)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f60q0"]
+bg_color = Color(0.28708333, 0.3454342, 0.6634864, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 50.0
+expand_margin_right = 50.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5lc2n"]
+bg_color = Color(0.19526654, 0.23936212, 0.4916079, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 50.0
+expand_margin_right = 50.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j3vlb"]
+bg_color = Color(0.25291365, 0.30535764, 0.6020699, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 50.0
+expand_margin_right = 50.0
+
+[node name="UpgradeStoreSlot" type="PanelContainer" unique_id=1509827194]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1060.0
-offset_bottom = -980.0
+offset_right = -930.0
+offset_bottom = -975.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k0b4a")
 script = ExtResource("1_bitoj")
 
-[node name="background" type="ColorRect" parent="." unique_id=696584069]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.19368976, 0.24063128, 0.6093482, 1)
+[node name="background" type="HBoxContainer" parent="." unique_id=1670895786]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 142
 
 [node name="upgrade_name" type="Label" parent="background" unique_id=1000419467]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 22.0
-offset_right = 166.0
-offset_bottom = 78.0
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="description" type="Label" parent="background" unique_id=1522027774]
-layout_mode = 0
-offset_left = 193.0
-offset_top = 19.0
-offset_right = 443.0
-offset_bottom = 82.0
+layout_mode = 2
+text = "Descript"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="cost" type="Label" parent="background" unique_id=348579442]
-layout_mode = 0
-offset_left = 454.0
-offset_top = 19.0
-offset_right = 592.0
-offset_bottom = 82.0
+layout_mode = 2
+text = "Cost"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="buy_button" type="Button" parent="background" unique_id=1402475640]
-layout_mode = 0
-offset_left = 614.0
-offset_top = 17.0
-offset_right = 770.0
-offset_bottom = 84.0
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_f60q0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5lc2n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j3vlb")
 text = "Buy"
 
 [node name="insufficient" type="Label" parent="background" unique_id=662744899]
-layout_mode = 0
-offset_left = 796.0
-offset_top = 24.0
-offset_right = 984.0
-offset_bottom = 89.0
+layout_mode = 2
 text = "Insufficient!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="background/buy_button" to="." method="_on_buy_button_pressed"]

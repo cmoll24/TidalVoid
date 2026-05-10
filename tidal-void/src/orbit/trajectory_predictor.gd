@@ -18,6 +18,22 @@ var game_manager : GameManager
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
+	
+	if(player is PlayerPawn):
+		update_player(player)
+
+func remove_target():
+	player = null
+
+func set_target(drift_body : DriftBody):
+	player = drift_body
+
+func update_player(pawn : PlayerPawn):
+	set_target(pawn)
+	player.update_traj_color.connect(set_color)
+
+func set_color(new_color : Color):
+	line.modulate = new_color
 
 func _physics_process(_delta: float) -> void:
 	if(!player):

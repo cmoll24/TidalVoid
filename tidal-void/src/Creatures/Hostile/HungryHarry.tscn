@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://25tfa7kghc3q"]
+
+[ext_resource type="Script" uid="uid://cfncu7u18wwgo" path="res://src/Creatures/Hostile/Hungry_Harry.gd" id="1_fa72h"]
+[ext_resource type="Texture2D" uid="uid://b4ikoo55v2qf4" path="res://assets/Textures/Placeholder/PLACEHOLDER_WormHead.png" id="2_f3ssv"]
+[ext_resource type="Texture2D" uid="uid://ddqjrpcomxjys" path="res://assets/Textures/Placeholder/PLACEHOLDER_WormMiddleLong.png" id="4_udy5y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_udy5y"]
+radius = 32.0
+
+[sub_resource type="Gradient" id="Gradient_f3ssv"]
+offsets = PackedFloat32Array(0, 0.6051948, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.94781816, 0.94781816, 0.94781816, 0.8727273, 0.59, 0.59, 0.59, 0)
+
+[sub_resource type="Gradient" id="Gradient_udy5y"]
+colors = PackedColorArray(0.49, 0.2394467, 0.20090002, 1, 1, 1, 1, 1)
+
+[node name="HungryHarry" type="StaticBody2D" unique_id=1520081079]
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 11
+script = ExtResource("1_fa72h")
+line_point_num = 512
+worm_burrow_distance = 180.0
+burrow_rotation_boost = 0.005
+v_distance = 300.0
+v_source_loyalty_time = 6.0
+creature_size = 3
+mass = 50.0
+elasticity = 0.2
+max_velocity = 600.0
+b_is_safe_collision = false
+b_rotation_to_gravity = false
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=267736086]
+target_position = Vector2(0, 0)
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1142692789]
+shape = SubResource("CircleShape2D_udy5y")
+
+[node name="Head" type="Sprite2D" parent="." unique_id=894255847]
+visibility_layer = 2
+texture = ExtResource("2_f3ssv")
+
+[node name="Body" type="Line2D" parent="." unique_id=1620822522]
+top_level = true
+visibility_layer = 2
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0, 512)
+width = 64.0
+texture = ExtResource("4_udy5y")
+texture_mode = 2
+joint_mode = 2
+
+[node name="BodyCollision" type="StaticBody2D" parent="." unique_id=39198648]
+physics_interpolation_mode = 2
+top_level = true
+collision_layer = 2
+collision_mask = 0
+
+[node name="DigParticles" type="CPUParticles2D" parent="." unique_id=1757022277]
+top_level = true
+visibility_layer = 2
+emitting = false
+amount = 30
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(5, 15)
+particle_flag_align_y = true
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 140.0
+scale_amount_min = 5.0
+scale_amount_max = 15.0
+color = Color(0.46666667, 0.4745098, 0.4509804, 1)
+color_ramp = SubResource("Gradient_f3ssv")
+color_initial_ramp = SubResource("Gradient_udy5y")
+hue_variation_min = -0.11
+hue_variation_max = 0.13

@@ -7,46 +7,73 @@ class_name CreatureCarrier
 
 @onready var planet_thrust_particles : ThrustParticles = $ThrustParticles2
 
-#ship_clearance is the length of ship
-@export var ship_clearance : float = 160.0
+@onready var fuel_bar : TextureRect = $FuelContainer/FuelBar
+
+#ship_clearance is the length of vehicle
+@export var vehicle_clearance : float = 160.0
+
+@onready var bubble : Bubble = $Bubble
+
+### instantaneous velocity change to creatures in the carrier when the bubble is deactivated
+@export var bubble_push : float = 25
+
+####fuel consumption per second of fuel usage(thrust)
+@export var fuel_consumption_per_second : float = 1;
+
+### the max fuel that can be held at once
+@export var max_fuel : float = 100;
+
+var fuel : float = 100;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	player_sprite.visible = false
 	head_lights.enabled = false
+	fuel = max_fuel
 	
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
+	if(fuel <= 0):
+		#can't thrust if we run out
+		thrust_direction = Vector2.ZERO
+		thrust_particles.stop_thrust()
+		return
 	#Thruster behavior when off of the ground
 	if direction != Vector2.ZERO:
 		super.set_thrust(Vector2.from_angle(global_rotation), multiplier)
 		target_rotation = direction.angle();
-		thrust_particles.start_thrust(Vector2.ZERO, velocity, thrust_power)
+		thrust_particles.start_thrust(Vector2.from_angle(rotation), velocity, thrust_power)
 	else:
 		super.set_thrust(Vector2.ZERO, multiplier)
 		thrust_particles.stop_thrust()
 		
 func _physics_process(_delta: float) -> void:
 	super._physics_process(_delta)
+	#Increment fuel
+	if thrust_direction != Vector2.ZERO:
+		set_fuel(fuel - fuel_consumption_per_second * _delta)
 	##check for dismount
 	if controller and Input.is_action_just_pressed("jump"):
 		#if we jump, dismount and switch to the player
 		var spawn_pos :Vector2 = global_position + (Vector2.from_angle(global_rotation)*50)
 		#spawn the player
 		var player_scene  = preload("res://src/player/player.tscn")
-		var player :PlayerPawn = player_scene.instantiate()
+		var player : PlayerPawn = player_scene.instantiate()
 		get_tree().get_root().add_child(player)
 		player.global_position = spawn_pos
 		#possess the player
-		controller.call_deferred('possess_pawn',player)
+		controller.call_deferred('possess_pawn', player, velocity)
 	
 	if dominant_body:
 		## ensure we cannot get too close to a planet so as to be unable to leave
 		var dist_sq : float = global_position.distance_squared_to(dominant_body.global_position)
 		var thrust_output = thrust_power * thrust_multiplier * 0.8 #little wiggle room
 		
-		#The closest distance that the ship can be to any planet
-		var minimum_clearance_dist : float = ship_clearance + dominant_body.collision_radius
+		#The closest distance that the vehicle can be to any planet
+		var minimum_clearance_dist : float = vehicle_clearance + dominant_body.collision_radius
+		
+		if dominant_body is Ship:
+			minimum_clearance_dist += dominant_body.inside_ship_radius
 		
 		if ((dominant_body.mass / dist_sq) > thrust_output) or (dist_sq < minimum_clearance_dist**2):
 			## if we are too close, push back to the edge
@@ -62,10 +89,16 @@ func _physics_process(_delta: float) -> void:
 				velocity += 1.1 * dir * radial_speed
 		else:
 			planet_thrust_particles.stop_thrust()
-	
+			
+	### apply velocity colors
+	update_traj_color.emit(lerp(Color.BLUE, Color.AQUA,velocity.length_squared()/122500))
+
+func set_fuel(new_fuel : float):
+	fuel = new_fuel
+	fuel_bar.scale.x = fuel/max_fuel	
 		
-func start_possess(player_controller :PlayerController) -> void:
-	super.start_possess(player_controller)
+func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
+	super.start_possess(player_controller, previous_pawn_velocity)
 	player_sprite.visible = true
 	head_lights.enabled = true
 	
@@ -73,3 +106,25 @@ func stop_possess() -> void:
 	super.stop_possess()
 	player_sprite.visible = false
 	head_lights.enabled = false
+	
+func action_use(pressed : bool) -> void:
+	if(!pressed):
+		return
+	bubble.toggle_bubble()
+	
+	#upon disabling the bubble, push all creatures in it away from the vehicle
+	if(!bubble.b_bubble_enabled):
+		var space_state = get_world_2d().direct_space_state
+		
+		var params : PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+		params.shape = bubble.CollisionShape.shape
+		params.transform = transform
+		params.collision_mask = 2
+		
+		var results : Array[Dictionary] = space_state.intersect_shape(params,16)
+		
+		for result in results:
+			var collider = result["collider"]
+			if(collider is Creature):
+				collider.velocity += Vector2.from_angle(global_rotation)*bubble_push
+		

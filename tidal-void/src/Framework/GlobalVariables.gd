@@ -2,8 +2,22 @@ class_name GlobalVariables
 extends Node
 
 var player_health = 100
-var player_node: Player = null
+var player_node: PlayerPawn = null
 @onready var inventory_slot_scene = preload("res://src/UI/upgrade_inventory_ui/inventory_slot.tscn")
+
+const SAVE_PATH = "user://save.json"
+
+var load_from_save_file = false
+
+var save_data: Dictionary = {
+	#player state
+	"player_position": {"x" : 0.0, "y" : 0.0},
+	"player_velocity": {"x" : 0.0, "y" : 0.0},
+	
+	#meta
+	"save_version": 1,
+	"play_time": 0.0
+}
 
 # where our inventory item goes
 var inventory = []
@@ -15,7 +29,8 @@ func _process(_delta):
 func _ready():
 	# our default size of inventory is 20
 	inventory.resize(20)
-
+	
+	load_from_save_file = load_game()
 
 func add_item(items):
 	for i in range(inventory.size()):
@@ -30,8 +45,6 @@ func add_item(items):
 			inventory[i] = items
 			inventory_update.emit()
 			return true
-			
-		inventory_update.emit()
 	
 func remove_item(target_item):
 	# goes thru items 0 - 19
@@ -47,7 +60,7 @@ func remove_item(target_item):
 			inventory_update.emit()
 			return
 	
-func player_reference(player : Player):
+func player_reference(player : PlayerPawn):
 	player_node = player
 	
 func has_item(item_name: String, quantity: int) -> bool:
@@ -64,3 +77,65 @@ func remove_item_by_name(item_name: String, quantity: int):
 				inventory[i] = null
 			inventory_update.emit()
 			return
+
+
+## SAVE LOGIC
+
+func save_game() -> void:
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if not file:
+		push_error("Save failed: " +  str(FileAccess.get_open_error()))
+		return
+	file.store_string(JSON.stringify(save_data, "\t"))
+	file.close()
+	
+	print("Saved ", str(save_data))
+
+func load_game() -> bool:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return false
+	
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if not file:
+		return false
+	
+	var json = JSON.new()
+	var result = json.parse(file.get_as_text())
+	file.close()
+	
+	if result != OK:
+		push_error("Save file corrupted")
+	
+	var loaded = json.get_data()
+	
+	print(loaded)
+	
+	#Check save file version
+	if loaded.get("save_version", 0) < save_data["save_version"]:
+		print("This is an old save file")
+		#we can mitigate issues here, but for now we do nothing
+	
+	for key in save_data:
+		if loaded.has(key):
+			save_data[key] = loaded[key]
+	
+	return true
+
+func delete_save() -> void:
+	if FileAccess.file_exists(SAVE_PATH):
+		DirAccess.remove_absolute(SAVE_PATH)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("deubg_save"):
+		save_data["player_position"]["x"] = player_node.global_position.x
+		save_data["player_position"]["y"] = player_node.global_position.y
+		
+		save_data["player_velocity"]["x"] = player_node.velocity.x
+		save_data["player_velocity"]["y"] = player_node.velocity.y
+		
+		var time_played : int =  Time.get_ticks_msec() / 1000
+		save_data["play_time"] += time_played
+		save_game()
+	
+	elif event.is_action("debug_delete_save"):
+		delete_save()

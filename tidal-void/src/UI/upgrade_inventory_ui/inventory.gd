@@ -1,16 +1,41 @@
 extends Control
 
-@onready var grid_container = $GridContainer
-@onready var upgrades_button = $UpgradesButton
+@onready var grid_container  = $PanelContainer/VBoxContainer/BodyRow/GridContainer
+@onready var scroll_container = $PanelContainer/VBoxContainer/BodyRow/ScrollContainer
+@onready var store_grid       = $PanelContainer/VBoxContainer/BodyRow/ScrollContainer/StoreGrid
+@onready var inventory_tab    = $PanelContainer/VBoxContainer/TabBar/InventoryTab
+@onready var upgrades_button  = $PanelContainer/VBoxContainer/TabBar/UpgradesButton
+
+@export var available_upgrades: Array[upgrade_store_item] = []
+
+var store_slot_scene = preload("res://src/UI/upgrade_inventory_ui/upgrade_store_slot.tscn")
 
 func _ready():
 	# GV function signal to update inventory UI
 	GV.inventory_update.connect(_on_inventory_update)
 	_on_inventory_update()
-	upgrades_button.pressed.connect(_on_upgrades_button_pressed)
 	
-func _on_upgrades_button_pressed():
-	get_parent().show_upgrade_store()
+	inventory_tab.pressed.connect(_show_inventory_view)
+	upgrades_button.pressed.connect(_show_upgrades_view)
+	
+	populate_store()
+	
+	_show_inventory_view()
+	
+func _show_inventory_view():
+	grid_container.show()
+	scroll_container.hide()
+ 
+func _show_upgrades_view():
+	print("_show_upgrades_view called")
+	grid_container.hide()
+	scroll_container.show()
+	
+func populate_store():
+	for upgrade in available_upgrades:
+		var slot = store_slot_scene.instantiate()
+		store_grid.add_child(slot)
+		slot.set_store_item(upgrade)
 	
 func _on_inventory_update():
 	# we clear grid first, update the new inventory list, and put them back in

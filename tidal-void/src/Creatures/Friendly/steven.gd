@@ -16,6 +16,8 @@ var v_sources : Array[VisionSource]
 ### the primary visible vision source(the target)
 var primary_v_source : VisionSource
 
+var v_exceptions : Array[RID] = []
+
 ### the amount of time steven will continue to follow the
 ### same target even after it has gone out of sight
 @export var v_source_loyalty_time : float = 3
@@ -35,14 +37,10 @@ var time_before_hibernate : float = 12;
 
 ################################################
 
-
-
-
 func _ready() -> void:
 	super._ready()
 	#set the vision bitmask( use the | operator to add more)
 	v_types = 1 << VisionSource.v_source_type.sFood
-	v_types = 127
 	call_deferred("post_ready")
 	
 func post_ready() -> void:
@@ -57,9 +55,9 @@ func update_vision():
 	if stun_time > 0:
 		return
 	#update array of all visible v_sources
-	v_sources = game_manager.sense_manager.check_vision(self,v_distance,v_types)
+	v_sources = game_manager.sense_manager.check_vision(self,v_distance,v_types,v_exceptions)
 	
-	var lowest_dist : float = 99999999999
+	var lowest_dist : float = INF
 	
 	#Check loyalty to the primary source(prevent the creature from switching too often)
 	if(primary_v_source):
@@ -117,5 +115,5 @@ func update_behavior() -> void:
 		##keep roughly in our orbit unless hibernating
 		if(!b_in_hibernation):
 			target_altitude_sqr = min(
-				(dominant_body.pull_radius-30)**2,
+				(dominant_body.pull_radius-20)**2,
 				get_square_altitude(dominant_body))

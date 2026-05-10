@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_o822w"]
-[ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="3_o822w"]
+[ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="3_5f2sf"]
 [ext_resource type="Texture2D" uid="uid://dfms40uf6fvh0" path="res://assets/Textures/Placeholder/PLACEHOLDER_circle_light.png" id="4_244u8"]
+[ext_resource type="Texture2D" uid="uid://dvgm2dsf62eem" path="res://assets/Textures/Player/playernohelmet.png" id="4_jiejy"]
+[ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="5_5f2sf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
-radius = 19.0
+radius = 20.0
 
 [sub_resource type="Curve" id="Curve_5f2sf"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -17,17 +19,44 @@ interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.60912055, 0.8175896, 1)
 colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120000005, 0.120000005, 0.6862745, 0.71, 0.07810001, 0.07810001, 0.627451, 0, 0, 0, 0.43137255, 0.17, 0.17, 0.17, 0)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_o822w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5f2sf")
+}],
+"loop": true,
+"name": &"helmet_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jiejy")
+}],
+"loop": true,
+"name": &"no_helmet_idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_244u8"]
+radius = 80.0
+
 [node name="Player" type="StaticBody2D" unique_id=1314638072 groups=["player"]]
+z_index = 5
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_5f2sf")
+throw_velocity = 300.0
 propulsion_power = 150.0
+delta_velocity_smooth_factor = 3.5
 mass = 10.0
 static_friction_coefficient = 0.5
 kinetic_friction_coefficient = 0.3
 elasticity = 0.5
 thrust_power = 15.0
+max_velocity = 10000.0
 start_in_orbit = true
+b_is_safe_collision = false
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)
@@ -59,16 +88,31 @@ scale_amount_curve = SubResource("Curve_5f2sf")
 color_ramp = SubResource("Gradient_5f2sf")
 script = ExtResource("2_o822w")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1020679138]
-scale = Vector2(0.075, 0.075)
-texture = ExtResource("3_o822w")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=509035785]
+position = Vector2(0, -2)
+scale = Vector2(0.08, 0.08)
+sprite_frames = SubResource("SpriteFrames_o822w")
+animation = &"helmet_idle"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1545037244]
 light_mask = 1023
-color = Color(1, 1, 1, 0.49803922)
-range_item_cull_mask = 7
-shadow_enabled = true
+color = Color(0.9411765, 0.9411765, 1, 0.49803922)
+range_item_cull_mask = 15
 shadow_color = Color(0.03137255, 0.03137255, 0.03137255, 0.1254902)
 shadow_item_cull_mask = 1023
 texture = ExtResource("4_244u8")
-texture_scale = 32.0
+texture_scale = 20.0
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=1331845340]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1539383539]
+shape = SubResource("CircleShape2D_244u8")
+
+[node name="VisionSource" type="Node" parent="." unique_id=786667853]
+script = ExtResource("5_5f2sf")
+v_type = 2
+metadata/_custom_type_script = "uid://cloexwtl4gxf3"
+
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

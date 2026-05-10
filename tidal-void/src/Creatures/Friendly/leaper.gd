@@ -1,4 +1,5 @@
 extends Creature
+class_name Leaper
 
 @onready var jump_timer = $JumpTimer
 
@@ -32,8 +33,11 @@ func update_dominant_body() -> void:
 	if target_asteroid == dominant_body:
 		pick_next_asteroid()
 
-func creature_movement(_delta):	
-	if jump_attemps > 0:
+func creature_movement(_delta):
+	if stun_time > 0:
+		return
+	
+	if b_is_grounded and jump_attemps > 0:
 		set_airborne()
 		walking_on_ground = false
 		velocity = get_jump_vector()
@@ -76,7 +80,7 @@ func get_jump_vector() -> Vector2:
 	
 	var direction : Vector2 = (target_asteroid.global_position - global_position).normalized()
 	
-	var power : float = 1.2 * escape_speed(dominant_body, global_position)
+	var power : float = 1.2 * GameManager.escape_speed(dominant_body, global_position)
 	
 	return direction * power
 
@@ -84,4 +88,5 @@ func _on_jump_timer_timeout() -> void:
 	jump_attemps = 2
 
 func on_collide_with_bubble(bubble : Bubble) -> void:
-	velocity = Vector2.ZERO
+	#velocity = Vector2.ZERO
+	pass

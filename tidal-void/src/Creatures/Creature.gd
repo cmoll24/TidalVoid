@@ -1,6 +1,13 @@
 class_name Creature
 extends DriftBody
 
+enum creature_size_type {none ,small ,medium ,large ,leviathan}
+
+### if greater than 0, behavior is disabled and time will be brought down
+@export var stun_time : float = 0
+
+@export var creature_size : creature_size_type = creature_size_type.small
+
 func _ready() -> void:
 	super._ready()
 	start_in_orbit = true
@@ -8,6 +15,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
+	#decrement stun time
+	stun_time -= delta
+	# run creature movement
 	creature_movement(delta)
 
 func creature_movement(delta):
@@ -54,3 +64,6 @@ func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	#find the opposite
 	var r_opposite = r_apo if r < (r_peri + r_apo) / 2.0 else r_peri
 	return r_opposite - body.collision_radius
+	
+func die():
+	queue_free();

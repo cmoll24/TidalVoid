@@ -38,9 +38,11 @@ var ignore_layer : int =  0
 
 var grounded_body : GravitySource
 
-var grounded_shape : CollisionShape2D
+var grounded_shape : Shape2D
 
 var grounded_normal: Vector2 = Vector2.ZERO
+
+var grounded_point : Vector2 = Vector2.ZERO
 
 var grounded_buffer : int = 0
 
@@ -104,10 +106,11 @@ func _ready() -> void:
 	if(start_in_orbit):
 		call_deferred("orbit_dominant_body");
 	shape_cast.shape = collision_shape.shape
+	shape_cast.scale = Vector2(1.02,1.02) # slight padding on the shapecast to prevent Godot's collision detection from messing things up
 	shape_cast.enabled = false
 
 func orbit_dominant_body() -> void:
-	velocity = orbital_velocity(dominant_body, global_position)
+	velocity = GameManager.orbital_velocity(dominant_body, global_position)
 	if(!start_orbit_dir):
 		velocity = -velocity
 
@@ -141,23 +144,31 @@ func update_rotation(delta : float):
 ##Calculate the changes to velocity as a result of gravity and thrusters
 func  apply_acceleration() -> void:
 	
+	update_gravity_force()
+	
+	var new_vel  = velocity + (gravity_force * get_physics_process_delta_time())
+	
+	update_thruster_force()
+	
+	new_vel +=  thruster_force * get_physics_process_delta_time()
+		
+	total_force = thruster_force + gravity_force
+	velocity = new_vel.limit_length(max_velocity)
+	
+func update_gravity_force() -> void:
 	gravity_force = Vector2.ZERO
 	
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue
 		gravity_force += body.get_gravity_pull(global_position)
-	
-	var new_vel  = velocity + (gravity_force * get_physics_process_delta_time())
-	
+
+func update_thruster_force() -> void:
 	if thrust_direction != Vector2.ZERO:
 		thruster_force = thrust_direction * thrust_power * thrust_multiplier
-		new_vel +=  thruster_force * get_physics_process_delta_time()
 	else:
 		thruster_force = Vector2.ZERO
-		
-	total_force = thruster_force + gravity_force
-	velocity = new_vel.limit_length(max_velocity)
+	
 
 ##Calculate the changes to velocity as a result of gravity and thrusters
 func  apply_velocity() -> void:
@@ -172,6 +183,7 @@ func  apply_velocity() -> void:
 		#Trace what hits would happen with the current course of movement and save the initial hits
 		shape_cast.target_position = moveDelta;
 		shape_cast.force_shapecast_update()
+		
 		#Go through each hit
 		for i in range(shape_cast.get_collision_count()):
 			
@@ -212,8 +224,8 @@ func  apply_velocity() -> void:
 					other_body.on_collide_with_other_drift_body(self);
 					var total_mass = mass + other_body.mass;
 					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
-					other_body.velocity += velocityAdjustment * mass/total_mass * avg_elasticity;
-					velocity -= velocityAdjustment * other_body.mass/total_mass * avg_elasticity;
+					other_body.velocity += velocityAdjustment * (mass/total_mass) * avg_elasticity;
+					velocity -= velocityAdjustment * (other_body.mass/total_mass) * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
 				#Treat it as having infinite mass if it is not a drift body 
 				elif (shape_cast.get_collider(i) is HeavyBody):
@@ -247,7 +259,7 @@ func  apply_velocity() -> void:
 				if(-NormAccel.dot(hitNormal) > min_dot_for_ground):
 					#set it as ground
 					if shape_cast.get_collider(i) is GravitySource:
-						set_ground(hitNormal,shape_cast.get_collider(i))
+						set_ground(hitNormal, shape_cast.get_collider(i),shape_cast.get_collision_point(i),shape_cast.get_collider_shape(i))
 					else:
 						var hb_velo = shape_cast.get_collider(i).velocity
 						if(velocity.dot(hb_velo)) < 0:
@@ -264,13 +276,19 @@ func  apply_velocity() -> void:
 		global_position += moveDelta
 	
 		
-func set_ground(normal : Vector2,body : Node2D) -> void:
+func set_ground(normal : Vector2,body : Node2D,point : Vector2, shape_idx : int) -> void:
 	grounded_normal = normal;
 	# We have 3 ticks of time away from being grounded before we lose the status
 	grounded_buffer = 3;
 	b_is_grounded = true;
 	grounded_body = body;
-	grounded_shape = grounded_body.shape
+	grounded_point = point
+	
+	#get the shape from the shape index
+	var owner_id = body.shape_find_owner(shape_idx)
+	#get the shape assuming 0
+	grounded_shape = body.shape_owner_get_shape(owner_id,0)
+
 	
 	# Ideally subclasses do some sort of other logic like rotating the model or something
 	
@@ -308,25 +326,6 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 func on_collide_with_bubble(bubble : Bubble) -> void:
 	pass
 	#For subclasses
-	
-func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
-	if not source:
-		return Vector2.ZERO
-	
-	var to_source = source.global_position - pos
-	var distance = to_source.length()
-	var speed = sqrt((source.mass) / distance)
-	return to_source.normalized().rotated(PI / 2.0) * speed	
-
-func escape_speed(source : GravitySource, pos : Vector2) -> float:
-	if not source:
-		return 0.0
-	
-	var to_source = source.global_position - pos
-	var distance = to_source.length()
-	#v_esc = sqrt(2*mu / r)
-	var esc_speed = sqrt((2 * source.mass) / distance)
-	return esc_speed
 
 func get_velocity() -> Vector2:
 	return velocity
