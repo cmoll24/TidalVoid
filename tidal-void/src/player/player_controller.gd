@@ -16,6 +16,7 @@ var controller_mode = false
 func _ready() -> void:
 	if(player):
 		start_possess(player, Vector2.ZERO)
+		player.call_deferred("apply_save_state")
 
 func _process(_delta: float) -> void:
 	var thrust_direction = Vector2.ZERO
@@ -84,6 +85,7 @@ func start_possess(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
 	predictor.update_player(player)
+	GV.player_reference(player)
 	
 	if player is Player:
 		player.throw_trajectory = throw_predictor
