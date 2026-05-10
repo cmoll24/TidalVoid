@@ -80,7 +80,7 @@ func get_jump_vector() -> Vector2:
 	
 	var direction : Vector2 = (target_asteroid.global_position - global_position).normalized()
 	
-	var power : float = 1.2 * escape_speed(dominant_body, global_position)
+	var power : float = 1.2 * GameManager.escape_speed(dominant_body, global_position)
 	
 	return direction * power
 

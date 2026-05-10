@@ -327,16 +327,6 @@ func on_collide_with_bubble(bubble : Bubble) -> void:
 	pass
 	#For subclasses
 
-func escape_speed(source : GravitySource, pos : Vector2) -> float:
-	if not source:
-		return 0.0
-	
-	var to_source = source.global_position - pos
-	var distance = to_source.length()
-	#v_esc = sqrt(2*mu / r)
-	var esc_speed = sqrt((2 * source.mass) / distance)
-	return esc_speed
-
 func get_velocity() -> Vector2:
 	return velocity
 	

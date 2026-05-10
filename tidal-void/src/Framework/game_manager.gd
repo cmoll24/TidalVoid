@@ -43,3 +43,13 @@ static func orbital_velocity(source : GravitySource, pos : Vector2) -> Vector2:
 	var distance = to_source.length()
 	var speed = sqrt((source.mass) / distance)
 	return to_source.normalized().rotated(PI / 2.0) * speed	
+
+static func escape_speed(source : GravitySource, pos : Vector2) -> float:
+	if not source:
+		return 0.0
+	
+	var to_source = source.global_position - pos
+	var distance = to_source.length()
+	#v_esc = sqrt(2*mu / r)
+	var esc_speed = sqrt((2 * source.mass) / distance)
+	return esc_speed

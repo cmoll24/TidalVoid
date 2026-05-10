@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 			if(dist_sqr > (dominant_body.collision_radius)**2):
 				if(b_in_planet):
 					#limit the velocity so we cannot escape
-					velocity = velocity.limit_length(escape_speed(dominant_body,global_position)*0.8);
+					velocity = velocity.limit_length(GameManager.escape_speed(dominant_body,global_position)*0.8);
 				b_in_planet = false
 			else:
 				#play dig particles if we just descended from space

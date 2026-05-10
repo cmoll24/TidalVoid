@@ -3,7 +3,7 @@ class_name FruitTree
 
 @export var fruit_spawn_offset : Vector2 
 
-@export var max_fruit_velocity_boost : float = 80
+var escape_speed : float = 0
 
 var game_manager : GameManager
 
@@ -20,6 +20,10 @@ func _ready() -> void:
 		if dist < closest_dist:
 			closest_dist = dist
 			dominant_body = body
+	call_deferred("post_ready")
+	
+func post_ready()->void:
+	escape_speed = GameManager.escape_speed(dominant_body,global_position)*0.9
 			
 func play_open_anim() -> void:
 	anim_player.play("fruit_tree_open")
@@ -33,11 +37,10 @@ func release_fruit() -> void:
 	var spawn_pos : Vector2 = global_position + fruit_spawn_offset.rotated(global_rotation)
 	fruit.b_start_in_orbit = false
 	fruit.global_position = spawn_pos
-	#give it a random orbital velocity
-	fruit.velocity = GameManager.orbital_velocity(dominant_body,spawn_pos)
-	if(randf() > 0.5):
-		fruit.velocity = -fruit.velocity
-	fruit.velocity += randf()*max_fruit_velocity_boost*global_transform.basis_xform(Vector2.UP)
+	#give it a random vertical velocity
+	fruit.velocity = randf()*escape_speed*global_transform.basis_xform(Vector2.UP)
+	#give it a random orbital direction
+	fruit.b_start_in_orbit_dir = randf() > 0.5
 	#play open animation in reverse
 	anim_player.play("fruit_tree_open",-1,-1,true)
 	

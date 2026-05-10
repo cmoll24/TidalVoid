@@ -1,16 +1,18 @@
 [gd_scene format=3 uid="uid://ee2peu4oiiit"]
 
-[ext_resource type="Script" uid="uid://c5rwjyeanre2b" path="res://src/Collectables/collectable.gd" id="1_uvbnf"]
+[ext_resource type="Script" uid="uid://b287cwj1bo6lo" path="res://src/Collectables/fruit_collectable.gd" id="1_uvbnf"]
 [ext_resource type="Texture2D" uid="uid://bqafvnh5dali2" path="res://assets/Textures/Placeholder/PLACEHOLDER_tree_fruit.png" id="2_uvbnf"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="3_ejq71"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8g1sw"]
 
-[node name="Collectable" type="Area2D" unique_id=1685557867]
+[node name="Collectable" type="Area2D" unique_id=95950494]
 visibility_layer = 2
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_uvbnf")
+b_start_in_orbit = false
+metadata/_custom_type_script = "uid://c5rwjyeanre2b"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884730571]
 shape = SubResource("RectangleShape2D_8g1sw")
