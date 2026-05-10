@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://breco7c4ucncc"
 path.s3tc="res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.s3tc.ctex"
+path.etc2="res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/Backgrounds/Untitled_Artwork-2 (1).png"
-dest_files=["res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.s3tc.ctex"]
+dest_files=["res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.s3tc.ctex", "res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.etc2.ctex"]
 
 [params]
 
