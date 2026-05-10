@@ -1,7 +1,7 @@
 extends PlayerPawn
 class_name Player
 
-
+@onready var animated_sprite = $Sprite2D
 
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 620.0
@@ -324,3 +324,9 @@ func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")
 	if(source):
 		source.disable_interact_sprite()
+
+func remove_helmet():
+	animated_sprite.play("no_helmet_idle")
+
+func attach_helmet():
+	animated_sprite.play("helmet_idle")

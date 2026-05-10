@@ -25,7 +25,11 @@ func _process(delta: float) -> void:
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		hide_exterior()
+		if body is Player:
+			body.remove_helmet()
 
 func _on_player_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		show_exterior()
+		if body is Player:
+			body.attach_helmet()
