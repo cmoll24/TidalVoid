@@ -37,7 +37,19 @@ var interact_source : InteractSource = null
 #it won't be returned till after the player redocks with their ship
 var propulsion_max : int = 3
 var propulsions_left : int = 3
+
+var teleport_max : int = 3
+var teleports_left : int = 3
+
+var lure_max : int = 5
+var lures_left : int = 5
+
+var grapple_max : int = 10
+var grapples_left : int = 10
+
 @export var propulsion_power : float = 300.0
+@export var lure_cloud_size : int = 10
+@export var grapple_max_rope_size : float = 500.0
 
 var max_jump_angle : float = PI/2.5
 
@@ -316,9 +328,18 @@ func propulsion_ability():
 	if propulsions_left > 0:
 		propulsions_left -= 1
 		velocity += (propulsion_power * mouse_direction)
+
+func teleport():
+	if teleports_left > 0:
+		teleports_left -= 1
+		Player.global_position = Ship.global_position
 		
 func reset_abilities():
 	propulsions_left = propulsion_max
+	teleports_left = teleport_max 
+	lures_left = lure_max
+	grapples_left = grapple_max 
+	
 
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")

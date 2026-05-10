@@ -41,7 +41,15 @@ func action_use(pressed : bool) -> void:
 ###called when the propulsion key is pressed
 func propulsion_ability():
 	pass
-	
+func teleport():
+	pass
+func grapple():
+	pass
+func collectableDetector():
+	pass
+func lure():
+	pass
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA
