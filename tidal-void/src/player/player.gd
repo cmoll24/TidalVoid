@@ -328,6 +328,11 @@ func propulsion_ability():
 	if propulsions_left > 0:
 		propulsions_left -= 1
 		velocity += (propulsion_power * mouse_direction)
+
+func teleport():
+	if teleports_left > 0:
+		teleports_left -= 1
+		Player.global_position = Ship.global_position
 		
 func reset_abilities():
 	propulsions_left = propulsion_max

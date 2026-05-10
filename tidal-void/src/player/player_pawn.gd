@@ -41,7 +41,8 @@ func action_use(pressed : bool) -> void:
 ###called when the propulsion key is pressed
 func propulsion_ability():
 	pass
-	
+func teleport():
+	pass
 func grapple():
 	pass
 func collectableDetector():
