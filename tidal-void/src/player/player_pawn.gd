@@ -26,7 +26,14 @@ var b_dead : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
-	
+
+func apply_save_state():
+	if GV.load_from_save_file:
+		var player_pos = GV.save_data["player_position"]
+		global_position = Vector2(player_pos["x"], player_pos["y"])
+		var player_vel = GV.save_data["player_velocity"]
+		velocity = Vector2(player_vel["x"], player_vel["y"])
+
 ###called when the use input is detected, override this function if you want something to happen
 func action_use(pressed : bool) -> void:
 	pass

@@ -210,6 +210,16 @@ offset_bottom = 34.0
 theme_override_font_sizes/font_size = 24
 text = "Health"
 
+[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1780474768]
+process_mode = 3
+offset_left = 1838.0
+offset_top = 1.0
+offset_right = 1915.0
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 24
+text = "Time"
+horizontal_alignment = 2
+
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
 position = Vector2(394, 2023)
 
