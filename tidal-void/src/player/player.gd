@@ -11,7 +11,6 @@ class_name Player
 
 
 
-
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
 ### records the jump power for camera effects
@@ -341,19 +340,20 @@ func propulsion_ability():
 func teleport():
 	if teleports_left > 0:
 		teleports_left -= 1
-		
+		#player position now equals the ship position
 
 func lure():
 	if lures_left > 0:
 		lures_left -= 1
-		  
+		#Idea is that creatures inside the lure cloud will automatically move closer to the player
 
 func grapple():
 	if grapples_left > 0:
 		grapples_left -= 1
-
+		#idea is to grapple to a creature and ride them like a lasso
 func collectableDetector():
 	pass
+	#idea is to detect collactibles like batman detective vision in the arkham games
 
 func reset_abilities():
 	propulsions_left = propulsion_max
