@@ -9,6 +9,9 @@ class_name Player
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 350.0
 
+
+
+
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
 ### records the jump power for camera effects
@@ -338,8 +341,20 @@ func propulsion_ability():
 func teleport():
 	if teleports_left > 0:
 		teleports_left -= 1
-		Player.global_position = Ship.global_position
 		
+
+func lure():
+	if lures_left > 0:
+		lures_left -= 1
+		  
+
+func grapple():
+	if grapples_left > 0:
+		grapples_left -= 1
+
+func collectableDetector():
+	pass
+
 func reset_abilities():
 	propulsions_left = propulsion_max
 	teleports_left = teleport_max 

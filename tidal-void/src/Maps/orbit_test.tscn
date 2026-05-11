@@ -284,6 +284,8 @@ position = Vector2(1173, 4197)
 z_index = 0
 position = Vector2(-1309.2389, 3019.6692)
 
+[node name="TeleportPosition" type="Node2D" parent="ShipBody" unique_id=1331250226]
+
 [node name="WaterPlanet" parent="." unique_id=215448769 instance=ExtResource("26_bdxtq")]
 position = Vector2(4869, 3478)
 
