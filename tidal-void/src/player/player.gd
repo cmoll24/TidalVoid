@@ -9,7 +9,7 @@ class_name Player
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 350.0
 
-
+@onready var ship_position = $orbit_test/ShipBody/TeleportPosition
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
@@ -341,6 +341,7 @@ func teleport():
 	if teleports_left > 0:
 		teleports_left -= 1
 		#player position now equals the ship position
+		global_position = ship_position
 
 func lure():
 	if lures_left > 0:
