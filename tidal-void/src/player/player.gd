@@ -260,6 +260,9 @@ func get_throw_velocity(body : DriftBody) -> Vector2:
 	if target_r <= start_r:
 		return Vector2.ZERO
 	
+	## Target a little bit above the mouse
+	target_r += 50
+	
 	var mu = dominant_body.mass
 	
 	#orbital transfer energy

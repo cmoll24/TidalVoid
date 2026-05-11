@@ -30,6 +30,8 @@ scale = Vector2(0.24218756, 0.24218756)
 texture = ExtResource("4_smb0p")
 
 [node name="PlayerDetector" type="Area2D" parent="." unique_id=768541087]
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=521375397]
 shape = SubResource("RectangleShape2D_b25x5")
