@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="6_4jr7v"]
 [ext_resource type="PackedScene" uid="uid://mviv1dob273e" path="res://src/ship/terminals/UpgradeTerminal.tscn" id="7_4jr7v"]
 [ext_resource type="PackedScene" uid="uid://m6q2nv1sl10i" path="res://src/ship/terminals/ResetStation.tscn" id="8_o8l35"]
+[ext_resource type="Script" uid="uid://bhbk3lhdhuvbw" path="res://src/player/Abilities/teleport_position.gd" id="9_shh8f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
 radius = 68.0
@@ -122,6 +123,11 @@ rotation = -1.0471976
 [node name="ResetStation" parent="." unique_id=1336080030 instance=ExtResource("8_o8l35")]
 position = Vector2(81.00001, -47.000004)
 rotation = 1.0471976
+
+[node name="TeleportPosition" type="Node2D" parent="." unique_id=1130417104]
+position = Vector2(1, -114)
+script = ExtResource("9_shh8f")
+metadata/_custom_type_script = "uid://bhbk3lhdhuvbw"
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

@@ -9,8 +9,6 @@ class_name Player
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 350.0
 
-@onready var ship_position = $orbit_test/ShipBody/TeleportPosition
-
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
 ### records the jump power for camera effects
@@ -340,8 +338,18 @@ func propulsion_ability():
 func teleport():
 	if teleports_left > 0:
 		teleports_left -= 1
-		#player position now equals the ship position
-		global_position = ship_position
+		#teleport to the nearest teleport source
+		var teleport_pos : Vector2 = Vector2.ZERO
+		var closest_dist_sqr  : float = INF
+		for tp in game_manager.teleport_sources:
+			var dist_sqr : float = global_position.distance_squared_to(tp.global_position)
+			if(dist_sqr < closest_dist_sqr):
+				closest_dist_sqr = dist_sqr
+				teleport_pos = tp.global_position
+		#perform teleportation
+		global_position = teleport_pos
+		#stop leftover velocity
+		velocity = Vector2.ZERO
 
 func lure():
 	if lures_left > 0:
