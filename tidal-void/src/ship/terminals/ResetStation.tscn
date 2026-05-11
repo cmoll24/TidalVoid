@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://m6q2nv1sl10i"]
+
+[ext_resource type="Script" uid="uid://vh62h0pjaa4o" path="res://src/ship/terminals/reset_station.gd" id="1_48ixd"]
+[ext_resource type="Texture2D" uid="uid://cwnvlxj5vh8j8" path="res://icon.svg" id="2_fqa6p"]
+[ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="3_pbaax"]
+[ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="4_tig68"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b25x5"]
+size = Vector2(50, 50)
+
+[node name="ResetStation" type="StaticBody2D" unique_id=872525405]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_48ixd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=513004922]
+shape = SubResource("RectangleShape2D_b25x5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1032709815]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_fqa6p")
+
+[node name="InteractSource" type="Node2D" parent="." unique_id=1308717196]
+script = ExtResource("3_pbaax")
+metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1600675435]
+position = Vector2(0, -18)
+scale = Vector2(0.24218756, 0.24218756)
+texture = ExtResource("4_tig68")
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=768541087]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=521375397]
+shape = SubResource("RectangleShape2D_b25x5")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

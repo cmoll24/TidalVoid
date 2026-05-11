@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chlvhshaocm8y"
-path="res://.godot/imported/PLACEHOLDER_creature.png-d4363dfed82ce6ea25762d4c315c78f8.ctex"
+uid="uid://bj7a5jhl5aqj1"
+path="res://.godot/imported/Ship_concept_legs.png-86227e1c0f47af38b6231799fe594ca1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Placeholder/PLACEHOLDER_creature.png"
-dest_files=["res://.godot/imported/PLACEHOLDER_creature.png-d4363dfed82ce6ea25762d4c315c78f8.ctex"]
+source_file="res://assets/Textures/Placeholder/Ship_concept_legs.png"
+dest_files=["res://.godot/imported/Ship_concept_legs.png-86227e1c0f47af38b6231799fe594ca1.ctex"]
 
 [params]
 

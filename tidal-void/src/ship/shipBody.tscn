@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cke2qtkpx6xc5" path="res://src/ship/creatureStorage.tscn" id="5_1il6y"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_4quqm"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="6_4jr7v"]
+[ext_resource type="PackedScene" uid="uid://mviv1dob273e" path="res://src/ship/terminals/UpgradeTerminal.tscn" id="7_4jr7v"]
+[ext_resource type="PackedScene" uid="uid://m6q2nv1sl10i" path="res://src/ship/terminals/ResetStation.tscn" id="8_o8l35"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
 radius = 68.0
@@ -92,7 +94,7 @@ texture = SubResource("GradientTexture2D_pf5yv")
 stretch_mode = 3
 
 [node name="PlayerDetector" type="Area2D" parent="." unique_id=1292149882]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerDetector" unique_id=488470937]
@@ -108,10 +110,18 @@ scale = Vector2(1, -1)
 polygon = PackedVector2Array(-74, -168, -116, -142, -148, -110, -166, -61, -178, -17, -179, 35, -182, 83, -177, 108, -119, 134, -110, 107, -168, 78, -166, 28, -163, -23, -140, -100, -80, -148)
 
 [node name="CreatureStorage" parent="." unique_id=10157181 instance=ExtResource("5_1il6y")]
-position = Vector2(-7, 443)
+position = Vector2(-2, 240)
 
 [node name="Leaper" parent="CreatureStorage" unique_id=1314638072 instance=ExtResource("6_4jr7v")]
 position = Vector2(-22.420532, -32.44635)
+
+[node name="UpgradeTerminal" parent="." unique_id=872525405 instance=ExtResource("7_4jr7v")]
+position = Vector2(-92.00001, -42.000004)
+rotation = -1.0471976
+
+[node name="ResetStation" parent="." unique_id=1336080030 instance=ExtResource("8_o8l35")]
+position = Vector2(81.00001, -47.000004)
+rotation = 1.0471976
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

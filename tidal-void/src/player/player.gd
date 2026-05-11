@@ -227,6 +227,9 @@ func action_use(pressed : bool)  -> void:
 				
 				held_creature.b_prediction_velo_is_real = false
 				throw_trajectory.set_target(held_creature)
+			elif(result.collider is ShipTerminal):
+				var terminal : ShipTerminal = result.collider
+				terminal.on_player_interact(self)
 	else:
 		if(held_creature and held_creature.stun_time > 0):
 			## if holding a stunned creature, attempt a throw
