@@ -6,7 +6,7 @@ extends Camera2D
 @export var zoom_speed : float = 0.05
 @export var zoom_smoothing : float = 0.1
 
-@export var map_zoom_threshold : float = 0.3
+@export var map_zoom_threshold : float = 0.2
 
 @export var charge_speed : float = .5
 @export var return_speed : float = .1
@@ -69,12 +69,20 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	global_position = player_controller.player.global_position
-
+	
+	#handle map
+	if(zoom.x < map_zoom_threshold):
+		get_tree().root.get_viewport().canvas_cull_mask = 0xFFFFFFFF-2
+	else:
+		get_tree().root.get_viewport().canvas_cull_mask = 0xFFFFFFFF
+	
+	# handle rotation
 	if not ignore_rotation:
 		rotation = player.rotation
 	else:
 		rotation = 0.0
 	
+	#handle shake
 	if is_centered and zoom.x > map_zoom_threshold:
 		apply_camera_shake(delta)
 	

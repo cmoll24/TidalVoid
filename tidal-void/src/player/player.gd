@@ -1,13 +1,15 @@
 extends PlayerPawn
 class_name Player
 
-
+@onready var animated_sprite = $Sprite2D
 
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 620.0
 
 @export var min_jump_power : float = 10.0
 @export var max_jump_power : float = 350.0
+
+
 
 var walking_on_ground : bool = false
 var is_charging_jump : bool = false
@@ -37,7 +39,19 @@ var interact_source : InteractSource = null
 #it won't be returned till after the player redocks with their ship
 var propulsion_max : int = 3
 var propulsions_left : int = 3
+
+var teleport_max : int = 3
+var teleports_left : int = 3
+
+var lure_max : int = 5
+var lures_left : int = 5
+
+var grapple_max : int = 10
+var grapples_left : int = 10
+
 @export var propulsion_power : float = 300.0
+@export var lure_cloud_size : int = 10
+@export var grapple_max_rope_size : float = 500.0
 
 var max_jump_angle : float = PI/2.5
 
@@ -65,7 +79,7 @@ func player_movement(delta : float) -> void:
 		#Exit Condition
 		if(velocity.dot(grounded_normal) < -1):
 			walking_on_ground = false
-			grounded_buffer -= 1
+			grounded_buffer = 0
 		
 		else:
 			#Set player velocity to 0 when they are grounded
@@ -97,7 +111,6 @@ func player_movement(delta : float) -> void:
 		if(grounded_shape is CircleShape2D):
 			player_loc_len += grounded_body.collision_radius- 1
 		else:
-			print("collided with non circle gravity source")
 			player_loc_len += grounded_body.global_position.distance_to(grounded_point) - 1
 		var player_angle : float = player_loc.angle()
 		var new_pos : Vector2
@@ -216,6 +229,9 @@ func action_use(pressed : bool)  -> void:
 				
 				held_creature.b_prediction_velo_is_real = false
 				throw_trajectory.set_target(held_creature)
+			elif(result.collider is ShipTerminal):
+				var terminal : ShipTerminal = result.collider
+				terminal.on_player_interact(self)
 	else:
 		if(held_creature and held_creature.stun_time > 0):
 			## if holding a stunned creature, attempt a throw
@@ -245,6 +261,9 @@ func get_throw_velocity(body : DriftBody) -> Vector2:
 	
 	if target_r <= start_r:
 		return Vector2.ZERO
+	
+	## Target a little bit above the mouse
+	target_r += 50
 	
 	var mu = dominant_body.mass
 	
@@ -317,11 +336,39 @@ func propulsion_ability():
 	if propulsions_left > 0:
 		propulsions_left -= 1
 		velocity += (propulsion_power * mouse_direction)
-		
+
+func teleport():
+	if teleports_left > 0:
+		teleports_left -= 1
+		#player position now equals the ship position
+
+func lure():
+	if lures_left > 0:
+		lures_left -= 1
+		#Idea is that creatures inside the lure cloud will automatically move closer to the player
+
+func grapple():
+	if grapples_left > 0:
+		grapples_left -= 1
+		#idea is to grapple to a creature and ride them like a lasso
+func collectableDetector():
+	pass
+	#idea is to detect collactibles like batman detective vision in the arkham games
+
 func reset_abilities():
 	propulsions_left = propulsion_max
+	teleports_left = teleport_max 
+	lures_left = lure_max
+	grapples_left = grapple_max 
+	
 
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")
 	if(source):
 		source.disable_interact_sprite()
+
+func remove_helmet():
+	animated_sprite.play("no_helmet_idle")
+
+func attach_helmet():
+	animated_sprite.play("helmet_idle")

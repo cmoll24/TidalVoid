@@ -37,6 +37,7 @@ expand_margin_left = 50.0
 expand_margin_right = 50.0
 
 [node name="UpgradeStoreSlot" type="PanelContainer" unique_id=1509827194]
+custom_minimum_size = Vector2(0, 100)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -44,6 +45,7 @@ offset_right = -930.0
 offset_bottom = -975.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_k0b4a")
 script = ExtResource("1_bitoj")
 

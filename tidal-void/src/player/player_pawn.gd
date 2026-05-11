@@ -26,7 +26,14 @@ var b_dead : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
-	
+
+func apply_save_state():
+	if GV.load_from_save_file:
+		var player_pos = GV.save_data["player_position"]
+		global_position = Vector2(player_pos["x"], player_pos["y"])
+		var player_vel = GV.save_data["player_velocity"]
+		velocity = Vector2(player_vel["x"], player_vel["y"])
+
 ###called when the use input is detected, override this function if you want something to happen
 func action_use(pressed : bool) -> void:
 	pass
@@ -34,7 +41,15 @@ func action_use(pressed : bool) -> void:
 ###called when the propulsion key is pressed
 func propulsion_ability():
 	pass
-	
+func teleport():
+	pass
+func grapple():
+	pass
+func collectableDetector():
+	pass
+func lure():
+	pass
+
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA
@@ -44,6 +59,7 @@ func _physics_process(delta: float) -> void:
 ### called when the controller takes possession of this pawn
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	controller = player_controller
+	game_manager.register_revealing_source(self)
 	
 	
 ### called when the controller stops taking possession of this pawn	
@@ -51,6 +67,7 @@ func stop_possess() -> void:
 	#you can tell if you are possessed or not by checking the controller
 	controller = null
 	set_thrust(Vector2.ZERO)
+	game_manager.unregister_revealing_source(self)
 	
 func die() -> void:
 	if(b_dead):

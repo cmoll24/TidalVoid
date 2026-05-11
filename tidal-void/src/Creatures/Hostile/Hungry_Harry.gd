@@ -13,6 +13,9 @@ class_name HungryHarry
 
 @export var worm_burrow_distance : float = 160
 
+# particles show when this close to the surface
+@export var show_particles_distance : float = 40
+
 @export var burrow_rotation_boost : float = 0.001
 
 var body_collider_length : int = 64
@@ -23,13 +26,15 @@ var last_pos : Vector2 = Vector2.ZERO
 
 var b_in_planet : bool = false
 
+var b_near_surface : bool = false
+
 @onready var line : Line2D = $Body
 
 @onready var head : Sprite2D = $Head
 
-@onready var tail : Sprite2D = $Tail
-
 @onready var body_collision : StaticBody2D = $BodyCollision
+
+@onready var dig_particles : CPUParticles2D = $DigParticles
 
 var body_colliders : Array[CollisionShape2D]
 
@@ -68,10 +73,30 @@ func _ready() -> void:
 	
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta);
-	#check if we are inside a planet
-	b_in_planet = dominant_body and dominant_body.global_position.distance_squared_to(global_position) < dominant_body.collision_radius**2
-	if(v_exceptions.find(dominant_body.get_rid()) == -1):
-		v_exceptions.append(dominant_body.get_rid())
+	if(dominant_body):
+		#check if we are near the surface and if we are inside a planet
+		var dist_sqr : float = dominant_body.global_position.distance_squared_to(global_position) 
+		if(dist_sqr > (dominant_body.collision_radius - show_particles_distance)**2):
+			#play dig particles if we just started to near the surface
+			if(!b_near_surface):
+				play_dig_particles()
+			b_near_surface = true
+			if(dist_sqr > (dominant_body.collision_radius)**2):
+				if(b_in_planet):
+					#limit the velocity so we cannot escape
+					velocity = velocity.limit_length(GameManager.escape_speed(dominant_body,global_position)*0.8);
+				b_in_planet = false
+			else:
+				#play dig particles if we just descended from space
+				if(!b_in_planet):
+					play_dig_particles()
+					b_in_planet = true
+		else:
+			b_near_surface = false
+			b_in_planet = true
+			
+		if(v_exceptions.find(dominant_body.get_rid()) == -1):
+			v_exceptions.append(dominant_body.get_rid())
 	#update the line
 	update_worm_line();
 	
@@ -151,7 +176,20 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	else:
 		thrust_direction = Vector2.ZERO
 		
+func play_dig_particles():
+	if(!dominant_body):
+		return
+	var diff = global_position - dominant_body.global_position;
+	var dir = diff.normalized()
+	#place the dig particles on the nearest edge of the gravity source
+	dig_particles.global_position = dominant_body.global_position+dir*dominant_body.collision_radius
+	#rotate dig particles to face outward from the planet
+	dig_particles.global_rotation = dir.angle()
+	#make the particles emit
+	dig_particles.emitting = true
 	
+func set_ground(normal : Vector2,body : Node2D,point : Vector2, shape_idx : int) -> void:
+	pass
 	
 func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	super.on_collide_with_other_drift_body(other);

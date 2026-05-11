@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://d051l38xqv0gc"]
+
+[ext_resource type="Script" uid="uid://tdmjlu16b75f" path="res://src/Maps/planets/living_planet.gd" id="1_0s1pd"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="2_7dgh1"]
+[ext_resource type="Material" uid="uid://d3kfjuqmr2fmj" path="res://assets/Materials/M_astroid1_pixelated.tres" id="3_ts0kq"]
+[ext_resource type="Texture2D" uid="uid://dxlaboml3isfq" path="res://assets/Textures/Placeholder/PLACEHOLDER_LivingPlanet.png" id="4_0s1pd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_klrcr"]
+radius = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s2205"]
+shader = ExtResource("2_7dgh1")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0.043137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s2205"]
+gradient = SubResource("Gradient_klrcr")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Planet" type="StaticBody2D" unique_id=947615788 groups=["gravity_sources"]]
+collision_mask = 7
+script = ExtResource("1_0s1pd")
+mass = 30000.0
+collision_radius = 250.0
+metadata/_custom_type_script = "uid://becxcr68kkbk8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1343489286]
+shape = SubResource("CircleShape2D_klrcr")
+
+[node name="PullRadius" type="TextureRect" parent="." unique_id=1929894957]
+z_index = 120
+material = SubResource("ShaderMaterial_s2205")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_s2205")
+stretch_mode = 3
+
+[node name="PlanetTexture" type="TextureRect" parent="." unique_id=1904708707]
+material = ExtResource("3_ts0kq")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.0
+offset_top = -355.0
+offset_right = 355.0
+offset_bottom = 355.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_0s1pd")
+
+[node name="MouthArea" type="Area2D" parent="." unique_id=48710327]
+position = Vector2(0, -237)
+collision_layer = 0
+collision_mask = 2
+
+[node name="MouthCollider" type="CollisionShape2D" parent="MouthArea" unique_id=1434138670]
+position = Vector2(2, -14)
+shape = SubResource("CircleShape2D_klrcr")
+
+[connection signal="body_entered" from="MouthArea" to="." method="eat"]

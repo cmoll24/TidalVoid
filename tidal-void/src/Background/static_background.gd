@@ -1,4 +1,4 @@
-extends TextureRect
+extends Control
 #This script is to make the star background appear static when the camera zooms and rotates
 
 var camera_parent : ZoomCamera
@@ -25,8 +25,3 @@ func set_inital_size():
 
 func _process(_delta: float) -> void:
 	rotation = -camera_parent.rotation
-	
-	if camera_parent.zoom.x < camera_parent.map_zoom_threshold:
-		visible = false
-	else:
-		visible = true

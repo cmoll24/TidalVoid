@@ -20,6 +20,7 @@ offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
 colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 0.047058824, 1, 0.5254902, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
 
 [node name="Jeremiah" type="StaticBody2D" unique_id=1314638072]
+visibility_layer = 2
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_lnscu")
@@ -27,7 +28,7 @@ v_distance = 5000.0
 v_source_loyalty_time = 5.0
 v_source_loyalty_dist = 1.75
 mass = 2.0
-thrust_power = 5.0
+thrust_power = 6.0
 start_in_orbit = true
 start_orbit_dir = false
 

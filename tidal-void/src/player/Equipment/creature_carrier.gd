@@ -7,6 +7,8 @@ class_name CreatureCarrier
 
 @onready var planet_thrust_particles : ThrustParticles = $ThrustParticles2
 
+@onready var fuel_bar : TextureRect = $FuelContainer/FuelBar
+
 #ship_clearance is the length of vehicle
 @export var vehicle_clearance : float = 160.0
 
@@ -15,13 +17,27 @@ class_name CreatureCarrier
 ### instantaneous velocity change to creatures in the carrier when the bubble is deactivated
 @export var bubble_push : float = 25
 
+####fuel consumption per second of fuel usage(thrust)
+@export var fuel_consumption_per_second : float = 1;
+
+### the max fuel that can be held at once
+@export var max_fuel : float = 100;
+
+var fuel : float = 100;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
 	player_sprite.visible = false
 	head_lights.enabled = false
+	fuel = max_fuel
 	
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
+	if(fuel <= 0):
+		#can't thrust if we run out
+		thrust_direction = Vector2.ZERO
+		thrust_particles.stop_thrust()
+		return
 	#Thruster behavior when off of the ground
 	if direction != Vector2.ZERO:
 		super.set_thrust(Vector2.from_angle(global_rotation), multiplier)
@@ -33,6 +49,9 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 		
 func _physics_process(_delta: float) -> void:
 	super._physics_process(_delta)
+	#Increment fuel
+	if thrust_direction != Vector2.ZERO:
+		set_fuel(fuel - fuel_consumption_per_second * _delta)
 	##check for dismount
 	if controller and Input.is_action_just_pressed("jump"):
 		#if we jump, dismount and switch to the player
@@ -73,14 +92,17 @@ func _physics_process(_delta: float) -> void:
 			
 	### apply velocity colors
 	update_traj_color.emit(lerp(Color.BLUE, Color.AQUA,velocity.length_squared()/122500))
-	
+
+func set_fuel(new_fuel : float):
+	fuel = new_fuel
+	fuel_bar.scale.x = fuel/max_fuel	
 		
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	super.start_possess(player_controller, previous_pawn_velocity)
 	player_sprite.visible = true
 	head_lights.enabled = true
 	
-func	stop_possess() -> void:
+func stop_possess() -> void:
 	super.stop_possess()
 	player_sprite.visible = false
 	head_lights.enabled = false
