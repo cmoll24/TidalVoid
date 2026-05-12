@@ -101,6 +101,10 @@ var game_manager : GameManager
 var dominant_body : GravitySource = null
 
 
+func _enter_tree():
+	#ensure all drift bodies are in the dynamic save group
+	add_to_group('dynamic_save',true)
+
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
 	if(start_in_orbit):
@@ -329,4 +333,19 @@ func on_collide_with_bubble(bubble : Bubble) -> void:
 
 func get_velocity() -> Vector2:
 	return velocity
+	
+#save the velocity	
+func save():
+	var node_data : Dictionary = {"path" : scene_file_path,
+		"pos_x" : global_position.x,
+		"pos_y" : global_position.y,
+		"dynamic_save" : true,
+		"velo_x" : velocity.x,
+		"velo_y" : velocity.y,}
+	return node_data
+	
+#load the velocity
+func load(node_data : Dictionary):
+	velocity.x = node_data["velo_x"]
+	velocity.y = node_data["velo_y"]
 	

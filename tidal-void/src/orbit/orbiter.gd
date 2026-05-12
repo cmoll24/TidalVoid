@@ -8,10 +8,11 @@ var velocity : Vector2 = Vector2.ZERO
 
 @onready var on_screen_notifier : VisibleOnScreenNotifier2D  = $VisibleOnScreenNotifier2D
 
-
+func _enter_tree():
+	#ensure orbiters are in the dynamic save group
+	add_to_group('dynamic_save',true)
 
 func _ready() -> void:
-	
 	game_manager = get_tree().get_first_node_in_group("game_managers")
 	call_deferred("after_ready");
 
@@ -63,3 +64,18 @@ func _physics_process(delta: float) -> void:
 	
 func get_velocity() -> Vector2:
 	return velocity
+	
+#save the velocity	
+func save():
+	var node_data : Dictionary = {"path" : scene_file_path,
+		"pos_x" : global_position.x,
+		"pos_y" : global_position.y,
+		"dynamic_save" : true,
+		"velo_x" : velocity.x,
+		"velo_y" : velocity.y,}
+	return node_data
+	
+#load the velocity
+func load(node_data : Dictionary):
+	velocity.x = node_data["velo_x"]
+	velocity.y = node_data["velo_y"]

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bq4arad21hka5"]
+
+[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/Maps/planets/planet.tscn" id="1_sgomd"]
+
+[node name="Planet" unique_id=519984572 instance=ExtResource("1_sgomd")]
+mass = 1600.0
+collision_radius = 70.0

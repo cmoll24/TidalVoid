@@ -10,9 +10,11 @@ var gravity_sources : Array[GravitySource] = []
 var revealing_sources : Array[Node2D] = []
 
 var teleport_sources: Array[Node2D] = []
+
+var streaming_sources : Array[Node2D] = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	gravity_sources.assign(get_tree().get_nodes_in_group("gravity_sources"))
 	sense_manager = $SenseManager
 	#inventory_menu.hide()
 
@@ -32,6 +34,13 @@ func register_teleport_source(new_source: Node2D) -> void:
 	teleport_sources.append(new_source)
 func unregister_teleport_source(source: Node2D) -> void:
 	teleport_sources.erase(source)
+	
+func register_streaming_source(new_source: Node2D) -> void:
+	streaming_sources.append(new_source)
+	
+func unregister_streaming_source(source: Node2D) -> void:
+	streaming_sources.erase(source)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _process(_delta: float) -> void:

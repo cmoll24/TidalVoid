@@ -4,7 +4,6 @@
 
 [node name="Sector" type="Node2D" unique_id=1361397144]
 script = ExtResource("1_1ijie")
-file_name = null
 
 [node name="ReferenceRect" type="ReferenceRect" parent="." unique_id=66557810]
 anchors_preset = 8

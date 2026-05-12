@@ -11,10 +11,10 @@ class_name Steven
 var v_types : int
 
 ### all visible vision sources
-var v_sources : Array[VisionSource]
+var v_sources : Array[VisionSource] = []
 
 ### the primary visible vision source(the target)
-var primary_v_source : VisionSource
+var primary_v_source : VisionSource 
 
 var v_exceptions : Array[RID] = []
 
@@ -83,10 +83,11 @@ func update_vision():
 	for v in v_sources:
 		var dist : float =(global_position - v.parent.global_position).length_squared()
 		if(dist < lowest_dist):
-			var v_alt : float = dominant_body.global_position.distance_squared_to(v.parent.global_position)
-			if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
-				#don't chase things out of orbit
-				continue
+			if(dominant_body):
+				var v_alt : float = dominant_body.global_position.distance_squared_to(v.parent.global_position)
+				if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
+					#don't chase things out of orbit
+					continue
 			primary_v_source_time = v_source_loyalty_time
 			primary_v_source = v;
 			lowest_dist = dist	
@@ -114,6 +115,7 @@ func update_behavior() -> void:
 	else:
 		##keep roughly in our orbit unless hibernating
 		if(!b_in_hibernation):
-			target_altitude_sqr = min(
-				(dominant_body.pull_radius-20)**2,
-				get_square_altitude(dominant_body))
+			if(dominant_body):
+				target_altitude_sqr = min(
+					(dominant_body.pull_radius-20)**2,
+					get_square_altitude(dominant_body))

@@ -37,12 +37,9 @@ var time_since_last_vision : float = 0;
 
 ###########################################
 
-var game_manager : GameManager
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
-	game_manager = get_tree().get_first_node_in_group("game_managers")
 	#set the vision bitmask( use the | operator to add more)
 	v_types = 1 << VisionSource.v_source_type.mPrey
 	call_deferred("post_ready")

@@ -23,6 +23,7 @@ var b_dead : bool = false
 
 @export var death_pawn_path : String = "res://src/player/dead_player.tscn"
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -59,7 +60,11 @@ func _physics_process(delta: float) -> void:
 ### called when the controller takes possession of this pawn
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
 	controller = player_controller
+	#register with the game manager
 	game_manager.register_revealing_source(self)
+	game_manager.register_streaming_source(self)
+	#Don't get unloaded when occupied by the player
+	remove_from_group('dynamic_save')
 	
 	
 ### called when the controller stops taking possession of this pawn	
@@ -67,7 +72,11 @@ func stop_possess() -> void:
 	#you can tell if you are possessed or not by checking the controller
 	controller = null
 	set_thrust(Vector2.ZERO)
+	#unregister with the game manager
 	game_manager.unregister_revealing_source(self)
+	game_manager.unregister_streaming_source(self)
+	#Allow for unloading when player is no longer possessing
+	add_to_group('dynamic_save')
 	
 func die() -> void:
 	if(b_dead):

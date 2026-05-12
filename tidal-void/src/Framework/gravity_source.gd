@@ -9,7 +9,9 @@ extends StaticBody2D
 @export var mass : float = 1000.0
 
 const MASS_SCALE = 1000.0 #the masses must be big so this a multipler
+
 var pull_radius : float = 600.0
+
 @export var collision_radius : float = 50.0
 
 @export var no_grav_radius : float = 1.0
@@ -18,7 +20,14 @@ var pull_radius : float = 600.0
 
 var velocity : Vector2 = Vector2.ZERO
 
+var game_manager : GameManager
+
 func _ready() -> void:
+	#get the game manager
+	game_manager = get_tree().get_first_node_in_group('game_managers')
+	#register with the game manager
+	game_manager.register_gravity_source(self)
+	#initialize values
 	mass = mass*MASS_SCALE
 	pull_radius = calculate_pull_radius()
 	pull_radius_circle.scale = Vector2(pull_radius, pull_radius) / (pull_radius_circle.size / 2)#because scale is diameter
@@ -51,3 +60,7 @@ func get_gravity_pull(from_positon : Vector2) -> Vector2:
 	var strength = (mass) / max(distance_sqr, 5000.0)
 	
 	return offset_distance.normalized() * strength
+
+func unload():
+	#unregister the gravity source
+	game_manager.unregister_gravity_source(self)

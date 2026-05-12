@@ -6,6 +6,14 @@ class_name Sector
 
 @export var load_buffer_margin : float = 1000
 
+#delay before unloaded when all streaming sources have left the area, prevents rapid loading and unloading when the player is skirting the edge
+@export var unload_delay : float = 3
+
+#the max amount of bytes to load each frame when loading the sector
+@export var bytes_per_frame_load : int = 200
+
+var time_to_unload : float = 0
+
 @onready var ref_rect : ReferenceRect = $ReferenceRect
 
 var SAVE_PATH : String = 'user://savegame.'
@@ -13,9 +21,16 @@ var SAVE_PATH : String = 'user://savegame.'
 var load_area_size :Vector2 
 var load_area_pos : Vector2 
 
+var loaded : bool = false
+
+var game_manager : GameManager
+
+var loaded_before : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	#get the game manager
+	game_manager = get_tree().get_first_node_in_group('game_managers')
 	#complete the save path
 	SAVE_PATH = SAVE_PATH+file_name
 	#save data from the ref rect
@@ -24,7 +39,30 @@ func _ready() -> void:
 	# delete the ref rect, it has served its purpose
 	ref_rect.queue_free()
 	
+	# DEBUG ONLY, wipe save data on every new run to allow for easy testing
+	if(OS.is_debug_build()):
+		if FileAccess.file_exists(SAVE_PATH):
+			DirAccess.remove_absolute(SAVE_PATH)
+	
+func _physics_process(delta: float) -> void:
+	#deincrement the unload timer
+	time_to_unload -= delta
+	# check for streaming sources in bounds
+	for source in game_manager.streaming_sources:
+		if(_in_bounds(source.global_position,load_buffer_margin)):
+			#if one was found, reset the unload timer
+			time_to_unload = unload_delay
+			#reload the area if it was unloaded
+			if(!loaded):
+				load_sector()
+			break;
+	#unload if we have gone too long without a streaming source
+	if(loaded && time_to_unload <= 0):
+		unload_sector()
+
 func unload_sector():
+	#set loaded status
+	loaded = false
 	#open the save file
 	var save_file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	#all children are automatically added and dynamic nodes will be added if in proximity
@@ -40,11 +78,38 @@ func unload_sector():
 			save_and_unload_node(node,save_file,true)
 			
 func load_sector():
+	#set loaded status
+	loaded = true
+	
+	#first load if applicable
+	if(!loaded_before):
+		#on first load, unpack the instance placeholders
+		for node in get_children():
+			if(node is InstancePlaceholder):
+				node.create_instance(true)
+	
 	if not FileAccess.file_exists(SAVE_PATH):
-		printerr("load called on sector, '%s' without a save file" % file_name)
+		if(loaded_before):
+			printerr("load called on sector, '%s' without a save file" % file_name)
+		else:
+			#we won't have a file if this is first load necessarily, so we ought to be fine
+			loaded_before = true
 		return # Error! We don't have a save to load.
+		
+	#save that this is not the first load
+	loaded_before = true	
+	#open the save file
 	var save_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	#iterate through the file
+	var next_wait_pos : int = bytes_per_frame_load
 	while save_file.get_position() < save_file.get_length():
+		#spread the load across multiple frames, pause execution upon hitting bytes per frame
+		if(save_file.get_position() >= next_wait_pos):
+			#increment the next wait position and await the next frame
+			next_wait_pos += bytes_per_frame_load
+			await get_tree().process_frame
+		
+		#get the line
 		var json_string = save_file.get_line()
 
 		# Creates the helper class to interact with JSON.
@@ -76,7 +141,11 @@ func load_sector():
 func save_and_unload_node(node :Node,save_file,b_dynamic_save : bool):
 	#print an error if the child is not a scene instance(do not put things as children of each other, each instance should be a top level child)
 	if(node.scene_file_path.is_empty()):
-		print("node '%s' in sector '%s' is not an instanced scene, save skipped" % [node.name,file_name])
+		if(node is InstancePlaceholder):
+			#ignore placeholders
+			pass
+		else:
+			print("node '%s' in sector '%s' is not an instanced scene, save skipped" % [node.name,file_name])
 		return
 	#store the data as a dict for flexibility
 	var node_data : Dictionary 

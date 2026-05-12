@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://173wnvt86qfx"]
+
+[ext_resource type="PackedScene" uid="uid://p15eipntvile" path="res://src/Maps/planets/planet.tscn" id="1_8pvvy"]
+
+[node name="Planet" unique_id=519984572 instance=ExtResource("1_8pvvy")]
+mass = 1500.0
