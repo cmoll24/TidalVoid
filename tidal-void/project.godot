@@ -42,6 +42,7 @@ gravity_sources=""
 game_managers="There should be exactly one game_manager in every scene involving orbits"
 player=""
 items=""
+dynamic_save="put everything that needs to be saved when getting loaded or unloaded here"
 
 [input]
 
