@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://tdmjlu16b75f" path="res://src/Maps/planets/living_planet.gd" id="1_0s1pd"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="2_7dgh1"]
-[ext_resource type="Material" uid="uid://d3kfjuqmr2fmj" path="res://assets/Materials/M_astroid1_pixelated.tres" id="3_ts0kq"]
 [ext_resource type="Texture2D" uid="uid://dxlaboml3isfq" path="res://assets/Textures/Placeholder/PLACEHOLDER_LivingPlanet.png" id="4_0s1pd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klrcr"]
@@ -52,7 +51,6 @@ texture = SubResource("GradientTexture2D_s2205")
 stretch_mode = 3
 
 [node name="PlanetTexture" type="TextureRect" parent="." unique_id=1904708707]
-material = ExtResource("3_ts0kq")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

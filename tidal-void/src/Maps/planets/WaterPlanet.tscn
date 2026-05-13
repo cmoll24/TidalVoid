@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://becxcr68kkbk8" path="res://src/Framework/Planet.gd" id="1_imy56"]
 [ext_resource type="Texture2D" uid="uid://dss7v2i8jauw4" path="res://assets/Textures/Environmental/water_planet.png" id="2_imy56"]
+[ext_resource type="Material" uid="uid://bnump33b23oq8" path="res://assets/Materials/M_water_shader.tres" id="3_g3sye"]
 [ext_resource type="Texture2D" uid="uid://hndlgovcw0fx" path="res://assets/Textures/Environmental/water_tubes.png" id="3_nvh2j"]
 [ext_resource type="Texture2D" uid="uid://blbmxe0ougbh1" path="res://assets/Textures/Environmental/water_particles.png" id="4_g3sye"]
+[ext_resource type="Texture2D" uid="uid://baqh12srioc6u" path="res://assets/Textures/Environmental/water_planet_core.png" id="4_t8v4t"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_3bbgh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
@@ -27,6 +29,7 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="WaterPlanet" type="StaticBody2D" unique_id=2060639823 groups=["gravity_sources"]]
 z_index = 2
+position = Vector2(-5, -1)
 collision_mask = 7
 script = ExtResource("1_imy56")
 mass = 18000.0
@@ -50,6 +53,25 @@ grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 pivot_offset_ratio = Vector2(0.507, 0.508)
 texture = ExtResource("2_imy56")
+
+[node name="PlanetTexture2" type="TextureRect" parent="." unique_id=266277032]
+visibility_layer = 65
+z_index = 2
+material = ExtResource("3_g3sye")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1047.0001
+offset_top = -1061.0001
+offset_right = 1062.9999
+offset_bottom = 1048.9999
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+pivot_offset_ratio = Vector2(0.507, 0.508)
+texture = ExtResource("4_t8v4t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
 shape = SubResource("CircleShape2D_f54en")

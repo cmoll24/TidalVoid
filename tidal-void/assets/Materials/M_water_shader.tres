@@ -1,6 +1,10 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bnump33b23oq8"]
 
-[ext_resource type="Shader" uid="uid://cabi0fsjpcgxq" path="res://assets/shaders/water.gdshader" id="1_o6rnw"]
+[ext_resource type="Shader" uid="uid://lfyt3dkv2df1" path="res://assets/shaders/texture_panner.gdshader" id="1_o6rnw"]
 
 [resource]
 shader = ExtResource("1_o6rnw")
+shader_parameter/radius = 0.5
+shader_parameter/edge_smoothness = 0.01
+shader_parameter/rotation_speed = Vector2(-0.05, -0.025)
+shader_parameter/ripple_dir = Vector2(0.2, 1)
