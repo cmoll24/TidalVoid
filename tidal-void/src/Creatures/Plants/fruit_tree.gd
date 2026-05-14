@@ -3,11 +3,17 @@ class_name FruitTree
 
 @export var fruit_spawn_offset : Vector2 
 
+@export var max_fruit_count : int = 5
+
 var escape_speed : float = 0
 
 var game_manager : GameManager
 
 var dominant_body : GravitySource
+
+var fruit_count : int = 0
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,13 +36,18 @@ func play_open_anim() -> void:
 	get_tree().create_timer(1.2).timeout.connect(release_fruit)
 
 func release_fruit() -> void:
+	if(fruit_count > max_fruit_count):
+		return
+	fruit_count += 1
 	## spawn a fruit
 	var fruit_scene  = preload("res://src/Collectables/fruit1.tscn")
 	var fruit : Collectable = fruit_scene.instantiate()
+	#initialize the fruit
 	get_tree().get_root().add_child(fruit)
 	var spawn_pos : Vector2 = global_position + fruit_spawn_offset.rotated(global_rotation)
 	fruit.b_start_in_orbit = false
 	fruit.global_position = spawn_pos
+	fruit.fruit_tree = self
 	#give it a random vertical velocity
 	fruit.velocity = randf()*escape_speed*global_transform.basis_xform(Vector2.UP)
 	#give it a random orbital direction

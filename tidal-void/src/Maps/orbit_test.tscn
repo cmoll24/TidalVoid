@@ -35,10 +35,6 @@ colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0.67058825, 0.33, 0.072600015, 0.32142, 0.38431373, 0.33, 0.05280001, 0.32076, 0)
 
-[sub_resource type="Resource" id="Resource_e7e7k"]
-script = ExtResource("12_voqfk")
-metadata/_custom_type_script = "uid://cfqw8if3wfy87"
-
 [sub_resource type="Resource" id="Resource_1e5fo"]
 script = ExtResource("12_voqfk")
 metadata/_custom_type_script = "uid://cfqw8if3wfy87"
@@ -107,9 +103,6 @@ position = Vector2(2371, 1902)
 [node name="Planet4" parent="DuskSector" unique_id=583492956 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/planet4.tscn"]
 position = Vector2(531, 1882)
 
-[node name="CreatureStorage" parent="DuskSector" unique_id=1242994491 instance_placeholder="res://src/ship/creatureStorage.tscn"]
-position = Vector2(325, 1886)
-
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
 width = 3.0
 gradient = SubResource("Gradient_je76y")
@@ -117,7 +110,7 @@ antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 visibility_layer = 3
-position = Vector2(190, 505)
+position = Vector2(-1646, 2978)
 collision_layer = 14
 start_orbit_dir = false
 
@@ -157,17 +150,8 @@ position = Vector2(1369, 381)
 [node name="Collectable4" parent="." unique_id=1964092763 instance=ExtResource("5_axjf6")]
 position = Vector2(1545, 555)
 
-[node name="Collectable5" parent="." unique_id=1892822805 instance=ExtResource("5_axjf6")]
-position = Vector2(782, 552)
-
 [node name="Collectable6" parent="." unique_id=1945323454 instance=ExtResource("5_axjf6")]
 position = Vector2(830, 532)
-
-[node name="Collectable7" parent="." unique_id=342270177 instance=ExtResource("5_axjf6")]
-position = Vector2(873, 505)
-
-[node name="Collectable8" parent="." unique_id=574767553 instance=ExtResource("5_axjf6")]
-position = Vector2(909, 478)
 
 [node name="Collectable9" parent="." unique_id=148827875 instance=ExtResource("5_axjf6")]
 position = Vector2(1911, 1212)
@@ -249,13 +233,7 @@ max_velocity = 400.0
 position = Vector2(4135, 2752)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
-position = Vector2(1609, 3357)
-
-[node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("11_6pfde")]
-position = Vector2(724, 1879)
-item_type = "consumable"
-item_effect = "+30 health"
-effect = SubResource("Resource_e7e7k")
+position = Vector2(-1359, 2696)
 
 [node name="InventoryItem2" parent="." unique_id=850590550 instance=ExtResource("11_6pfde")]
 position = Vector2(616, 1988)
@@ -287,10 +265,10 @@ position = Vector2(-1309.2389, 3019.6692)
 [node name="WaterPlanet" parent="." unique_id=215448769 instance=ExtResource("26_bdxtq")]
 position = Vector2(4869, 3478)
 
-[node name="ShroudComposite" parent="." unique_id=445053664 instance=ExtResource("27_vkjj7")]
-position = Vector2(4816, 3378)
-
 [node name="Planet5" parent="." unique_id=1204210594 instance=ExtResource("28_ybfy3")]
 position = Vector2(3785, -1175)
+
+[node name="ShroudComposite" parent="." unique_id=445053664 instance=ExtResource("27_vkjj7")]
+position = Vector2(4816, 3378)
 
 [editable path="DuskSector"]

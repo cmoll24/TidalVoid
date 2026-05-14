@@ -1,6 +1,8 @@
 extends Collectable
 class_name FruitCollectible
 
+var fruit_tree : FruitTree
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -11,3 +13,8 @@ func start_orbit() -> void:
 	velocity = GameManager.orbital_velocity(get_dominant_body(),global_position)
 	if(!b_start_in_orbit_dir):
 		velocity = -velocity
+		
+func _exit_tree() -> void:
+	#decrement the fruit count
+	if(fruit_tree):
+		fruit_tree.fruit_count -= 1

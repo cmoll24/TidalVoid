@@ -1,4 +1,5 @@
 extends Node2D
+class_name OrbitTest
 
 @onready var fps_label = $CanvasLayer/FPSLabel
 @onready var health_lable = $CanvasLayer/HealthLable
