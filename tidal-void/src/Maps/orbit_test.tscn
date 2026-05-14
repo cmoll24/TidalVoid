@@ -206,7 +206,7 @@ text = "Time"
 horizontal_alignment = 2
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
-position = Vector2(394, 2023)
+position = Vector2(428, 1982)
 
 [node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
 line = NodePath("../Line2D2")
