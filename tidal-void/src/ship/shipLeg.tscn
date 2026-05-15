@@ -6,12 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://df6x4o23n8m4q" path="res://assets/Textures/Ship/Leg/Ship_Foot.png" id="4_mcn38"]
 [ext_resource type="Texture2D" uid="uid://carmy4kx8236g" path="res://assets/Textures/Ship/Leg/Ship_Middle_Leg.png" id="5_7wunh"]
 
-[node name="ShipLeg" type="Node2D" unique_id=545161084 node_paths=PackedStringArray("target", "bubble")]
+[node name="ShipLeg" type="Node2D" unique_id=545161084]
 script = ExtResource("1_lgooj")
-target = NodePath("")
-bubble = NodePath("")
+behind = null
 
 [node name="TopSegment" type="Sprite2D" parent="." unique_id=1559822259]
+z_index = 1
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_h573h")
 offset = Vector2(30, 170)
@@ -29,6 +29,7 @@ texture = ExtResource("4_mcn38")
 offset = Vector2(0, 80)
 
 [node name="KneeCap" type="Sprite2D" parent="." unique_id=470757749]
+z_index = 2
 position = Vector2(0, 168.00003)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_7wunh")

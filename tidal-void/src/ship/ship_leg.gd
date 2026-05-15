@@ -17,6 +17,7 @@ class_name ShipLeg
 #@export var foot_length : int = 64
 
 @export var flipped = false
+@export var behind = false
 
 var knee_position : Vector2 = Vector2.ZERO
 var foot_position : Vector2 = Vector2.ZERO
@@ -27,6 +28,11 @@ func _ready() -> void:
 		bottom_segment.scale.x *= -1
 		foot.scale.x *= -1
 		knee_cap.scale.x *= -1
+	
+	if behind:
+		knee_cap.scale.x *= -1
+		knee_cap.z_index -= 1
+		modulate = Color(0.6, 0.6, 0.6)
 
 func _process(_delta: float) -> void:
 	if not target:
@@ -72,14 +78,25 @@ func solve_inverse_kinematics() -> void:
 	bottom_segment.rotation = bottom_segment_angle - (PI/2)
 	bottom_segment.position = knee_position
 	
-	knee_cap.rotation = 0.5 * (top_segment_angle + bottom_segment_angle) - (PI/2)
+	var knee_cap_angle : float
+	if behind:
+		knee_cap_angle = top_segment_angle + bend_sign * 0.8
+	else:
+		knee_cap_angle = top_segment_angle + bend_sign * 0.5
+	
+	var middle_angle = 0.5 * (top_segment_angle + bottom_segment_angle)
+	
+	if bend_sign * angle_difference(middle_angle, knee_cap_angle) > 0:
+		knee_cap_angle = middle_angle
+	
+	knee_cap.rotation = knee_cap_angle - (PI/2)
 	knee_cap.position = knee_position
 	
 	foot.position = foot_position
 	
 	var bubble_vec = foot_position - to_local(bubble.global_position)
 	var foot_angle = bubble_vec.angle() if not flipped else bubble_vec.angle() + PI
-	foot.rotation = (foot_angle + bend_sign * 0.3)
+	foot.rotation = (foot_angle + bend_sign * 0.31)
 
 func get_angle_of_C(la : float, lb : float, lc : float):
 	# Law of cosines - to find a missing angle

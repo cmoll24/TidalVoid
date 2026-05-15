@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bpqaoewt7kg6s" path="res://src/ship/shipLeg.tscn" id="11_i8eyn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
-radius = 68.0
+radius = 65.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
 shader = ExtResource("5_4quqm")
@@ -36,7 +36,7 @@ z_index = 2
 collision_mask = 7
 script = ExtResource("1_u2ul3")
 mass = 4000.0
-collision_radius = 68.0
+collision_radius = 65.0
 metadata/_custom_type_script = "uid://becxcr68kkbk8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
@@ -121,22 +121,28 @@ polygon = PackedVector2Array(-112, 117, 0, 131, 107, 117, 168, 80, 156, -45, 139
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1651184948]
 position = Vector2(-10, 14)
-polygon = PackedVector2Array(-59.999977, -173.00002, -95.99998, -155.00002, -141.99998, -119.00002, -174, -33.000027, -178, -17, -186, 44.999973, -189.00002, 88.99997, -164.00002, 115.99997, -119, 134, -110, 107, -168, 78, -166, 28, -152, -21.000023, -128.99998, -111.00002, -59.999977, -156.00002)
+polygon = PackedVector2Array(-59.999977, -173.00002, -97, -154, -139, -118, -162, -40, -166, 76, -138, 116, -146, 50, -138, -69, -122, -116, -59.999977, -156.00002)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="." unique_id=752854145]
 position = Vector2(10, 14)
 rotation = -3.1415925
 scale = Vector2(1, -1)
-polygon = PackedVector2Array(-59.999977, -173.00002, -95.99998, -155.00002, -141.99998, -119.00002, -174, -33.000027, -178, -17, -186, 44.999973, -189.00002, 88.99997, -164.00002, 115.99997, -119, 134, -110, 107, -168, 78, -166, 28, -152, -21.000023, -128.99998, -111.00002, -59.999977, -156.00002)
+polygon = PackedVector2Array(-59.999977, -173.00002, -97, -154, -139, -118, -162, -40, -166, 76, -138, 116, -146, 50, -138, -69, -122, -116, -59.999977, -156.00002)
 
 [node name="CreatureStorage" parent="." unique_id=10157181 instance=ExtResource("5_1il6y")]
-position = Vector2(0, 240)
+position = Vector2(0, 440)
 
 [node name="Leaper" parent="CreatureStorage" unique_id=1314638072 instance=ExtResource("6_4jr7v")]
 position = Vector2(-22.420532, -32.44635)
 
 [node name="Marker2D" type="Marker2D" parent="CreatureStorage" unique_id=2046697376]
 position = Vector2(142, 107)
+
+[node name="Marker2D3" type="Marker2D" parent="CreatureStorage" unique_id=2083373514]
+position = Vector2(94, 59)
+
+[node name="Marker2D4" type="Marker2D" parent="CreatureStorage" unique_id=144171918]
+position = Vector2(-94, 59)
 
 [node name="Marker2D2" type="Marker2D" parent="CreatureStorage" unique_id=1573405723]
 position = Vector2(-142, 107)
@@ -154,22 +160,45 @@ position = Vector2(1, -114)
 script = ExtResource("9_shh8f")
 metadata/_custom_type_script = "uid://bhbk3lhdhuvbw"
 
-[node name="ShipLeg" parent="." unique_id=545161084 node_paths=PackedStringArray("target", "bubble") instance=ExtResource("11_i8eyn")]
+[node name="FrontRightLeg" parent="." unique_id=545161084 node_paths=PackedStringArray("target", "bubble") instance=ExtResource("11_i8eyn")]
 z_index = 20
-position = Vector2(167, 134)
+position = Vector2(147, 134)
 target = NodePath("../CreatureStorage/Marker2D")
 bubble = NodePath("../CreatureStorage")
 top_segment_length = 170
 bottom_segment_length = 260
 
-[node name="ShipLeg2" parent="." unique_id=1729329387 node_paths=PackedStringArray("target", "bubble") instance=ExtResource("11_i8eyn")]
+[node name="FrontLeftLeg" parent="." unique_id=1729329387 node_paths=PackedStringArray("target", "bubble") instance=ExtResource("11_i8eyn")]
 z_index = 20
-position = Vector2(-167, 134)
+position = Vector2(-147, 134)
 target = NodePath("../CreatureStorage/Marker2D2")
 bubble = NodePath("../CreatureStorage")
 top_segment_length = 170
 bottom_segment_length = 260
 flipped = true
+
+[node name="BackRightLeg" parent="." unique_id=1817334097 node_paths=PackedStringArray("target", "bubble") instance=ExtResource("11_i8eyn")]
+modulate = Color(0.6, 0.6, 0.6, 1)
+z_index = -5
+position = Vector2(83.00001, 118)
+scale = Vector2(0.9, 0.9)
+target = NodePath("../CreatureStorage/Marker2D3")
+bubble = NodePath("../CreatureStorage")
+top_segment_length = 170
+bottom_segment_length = 260
+behind = true
+
+[node name="BackLeftLeg" parent="." unique_id=1772166957 node_paths=PackedStringArray("target", "bubble") instance=ExtResource("11_i8eyn")]
+modulate = Color(0.6, 0.6, 0.6, 1)
+z_index = -5
+position = Vector2(-83, 118)
+scale = Vector2(0.9, 0.9)
+target = NodePath("../CreatureStorage/Marker2D4")
+bubble = NodePath("../CreatureStorage")
+top_segment_length = 170
+bottom_segment_length = 260
+flipped = true
+behind = true
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
