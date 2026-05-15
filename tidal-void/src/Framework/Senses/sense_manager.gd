@@ -10,7 +10,6 @@ var VisionSources : Array[VisionSource]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	vision_timer = $VisionTimer
-	initialize_vision()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -65,13 +64,4 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int,exceptions :
 			if(out_vs != null):
 				out.append(out_vs)
 	return out
-	
-func initialize_vision():
-	#perform checks randomly every few frames to ensure vision is in order
-	if randf() < 0.02:
-		var root = get_tree().current_scene
-		for node : Node in root.get_children():
-			for node2 : Node in node.get_children():
-				if(node2 is TextureRect or node2 is Sprite2D):
-					node2.texture = load("res://assets/Textures/Placeholder/PLACEHOLDER_creature.png")
 				
