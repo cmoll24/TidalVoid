@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ojym1xpw04vj"]
 
 [ext_resource type="Script" uid="uid://nkq1kn87yqrw" path="res://src/Creatures/Friendly/leaper.gd" id="1_xu21f"]
-[ext_resource type="Texture2D" uid="uid://cidwwoyyvtfl2" path="res://assets/Textures/Placeholder/leaper.png" id="2_v6l51"]
+[ext_resource type="Texture2D" uid="uid://dhkurk0na3w14" path="res://assets/Textures/Creatures/leaper.png" id="2_v6l51"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="3_ikb0v"]
 [ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="4_72tiv"]
 
