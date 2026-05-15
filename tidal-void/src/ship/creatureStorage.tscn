@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cke2qtkpx6xc5"]
 
-[ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="1_fasdo"]
 [ext_resource type="Script" uid="uid://ct20noj6rvube" path="res://src/ship/creatureStorageScript.gd" id="1_ycuta"]
+[ext_resource type="Texture2D" uid="uid://eblsgw1mdgyi" path="res://assets/Textures/Ship/Ship_Bubble.png" id="2_ycuta"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycuta"]
 radius = 170.0
@@ -17,8 +17,9 @@ bubble_reflect_fraction = 0.9
 
 [node name="BubbleSprite" type="Sprite2D" parent="." unique_id=190645434]
 z_index = 6
+position = Vector2(0, -50)
 scale = Vector2(0.38, 0.38)
-texture = ExtResource("1_fasdo")
+texture = ExtResource("2_ycuta")
 
 [node name="BubbleCollider" type="CollisionShape2D" parent="." unique_id=1423001153]
 shape = SubResource("CircleShape2D_ycuta")

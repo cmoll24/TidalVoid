@@ -157,7 +157,7 @@ to go \"down\" thrust against your current velocity
 
 When touching a planet, press space to grab onto it
 
-Try touching down again"
+Try landing"
 
 [node name="InteractCrtls" parent="." unique_id=1177818164 instance=ExtResource("23_vmvvh")]
 offset_left = 595.0
