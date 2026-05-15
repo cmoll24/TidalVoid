@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bed3ebjxe4vsg" path="res://src/Creatures/Friendly/steven.gd" id="1_lnscu"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_tjqe6"]
-[ext_resource type="Texture2D" uid="uid://bokq6aj31pvto" path="res://assets/Textures/Placeholder/Jeremy.png" id="3_tjqe6"]
+[ext_resource type="Texture2D" uid="uid://cerg5f20oyl8m" path="res://assets/Textures/Creatures/magneticcreature.png" id="3_eyde7"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="4_tjqe6"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="5_eyde7"]
 [ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="6_j3n1s"]
@@ -53,13 +53,9 @@ scale_amount_curve = SubResource("Curve_5f2sf")
 color_ramp = SubResource("Gradient_5f2sf")
 script = ExtResource("2_tjqe6")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=998047140]
-offset_left = -17.0
-offset_top = -15.0
-offset_right = 83.0
-offset_bottom = 81.0
-scale = Vector2(0.333, 0.333)
-texture = ExtResource("3_tjqe6")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2066497890]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_eyde7")
 
 [node name="VisionSource" type="Node" parent="." unique_id=724016819]
 script = ExtResource("4_tjqe6")

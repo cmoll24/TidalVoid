@@ -110,9 +110,8 @@ antialiased = true
 
 [node name="Player" parent="." unique_id=1840910455 instance=ExtResource("2_gnnns")]
 visibility_layer = 3
-position = Vector2(-1646, 2978)
+position = Vector2(-1720, 2953)
 collision_layer = 14
-start_orbit_dir = false
 
 [node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor", "throw_predictor") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
