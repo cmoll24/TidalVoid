@@ -9,6 +9,7 @@
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Maps/sectors/sector.tscn" id="6_ybfy3"]
+[ext_resource type="PackedScene" uid="uid://bfi3ec4shhb07" path="res://src/Environment/Hazards/geyser.tscn" id="7_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 [ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/UI/upgrade_inventory_ui/inventory_item.tscn" id="11_6pfde"]
@@ -102,6 +103,10 @@ position = Vector2(2371, 1902)
 
 [node name="Planet4" parent="DuskSector" unique_id=583492956 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/planet4.tscn"]
 position = Vector2(531, 1882)
+
+[node name="Geyser" parent="DuskSector" unique_id=39023203 instance=ExtResource("7_bdxtq")]
+position = Vector2(2191, 2031)
+rotation = -2.1834068
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
 width = 3.0

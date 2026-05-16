@@ -5,3 +5,10 @@
 [node name="Planet" unique_id=519984572 instance=ExtResource("1_lnu6s")]
 mass = 22000.0
 collision_radius = 210.0
+
+[node name="TextureRect" parent="." index="2" unique_id=1904708707]
+offset_left = -210.0
+offset_top = -210.0
+offset_right = -110.0
+offset_bottom = -110.0
+scale = Vector2(4, 4)

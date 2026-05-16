@@ -9,6 +9,7 @@ class_name ShipLeg
 
 #The target location for the tip of the foot to be placed
 @export var target : Marker2D
+var last_target_pos : Vector2
 #The object that it is holding
 @export var bubble : Node2D
 
@@ -33,12 +34,19 @@ func _ready() -> void:
 		knee_cap.scale.x *= -1
 		knee_cap.z_index -= 1
 		modulate = Color(0.6, 0.6, 0.6)
+		
+	#save target location
+	last_target_pos = target.global_position
+	#solve initial
+	solve_inverse_kinematics()
 
 func _process(_delta: float) -> void:
 	if not target:
 		return
 	
-	solve_inverse_kinematics()
+	#Only update kinematics when the position changes to save performance
+	if(last_target_pos != target.global_position):
+		solve_inverse_kinematics()
 
 func solve_inverse_kinematics() -> void:
 	var l1 : float = top_segment_length

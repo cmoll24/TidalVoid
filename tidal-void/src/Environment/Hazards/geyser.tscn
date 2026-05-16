@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bfi3ec4shhb07"]
+
+[ext_resource type="Texture2D" uid="uid://bmxwicvtqk8a1" path="res://assets/Textures/Placeholder/PLACEHOLDER_Geyser.png" id="1_o32ki"]
+[ext_resource type="Script" uid="uid://xurivn2m4pfy" path="res://src/Environment/Hazards/geyser.gd" id="1_sakrw"]
+
+[sub_resource type="Gradient" id="Gradient_o32ki"]
+offsets = PackedFloat32Array(0.0038022813, 0.99239546)
+colors = PackedColorArray(0.8096, 0.83536005, 0.92, 1, 0.4836, 0.67132, 0.78, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o32ki"]
+size = Vector2(30, 550)
+
+[node name="Geyser" type="Node2D" unique_id=39023203]
+script = ExtResource("1_sakrw")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1763326724]
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 40.0
+texture = ExtResource("1_o32ki")
+
+[node name="GeyserParticles" type="CPUParticles2D" parent="." unique_id=1186377367]
+position = Vector2(-1, 13)
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(15, 5)
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 5.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 1000.0
+linear_accel_min = -400.0
+linear_accel_max = -399.0
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+color_ramp = SubResource("Gradient_o32ki")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1788757860]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=724036160]
+position = Vector2(0, -250)
+shape = SubResource("RectangleShape2D_o32ki")
+
+[node name="SprayTimer" type="Timer" parent="." unique_id=1958848569]
+wait_time = 3.0
+autostart = true
+
+[connection signal="body_entered" from="DamageArea" to="." method="on_body_collide"]

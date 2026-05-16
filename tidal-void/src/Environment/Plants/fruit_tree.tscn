@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3cw5nfd57o48"]
 
-[ext_resource type="Script" uid="uid://cho6a8c73cng4" path="res://src/Creatures/Plants/fruit_tree.gd" id="1_j5wqp"]
+[ext_resource type="Script" uid="uid://cho6a8c73cng4" path="res://src/Environment/Plants/fruit_tree.gd" id="1_j5wqp"]
 [ext_resource type="Material" uid="uid://c8q5qclnaug07" path="res://assets/Materials/M_plant_shake.tres" id="2_j5wqp"]
 [ext_resource type="Texture2D" uid="uid://7sgikgn673gx" path="res://assets/Textures/Placeholder/PLACEHOLDER_fruit_tree.png" id="2_kcd40"]
 
