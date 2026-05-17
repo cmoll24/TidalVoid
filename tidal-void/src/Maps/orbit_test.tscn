@@ -117,6 +117,7 @@ antialiased = true
 visibility_layer = 3
 position = Vector2(-1720, 2953)
 collision_layer = 14
+start_orbit_dir = false
 
 [node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor", "throw_predictor") instance=ExtResource("3_gen7d")]
 player = NodePath("../Player")
@@ -237,7 +238,9 @@ max_velocity = 400.0
 position = Vector2(4135, 2752)
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("14_i4pkw")]
-position = Vector2(-1359, 2696)
+position = Vector2(-1003, 2764)
+start_in_orbit = false
+start_orbit_dir = false
 
 [node name="InventoryItem2" parent="." unique_id=850590550 instance=ExtResource("11_6pfde")]
 position = Vector2(616, 1988)

@@ -18,7 +18,7 @@ class_name CreatureCarrier
 @export var bubble_push : float = 25
 
 ####fuel consumption per second of fuel usage(thrust)
-@export var fuel_consumption_per_second : float = 1;
+@export var fuel_consumption_per_second : float = 0;
 
 ### the max fuel that can be held at once
 @export var max_fuel : float = 100;

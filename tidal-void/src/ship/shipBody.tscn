@@ -35,8 +35,11 @@ fill_from = Vector2(0.5, 0.5)
 z_index = 2
 collision_mask = 7
 script = ExtResource("1_u2ul3")
+inside_ship_radius = null
 mass = 4000.0
 collision_radius = 65.0
+no_grav_radius = null
+negligible_threshold = null
 metadata/_custom_type_script = "uid://becxcr68kkbk8"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
@@ -130,7 +133,7 @@ scale = Vector2(1, -1)
 polygon = PackedVector2Array(-59.999977, -173.00002, -97, -154, -139, -118, -162, -40, -166, 76, -138, 116, -146, 50, -138, -69, -122, -116, -59.999977, -156.00002)
 
 [node name="CreatureStorage" parent="." unique_id=10157181 instance=ExtResource("5_1il6y")]
-position = Vector2(0, 440)
+position = Vector2(0, 280)
 
 [node name="Leaper" parent="CreatureStorage" unique_id=1314638072 instance=ExtResource("6_4jr7v")]
 position = Vector2(-22.420532, -32.44635)

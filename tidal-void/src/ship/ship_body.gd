@@ -9,7 +9,7 @@ extends Planet
 
 var player_in_ship : bool = false
 
-var bubble_close_pos_y : float = 240.0
+var bubble_close_pos_y : float = 280.0
 var bubble_far_pos_y : float = 440.0
 
 func _ready() -> void:
@@ -26,13 +26,12 @@ func _process(delta: float) -> void:
 	#We need this so that the area2d can collide with static bodies
 	player_detector.rotate(0) #rotate by nothing to trick it into thinking it is moving
 	
-	var target_bubble_pos_y : float
-	if player_in_ship:
-		target_bubble_pos_y = bubble_close_pos_y
-	else:
-		target_bubble_pos_y = bubble_far_pos_y
+func _physics_process(delta: float) -> void:
 	
-	storage_bubble.position.y = lerpf(storage_bubble.position.y, target_bubble_pos_y, 0.2 * delta)
+	if player_in_ship:
+		storage_bubble.set_target_position(Vector2(0, bubble_close_pos_y))
+	else:
+		storage_bubble.set_target_position(Vector2(0, bubble_far_pos_y))
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
