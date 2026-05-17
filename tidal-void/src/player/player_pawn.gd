@@ -1,6 +1,8 @@
 extends DriftBody
 class_name PlayerPawn
 
+static var pawn_types : Array = [typeof(Player), typeof(CreatureCarrier)]
+
 @onready var thrust_particles = $ThrustParticles
 
 #the direction of the playerPawn to the mouse
@@ -24,9 +26,11 @@ var b_dead : bool = false
 @export var death_pawn_path : String = "res://src/player/dead_player.tscn"
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+	
 
 func apply_save_state():
 	if GV.load_from_save_file:
@@ -96,4 +100,3 @@ func finish_death(new_player : PlayerPawn) -> void:
 	if(controller):
 		controller.possess_pawn(new_player,velocity)
 		queue_free()
-	

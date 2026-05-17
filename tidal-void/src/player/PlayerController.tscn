@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dbyb832bdnt1x" path="res://src/player/player_controller.gd" id="1_drilq"]
 [ext_resource type="Script" uid="uid://dx800fg7pgkn7" path="res://src/player/camera_2d.gd" id="2_t7ix8"]
 [ext_resource type="PackedScene" uid="uid://d18tatnwudnjj" path="res://src/Background/star_background.tscn" id="3_leg1u"]
+[ext_resource type="PackedScene" uid="uid://bsia07xhquj2g" path="res://src/player/toolbar.tscn" id="4_uwpdg"]
 
 [node name="PlayerController" type="Node" unique_id=1484923074]
 script = ExtResource("1_drilq")
@@ -12,3 +13,5 @@ limit_enabled = false
 script = ExtResource("2_t7ix8")
 
 [node name="StarBackground" parent="Camera2D" unique_id=1292664541 instance=ExtResource("3_leg1u")]
+
+[node name="Toolbar" parent="." unique_id=1133064093 instance=ExtResource("4_uwpdg")]

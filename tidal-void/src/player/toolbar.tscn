@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bsia07xhquj2g"]
+
+[ext_resource type="Script" uid="uid://3wyal18apx7t" path="res://src/player/toolbar.gd" id="1_nv8t7"]
+
+[node name="Toolbar" type="CanvasLayer" unique_id=1818713995]
+script = ExtResource("1_nv8t7")

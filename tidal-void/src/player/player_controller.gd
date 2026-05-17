@@ -7,11 +7,15 @@ extends Node
 
 @onready var camera : ZoomCamera = $Camera2D
 
+@onready var toolbar : Toolbar = $Toolbar
+
 @export var throw_predictor : TrajectoryPredictor
 
 var reverse_thrust = false
 
 var controller_mode = false
+
+
 
 func _ready() -> void:
 	if(player):
@@ -67,9 +71,10 @@ func _process(_delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("propulsion"):
-		player.propulsion_ability()
-	elif event.is_action_pressed("Use"):
+	for i in toolbar.abilities_slot_max:
+		if event.is_action_pressed("toolbar_slot_" + str(i + 1)):
+			toolbar.call_ability(i, player)
+	if event.is_action_pressed("Use"):
 		player.action_use(true)
 	elif event.is_action_released("Use"):
 		player.action_use(false)
