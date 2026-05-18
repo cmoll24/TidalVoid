@@ -99,4 +99,6 @@ func die() -> void:
 func finish_death(new_player : PlayerPawn) -> void:
 	if(controller):
 		controller.possess_pawn(new_player,velocity)
+		for zone in get_tree().get_nodes_in_group("safe_zone"):
+			zone.reset_timer()
 		queue_free()

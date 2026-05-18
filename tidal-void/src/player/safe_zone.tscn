@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://chi25ugks646"]
+
+[ext_resource type="Script" uid="uid://68j7uvhkc23i" path="res://src/player/safe_zone.gd" id="1_1ex16"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_llxcy"]
+
+[node name="SafeZone" type="Area2D" unique_id=169785894 groups=["safe_zone"]]
+collision_mask = 2
+script = ExtResource("1_1ex16")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355272366]
+scale = Vector2(100, 100)
+shape = SubResource("CircleShape2D_llxcy")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=609206978]
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=40704978]
+visible = false
+offset_left = -1412.0
+offset_top = 758.0
+offset_right = -1335.0
+offset_bottom = 781.0
