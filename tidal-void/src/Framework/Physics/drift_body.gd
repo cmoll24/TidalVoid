@@ -339,6 +339,7 @@ func save():
 	var node_data : Dictionary = {"path" : scene_file_path,
 		"pos_x" : global_position.x,
 		"pos_y" : global_position.y,
+		'rot' : global_rotation,
 		"dynamic_save" : true,
 		"velo_x" : velocity.x,
 		"velo_y" : velocity.y,}

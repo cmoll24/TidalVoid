@@ -127,6 +127,7 @@ func load_sector():
 		# First, we need to create the object and add it to the tree and set its position.
 		var new_object : Node2D = load(node_data["path"]).instantiate()
 		new_object.global_position = Vector2(node_data["pos_x"], node_data["pos_y"])
+		new_object.global_rotation = node_data["rot"]
 		if(node_data["dynamic_save"]):
 			#if dynamic, add it to the scene root
 			get_tree().root.add_child(new_object)
@@ -157,6 +158,7 @@ func save_and_unload_node(node :Node,save_file,b_dynamic_save : bool):
 		node_data = {"path" : node.scene_file_path,
 		"pos_x" : node.global_position.x,
 		"pos_y" : node.global_position.y,
+		"rot" : node.global_rotation,
 		"dynamic_save" : b_dynamic_save}
 	#run the unload function if it has one
 	if(node.has_method('unload')):
