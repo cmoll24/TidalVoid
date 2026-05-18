@@ -54,7 +54,6 @@ func _on_creature_detector_body_entered(body: Node2D) -> void:
 			stored_creatures[creature_type] += 1
 		else:
 			stored_creatures[creature_type] = 1
-	print(stored_creatures)
 
 func _on_creature_detector_body_exited(body: Node2D) -> void:
 	if body is Creature:
@@ -64,4 +63,3 @@ func _on_creature_detector_body_exited(body: Node2D) -> void:
 				stored_creatures[creature_type] -= 1
 			else:
 				stored_creatures.erase(creature_type)
-	print(stored_creatures)
