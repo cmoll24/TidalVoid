@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://cc2fk6i6auegu" path="res://src/Maps/planets/WaterPlanet.tscn" id="26_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="27_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://d3lmvfi52a6nk" path="res://src/Maps/other/ShroudComposite.tscn" id="27_vkjj7"]
+[ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="27_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="28_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://d051l38xqv0gc" path="res://src/Maps/planets/LivingPlanet.tscn" id="28_ybfy3"]
 
@@ -277,5 +278,9 @@ position = Vector2(3785, -1175)
 
 [node name="ShroudComposite" parent="." unique_id=445053664 instance=ExtResource("27_vkjj7")]
 position = Vector2(4816, 3378)
+
+[node name="SafeZone" parent="." unique_id=1740084655 instance=ExtResource("27_ybfy3")]
+position = Vector2(2042, 1895)
+scale = Vector2(5.1564255, 4.5359344)
 
 [editable path="DuskSector"]
