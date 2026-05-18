@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dme5g28pceimf"]
 
-[ext_resource type="Script" uid="uid://bspliey5vs6m3" path="res://src/UI/upgrade_inventory_ui/upgrade_store_slot.gd" id="1_bitoj"]
+[ext_resource type="Script" uid="uid://bspliey5vs6m3" path="res://src/UI/upgrade_ui/upgrade_store_slot.gd" id="1_bitoj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0b4a"]
 bg_color = Color(0.20594689, 0.33536026, 0.5653843, 0.62352943)

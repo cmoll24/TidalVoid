@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://53j63lxbyw8u"]
+
+[ext_resource type="Script" uid="uid://fm88ixk5onf3" path="res://src/UI/inventory_ui/inventory_panel.gd" id="1_010x1"]
+
+[node name="InventoryPanel" type="Control" unique_id=717505958]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_010x1")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=650414283]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=709222292]
+layout_mode = 2
+theme_override_constants/h_separation = 75
+theme_override_constants/v_separation = 40
+columns = 10

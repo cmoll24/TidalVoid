@@ -9,9 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://pabhecqvmavd" path="res://src/Maps/Tutorial/TUTORIAL_player_controller.tscn" id="7_5sgeg"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="8_1hkq3"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="9_5lqq8"]
-[ext_resource type="PackedScene" uid="uid://wrhgmm5ucxlb" path="res://src/UI/upgrade_inventory_ui/PauseMenu.tscn" id="10_gjbfc"]
-[ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="11_klnr0"]
-[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/upgrade_inventory_ui/inventory.tscn" id="12_qpb1a"]
+[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="12_qpb1a"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="13_24how"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="14_r1w2l"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="20_bb73p"]
@@ -254,16 +252,8 @@ position = Vector2(3780, 2351)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
 
-[node name="PauseMenu" parent="CanvasLayer" unique_id=45118600 instance=ExtResource("10_gjbfc")]
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1178399043 instance=ExtResource("12_qpb1a")]
 visible = false
-
-[node name="StarNoiseTinnyBackground4" type="Sprite2D" parent="CanvasLayer/PauseMenu" unique_id=1406567271]
-position = Vector2(959, 538.5)
-scale = Vector2(1.8730469, 1.0517577)
-texture = ExtResource("11_klnr0")
-
-[node name="Inventory" parent="CanvasLayer/PauseMenu" unique_id=263900093 instance=ExtResource("12_qpb1a")]
-layout_mode = 1
 
 [node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
 offset_right = 40.0

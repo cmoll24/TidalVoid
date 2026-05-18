@@ -3,7 +3,7 @@ extends Node
 
 var player_health = 100
 var player_node: PlayerPawn = null
-@onready var inventory_slot_scene = preload("res://src/UI/upgrade_inventory_ui/inventory_slot.tscn")
+@onready var inventory_slot_scene = preload("res://src/UI/inventory_ui/inventory_slot.tscn")
 
 const SAVE_PATH = "user://save.json"
 
@@ -20,7 +20,7 @@ var save_data: Dictionary = {
 }
 
 # where our inventory item goes
-var inventory = []
+var player_inventory: PlayerInventory = null
 signal inventory_update
 
 # Defines the dictionary for creature for journal
@@ -99,63 +99,34 @@ var creature_button_dict = {
 	}
 }
 
-func _process(_delta):
-	pass
-
 func _ready():
-	# our default size of inventory is 20
-	inventory.resize(20)
+	#Create player inventory instance
+	player_inventory = PlayerInventory.new()
+	add_child(player_inventory)
+	
+	# onnect inventory signal to global signal
+	player_inventory.inventory_changed.connect(_on_inventory_changed)
 	
 	load_from_save_file = load_game()
 
-func add_item(items):
-	for i in range(inventory.size()):
-		#if item exit in inventory AND it matches the name and effect type
-		if inventory[i] != null and inventory[i]["item_name"] == items["item_name"] and inventory[i]["item_effect"] == items["item_effect"]:
-			#updates the quantity
-			inventory[i]["quantity"] += items["quantity"]
-			inventory_update.emit()
-			return true
-		#if item does not exist, then we make a new one
-		elif inventory[i] == null:
-			inventory[i] = items
-			inventory_update.emit()
-			return true
+func _on_inventory_changed() -> void:
+	inventory_update.emit()
+
+func add_item(items) -> bool:
+	return player_inventory.add_item(items)
 	
-func remove_item(target_item):
-	# goes thru items 0 - 19
-	for i in range(inventory.size()):
-		# find the matching item
-		if inventory[i] == target_item:
-			# subtract quantity by 1
-			inventory[i]["quantity"] -= 1
-			# if less than 0, then null it
-			if inventory[i]["quantity"] <= 0:
-				inventory[i] = null
-			# updates inventory after
-			inventory_update.emit()
-			return
-	
+func remove_item(target_item) -> void:
+	player_inventory.remove_item(target_item)
+			
 func player_reference(player : PlayerPawn):
 	player_node = player
 	
 func has_item(item_name: String, quantity: int) -> bool:
-	for i in range(inventory.size()):
-		if inventory[i] != null and inventory[i]["item_name"] == item_name:
-			return inventory[i]["quantity"] >= quantity
-	return false
+	return player_inventory.has_item(item_name, quantity)
+	
+func get_inventory() -> Array:
+	return player_inventory.get_items()
 
-func remove_item_by_name(item_name: String, quantity: int):
-	for i in range(inventory.size()):
-		if inventory[i] != null and inventory[i]["item_name"] == item_name:
-			inventory[i]["quantity"] -= quantity
-			if inventory[i]["quantity"] <= 0:
-				inventory[i] = null
-			inventory_update.emit()
-			return
-
-
-## SAVE LOGIC
 
 func save_game() -> void:
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)

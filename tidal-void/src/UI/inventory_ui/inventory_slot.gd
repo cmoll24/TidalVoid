@@ -19,8 +19,8 @@ func _on_item_button_mouse_entered() -> void:
 func _on_item_button_mouse_exited() -> void:
 	#hide the detail panel
 	detail.visible = false
-
-
+	
+	
 func _on_item_button_pressed() -> void:
 	#turn on and off the use or drop panel
 	if item != null:

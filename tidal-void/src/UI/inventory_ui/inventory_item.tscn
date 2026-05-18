@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b7xfx826u4njb"]
 
-[ext_resource type="Script" uid="uid://nghglfygt4k2" path="res://src/UI/upgrade_inventory_ui/inventory_item.gd" id="1_0074f"]
+[ext_resource type="Script" uid="uid://nghglfygt4k2" path="res://src/UI/inventory_ui/inventory_item.gd" id="1_0074f"]
 [ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="2_itdu0"]
-[ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/UI/upgrade_inventory_ui/health_increase_effect.gd" id="3_v8ml3"]
+[ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/upgrades_effects/effects/health_increase_effect.gd" id="3_v8ml3"]
 
 [sub_resource type="Resource" id="Resource_gkepk"]
 script = ExtResource("3_v8ml3")
