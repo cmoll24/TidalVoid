@@ -9,9 +9,15 @@ var target_position : Vector2 = Vector2.ZERO
 
 var move_velocity : Vector2 = Vector2.ZERO
 
+##The creature list is a dictionary where 
+##             the key is they type of creature
+##             and the value is the number of creatures
+var stored_creatures : Dictionary[Creature.crafting_type, int]
+
 func _ready() -> void:
 	super._ready()
 	target_position = position
+	
 
 func set_target_position(new_target : Vector2):
 	target_position = new_target
@@ -39,8 +45,23 @@ func _physics_process(delta: float) -> void:
 	global_position += move_velocity * delta
 	
 	#Determine velocity for creatures in bubble
-	velocity = abs(move_velocity)
-	
-	
-	
-	
+	velocity = Vector2.ZERO
+
+func _on_creature_detector_body_entered(body: Node2D) -> void:
+	if body is Creature:
+		var creature_type : Creature.crafting_type = body.creature_type
+		if stored_creatures.has(creature_type):
+			stored_creatures[creature_type] += 1
+		else:
+			stored_creatures[creature_type] = 1
+	print(stored_creatures)
+
+func _on_creature_detector_body_exited(body: Node2D) -> void:
+	if body is Creature:
+		var creature_type : Creature.crafting_type = body.creature_type
+		if stored_creatures.has(creature_type):
+			if stored_creatures[creature_type] > 1:
+				stored_creatures[creature_type] -= 1
+			else:
+				stored_creatures.erase(creature_type)
+	print(stored_creatures)

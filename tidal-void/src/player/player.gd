@@ -219,7 +219,7 @@ func action_use(pressed : bool)  -> void:
 			if(result.collider is PlayerPawn):
 				# if we hit a player pawn, swtich to it
 				controller.possess_pawn(result.collider, velocity)
-			elif(result.collider is Creature and result.collider.creature_size == Creature.creature_size_type.small):
+			elif(result.collider is Creature and result.collider.creature_size == Creature.size_type.small):
 				# if we hit a small creature, hold it
 				held_creature = result.collider
 				held_creature.stun_time = hold_stun_time

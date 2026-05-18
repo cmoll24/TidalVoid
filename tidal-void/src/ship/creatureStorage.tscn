@@ -6,6 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ycuta"]
 radius = 170.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_awjh7"]
+radius = 146.05478
+
 [node name="CreatureStorage" type="StaticBody2D" unique_id=10157181]
 collision_layer = 8
 collision_mask = 0
@@ -23,3 +26,13 @@ texture = ExtResource("2_ycuta")
 
 [node name="BubbleCollider" type="CollisionShape2D" parent="." unique_id=1423001153]
 shape = SubResource("CircleShape2D_ycuta")
+
+[node name="CreatureDetector" type="Area2D" parent="." unique_id=29836113]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CreatureDetector" unique_id=2056176850]
+shape = SubResource("CircleShape2D_awjh7")
+
+[connection signal="body_entered" from="CreatureDetector" to="." method="_on_creature_detector_body_entered"]
+[connection signal="body_exited" from="CreatureDetector" to="." method="_on_creature_detector_body_exited"]
