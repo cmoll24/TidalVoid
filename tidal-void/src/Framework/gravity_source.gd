@@ -18,6 +18,7 @@ var pull_radius : float = 600.0
 
 @export var negligible_threshold: float = 10.0
 
+### make sure to update velocity here if you make a moving grav source
 var velocity : Vector2 = Vector2.ZERO
 
 var game_manager : GameManager

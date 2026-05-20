@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://68j7uvhkc23i" path="res://src/player/safe_zone.gd" id="1_1ex16"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_llxcy"]
+radius = 38.80008
 
-[node name="SafeZone" type="Area2D" unique_id=169785894 groups=["safe_zone"]]
-collision_mask = 2
+[node name="SafeZone" type="Node2D" unique_id=1777228472 groups=["safe_zone"]]
 script = ExtResource("1_1ex16")
+max_time = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355272366]
+position = Vector2(2237, 2187)
 scale = Vector2(100, 100)
 shape = SubResource("CircleShape2D_llxcy")
 

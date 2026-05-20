@@ -1,4 +1,5 @@
-extends Area2D
+extends Node2D
+class_name SafeZone
 
 @export var max_time : float = 10.0
 @export var refill_speed : float = 1.0
@@ -7,17 +8,31 @@ extends Area2D
 var current_time : float
 var player_inside : bool = false
 var player_dead : bool = false
+var collision_radius_sqr : float = 0
 
 @onready var darkness : CanvasModulate = $CanvasModulate
 @onready var debug_label : Label = $Label
 
+@onready var collision_shape : CollisionShape2D = $CollisionShape2D
+
+
 func _ready():
 	current_time = max_time
 	darkness.color = Color(0.2,0.2,0.2)
-	area_entered.connect(_on_area_entered)
-	area_exited.connect(_on_area_exited)
+	#set the collision radius
+	collision_radius_sqr = collision_shape.shape.radius**2
 
 func _physics_process(delta):
+	#check if the player is in bounds:
+	if GV.player_node:
+		var diff : Vector2 = GV.player_node.global_position - collision_shape.global_position
+		diff /= collision_shape.global_scale
+		if(diff.length_squared() < collision_radius_sqr):
+			player_inside = true
+		else:
+			player_inside = false
+	else:
+		player_inside = true
 	debug_label.text = str(snapped(current_time, 0.01))
 	# Once timer hits zero, never refill again
 	if !player_dead:
@@ -57,16 +72,6 @@ func kill_player() -> void:
 	
 	if GV.player_node:
 		GV.player_node.die()
-
-func _on_area_entered(area):
-
-	if area.get_parent() is Player:
-		player_inside = true
-
-func _on_area_exited(area):
-
-	if area.get_parent() is Player:
-		player_inside = false
 		
 func reset_timer():
 	current_time = max_time

@@ -23,6 +23,12 @@ var load_area_pos : Vector2
 
 var loaded : bool = false
 
+### built at runtime, format:
+### pos :Vector2
+### path : String = to scene to instantiate
+### curr_obj : Node = a reference to the currently spawned object if there is one
+var spawn_points : Array[Dictionary] = []
+
 var game_manager : GameManager
 
 var loaded_before : bool = false
@@ -83,10 +89,24 @@ func load_sector():
 	
 	#first load if applicable
 	if(!loaded_before):
-		#on first load, unpack the instance placeholders
+		#on first load, unpack the instance placeholders and build the spawn points
 		for node in get_children():
 			if(node is InstancePlaceholder):
 				node.create_instance(true)
+			
+			if(node is Spawner):
+				#spawn the object on load and save the spawn point
+				var new_object : Node2D = load(node.spawn_path).instantiate()
+				new_object.global_position = node.global_position
+				get_tree().root.add_child(new_object)
+				var spawn_point : Dictionary = {
+					pos = node.global_position,
+					path = node.spawn_path,
+					curr_obj = new_object
+					}
+				spawn_points.append(spawn_point)
+				#Delete the node now that the data is extracted from it
+				node.queue_free()
 	
 	if not FileAccess.file_exists(SAVE_PATH):
 		if(loaded_before):

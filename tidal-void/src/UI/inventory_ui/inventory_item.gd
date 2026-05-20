@@ -42,5 +42,4 @@ func pick_up_item():
 		
 func _on_body_entered_inventory(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		print("player spotted")
 		pick_up_item()

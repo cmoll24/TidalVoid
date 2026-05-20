@@ -41,6 +41,11 @@ func register_streaming_source(new_source: Node2D) -> void:
 func unregister_streaming_source(source: Node2D) -> void:
 	streaming_sources.erase(source)
 	
+	
+#returns the current total playtime in seconds
+func get_elapsed_seconds() -> float:
+	return GV.save_data["play_time"] + (Time.get_ticks_msec() / 1000)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _process(_delta: float) -> void:

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
-[ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Maps/sectors/sector.tscn" id="6_ybfy3"]
+[ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="6_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://bfi3ec4shhb07" path="res://src/Environment/Hazards/geyser.tscn" id="7_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
@@ -202,13 +202,6 @@ horizontal_alignment = 2
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
 position = Vector2(428, 1982)
-
-[node name="DeubgStevenPredictor" parent="." unique_id=919742584 node_paths=PackedStringArray("line", "player") instance=ExtResource("4_je76y")]
-line = NodePath("../Line2D2")
-steps = 100
-fake_steps = 2.0
-step_dist = 10.0
-player = NodePath("../Steven")
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
 visible = false

@@ -13,9 +13,9 @@ radius = 146.05478
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_ycuta")
-inner_radius = 153.0
-outer_radius = 170.0
-min_bounce_strength = 10.0
+inner_radius = 165.0
+outer_radius = 175.0
+min_bounce_strength = 5.0
 bubble_reflect_fraction = 0.9
 
 [node name="BubbleSprite" type="Sprite2D" parent="." unique_id=190645434]

@@ -11,6 +11,7 @@ visibility_layer = 2
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_6f7qm")
+b_has_trajectory_predictor = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884730571]
 shape = SubResource("RectangleShape2D_8g1sw")
