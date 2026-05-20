@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="3_gen7d"]
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_lm5jn"]
+[ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
@@ -63,6 +64,8 @@ collide_with_areas = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
 color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+
+[node name="WorldManager" parent="GameManager" unique_id=1564910993 instance=ExtResource("4_bdxtq")]
 
 [node name="StaticBackground" type="CanvasLayer" parent="." unique_id=891405338]
 layer = -1

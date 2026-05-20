@@ -27,6 +27,7 @@ var loaded : bool = false
 ### pos :Vector2
 ### path : String = to scene to instantiate
 ### curr_obj : Node = a reference to the currently spawned object if there is one
+### respwn_on_ld : bool = true if this needs to be respawned
 var spawn_points : Array[Dictionary] = []
 
 var game_manager : GameManager
@@ -102,11 +103,24 @@ func load_sector():
 				var spawn_point : Dictionary = {
 					pos = node.global_position,
 					path = node.spawn_path,
-					curr_obj = new_object
+					curr_obj = new_object,
+					respwn_on_ld = false
 					}
 				spawn_points.append(spawn_point)
 				#Delete the node now that the data is extracted from it
 				node.queue_free()
+				
+	#respawn anything if applicable
+	
+	if(loaded_before):
+		for spawn_point : Dictionary in spawn_points:
+			#if the spawn point is marked to be respawned on load, and it has nothing spawned, respawn it
+			if(spawn_point['respwn_on_ld'] && !spawn_point['curr_obj']):
+				spawn_point['respwn_on_ld'] = false
+				var new_object : Node2D = load(spawn_point['path']).instantiate()
+				new_object.global_position = spawn_point['pos']
+				get_tree().root.add_child(new_object)
+				spawn_point['curr_obj'] = new_object
 	
 	if not FileAccess.file_exists(SAVE_PATH):
 		if(loaded_before):
