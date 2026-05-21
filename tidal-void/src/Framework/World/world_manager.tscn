@@ -9,6 +9,7 @@ script = ExtResource("1_n17mw")
 metadata/_custom_type_script = "uid://c04lb5rk5lyji"
 
 [node name="MinorMeteorShowerParticles" type="GPUParticles2D" parent="." unique_id=1290728194]
+z_index = 1
 emitting = false
 amount = 10
 texture = ExtResource("1_f6hth")
@@ -20,9 +21,9 @@ visibility_rect = Rect2(0, -540, 1920, 1080)
 process_material = ExtResource("2_n17mw")
 
 [node name="MajorMeteorShowerParticles" type="GPUParticles2D" parent="." unique_id=2064675048]
-z_index = 10
+z_index = 40
 emitting = false
-amount = 120
+amount = 200
 texture = ExtResource("1_f6hth")
 lifetime = 3.5
 one_shot = true
