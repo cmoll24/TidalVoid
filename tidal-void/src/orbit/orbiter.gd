@@ -8,12 +8,12 @@ var velocity : Vector2 = Vector2.ZERO
 @export var b_has_trajectory_predictor : bool = true
 @export var b_simulate_gravity : bool = true
 #the amount to sink into a gravity source before stopping, must be less than the collision radius
-@export var f_grounded_sink_amount : float = 5
-var grounded_radius_sqr : float
+@export var f_grounded_sink_amount : float = 1
+var grounded_radius : float
 
 @onready var on_screen_notifier : VisibleOnScreenNotifier2D  = $VisibleOnScreenNotifier2D
 
-@onready var collision_shape : Shape2D = $CollisionShape2D.shape
+@onready var collision_shape : CollisionShape2D = $CollisionShape2D
 
 func _enter_tree():
 	#ensure orbiters are in the dynamic save group
@@ -24,8 +24,7 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
 	call_deferred("after_ready");
 	#initialize values
-	grounded_radius_sqr = ((collision_shape.get_rect().size.x/2)-f_grounded_sink_amount)**2
-
+	grounded_radius = ((collision_shape.shape.get_rect().size.x/2)-f_grounded_sink_amount)
 func after_ready() -> void:
 	if(b_start_in_orbit):
 		velocity = GameManager.orbital_velocity(get_dominant_body(), global_position)
@@ -64,6 +63,8 @@ func get_dominant_body() -> GravitySource:
 	return dominant_body
 
 func _physics_process(delta: float) -> void:
+	#mitigate static bodies by fake rotation
+	rotate(0)
 	#only go forward is we are simulating gravity right now
 	if(!b_simulate_gravity):
 		return
@@ -74,12 +75,12 @@ func _physics_process(delta: float) -> void:
 		#get the gravity
 		total_gravity += body.get_gravity_pull(global_position)
 		#check for grounding
-		var dist_sqr : float =  global_position.distance_squared_to(body.global_position)
-		if(dist_sqr < body.collision_radius**2 + grounded_radius_sqr):
+		var dist_sqr : float = global_position.distance_squared_to(body.global_position)
+		if(dist_sqr <= (body.collision_radius + grounded_radius)**2 ):
 			#stop physics so the orbiter can be fully grounded on the planet
 			b_simulate_gravity = false
 			#add as child to ensure that the orbiter will follow a moving gravity source
-			body.add_child(self)
+			reparent(body)
 			return
 					
 			

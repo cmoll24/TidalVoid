@@ -9,7 +9,7 @@ var parent : Node2D
 
 var sprite_scale : float = 0
 
-var on_interacted : Signal
+signal on_interacted()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	parent = get_parent();

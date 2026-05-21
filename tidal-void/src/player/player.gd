@@ -208,7 +208,9 @@ func action_use(pressed : bool)  -> void:
 		var end : Vector2 = start + (dir*dist)
 		
 		
-		var query = PhysicsRayQueryParameters2D.create(start, end,2,[self.get_rid()])
+		var query = PhysicsRayQueryParameters2D.create(start, end,7,[self.get_rid()])
+		
+		query.hit_from_inside = true
 
 		var result = space_state.intersect_ray(query)
 		
@@ -216,6 +218,7 @@ func action_use(pressed : bool)  -> void:
 			var source : InteractSource = result.collider.get_node_or_null("InteractSource")
 			if(source):
 				source.interact()
+			#Special cases only apply to code that must execute in player, for other purposes, connect code to the source's interact signal to avoid bloating player.gd
 			if(result.collider is PlayerPawn):
 				# if we hit a player pawn, swtich to it
 				controller.possess_pawn(result.collider, velocity)
@@ -227,9 +230,6 @@ func action_use(pressed : bool)  -> void:
 				
 				held_creature.b_prediction_velo_is_real = false
 				throw_trajectory.set_target(held_creature)
-			elif(result.collider is ShipTerminal):
-				var terminal : ShipTerminal = result.collider
-				terminal.on_player_interact(self)
 	else:
 		if(held_creature and held_creature.stun_time > 0):
 			## if holding a stunned creature, attempt a throw

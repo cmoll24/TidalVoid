@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
+[ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="5_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="6_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://bfi3ec4shhb07" path="res://src/Environment/Hazards/geyser.tscn" id="7_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
@@ -65,22 +66,8 @@ collide_with_areas = true
 [node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
 color = Color(0.49803922, 0.49803922, 0.49803922, 1)
 
-[node name="WorldManager" parent="GameManager" unique_id=1564910993 instance=ExtResource("4_bdxtq")]
-
-[node name="StaticBackground" type="CanvasLayer" parent="." unique_id=891405338]
-layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1790725163]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.011764706, 0.03529412, 0.050980393, 1)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1815654548]
-environment = ExtResource("10_v2br0")
-camera_attributes = ExtResource("4_lm5jn")
+[node name="WorldManager" parent="GameManager" unique_id=1564910993 node_paths=PackedStringArray("sectors") instance=ExtResource("4_bdxtq")]
+sectors = [NodePath("../../DuskSector")]
 
 [node name="DuskSector" parent="." unique_id=1361397144 instance=ExtResource("6_ybfy3")]
 
@@ -109,6 +96,39 @@ position = Vector2(531, 1882)
 [node name="Geyser" parent="DuskSector" unique_id=39023203 instance=ExtResource("7_bdxtq")]
 position = Vector2(2191, 2031)
 rotation = -2.1834068
+
+[node name="Copper_Ore_1" parent="DuskSector" unique_id=1364662829 instance=ExtResource("5_vkjj7")]
+position = Vector2(2378, 2106)
+
+[node name="Copper_Ore_2" parent="DuskSector" unique_id=495762846 instance=ExtResource("5_vkjj7")]
+position = Vector2(913, 3858)
+
+[node name="Copper_Ore_3" parent="DuskSector" unique_id=100817271 instance=ExtResource("5_vkjj7")]
+position = Vector2(3987, 3225)
+
+[node name="Copper_Ore_4" parent="DuskSector" unique_id=890249804 instance=ExtResource("5_vkjj7")]
+position = Vector2(1361, 4100)
+
+[node name="Copper_Ore_5" parent="DuskSector" unique_id=1262114419 instance=ExtResource("5_vkjj7")]
+position = Vector2(-803, 3041)
+
+[node name="Copper_Ore_6" parent="DuskSector" unique_id=162616924 instance=ExtResource("5_vkjj7")]
+position = Vector2(325, 1901)
+
+[node name="StaticBackground" type="CanvasLayer" parent="." unique_id=891405338]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1790725163]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.011764706, 0.03529412, 0.050980393, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1815654548]
+environment = ExtResource("10_v2br0")
+camera_attributes = ExtResource("4_lm5jn")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=203975512]
 width = 3.0

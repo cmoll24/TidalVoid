@@ -5,16 +5,16 @@ class_name WorldManager
 @export var sectors : Array[Sector]
 
 #minimum time between meteor showers
-@export var min_meteor_shower_time : float = 10
+@export var min_meteor_shower_time : float = 35
 
 #maximum time between meteor showers
-@export var max_meteor_shower_time : float = 20
+@export var max_meteor_shower_time : float = 70
 
 #the time between the "start" of the meteor shower and when meteors start actually hitting, gives the player some warning time
 @export var meteor_shower_warning_time : float = 8
 
 #How long the meteor shower lasts(programmatically, when the things actually get respawned), the particle effect should be longer than this duration
-@export var meteor_shower_duration : float = 1
+@export var meteor_shower_duration : float = 2
 
 #broadcasts when a meteor shower starts, example usage: giving the player an early warning to get to cover
 signal on_meteor_shower_start()

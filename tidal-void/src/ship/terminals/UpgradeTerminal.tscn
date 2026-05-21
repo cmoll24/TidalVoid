@@ -9,9 +9,19 @@
 size = Vector2(50, 50)
 
 [node name="UpgradeTerminal" type="StaticBody2D" unique_id=872525405]
-collision_layer = 3
-collision_mask = 2
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_e506m")
+
+[node name="InteractSource" type="Node2D" parent="." unique_id=1308717196]
+script = ExtResource("3_28xrl")
+metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1600675435]
+z_index = 1
+position = Vector2(0, -18)
+scale = Vector2(0.24218756, 0.24218756)
+texture = ExtResource("4_smb0p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=513004922]
 shape = SubResource("RectangleShape2D_b25x5")
@@ -19,15 +29,6 @@ shape = SubResource("RectangleShape2D_b25x5")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1032709815]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_pw427")
-
-[node name="InteractSource" type="Node2D" parent="." unique_id=1308717196]
-script = ExtResource("3_28xrl")
-metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
-
-[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1600675435]
-position = Vector2(0, -18)
-scale = Vector2(0.24218756, 0.24218756)
-texture = ExtResource("4_smb0p")
 
 [node name="PlayerDetector" type="Area2D" parent="." unique_id=768541087]
 collision_layer = 0

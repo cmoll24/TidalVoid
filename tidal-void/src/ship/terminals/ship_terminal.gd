@@ -5,11 +5,16 @@ class_name ShipTerminal
 
 @onready var player_detector = $PlayerDetector
 
-func on_player_interact(player : Player) -> void:
-	pass
+@onready var interact_source : InteractSource= $InteractSource
+
+func _ready() -> void:
+	interact_source.on_interacted.connect(on_player_interact)
+
+func on_player_interact() -> void:
+	print("terminal interacted with")
 	
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	player_detector.rotate(0)
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
