@@ -98,7 +98,7 @@ position = Vector2(2191, 2031)
 rotation = -2.1834068
 
 [node name="Copper_Ore_1" parent="DuskSector" unique_id=1364662829 instance=ExtResource("5_vkjj7")]
-position = Vector2(2378, 2106)
+position = Vector2(2398, 2106)
 
 [node name="Copper_Ore_2" parent="DuskSector" unique_id=495762846 instance=ExtResource("5_vkjj7")]
 position = Vector2(913, 3858)

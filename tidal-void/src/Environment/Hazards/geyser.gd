@@ -1,6 +1,9 @@
 extends Node2D
 class_name Geyser
 
+#heat damage to deal to colliding object(celsius)
+@export var geyser_heat = 100
+
 @onready var spray_timer : Timer = $SprayTimer
 
 @onready var damage_area : Area2D = $DamageArea 
@@ -30,5 +33,8 @@ func _physics_process(delta: float) -> void:
 		damage_area.rotate(0)
 		
 func on_body_collide(body : Node2D):
-	if(body.has_method('die')):
-		body.die()
+	#get the health component if there is one
+	var hc : HealthComponent = body.get_node_or_null("HealthComponent")
+	if(hc):
+		#if we have a valid health component, deal heat damage
+		hc.take_damage(geyser_heat,HealthComponent.e_dmg_types.heat,self)
