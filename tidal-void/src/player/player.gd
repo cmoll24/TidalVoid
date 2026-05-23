@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 			held_creature.prediction_velocity = get_throw_velocity(held_creature)
 
 func player_movement(delta : float) -> void:
-	if b_is_grounded && walking_on_ground:
+	if b_is_grounded && grounded_body && walking_on_ground:
 		#Exit Condition
 		if(velocity.dot(grounded_normal) < -1):
 			walking_on_ground = false
@@ -317,7 +317,10 @@ func stop_possess(player_controller : PlayerController) -> void:
 			continue
 		source.disable_interact_sprite()
 	#save health(presumably we are getting in a vehicle or something similar)
-	player_controller.player_body_health = health_comp.health
+	if(health_comp.health > 0):
+		player_controller.player_body_health = health_comp.health
+	else:
+		player_controller.player_body_health = health_comp.max_health
 	### destroy
 	queue_free()
 

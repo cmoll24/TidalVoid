@@ -10,7 +10,7 @@ class_name Sector
 @export var unload_delay : float = 3
 
 #the max amount of bytes to load each frame when loading the sector
-@export var bytes_per_frame_load : int = 200
+@export var bytes_per_frame_load : int = 120
 
 var time_to_unload : float = 0
 
