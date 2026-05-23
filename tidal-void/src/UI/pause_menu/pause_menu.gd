@@ -8,7 +8,6 @@ var inventory_panel_scene = preload("res://src/UI/inventory_ui/InventoryPanel.ts
 @onready var inventory_button = $PanelContainer/VBoxContainer/TabBar/InventoryButton
 @onready var journal_button = $PanelContainer/VBoxContainer/TabBar/JournalButton
 @onready var body_row = $PanelContainer/VBoxContainer/BodyRow
-@onready var health_lable = $"../HealthLable"
 
 var current_panel: UIPanel = null
 
@@ -16,9 +15,6 @@ func _ready() -> void:
 	hide()
 	inventory_button.pressed.connect(_on_inventory_button_pressed)
 	journal_button.pressed.connect(_on_journal_button_pressed)
-
-func _process(_delta: float) -> void:
-	health_lable.text = str(GV.player_health) + " HP"
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):

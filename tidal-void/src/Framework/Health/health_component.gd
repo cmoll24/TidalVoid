@@ -25,10 +25,10 @@ var temperature : float
 @export var heat_tolerance : float = 50
 
 ###the speed per second at which temperature will be regulated to body temperature
-@export var heat_regulation_speed : float = 15
+@export var heat_regulation_speed : float = 20
 
-### the initial grace period time(cannot take damage) on spawning(can also be directly set to some value, it will decrement itself automatically)
-@export var grace_period_time :float = 1.0
+### the initial grace period time(cannot take damage)on spawning(can also be directly set to some value, it will decrement itself automatically)
+@export var grace_period_time :float = 0.1
 
 #cooldowns for certain damage types to prevent taking repeat damage from the same thing
 var phys_dmg_cooldown : float = 0
@@ -62,9 +62,11 @@ func take_damage(damage : float, dmg_type : e_dmg_types, damage_causer : Node2D 
 		e_dmg_types.physical:
 			if(phys_dmg_cooldown <= 0):
 				set_health(health - damage)
+				phys_dmg_cooldown = 0.1
 		e_dmg_types.knockback:
 			if(knockback_cooldown <= 0 && damage_causer && parent is DriftBody):
 				parent.velocity += (parent.global_position - damage_causer.global_position).normalized() * damage
+				knockback_cooldown = 0.1
 		e_dmg_types.heat:
 			temperature = damage
 		_:
@@ -91,4 +93,20 @@ func _process(delta: float) -> void:
 		
 	#regulate temperature
 	temperature = move_toward(temperature,body_temperature,heat_regulation_speed*delta)
+	
+### IMPORTANT: HealthComponent is not a top level node, sector.gd will NOT call this, it must be called manually in the parent's save function, adding it onto the save dict
+### Example usage: in save() -> {health_dict : health_component.save()}
+
+func save():
+	return {
+		hp = health,
+		temp = temperature
+	}
+	
+### IMPORTANT: HealthComponent is not a top level node, sector.gd will NOT call this, it must be called manually in the parent's load function, feeding it back its dict from the save function
+### Example usage: in load_state() -> health_component.load_state(save_data[health_dict])
+func load_state(health_data : Dictionary):
+	health = health_data['hp']
+	temperature = health_data['temp']
+	
 	

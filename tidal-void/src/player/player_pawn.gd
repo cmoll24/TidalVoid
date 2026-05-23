@@ -5,6 +5,8 @@ static var pawn_types : Array = [typeof(Player), typeof(CreatureCarrier)]
 
 @onready var thrust_particles = $ThrustParticles
 
+@onready var health_comp : HealthComponent = $HealthComponent
+
 #the direction of the playerPawn to the mouse
 var mouse_direction : Vector2
 
@@ -30,8 +32,9 @@ var b_dead : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
-	
+	health_comp.on_death.connect(die)
 
+#Should be removed/Deprecated soon, current save system handles this
 func apply_save_state():
 	if GV.load_from_save_file:
 		var player_pos = GV.save_data["player_position"]
@@ -72,7 +75,7 @@ func start_possess(player_controller : PlayerController, previous_pawn_velocity 
 	
 	
 ### called when the controller stops taking possession of this pawn	
-func stop_possess() -> void:
+func stop_possess(player_controller : PlayerController) -> void:
 	#you can tell if you are possessed or not by checking the controller
 	controller = null
 	set_thrust(Vector2.ZERO)
@@ -85,6 +88,12 @@ func stop_possess() -> void:
 func die() -> void:
 	if(b_dead):
 		return #this isn't sekiro, only die once
+	#don't dupe the player, ensure that this pawn is actively controller before spawning a new one
+	if(!controller):
+		b_dead = true
+		finish_death(null)
+		return
+		
 	#on death
 	var player_scene  = load(death_pawn_path)
 	var player : PlayerPawn = player_scene.instantiate()
@@ -97,8 +106,22 @@ func die() -> void:
 	b_dead = true
 	
 func finish_death(new_player : PlayerPawn) -> void:
-	if(controller):
+	if(controller and new_player):
+		#swap pawn possession to new_player if there is one
 		controller.possess_pawn(new_player,velocity)
 		for zone in get_tree().get_nodes_in_group("safe_zone"):
 			zone.reset_timer()
-		queue_free()
+	
+	queue_free()
+
+		
+func save():
+	var node_data : Dictionary = {
+		"health_dict" : health_comp.save()
+	}
+	node_data.merge(super.save())
+	return node_data
+
+func load_state(node_data : Dictionary):
+	health_comp.load_state(node_data["health_dict"])
+	super.load_state(node_data)

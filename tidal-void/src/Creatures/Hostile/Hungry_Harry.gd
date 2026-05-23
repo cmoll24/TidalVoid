@@ -1,6 +1,9 @@
 extends Steven
 class_name HungryHarry
 
+@export var bite_damage : float = 150
+@export var bite_knockback : float = 30
+
 @export var worm_length : int = 512
 
 #should be a multiple of worm_length
@@ -197,4 +200,11 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	if(vs && (1 << vs.v_type) & v_types):
 		if(vs == primary_v_source):
 			primary_v_source = null;
-		other.die()
+		if(other):
+			#deal knockback and physical damage if a health component exists
+			var hc : HealthComponent = other.get_node_or_null('HealthComponent')
+			if(hc):
+				#physical damage
+				hc.take_damage(bite_damage,HealthComponent.e_dmg_types.physical,self,self)
+				#knockback damage
+				hc.take_damage(bite_knockback,HealthComponent.e_dmg_types.knockback,self,self)

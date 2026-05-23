@@ -172,7 +172,7 @@ func load_sector():
 			
 		#now feed the node back its save data if it has a load function
 		if(new_object.has_method('load')):
-			new_object.load(node_data)
+			new_object.load_state(node_data)
 		
 func save_and_unload_node(node :Node,save_file,b_dynamic_save : bool):
 	#print an error if the child is not a scene instance(do not put things as children of each other, each instance should be a top level child)
@@ -184,17 +184,18 @@ func save_and_unload_node(node :Node,save_file,b_dynamic_save : bool):
 			print("node '%s' in sector '%s' is not an instanced scene, save skipped" % [node.name,file_name])
 		return
 	#store the data as a dict for flexibility
-	var node_data : Dictionary 
-	#run the save function if it has one
-	if(node.has_method('save')):
-		node_data = node.save()
-	else:
-		#if there is no dedicated save function, save the path of the actor
-		node_data = {"path" : node.scene_file_path,
+	
+	#first save the basic universal info
+	var node_data : Dictionary = {"path" : node.scene_file_path,
 		"pos_x" : node.global_position.x,
 		"pos_y" : node.global_position.y,
 		"rot" : node.global_rotation,
 		"dynamic_save" : b_dynamic_save}
+	#run the save function if it has one
+	if(node.has_method('save')):
+		#merge any extra save data in, allowing for default keys to be overwritten by the save function
+		node_data.merge(node.save(),true) 
+		
 	#run the unload function if it has one
 	if(node.has_method('unload')):
 		node.unload()

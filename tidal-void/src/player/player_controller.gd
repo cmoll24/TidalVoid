@@ -15,10 +15,17 @@ var reverse_thrust = false
 
 var controller_mode = false
 
+#saves the health of the basic player body(ensures player health persists when entering and exiting vehicles)
+#also enables constant access to player health
+#IMPORTANT: not used in final save game, only temporarily in game
+var player_body_health : float = 100
+
 
 
 func _ready() -> void:
 	if(player):
+		if(player is Player):
+			player_body_health = player.health_comp.health
 		start_possess(player, Vector2.ZERO)
 		player.call_deferred("apply_save_state")
 
@@ -82,7 +89,7 @@ func _input(event: InputEvent) -> void:
 		
 func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	camera.player = pawn
-	player.stop_possess();
+	player.stop_possess(self);
 	
 	start_possess(pawn, previous_pawn_velocity)
 

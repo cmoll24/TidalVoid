@@ -102,8 +102,8 @@ func start_possess(player_controller : PlayerController, previous_pawn_velocity 
 	player_sprite.visible = true
 	head_lights.enabled = true
 	
-func stop_possess() -> void:
-	super.stop_possess()
+func stop_possess(player_controller : PlayerController) -> void:
+	super.stop_possess(player_controller)
 	player_sprite.visible = false
 	head_lights.enabled = false
 	
@@ -127,4 +127,3 @@ func action_use(pressed : bool) -> void:
 			var collider = result["collider"]
 			if(collider is Creature):
 				collider.velocity += Vector2.from_angle(global_rotation)*bubble_push
-		

@@ -29,12 +29,14 @@ func disable_geyser_collision():
 	damage_area.monitorable = false
 	
 func _physics_process(delta: float) -> void:
+	#if the geyser is active...
 	if(damage_area.monitoring):
+		#Fake rotation to work around godot collision bug
 		damage_area.rotate(0)
-		
-func on_body_collide(body : Node2D):
-	#get the health component if there is one
-	var hc : HealthComponent = body.get_node_or_null("HealthComponent")
-	if(hc):
-		#if we have a valid health component, deal heat damage
-		hc.take_damage(geyser_heat,HealthComponent.e_dmg_types.heat,self)
+		#damage anything colliding
+		for body in damage_area.get_overlapping_bodies():
+			#get the health component if there is one
+			var hc : HealthComponent = body.get_node_or_null("HealthComponent")
+			if(hc):
+				#if we have a valid health component, deal heat damage
+				hc.take_damage(geyser_heat,HealthComponent.e_dmg_types.heat,self)

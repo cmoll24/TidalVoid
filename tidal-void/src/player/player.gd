@@ -58,8 +58,6 @@ var max_jump_angle : float = PI/2.5
 func _ready() -> void:
 	super._ready()
 	GV.player_reference(self)
-	if self.is_in_group("player"):
-		print("in player")
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -307,15 +305,19 @@ func start_possess(player_controller : PlayerController, previous_pawn_velocity 
 	super.start_possess(player_controller, previous_pawn_velocity)
 	#GV.player_reference(self)
 	velocity = previous_pawn_velocity
+	#load health(presumably returning from a vehicle)
+	health_comp.set_health(player_controller.player_body_health)
 
-func stop_possess() -> void:
-	super.stop_possess()
+func stop_possess(player_controller : PlayerController) -> void:
+	super.stop_possess(player_controller)
 	### hide interact icons
 	for thing in interact_area.get_overlapping_bodies():
 		var source : InteractSource = thing.get_node_or_null("InteractSource")
 		if(!source):
 			continue
 		source.disable_interact_sprite()
+	#save health(presumably we are getting in a vehicle or something similar)
+	player_controller.player_body_health = health_comp.health
 	### destroy
 	queue_free()
 

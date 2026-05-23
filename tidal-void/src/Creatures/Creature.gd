@@ -17,9 +17,12 @@ enum crafting_type {
 
 @export var creature_type : Creature.crafting_type 
 
+@onready var health_comp : HealthComponent = $HealthComponent
+
 func _ready() -> void:
 	super._ready()
 	start_in_orbit = true
+	health_comp.on_death.connect(die)
 	
 
 func _physics_process(delta: float) -> void:
@@ -76,3 +79,14 @@ func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	
 func die():
 	queue_free();
+	
+func save():
+	var node_data : Dictionary = {
+		"health_dict" : health_comp.save()
+	}
+	node_data.merge(super.save())
+	return node_data
+
+func load_state(node_data : Dictionary):
+	health_comp.load_state(node_data["health_dict"])
+	super.load_state(node_data)

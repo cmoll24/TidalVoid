@@ -54,5 +54,3 @@ shape = SubResource("RectangleShape2D_o32ki")
 [node name="SprayTimer" type="Timer" parent="." unique_id=1958848569]
 wait_time = 3.0
 autostart = true
-
-[connection signal="body_entered" from="DamageArea" to="." method="on_body_collide"]

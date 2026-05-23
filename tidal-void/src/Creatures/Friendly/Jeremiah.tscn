@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://8cyt0tmbquu"]
 
 [ext_resource type="Script" uid="uid://bed3ebjxe4vsg" path="res://src/Creatures/Friendly/steven.gd" id="1_lnscu"]
+[ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_j3n1s"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_tjqe6"]
 [ext_resource type="Texture2D" uid="uid://cerg5f20oyl8m" path="res://assets/Textures/Creatures/magneticcreature.png" id="3_eyde7"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="4_tjqe6"]
@@ -31,6 +32,13 @@ mass = 2.0
 thrust_power = 6.0
 start_in_orbit = true
 start_orbit_dir = false
+
+[node name="HealthComponent" type="Node" parent="." unique_id=962694985]
+script = ExtResource("2_j3n1s")
+max_health = 50.0
+heat_tolerance = 80.0
+heat_regulation_speed = 20.0
+metadata/_custom_type_script = "uid://chuxbj1tello"
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)

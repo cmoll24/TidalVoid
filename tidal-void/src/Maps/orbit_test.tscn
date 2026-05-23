@@ -205,7 +205,7 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 24
 text = "FPS"
 
-[node name="HealthLable" type="Label" parent="CanvasLayer" unique_id=1834960123]
+[node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=1834960123]
 process_mode = 3
 offset_left = 100.0
 offset_right = 141.0
