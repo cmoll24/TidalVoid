@@ -280,6 +280,7 @@ position = Vector2(1173, 4197)
 
 [node name="HungryHarry2" parent="." unique_id=1680929522 instance=ExtResource("27_bdxtq")]
 position = Vector2(1532, 10733)
+show_particles_distance = 100.0
 
 [node name="ShipBody" parent="." unique_id=1522743882 instance=ExtResource("28_vkjj7")]
 z_index = 0
