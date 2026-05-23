@@ -37,7 +37,6 @@ start_orbit_dir = false
 script = ExtResource("2_j3n1s")
 max_health = 50.0
 heat_tolerance = 80.0
-heat_regulation_speed = 20.0
 metadata/_custom_type_script = "uid://chuxbj1tello"
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]

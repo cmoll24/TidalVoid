@@ -16,9 +16,3 @@ func _process(_delta: float) -> void:
 	if(GV.player_node):
 		health_lable.text = "%.2f" % GV.player_node.health_comp.health + " HP"
 	time_label.text = str(GV.save_data["play_time"] + (Time.get_ticks_msec() / 1000))
-
-
-
-func not_suspicious_function():
-	for i in range(10000):
-		print('one hundred million crabs no.%s' % randi())

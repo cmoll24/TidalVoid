@@ -1,8 +1,10 @@
 extends Planet
 class_name LivingPlanet
 
+@onready var mouth_close_sprite = $MouthBackground/MouthClose
+
 #speed at which the planet rotates to face prey
-@export var rot_speed :float = 0.6
+@export var rot_speed :float = 0.5
 
 ##########################################
 
@@ -44,6 +46,8 @@ func _ready() -> void:
 	v_types = 1 << VisionSource.v_source_type.mPrey
 	call_deferred("post_ready")
 	
+	mouth_close_sprite.rotation = 0
+	
 func post_ready() -> void:
 	##Hook up to the vision timer
 	game_manager.sense_manager.vision_timer.timeout.connect(update_vision)
@@ -51,8 +55,23 @@ func post_ready() -> void:
 func _physics_process(delta: float) -> void:
 	super.set_physics_process(delta)
 	if(primary_v_source):
-		var new_dir : float = (primary_v_source.parent.global_position - global_position).angle()+PI/2
-		global_rotation = rotate_toward(global_rotation,new_dir,rot_speed*delta);
+		var prey_vec = primary_v_source.parent.global_position - global_position
+		var new_dir : float = prey_vec.angle()+PI/2
+		#We want speed coef to be [0,1] where 1 is min distance => max speed and 0 is max distance => no speed
+		var min_distance = collision_radius + 100
+		var prey_distance = prey_vec.length()
+		var speed_coef = 1 - ((prey_distance - min_distance) / (v_distance - min_distance))
+		speed_coef = clampf(speed_coef, 0.0, 1.0)
+		var current_rot_speed = rot_speed * speed_coef
+		global_rotation = rotate_toward(global_rotation,new_dir,current_rot_speed*delta);
+		
+		if prey_distance - collision_radius < 300:
+			mouth_close_sprite.rotation = lerp_angle(mouth_close_sprite.rotation, -PI/2, delta)
+		else:
+			mouth_close_sprite.rotation = lerp_angle(mouth_close_sprite.rotation, 0.0, delta)
+	
+	else:
+		mouth_close_sprite.rotation = lerp_angle(mouth_close_sprite.rotation, 0.0, delta)
 	
 func update_vision():
 	#update array of all visible v_sources

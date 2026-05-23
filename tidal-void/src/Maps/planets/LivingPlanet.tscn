@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" uid="uid://tdmjlu16b75f" path="res://src/Maps/planets/living_planet.gd" id="1_0s1pd"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="2_7dgh1"]
-[ext_resource type="Texture2D" uid="uid://dxlaboml3isfq" path="res://assets/Textures/Placeholder/PLACEHOLDER_LivingPlanet.png" id="4_0s1pd"]
+[ext_resource type="Texture2D" uid="uid://dw265b4ept6dx" path="res://assets/Textures/Creatures/living_planet/livingplanetinside.png" id="3_ts0kq"]
+[ext_resource type="Texture2D" uid="uid://bdix24r8aj1l3" path="res://assets/Textures/Creatures/living_planet/livingplanettongue.png" id="4_nm43l"]
+[ext_resource type="Texture2D" uid="uid://dego6mqvnwhb3" path="res://assets/Textures/Creatures/living_planet/livingplanetoutside.png" id="5_a4hwn"]
+[ext_resource type="Texture2D" uid="uid://3wgr2dmtpctx" path="res://assets/Textures/Creatures/living_planet/livingplanetclosedmouthpiece.png" id="6_4kt51"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_klrcr"]
-radius = 50.0
+radius = 250.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s2205"]
 shader = ExtResource("2_7dgh1")
@@ -23,7 +26,10 @@ height = 500
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Planet" type="StaticBody2D" unique_id=947615788 groups=["gravity_sources"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ts0kq"]
+radius = 50.0
+
+[node name="LivingPlanet" type="StaticBody2D" unique_id=947615788 groups=["gravity_sources"]]
 collision_mask = 7
 script = ExtResource("1_0s1pd")
 mass = 30000.0
@@ -50,19 +56,25 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_s2205")
 stretch_mode = 3
 
-[node name="PlanetTexture" type="TextureRect" parent="." unique_id=1904708707]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -355.0
-offset_top = -355.0
-offset_right = 355.0
-offset_bottom = 355.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_0s1pd")
+[node name="MouthBackground" type="Sprite2D" parent="." unique_id=1077576467]
+rotation = 0.37596074
+texture = ExtResource("3_ts0kq")
+offset = Vector2(70, -45)
+
+[node name="MouthClose" type="Sprite2D" parent="MouthBackground" unique_id=811967751]
+texture = ExtResource("6_4kt51")
+offset = Vector2(70, -45)
+
+[node name="Tongue" type="Sprite2D" parent="." unique_id=1993821370]
+visible = false
+position = Vector2(24, 40)
+texture = ExtResource("4_nm43l")
+offset = Vector2(70, -45)
+
+[node name="PlanetTexture" type="Sprite2D" parent="." unique_id=1035898620]
+rotation = 0.37596074
+texture = ExtResource("5_a4hwn")
+offset = Vector2(70, -45)
 
 [node name="MouthArea" type="Area2D" parent="." unique_id=48710327]
 position = Vector2(0, -237)
@@ -70,7 +82,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="MouthCollider" type="CollisionShape2D" parent="MouthArea" unique_id=1434138670]
-position = Vector2(2, -14)
-shape = SubResource("CircleShape2D_klrcr")
+position = Vector2(1, 29)
+shape = SubResource("CircleShape2D_ts0kq")
 
 [connection signal="body_entered" from="MouthArea" to="." method="eat"]
