@@ -4,6 +4,7 @@ class_name ShroudComposite
 var shroud_lookup : Dictionary
 # for performance, shrouds are placed into "tiles" in a dictionary so only ones in a tile are updated
 @export var shroud_tile_size = 200
+@export var extra_fade_radius = 200
 
 var game_manager : GameManager
 
@@ -31,12 +32,12 @@ func _ready() -> void:
 				shroud_lookup.get_or_add(tile,[]).append(node)	
 			
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	#if true: #DEBUG
+	#	queue_redraw()
 	#Fade shrouds out when they are near a light source/player
 	for body in game_manager.revealing_sources:
 		var tile_coords : Vector2 = (body.global_position/ shroud_tile_size).round()
@@ -46,6 +47,44 @@ func _physics_process(delta: float) -> void:
 				#fade the shroud out based on the player's proximity
 				#we actually want this to be squared for smooth transition
 				var size = node.size.x * node.scale.x
-				var dist_sqr = body.global_position.distance_squared_to(node.global_position+Vector2(size,size)/2)
-				var alpha : float = dist_sqr/(size**2)
+				var center_offset = Vector2(size,size)/2
+				var dist_sqr = body.global_position.distance_squared_to(node.global_position + center_offset)
+				
+				var min_distance = size / 2 #when at min distance the fog has fully faded
+				var max_distance = size #the distance at which it starts to fade
+				
+				var alpha : float = (dist_sqr - (min_distance**2)) / (max_distance**2)
+				alpha = clampf(alpha, 0.0, 1.0)
 				node.self_modulate = Color(1,1,1,alpha)
+
+func _draw() -> void:
+	# DEBUG for testing fog fading calculations
+	for body in game_manager.revealing_sources:
+		var tile_coords : Vector2 = (body.global_position / shroud_tile_size).round()
+		var nodes = shroud_lookup.get(tile_coords)
+		
+		if nodes:
+			for node in nodes:
+				var size = node.size.x * node.scale.x
+				var center_offset = Vector2(size,size)/2
+				var node_center_global = node.global_position + center_offset
+				
+				var local_center = to_local(node_center_global)
+				var local_player = to_local(body.global_position)
+				
+				var dist_sqr = body.global_position.distance_squared_to(node_center_global)
+				var current_dist = sqrt(dist_sqr)
+				
+				var min_distance = size / 2 #when at min distance the fog has fully faded
+				var max_distance = size #the distance at which it starts to fade
+				
+				var line_color = Color.GREEN if current_dist <= max_distance else Color.RED
+				
+				draw_circle(node.position, 10, Color.RED, true)
+				draw_circle(local_center, 10, Color.BLUE, true)
+				
+				draw_line(local_center, local_player, line_color, 2.0)
+				
+				draw_circle(local_center, min_distance, Color.WHITE, false)
+				draw_circle(local_center, max_distance, line_color, false)
+	
