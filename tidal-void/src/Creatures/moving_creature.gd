@@ -81,8 +81,8 @@ func creature_movement(_delta):
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 		
-@warning_ignore("unused_parameter")
 func on_collide_with_bubble(bubble : Bubble) -> void:
+	super.on_collide_with_bubble(bubble)
 	stun_time = 1
 	b_in_hibernation = true
 	set_thrust(Vector2.ZERO)

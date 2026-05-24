@@ -64,8 +64,6 @@ const STATIC_FRICTION_THRESHOLD: float = 0.005
 ## (note that this system is gravity agnostic, fling something hard enough against a wall, and it is ground)
 @export var min_dot_for_ground: float = 0.5
 
-const MIN_MOVE_DISTANCE: float = 0.001
-
 ## How much energy is conserved during collisions
 @export var elasticity: float = 0.8
 
@@ -95,6 +93,10 @@ var target_rotation : float = 0;
 @export var b_rotation_to_gravity : bool = true;
 
 ###############################################################
+
+#automatically decremented, disables gravity while above 0
+#set to -15 or lower for infinite time
+@export var ignore_gravity_time : float = 0
 
 
 var game_manager : GameManager
@@ -148,7 +150,10 @@ func update_rotation(delta : float):
 ##Calculate the changes to velocity as a result of gravity and thrusters
 func  apply_acceleration() -> void:
 	
-	update_gravity_force()
+	if(ignore_gravity_time <= 0 && ignore_gravity_time > -15):
+		update_gravity_force()
+	else:
+		ignore_gravity_time -= get_physics_process_delta_time()
 	
 	var new_vel  = velocity + (gravity_force * get_physics_process_delta_time())
 	
@@ -180,8 +185,8 @@ func  apply_velocity() -> void:
 	
 	#Initial movment amount
 	var moveDelta : Vector2 = velocity * get_physics_process_delta_time();
-	#Skip tiny movements to optimize performance and prevent weird behavior from small amounts of residual velocity
-	if(true || abs(max(moveDelta.x,moveDelta.y)) > MIN_MOVE_DISTANCE): #temporarily disabled the MinMoveDist
+
+	if(true): #placeholder for conditions
 		#var InitialVelocity : Vector2 = velocity;
 		
 		#Trace what hits would happen with the current course of movement and save the initial hits
@@ -328,8 +333,9 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 
 @warning_ignore("unused_parameter")	
 func on_collide_with_bubble(bubble : Bubble) -> void:
-	pass
-	#For subclasses
+	#temporarily disable gravity
+	if(ignore_gravity_time > -15):
+		ignore_gravity_time = 0.5
 
 func get_velocity() -> Vector2:
 	return velocity
