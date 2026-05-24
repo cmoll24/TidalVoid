@@ -280,7 +280,6 @@ position = Vector2(1173, 4197)
 
 [node name="HungryHarry2" parent="." unique_id=1680929522 instance=ExtResource("27_bdxtq")]
 position = Vector2(1532, 10733)
-show_particles_distance = 100.0
 
 [node name="ShipBody" parent="." unique_id=1522743882 instance=ExtResource("28_vkjj7")]
 z_index = 0
@@ -295,8 +294,9 @@ position = Vector2(3785, -1175)
 [node name="ShroudComposite" parent="." unique_id=445053664 instance=ExtResource("27_vkjj7")]
 position = Vector2(4816, 3378)
 
-[node name="SafeZone" parent="." unique_id=1740084655 instance=ExtResource("27_ybfy3")]
+[node name="SafeZone" parent="." unique_id=1740084655 node_paths=PackedStringArray("darkness") instance=ExtResource("27_ybfy3")]
 position = Vector2(2042, 1895)
 scale = Vector2(5.1564255, 4.5359344)
+darkness = NodePath("../GameManager/CanvasModulate")
 
 [editable path="DuskSector"]

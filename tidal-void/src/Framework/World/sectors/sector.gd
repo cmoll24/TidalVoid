@@ -220,7 +220,3 @@ func _in_bounds(pos : Vector2, margin : float = 0) -> bool:
 		
 	#if we are between all the sides, we are in the rectangle
 	return true
-	
-func get_valid_file_id() -> int:
-	#just a random for now, should be improved later
-	return randi_range(0,103005010)

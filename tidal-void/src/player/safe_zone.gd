@@ -10,7 +10,8 @@ var player_inside : bool = false
 var player_dead : bool = false
 var collision_radius_sqr : float = 0
 
-@onready var darkness : CanvasModulate = $CanvasModulate
+@export var darkness : CanvasModulate
+var darkness_original_color : Color
 @onready var debug_label : Label = $Label
 
 @onready var collision_shape : CollisionShape2D = $CollisionShape2D
@@ -18,7 +19,7 @@ var collision_radius_sqr : float = 0
 
 func _ready():
 	current_time = max_time
-	darkness.color = Color(0.2,0.2,0.2)
+	darkness_original_color = darkness.color #or Color(0.2,0.2,0.2)
 	#set the collision radius
 	collision_radius_sqr = collision_shape.shape.radius**2
 
@@ -58,13 +59,14 @@ func update_darkness():
 
 	# White when safe, black when dying
 	var brightness = clamp(percent, 0.0, 1.0)
-
-	darkness.color = Color(
-		brightness,
-		brightness,
-		brightness,
-		1.0
-	)
+	
+	darkness.color = lerp(darkness_original_color, Color.BLACK, 1 - brightness)
+	#Color(
+	#	brightness,
+	#	brightness,
+	#	brightness,
+	#	1.0
+	#)
 
 func kill_player() -> void:
 
