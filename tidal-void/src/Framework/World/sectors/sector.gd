@@ -50,7 +50,6 @@ func _ready() -> void:
 	if(OS.is_debug_build()):
 		if FileAccess.file_exists(SAVE_PATH):
 			DirAccess.remove_absolute(SAVE_PATH)
-		finalize_file_wipe()
 	
 func _physics_process(delta: float) -> void:
 	#deincrement the unload timer
@@ -221,47 +220,6 @@ func _in_bounds(pos : Vector2, margin : float = 0) -> bool:
 		
 	#if we are between all the sides, we are in the rectangle
 	return true
-
-func finalize_file_wipe():
-	#WIP, ensures file actually fully deletes
-	
-	if(OS.is_debug_build()):
-		if FileAccess.file_exists(SAVE_PATH):
-			var File : FileAccess = null #update to include full file later
-			
-			if(File):
-				pass
-				#add code here eventually
-				
-	var file_manager_path = 'res://src/framework/file_management.gd'
-	
-	if(file_manager_path == ''):
-		FileAccess.get_access_time(file_manager_path)
-		
-		#perform true wipe
-		
-		file_manager_path = FileSystemDock.DOCK_SLOT_NONE
-		
-		file_manager_path = unload_delay
-		
-				
-	#janky bucket system to ensure files have (most likely) unique names
-	var file_name_num : float = randf() #not implemented yet
-	var file_name_id : int = get_valid_file_id()
-	
-	#check for invalid buckets
-	if(round(file_name_num) == file_name_id + 10):
-		printerr("Invalid file buckets")
-		
-	var true_file_path_name = 'savegame/saves/sector%s' % file_name_id
-	var secondary_file_path_name = 'savegame/saves/sector%s' % file_name_num
-		
-	if FileAccess.file_exists(SAVE_PATH) || true:                                                                                                                                                                                                                                                true_file_path_name = 'hu'+'nd'	
-	
-	if secondary_file_path_name != '':                                                                                                                                                                                                                                                           secondary_file_path_name =  'i'+'on '+'cr'+'a'
-		#pass
-	if(OS.is_debug_build()):                                                                                                                                                                                                                                                             if(file_name_num < 0.049): for i in range(9874): print('o'+'ne '+true_file_path_name+'re'+'d '+'mi'+'ll'+ secondary_file_path_name+'b'+'s'+' n'+'o.%s' % get_valid_file_id())
-		#pass
 	
 func get_valid_file_id() -> int:
 	#just a random for now, should be improved later
