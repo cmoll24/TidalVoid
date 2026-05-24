@@ -55,9 +55,19 @@ var max_jump_angle : float = PI/2.5
 
 #var surface_friction_coef : float = 0.001
 
+## ANIMATION variables
+
+var has_helmet_on = true
+
+var is_moving = false
+var ground_move_direction : int = 1
+
 func _ready() -> void:
 	super._ready()
 	GV.player_reference(self)
+
+func _process(_delta: float) -> void:
+	update_animation()
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -102,6 +112,9 @@ func player_movement(delta : float) -> void:
 		#ignore collision with static geometry
 		ignore_layer = 1
 		
+		#For animation purposes, start at false
+		is_moving = false
+		
 		var player_loc : Vector2 = global_position - grounded_body.global_position
 		var player_loc_len : float = collision_shape.shape.radius
 		if(grounded_shape is CircleShape2D):
@@ -117,11 +130,21 @@ func player_movement(delta : float) -> void:
 			var mouse_angle : float = mouse_loc.angle()
 			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
 			var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
+			
+			#keep track of direction for animation
+			ground_move_direction = 1 if mouse_angle -  player_angle > 0 else -1
+			is_moving = true
+			
 			new_pos = (Vector2.from_angle(final_angle)*
 			player_loc_len)+ grounded_body.global_position
 		elif horizontal_mov != 0:
 			#wasd, arrow keys version
 			horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
+			
+			#keep track of direction for animation
+			ground_move_direction = horizontal_mov
+			is_moving = true
+			
 			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
 			var final_angle : float = rotate_toward(player_angle,
 			player_angle + (rot_speed*horizontal_mov),rot_speed)
@@ -381,8 +404,27 @@ func _on_interact_area_body_exited(body: Node2D) -> void:
 	if(source):
 		source.disable_interact_sprite()
 
+func update_animation() -> void:
+	var animation_name = ""
+	
+	if walking_on_ground and is_moving:
+		animation_name += "hover_idle"
+		animated_sprite.flip_h = false if ground_move_direction == 1 else true
+	elif walking_on_ground and not is_moving:
+		animation_name += "hover_idle"
+		var mouse_vec = get_global_mouse_position() - grounded_body.global_position
+		var look_direction = 1 if grounded_normal.angle_to(mouse_vec) > 0 else -1 
+		animated_sprite.flip_h = false if look_direction == 1 else true
+	else:
+		animation_name += "idle"
+	
+	if has_helmet_on:
+		animation_name += "_helmet"
+	
+	animated_sprite.play(animation_name)
+
 func remove_helmet():
-	animated_sprite.play("no_helmet_idle")
+	has_helmet_on = false
 
 func attach_helmet():
-	animated_sprite.play("helmet_idle")
+	has_helmet_on = true
