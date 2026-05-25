@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://breco7c4ucncc"
-path.s3tc="res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.s3tc.ctex"
-path.etc2="res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.etc2.ctex"
+uid="uid://cmvkdtddw3gwa"
+path="res://.godot/imported/sparklez.png-f970319a0b0654da5035aa535799b302.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Backgrounds/Untitled_Artwork-2 (1).png"
-dest_files=["res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.s3tc.ctex", "res://.godot/imported/Untitled_Artwork-2 (1).png-0b69e4c1be0aecb1750262a163615b92.etc2.ctex"]
+source_file="res://assets/Backgrounds/sparklez.png"
+dest_files=["res://.godot/imported/sparklez.png-f970319a0b0654da5035aa535799b302.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -25,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
