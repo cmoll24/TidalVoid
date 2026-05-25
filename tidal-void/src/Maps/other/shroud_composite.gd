@@ -5,6 +5,8 @@ var shroud_lookup : Dictionary
 # for performance, shrouds are placed into "tiles" in a dictionary so only ones in a tile are updated
 @export var shroud_tile_size = 200
 @export var extra_fade_radius = 200
+#fraction of the size of a cloud, when within this distance, the shroud is fully faded
+@export var full_fade_dist_scalar = 0.2
 
 var game_manager : GameManager
 
@@ -48,7 +50,7 @@ func _physics_process(delta: float) -> void:
 				var center_offset = Vector2(size,size)/2
 				var dist_sqr = body.global_position.distance_squared_to(node.global_position + center_offset)
 				
-				var min_distance = size / 2 #when at min distance the fog has fully faded
+				var min_distance = size * full_fade_dist_scalar #when at min distance the fog has fully faded
 				var max_distance = size + extra_fade_radius #the distance at which it starts to fade
 				
 				var alpha : float = (dist_sqr - (min_distance**2)) / (max_distance**2)

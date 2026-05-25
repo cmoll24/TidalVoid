@@ -6,6 +6,8 @@
 
 [node name="WorldManager" type="Node2D" unique_id=648679912]
 script = ExtResource("1_n17mw")
+min_meteor_shower_time = 60.0
+max_meteor_shower_time = 100.0
 metadata/_custom_type_script = "uid://c04lb5rk5lyji"
 
 [node name="MinorMeteorShowerParticles" type="GPUParticles2D" parent="." unique_id=1290728194]
@@ -23,7 +25,7 @@ process_material = ExtResource("2_n17mw")
 [node name="MajorMeteorShowerParticles" type="GPUParticles2D" parent="." unique_id=2064675048]
 z_index = 40
 emitting = false
-amount = 200
+amount = 250
 texture = ExtResource("1_f6hth")
 lifetime = 3.5
 one_shot = true

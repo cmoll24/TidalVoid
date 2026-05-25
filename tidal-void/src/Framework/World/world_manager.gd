@@ -39,6 +39,7 @@ func _process(delta: float) -> void:
 	#temp code, keeps the paritcles on target with the player
 	if(GV.player_node):
 		meteor_shower_main_particles.global_position = GV.player_node.global_position
+		meteor_shower_warning_particles.global_position = GV.player_node.global_position
 	
 # this begins the process of the meteor shower, showing warning signs, and preparing for the actual event
 func start_meteor_shower_event():
@@ -76,8 +77,10 @@ func finish_meteor_shower_event():
 					get_tree().root.add_child(new_object)
 					spawn_point['curr_obj'] = new_object
 				else:
-					#if the sector isn't loaded, mark the spawn point so it can be respawned when it is loaded
-					spawn_point['respwn_on_ld'] = true
+					#Check if the spawn point had a curr object before it was unloaded
+					if(!spawn_point['had_curr_obj']):
+						#if the sector isn't loaded, mark the spawn point so it can be respawned when it is loaded
+						spawn_point['respwn_on_ld'] = true
 				
 	
 	#restart the event later

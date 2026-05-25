@@ -27,6 +27,7 @@ var loaded : bool = false
 ### pos :Vector2
 ### path : String = to scene to instantiate
 ### curr_obj : Node = a reference to the currently spawned object if there is one
+### had_curr_obj : bool = saves whether a curr obj existed when last unloaded
 ### respwn_on_ld : bool = true if this needs to be respawned
 var spawn_points : Array[Dictionary] = []
 
@@ -45,6 +46,9 @@ func _ready() -> void:
 	load_area_pos = ref_rect.global_position
 	# delete the ref rect, it has served its purpose
 	ref_rect.queue_free()
+	
+	#unpack all the spawn point info 
+	unpack_spawn_points()
 	
 	# DEBUG ONLY, wipe save data on every new run to allow for easy testing
 	if(OS.is_debug_build()):
@@ -70,6 +74,12 @@ func _physics_process(delta: float) -> void:
 func unload_sector():
 	#set loaded status
 	loaded = false
+	#update the current object status of all the spawn points
+	for spawn_point in spawn_points:
+		if(spawn_point['curr_obj']):
+			spawn_point['had_curr_obj'] = true
+		else:
+			spawn_point['had_curr_obj'] = false
 	#open the save file
 	var save_file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	#all children are automatically added and dynamic nodes will be added if in proximity
@@ -94,44 +104,24 @@ func load_sector():
 		for node in get_children():
 			if(node is InstancePlaceholder):
 				node.create_instance(true)
-			
-			if(node is Spawner):
-				#spawn the object on load and save the spawn point
-				var new_object : Node2D = load(node.spawn_path).instantiate()
-				new_object.global_position = node.global_position
-				get_tree().root.add_child(new_object)
-				var spawn_point : Dictionary = {
-					pos = node.global_position,
-					path = node.spawn_path,
-					curr_obj = new_object,
-					respwn_on_ld = false
-					}
-				spawn_points.append(spawn_point)
-				#Delete the node now that the data is extracted from it
-				node.queue_free()
 				
 	#respawn anything if applicable
-	
-	if(loaded_before):
-		for spawn_point : Dictionary in spawn_points:
-			#if the spawn point is marked to be respawned on load, and it has nothing spawned, respawn it
-			if(spawn_point['respwn_on_ld'] && !spawn_point['curr_obj']):
-				spawn_point['respwn_on_ld'] = false
-				var new_object : Node2D = load(spawn_point['path']).instantiate()
-				new_object.global_position = spawn_point['pos']
-				get_tree().root.add_child(new_object)
-				spawn_point['curr_obj'] = new_object
-	
+	for spawn_point : Dictionary in spawn_points:
+		#if the spawn point is marked to be respawned on load, and it has nothing spawned, respawn it
+		if(spawn_point['respwn_on_ld'] && !spawn_point['had_curr_obj']):
+			spawn_point['respwn_on_ld'] = false
+			var new_object : Node2D = load(spawn_point['path']).instantiate()
+			new_object.global_position = spawn_point['pos']
+			get_tree().root.add_child(new_object)
+			spawn_point['curr_obj'] = new_object
+			
+	#check to see if a file exists
 	if not FileAccess.file_exists(SAVE_PATH):
 		if(loaded_before):
 			printerr("load called on sector, '%s' without a save file" % file_name)
-		else:
-			#we won't have a file if this is first load necessarily, so we ought to be fine
-			loaded_before = true
 		return # Error! We don't have a save to load.
 		
-	#save that this is not the first load
-	loaded_before = true	
+	
 	#open the save file
 	var save_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	#iterate through the file
@@ -156,12 +146,23 @@ func load_sector():
 			continue
 
 		# Get the data from the JSON object.
-		var node_data = json.data
+		var node_data : Dictionary = json.data
 
 		# First, we need to create the object and add it to the tree and set its position.
 		var new_object : Node2D = load(node_data["path"]).instantiate()
 		new_object.global_position = Vector2(node_data["pos_x"], node_data["pos_y"])
 		new_object.global_rotation = node_data["rot"]
+		#check to see if this was spawned by a spawn point
+		var spawn_index : int = node_data.get('spawn_point',-1)
+		if(spawn_index != -1):
+			#check that the index is valid and then sanity check with the position to ensure it originated in the right sector
+			if(spawn_index < spawn_points.size()):
+				var spawn_point = spawn_points[spawn_index]
+				if spawn_point['pos'].x == node_data['spawn_point_x']:
+					#set the current object
+					spawn_points[spawn_index]['curr_obj'] = new_object
+			
+			
 		if(node_data["dynamic_save"]):
 			#if dynamic, add it to the scene root
 			get_tree().root.add_child(new_object)
@@ -172,6 +173,9 @@ func load_sector():
 		#now feed the node back its save data if it has a load function
 		if(new_object.has_method('load')):
 			new_object.load_state(node_data)
+				
+	#save that this is not the first load
+	loaded_before = true	
 		
 func save_and_unload_node(node :Node,save_file,b_dynamic_save : bool):
 	#print an error if the child is not a scene instance(do not put things as children of each other, each instance should be a top level child)
@@ -190,6 +194,17 @@ func save_and_unload_node(node :Node,save_file,b_dynamic_save : bool):
 		"pos_y" : node.global_position.y,
 		"rot" : node.global_rotation,
 		"dynamic_save" : b_dynamic_save}
+	#save its spawn point if applicable
+	if(b_dynamic_save):
+		for i in range(spawn_points.size()):
+			if(node ==spawn_points[i]['curr_obj']):
+				#save the index of the spawn point
+				node_data['spawn_point'] = i
+				#save the x coord of the spawn point to perform a sanity check with
+				#prevents issues with index mismatches caused by things moving between sectors or the removal/addition
+				#of spawn points causing issues with old saves
+				node_data['spawn_point_x'] = spawn_points[i]['pos'].x
+	
 	#run the save function if it has one
 	if(node.has_method('save')):
 		#merge any extra save data in, allowing for default keys to be overwritten by the save function
@@ -220,3 +235,17 @@ func _in_bounds(pos : Vector2, margin : float = 0) -> bool:
 		
 	#if we are between all the sides, we are in the rectangle
 	return true
+
+func unpack_spawn_points():
+	for node in get_children():
+		if(node is Spawner):	
+			var spawn_point : Dictionary = {
+				pos = node.global_position,
+				path = node.spawn_path,
+				curr_obj = null,
+				had_curr_obj = false,
+				respwn_on_ld = true
+				}
+			spawn_points.append(spawn_point)
+			#Delete the node now that the data is extracted from it
+			node.queue_free()

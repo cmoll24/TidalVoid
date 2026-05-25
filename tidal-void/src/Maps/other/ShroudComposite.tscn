@@ -9,6 +9,7 @@
 z_index = 25
 script = ExtResource("1_gk64c")
 shroud_tile_size = 700
+extra_fade_radius = 50
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=444120460]
 offset_left = -123.0

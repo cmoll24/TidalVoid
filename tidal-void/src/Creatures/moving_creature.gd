@@ -80,7 +80,7 @@ func creature_movement(_delta):
 	
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
-		
+	
 func on_collide_with_bubble(bubble : Bubble) -> void:
 	super.on_collide_with_bubble(bubble)
 	stun_time = 1
