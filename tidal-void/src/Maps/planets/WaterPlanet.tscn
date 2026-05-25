@@ -29,7 +29,6 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="WaterPlanet" type="StaticBody2D" unique_id=2060639823 groups=["gravity_sources"]]
 z_index = 2
-position = Vector2(-5, -1)
 collision_mask = 7
 script = ExtResource("1_imy56")
 mass = 18000.0

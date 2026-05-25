@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://d35jvwbyahg8e"]
+
+[ext_resource type="Script" uid="uid://becxcr68kkbk8" path="res://src/Framework/Planet.gd" id="1_tnc73"]
+[ext_resource type="Texture2D" uid="uid://r40b6t378ev7" path="res://assets/Textures/Environmental/Dawn/dawnplanetbody.png" id="2_mt3bp"]
+[ext_resource type="Texture2D" uid="uid://tyq0l8irn5lt" path="res://assets/Textures/Environmental/Dawn/dawnplanetduckweed.png" id="3_tqubq"]
+[ext_resource type="Texture2D" uid="uid://0gtgsdisocwp" path="res://assets/Textures/Environmental/Dawn/dawnsectorlilypads.png" id="4_tw8y6"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_wbr58"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
+radius = 136.01471
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
+shader = ExtResource("5_wbr58")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0.043137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pf5yv"]
+gradient = SubResource("Gradient_klrcr")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="DawnPlanet" type="StaticBody2D" unique_id=2060639823 groups=["gravity_sources"]]
+z_index = 2
+collision_mask = 7
+script = ExtResource("1_tnc73")
+mass = 11000.0
+collision_radius = 136.0
+metadata/_custom_type_script = "uid://becxcr68kkbk8"
+
+[node name="PlanetTexture" type="TextureRect" parent="." unique_id=1814879757]
+visibility_layer = 65
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_mt3bp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
+shape = SubResource("CircleShape2D_f54en")
+
+[node name="Foreground2" type="TextureRect" parent="." unique_id=56770716]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_tqubq")
+
+[node name="Foreground" type="TextureRect" parent="." unique_id=838847746]
+visibility_layer = 2
+z_index = 14
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_tw8y6")
+
+[node name="PullRadius" type="TextureRect" parent="." unique_id=986787955]
+z_index = 120
+material = SubResource("ShaderMaterial_ps4nm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_pf5yv")
+stretch_mode = 3

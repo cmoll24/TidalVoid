@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d18tatnwudnjj"]
 
-[ext_resource type="Texture2D" path="res://assets/Backgrounds/Untitled_Artwork-1.png" id="2_ccw8l"]
+[ext_resource type="Texture2D" uid="uid://b5116bpv257ey" path="res://assets/Backgrounds/DarkBackground.png" id="2_ccw8l"]
 [ext_resource type="Script" uid="uid://8ghh3geko5ra" path="res://src/Background/static_background.gd" id="2_jfky6"]
 [ext_resource type="Texture2D" uid="uid://dg4ijtqfgimuq" path="res://assets/Backgrounds/wisp.png" id="3_ygmfp"]
 [ext_resource type="Texture2D" uid="uid://cmvkdtddw3gwa" path="res://assets/Backgrounds/sparklez.png" id="4_swpbq"]

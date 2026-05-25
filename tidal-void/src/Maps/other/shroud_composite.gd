@@ -56,3 +56,8 @@ func _physics_process(delta: float) -> void:
 				var alpha : float = (dist_sqr - (min_distance**2)) / (max_distance**2)
 				alpha = clampf(alpha, 0.0, 1.0)
 				node.self_modulate = Color(1,1,1,alpha)
+
+func _input(event: InputEvent) -> void:
+	#DEBUG
+	if event.is_action_pressed("debug_toggle_fog"):
+		visible = !visible
