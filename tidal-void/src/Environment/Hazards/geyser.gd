@@ -4,6 +4,9 @@ class_name Geyser
 #heat damage to deal to colliding object(celsius)
 @export var geyser_heat = 100
 
+#knockback damage on colliding with geyser
+@export var geyser_knockback : float = 25
+
 @onready var spray_timer : Timer = $SprayTimer
 
 @onready var damage_area : Area2D = $DamageArea 
@@ -40,3 +43,4 @@ func _physics_process(delta: float) -> void:
 			if(hc):
 				#if we have a valid health component, deal heat damage
 				hc.take_damage(geyser_heat,HealthComponent.e_dmg_types.heat,self)
+				hc.take_damage(geyser_heat,HealthComponent.e_dmg_types.knockback,self)
