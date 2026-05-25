@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	global_position += move_velocity * delta
 	
 	#Determine velocity for creatures in bubble
-	velocity = Vector2.ZERO
+	velocity = move_velocity
 
 func _on_creature_detector_body_entered(body: Node2D) -> void:
 	if body is Creature:

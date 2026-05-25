@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bya8npj2lw4mh" path="res://assets/Textures/Ship/Body/Outer_Ship.png" id="4_gswhr"]
 [ext_resource type="PackedScene" uid="uid://cke2qtkpx6xc5" path="res://src/ship/creatureStorage.tscn" id="5_1il6y"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_4quqm"]
-[ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="6_4jr7v"]
 [ext_resource type="PackedScene" uid="uid://mviv1dob273e" path="res://src/ship/terminals/UpgradeTerminal.tscn" id="7_4jr7v"]
 [ext_resource type="PackedScene" uid="uid://m6q2nv1sl10i" path="res://src/ship/terminals/ResetStation.tscn" id="8_o8l35"]
 [ext_resource type="Script" uid="uid://bhbk3lhdhuvbw" path="res://src/player/Abilities/teleport_position.gd" id="9_shh8f"]
@@ -132,9 +131,6 @@ polygon = PackedVector2Array(-59.999977, -173.00002, -97, -154, -139, -118, -162
 [node name="CreatureStorage" parent="." unique_id=10157181 instance=ExtResource("5_1il6y")]
 position = Vector2(0, 280)
 
-[node name="Leaper" parent="CreatureStorage" unique_id=1314638072 instance=ExtResource("6_4jr7v")]
-position = Vector2(-22.420532, -32.44635)
-
 [node name="Marker2D" type="Marker2D" parent="CreatureStorage" unique_id=2046697376]
 position = Vector2(142, 107)
 
@@ -152,7 +148,7 @@ position = Vector2(-73, -44.000004)
 rotation = -1.0471976
 
 [node name="ResetStation" parent="." unique_id=1336080030 instance=ExtResource("8_o8l35")]
-position = Vector2(81.00001, -47.000004)
+position = Vector2(75.00001, -38.000004)
 rotation = 1.0471976
 
 [node name="TeleportPosition" type="Node2D" parent="." unique_id=1130417104]
