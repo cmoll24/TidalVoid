@@ -1,17 +1,42 @@
 [gd_scene format=3 uid="uid://mviv1dob273e"]
 
 [ext_resource type="Script" uid="uid://c0lphrpcw2e2h" path="res://src/ship/terminals/upgrade_terminal.gd" id="1_e506m"]
-[ext_resource type="Texture2D" uid="uid://cwnvlxj5vh8j8" path="res://icon.svg" id="2_pw427"]
+[ext_resource type="Texture2D" uid="uid://dh5qxvcvmbdwb" path="res://assets/Textures/Ship/Terminals/PC1.png" id="2_pw427"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="3_28xrl"]
+[ext_resource type="Texture2D" uid="uid://bugrrp7of02td" path="res://assets/Textures/Ship/Terminals/PC1_Outline.png" id="3_smb0p"]
 [ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="4_smb0p"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_dk48o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pw427")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_smb0p")
+}],
+"loop": true,
+"name": &"outlined",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b25x5"]
-size = Vector2(50, 50)
+size = Vector2(57, 44)
 
 [node name="UpgradeTerminal" type="StaticBody2D" unique_id=872525405]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_e506m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1014185424]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_dk48o")
+animation = &"outlined"
 
 [node name="InteractSource" type="Node2D" parent="." unique_id=1308717196]
 script = ExtResource("3_28xrl")
@@ -19,23 +44,10 @@ metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
 
 [node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1600675435]
 z_index = 1
-position = Vector2(0, -18)
+position = Vector2(0, -26)
 scale = Vector2(0.24218756, 0.24218756)
 texture = ExtResource("4_smb0p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=513004922]
+position = Vector2(0.5, -3)
 shape = SubResource("RectangleShape2D_b25x5")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1032709815]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_pw427")
-
-[node name="PlayerDetector" type="Area2D" parent="." unique_id=768541087]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=521375397]
-shape = SubResource("RectangleShape2D_b25x5")
-
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

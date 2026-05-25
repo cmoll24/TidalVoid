@@ -148,7 +148,7 @@ position = Vector2(-94, 59)
 position = Vector2(-142, 107)
 
 [node name="UpgradeTerminal" parent="." unique_id=872525405 instance=ExtResource("7_4jr7v")]
-position = Vector2(-92.00001, -42.000004)
+position = Vector2(-73, -44.000004)
 rotation = -1.0471976
 
 [node name="ResetStation" parent="." unique_id=1336080030 instance=ExtResource("8_o8l35")]
