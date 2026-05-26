@@ -19,6 +19,9 @@ var burrow_distance_sqr : float = 400
 #used to drive grounded animation
 var ground_move_direction : int = -1
 
+#checks to see if orbit was left
+var b_on_home_planet : bool = true;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -37,6 +40,22 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	#decrement web cooldown
 	web_cldwn -= delta
+	#see if we left home
+	check_on_home_planet()
+	
+func check_on_home_planet():
+	if(!home_planet):
+		return
+	if(dominant_body != home_planet):
+		if(b_on_home_planet):
+			#tell home planet we left
+			home_planet.spiders_outside -= 1
+		b_on_home_planet = false
+	else:
+		if(!b_on_home_planet):
+			#tell home planet we returned
+			home_planet.spiders_outside += 1
+		b_on_home_planet = true
 	
 func creature_movement(_delta):
 	if stun_time > 0:
@@ -158,3 +177,16 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 				hc.take_damage(bite_damage,HealthComponent.e_dmg_types.physical,self,self)
 				#knockback damage
 				hc.take_damage(bite_knockback,HealthComponent.e_dmg_types.knockback,self,self)
+				
+				
+func save() -> Dictionary:
+	var node_data : Dictionary = {
+		home = b_on_home_planet
+	}
+	node_data.merge(super.save())
+	return node_data
+	
+func load_state(node_data : Dictionary):
+	super.load_state(node_data)
+	b_on_home_planet = node_data['home']
+	

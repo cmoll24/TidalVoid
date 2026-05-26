@@ -10,6 +10,7 @@ var spiders_inside : int = 5
 ###the number of spiders currently outside the planet
 var spiders_outside : int = 0
 
+
 ### the infested planet looks out for prey and deploys spiders when it is close
 ### the max distance at which things can be seen by vision
 @export var v_distance : float = 1200
