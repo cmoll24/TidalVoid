@@ -132,6 +132,7 @@ func grounded_movement():
 func shoot_web():
 	var web  : WebProjectile= preload("res://src/Creatures/Hostile/Spiders/web_projectile.tscn").instantiate()
 	web.global_position = global_position
+	web.instigator = self # save who shot the web
 	#make sure it follows the right orbit
 	web.b_start_in_orbit_dir = target_dir
 	#complete spawning

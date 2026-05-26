@@ -4,8 +4,9 @@ class_name HealthComponent
 
 ###physical damage damages health, heat damage interprets damage as the heat value, 
 ###knockback does well, knockback based on the damage value(velocity length = damage), requires parent class to be a drift body and a damage causer to be set
+###grab damage does nothing by default but is open for custom implementations (connect the on take damage signal) (damage should be low, interpretted as stun time(seconds) in creatures)
 ###none damage exists only as a default value, it will do nothing and print an error if used
-enum e_dmg_types {none,physical,heat,knockback}
+enum e_dmg_types {none,physical,heat,knockback,grab}
 
 ###the maximum health(health defaults to this value at start)
 @export var max_health : float = 100
@@ -69,6 +70,8 @@ func take_damage(damage : float, dmg_type : e_dmg_types, damage_causer : Node2D 
 				knockback_cooldown = 0.1
 		e_dmg_types.heat:
 			temperature = damage
+		e_dmg_types.grab:
+			pass
 		_:
 			var damage_causer_name : String = String(damage_causer.name) if damage_causer else 'null';
 			var instigator_name : String = String(instigator.name) if instigator else 'null';

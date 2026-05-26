@@ -26,6 +26,7 @@ func _ready() -> void:
 	super._ready()
 	start_in_orbit = true
 	health_comp.on_death.connect(die)
+	health_comp.on_take_damage.connect(on_take_damage)
 	
 
 func _physics_process(delta: float) -> void:
@@ -84,6 +85,13 @@ func die():
 	if(!b_dead):
 		b_dead = true
 		queue_free();
+		
+func on_take_damage(damage : float, dmg_type : HealthComponent.e_dmg_types, damage_causer : Node2D = null, instigator : Node = null):
+	match dmg_type:
+		HealthComponent.e_dmg_types.grab:
+			stun_time = damage
+		_:
+			pass
 	
 func save():
 	var node_data : Dictionary = {

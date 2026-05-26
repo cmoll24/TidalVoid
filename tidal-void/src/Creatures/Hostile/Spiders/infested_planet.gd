@@ -87,7 +87,7 @@ func deploy_spider():
 func respawn_spider():
 	#respawn a spider inside if some have died
 	#Note, does not actually spawn anything, merely lets the planet know it a spawn more spiders when the time comes
-	if(max_spiders < spiders_outside + spiders_inside):
+	if(max_spiders > spiders_outside + spiders_inside):
 		spiders_inside+=1;
 
 func save() -> Dictionary:

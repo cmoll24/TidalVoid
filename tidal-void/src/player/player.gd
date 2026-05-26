@@ -299,7 +299,7 @@ func update_interact_source() -> void:
 	var closest_source : InteractSource = null;
 	for thing in interact_area.get_overlapping_bodies():
 		var source : InteractSource = thing.get_node_or_null("InteractSource")
-		if(!source):
+		if(!source || !source.b_enabled):
 			continue
 		### get information on the position and direction
 		var diff : Vector2 = thing.global_position - global_position;

@@ -9,6 +9,8 @@ class_name CreatureCarrier
 
 @onready var fuel_bar : TextureRect = $FuelContainer/FuelBar
 
+@onready var interact_source : InteractSource = $InteractSource
+
 #ship_clearance is the length of vehicle
 @export var vehicle_clearance : float = 160.0
 
@@ -31,6 +33,7 @@ func _ready() -> void:
 	player_sprite.visible = false
 	head_lights.enabled = false
 	fuel = max_fuel
+	health_comp.on_take_damage.connect(on_take_damage)
 	
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	if(fuel <= 0):
@@ -54,15 +57,7 @@ func _physics_process(_delta: float) -> void:
 		set_fuel(fuel - fuel_consumption_per_second * _delta)
 	##check for dismount
 	if controller and Input.is_action_just_pressed("jump"):
-		#if we jump, dismount and switch to the player
-		var spawn_pos :Vector2 = global_position + (Vector2.from_angle(global_rotation)*50)
-		#spawn the player
-		var player_scene  = preload("res://src/player/player.tscn")
-		var player : PlayerPawn = player_scene.instantiate()
-		get_tree().get_root().add_child(player)
-		player.global_position = spawn_pos
-		#possess the player
-		controller.call_deferred('possess_pawn', player, velocity)
+		eject_player()
 	
 	if dominant_body:
 		## ensure we cannot get too close to a planet so as to be unable to leave
@@ -92,6 +87,19 @@ func _physics_process(_delta: float) -> void:
 			
 	### apply velocity colors
 	update_traj_color.emit(lerp(Color.BLUE, Color.AQUA,velocity.length_squared()/122500))
+	
+func eject_player():
+	if(!controller):
+		return #only execute if we are being controlled
+	#if we jump, dismount and switch to the player
+	var spawn_pos :Vector2 = global_position + (Vector2.from_angle(global_rotation)*50)
+	#spawn the player
+	var player_scene  = preload("res://src/player/player.tscn")
+	var player : PlayerPawn = player_scene.instantiate()
+	get_tree().get_root().add_child(player)
+	player.global_position = spawn_pos
+	#possess the player
+	controller.call_deferred('possess_pawn', player, velocity)
 
 func set_fuel(new_fuel : float):
 	fuel = new_fuel
@@ -127,3 +135,14 @@ func action_use(pressed : bool) -> void:
 			var collider = result["collider"]
 			if(collider is Creature):
 				collider.velocity += Vector2.from_angle(global_rotation)*bubble_push
+
+func on_take_damage(damage : float, dmg_type : HealthComponent.e_dmg_types, damage_causer : Node2D = null, instigator : Node = null):
+	match dmg_type:
+		#eject the player when grabbed
+		HealthComponent.e_dmg_types.grab:
+			eject_player()
+			#temporarily disable the interact source so the player cannot get back in easily
+			interact_source.disable_source()
+			get_tree().create_timer(damage).timeout.connect(interact_source.enable_source)
+		_:
+			pass

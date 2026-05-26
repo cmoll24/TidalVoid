@@ -21,6 +21,8 @@ offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
 colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 0.83137256, 0.9607843, 0.9254902, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
 
 [node name="Charlotte" type="StaticBody2D" unique_id=1196549559]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_m7j1w")
 v_distance = 1500.0
 v_source_loyalty_time = 4.0

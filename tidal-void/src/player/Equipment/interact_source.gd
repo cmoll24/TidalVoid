@@ -7,6 +7,8 @@ var parent : Node2D
 
 @export var b_lock_interact_sprite_rotation : bool = false 
 
+@export var b_enabled : bool = true 
+
 var sprite_scale : float = 0
 
 signal on_interacted()
@@ -43,3 +45,8 @@ func set_highlight(on : bool):
 		new_scale = sprite_scale
 	interact_sprite.scale = Vector2(new_scale,new_scale)
 	
+func disable_source():
+	b_enabled = false
+	
+func enable_source():
+	b_enabled = true

@@ -203,5 +203,5 @@ texture = SubResource("GradientTexture2D_pf5yv")
 stretch_mode = 3
 
 [node name="SpiderRespawnTimer" type="Timer" parent="." unique_id=975443397]
-wait_time = 60.0
+wait_time = 50.0
 autostart = true
