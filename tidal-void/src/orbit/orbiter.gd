@@ -1,5 +1,6 @@
-class_name Orbiter
 extends Area2D
+class_name Orbiter
+
 
 var game_manager : GameManager
 var velocity : Vector2 = Vector2.ZERO

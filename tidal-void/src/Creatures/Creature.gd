@@ -7,7 +7,8 @@ enum crafting_type {
 	steven,
 	leaper,
 	evil_fred,
-	hungry_harry
+	hungry_harry,
+	charlotte
 }
 
 ### if greater than 0, behavior is disabled and time will be brought down
@@ -18,6 +19,8 @@ enum crafting_type {
 @export var creature_type : Creature.crafting_type 
 
 @onready var health_comp : HealthComponent = $HealthComponent
+
+var b_dead : bool = false
 
 func _ready() -> void:
 	super._ready()
@@ -78,7 +81,9 @@ func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	return r_opposite - body.collision_radius
 	
 func die():
-	queue_free();
+	if(!b_dead):
+		b_dead = true
+		queue_free();
 	
 func save():
 	var node_data : Dictionary = {

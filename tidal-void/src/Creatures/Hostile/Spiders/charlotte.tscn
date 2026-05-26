@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bg6oeu3i7wl30"]
+
+[ext_resource type="Script" uid="uid://u1iknov3idu8" path="res://src/Creatures/Hostile/Spiders/charlotte.gd" id="1_m7j1w"]
+[ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_7eayt"]
+[ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_6jow0"]
+[ext_resource type="Texture2D" uid="uid://jefgk7wainth" path="res://assets/Textures/Placeholder/PLACEHOLDER_Spider.png" id="4_7eayt"]
+[ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="5_mlkca"]
+[ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="6_gjowe"]
+[ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="7_ec3bq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7424y"]
+radius = 25.0
+
+[sub_resource type="Curve" id="Curve_36ttu"]
+_data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_l7kxh"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
+colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 0.83137256, 0.9607843, 0.9254902, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
+
+[node name="Charlotte" type="StaticBody2D" unique_id=1196549559]
+script = ExtResource("1_m7j1w")
+v_distance = 1500.0
+v_source_loyalty_time = 4.0
+time_before_hibernate = 4.0
+target_altitude_sqr = 5.0
+creature_size = 2
+creature_type = 5
+mass = 5.0
+thrust_power = 10.0
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1625135174]
+script = ExtResource("2_7eayt")
+max_health = 120.0
+body_temperature = 30.0
+heat_tolerance = 40.0
+heat_regulation_speed = 15.0
+metadata/_custom_type_script = "uid://chuxbj1tello"
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=206477694]
+target_position = Vector2(0, 0)
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1927162773]
+shape = SubResource("CircleShape2D_7424y")
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=1669577893]
+amount = 20
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 90.0
+angle_max = 30.0
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_36ttu")
+color_ramp = SubResource("Gradient_l7kxh")
+script = ExtResource("3_6jow0")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1262817742]
+offset_left = -26.0
+offset_top = -39.0
+offset_right = 153.0
+offset_bottom = 181.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_7eayt")
+
+[node name="InteractSource" type="Node2D" parent="." unique_id=1929089534]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("5_mlkca")
+metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1986148171]
+z_index = 20
+position = Vector2(0, -40)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_gjowe")
+
+[node name="VisionSource" type="Node" parent="." unique_id=439665954]
+script = ExtResource("7_ec3bq")
+v_type = 4
+metadata/_custom_type_script = "uid://cloexwtl4gxf3"

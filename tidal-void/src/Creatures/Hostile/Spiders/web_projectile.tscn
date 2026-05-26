@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cbsontppwrm1d"]
+
+[ext_resource type="Script" uid="uid://0vlam6j3a7f3" path="res://src/Creatures/Hostile/Spiders/spider_web_projectile.gd" id="1_16j2f"]
+[ext_resource type="Texture2D" uid="uid://dwugprpum3fne" path="res://assets/Textures/Placeholder/PLACEHOLDER_SpiderWeb.png" id="2_ib10w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ib10w"]
+radius = 25.0
+
+[node name="WebProjectile" type="Area2D" unique_id=950534365]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_16j2f")
+metadata/_custom_type_script = "uid://0vlam6j3a7f3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=684887440]
+shape = SubResource("CircleShape2D_ib10w")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1890495425]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -22.0
+offset_right = 42.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_ib10w")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=5885313]
+rect = Rect2(-25, -25, 50, 50)
+show_rect = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

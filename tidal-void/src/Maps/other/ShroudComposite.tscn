@@ -108,10 +108,10 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect13" type="TextureRect" parent="." unique_id=1248074966]
-offset_left = -1021.0
-offset_top = -28.0
-offset_right = 207.0
-offset_bottom = 930.0
+offset_left = -1075.0
+offset_top = -10.0
+offset_right = 153.0
+offset_bottom = 948.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
@@ -220,66 +220,66 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect27" type="TextureRect" parent="." unique_id=21879946]
-offset_left = -812.0
-offset_top = 728.0
-offset_right = 416.0
-offset_bottom = 1686.0
+offset_left = -836.0
+offset_top = 722.0
+offset_right = 392.0
+offset_bottom = 1680.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_sdbdh")
 
 [node name="TextureRect28" type="TextureRect" parent="." unique_id=1886537939]
-offset_left = -1146.0
-offset_top = 451.0
-offset_right = 82.0
-offset_bottom = 1409.0
+offset_left = -1218.0
+offset_top = 517.0
+offset_right = 10.0
+offset_bottom = 1475.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_4etfj")
 
 [node name="TextureRect29" type="TextureRect" parent="." unique_id=876704879]
-offset_left = -1054.0
-offset_top = -394.0
-offset_right = 174.0
-offset_bottom = 564.0
+offset_left = -1143.0
+offset_top = -353.0
+offset_right = 85.0
+offset_bottom = 605.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_4etfj")
 
 [node name="TextureRect30" type="TextureRect" parent="." unique_id=1283540857]
-offset_left = -1226.0
-offset_top = 139.0
-offset_right = 2.0
-offset_bottom = 1097.0
+offset_left = -1244.0
+offset_top = 181.0
+offset_right = -16.0
+offset_bottom = 1139.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect31" type="TextureRect" parent="." unique_id=748177693]
-offset_left = -301.0
-offset_top = 831.0
-offset_right = 927.0
-offset_bottom = 1789.0
+offset_left = -283.0
+offset_top = 849.0
+offset_right = 945.0
+offset_bottom = 1807.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect32" type="TextureRect" parent="." unique_id=1255392617]
-offset_left = 122.0
-offset_top = 831.0
-offset_right = 1350.0
-offset_bottom = 1789.0
+offset_left = 158.0
+offset_top = 813.0
+offset_right = 1386.0
+offset_bottom = 1771.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_4etfj")
 
 [node name="TextureRect33" type="TextureRect" parent="." unique_id=1365654507]
-offset_left = 468.0
-offset_top = 659.0
-offset_right = 1696.0
-offset_bottom = 1617.0
+offset_left = 498.0
+offset_top = 677.0
+offset_right = 1726.0
+offset_bottom = 1635.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect34" type="TextureRect" parent="." unique_id=655067764]
-offset_left = 857.0
-offset_top = 536.0
-offset_right = 2085.0
-offset_bottom = 1494.0
+offset_left = 923.0
+offset_top = 614.0
+offset_right = 2151.0
+offset_bottom = 1572.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
@@ -316,26 +316,26 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_sdbdh")
 
 [node name="TextureRect38" type="TextureRect" parent="." unique_id=917885406]
-offset_left = -1466.0
-offset_top = -486.0
-offset_right = -238.0
-offset_bottom = 472.0
+offset_left = -1478.0
+offset_top = -474.0
+offset_right = -250.0
+offset_bottom = 484.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_4etfj")
 
 [node name="TextureRect39" type="TextureRect" parent="." unique_id=1483698149]
-offset_left = -1868.0
-offset_top = 889.0
-offset_right = -640.0
-offset_bottom = 1847.0
+offset_left = -1145.0
+offset_top = 1897.0
+offset_right = 83.0
+offset_bottom = 2855.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect40" type="TextureRect" parent="." unique_id=963418397]
-offset_left = -768.0
-offset_top = 1083.0
-offset_right = 460.0
-offset_bottom = 2041.0
+offset_left = -714.0
+offset_top = 1071.0
+offset_right = 514.0
+offset_bottom = 2029.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_sdbdh")
 
@@ -356,10 +356,10 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_sdbdh")
 
 [node name="TextureRect47" type="TextureRect" parent="." unique_id=37157498]
-offset_left = -1592.0
-offset_top = -111.0
-offset_right = -364.0
-offset_bottom = 847.0
+offset_left = -822.0
+offset_top = 2235.0
+offset_right = 406.0
+offset_bottom = 3193.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_sdbdh")
 
@@ -372,17 +372,65 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect42" type="TextureRect" parent="." unique_id=2138104633]
-offset_left = 1463.0
-offset_top = 376.0
-offset_right = 2691.0
-offset_bottom = 1334.0
+offset_left = 1541.0
+offset_top = 334.0
+offset_right = 2769.0
+offset_bottom = 1292.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")
 
 [node name="TextureRect43" type="TextureRect" parent="." unique_id=418080484]
-offset_left = 1463.0
-offset_top = 376.0
-offset_right = 2691.0
-offset_bottom = 1334.0
+offset_left = -536.0
+offset_top = 2149.0
+offset_right = 692.0
+offset_bottom = 3107.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_4etfj")
+
+[node name="TextureRect48" type="TextureRect" parent="." unique_id=1487817782]
+offset_left = -1315.0
+offset_top = 2526.0
+offset_right = -87.0
+offset_bottom = 3484.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_sdbdh")
+
+[node name="TextureRect49" type="TextureRect" parent="." unique_id=2145227054]
+offset_left = -1418.0
+offset_top = 2098.0
+offset_right = -190.0
+offset_bottom = 3056.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_sdbdh")
+
+[node name="TextureRect50" type="TextureRect" parent="." unique_id=640341437]
+offset_left = -126.0
+offset_top = 2777.0
+offset_right = 1102.0
+offset_bottom = 3735.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_sdbdh")
+
+[node name="TextureRect51" type="TextureRect" parent="." unique_id=1798708909]
+offset_left = -1144.0
+offset_top = 2338.0
+offset_right = 84.0
+offset_bottom = 3296.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_4etfj")
+
+[node name="TextureRect52" type="TextureRect" parent="." unique_id=546726851]
+offset_left = -804.0
+offset_top = 2537.0
+offset_right = 424.0
+offset_bottom = 3495.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_4etfj")
+
+[node name="TextureRect53" type="TextureRect" parent="." unique_id=1407672864]
+offset_left = -1463.0
+offset_top = 1267.0
+offset_right = -235.0
+offset_bottom = 2225.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4etfj")

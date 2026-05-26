@@ -32,19 +32,22 @@ func creature_movement(_delta):
 		return
 	
 	var altitude_sqr = get_square_altitude(dominant_body)
+		
+	if(b_in_hibernation):
+		hibernation_movement(altitude_sqr)
+	else:
+		orbital_movment(altitude_sqr)
 	
+		
+func orbital_movment(altitude_sqr : float):
 	# return from deep space
-	if(get_square_altitude(dominant_body) > dominant_body.pull_radius ** 2):
+	if(altitude_sqr > dominant_body.pull_radius ** 2):
 		var dir : Vector2 = (dominant_body.global_position - global_position).normalized();
 		var min_compliance = 45;
 		if(velocity.dot(dir) < min_compliance):
 			set_thrust(dir)
 		return
 		
-	if(b_in_hibernation):
-		set_thrust(Vector2.ZERO)
-		return
-	
 	var grav_dir = (dominant_body.global_position - global_position).normalized()
 	
 	# move dir is tangent to gravity
@@ -77,6 +80,16 @@ func creature_movement(_delta):
 	else:
 		move_dir = -move_dir
 		set_thrust(move_dir + velocity_deviation)
+		
+func hibernation_movement(altitude_sqr : float):
+	# return from deep space
+	if(altitude_sqr > dominant_body.pull_radius ** 2):
+		var dir : Vector2 = (dominant_body.global_position - global_position).normalized();
+		var min_compliance = 45;
+		if(velocity.dot(dir) < min_compliance):
+			set_thrust(dir)
+		return
+	set_thrust(Vector2.ZERO)
 	
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)

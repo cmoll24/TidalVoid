@@ -33,7 +33,7 @@ var last_primary_source_dist : float = 0;
 
 var time_since_last_vision : float = 0;
 
-var time_before_hibernate : float = 12;
+@export var time_before_hibernate : float = 12;
 
 ################################################
 
@@ -117,5 +117,5 @@ func update_behavior() -> void:
 		if(!b_in_hibernation):
 			if(dominant_body):
 				target_altitude_sqr = min(
-					(dominant_body.pull_radius-20)**2,
+					(dominant_body.pull_radius-30)**2,
 					get_square_altitude(dominant_body))
