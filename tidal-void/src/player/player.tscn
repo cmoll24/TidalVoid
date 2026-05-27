@@ -132,6 +132,7 @@ animation = &"hover_idle_helmet"
 
 [node name="HoverParticleRight" type="CPUParticles2D" parent="Sprite2D" unique_id=1382592038]
 modulate = Color(0.66, 0.66, 0.66, 1)
+z_index = 5
 z_as_relative = false
 position = Vector2(62.5, 187.5)
 scale = Vector2(12.5, 12.5)
@@ -152,6 +153,7 @@ color_ramp = SubResource("Gradient_2smqc")
 color_initial_ramp = SubResource("Gradient_rl62b")
 
 [node name="HoverParticleLeft" type="CPUParticles2D" parent="Sprite2D" unique_id=1051520932]
+z_index = 5
 z_as_relative = false
 position = Vector2(-25, 187.5)
 scale = Vector2(12.5, 12.5)
