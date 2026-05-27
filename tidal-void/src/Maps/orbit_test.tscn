@@ -83,16 +83,16 @@ border_color = Color(1, 1, 1, 1)
 [node name="PomPlanet" parent="DuskSector" unique_id=2060639823 instance_placeholder="res://src/Maps/planets/PomPlanet.tscn"]
 position = Vector2(1169, 4206)
 
-[node name="Planet" parent="DuskSector" unique_id=519984572 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/planet1.tscn"]
+[node name="Planet" parent="DuskSector" unique_id=519984572 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/Test/planet1.tscn"]
 position = Vector2(423, 690)
 
-[node name="Planet2" parent="DuskSector" unique_id=468230439 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/planet2.tscn"]
+[node name="Planet2" parent="DuskSector" unique_id=468230439 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/Test/planet2.tscn"]
 position = Vector2(1584, 318)
 
-[node name="Planet3" parent="DuskSector" unique_id=891119518 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/planet3.tscn"]
+[node name="Planet3" parent="DuskSector" unique_id=891119518 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/Test/planet3.tscn"]
 position = Vector2(2371, 1902)
 
-[node name="Planet4" parent="DuskSector" unique_id=583492956 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/planet4.tscn"]
+[node name="Planet4" parent="DuskSector" unique_id=583492956 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/Test/planet4.tscn"]
 position = Vector2(531, 1882)
 
 [node name="Geyser" parent="DuskSector" unique_id=39023203 instance=ExtResource("7_bdxtq")]
