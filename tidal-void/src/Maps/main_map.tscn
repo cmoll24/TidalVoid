@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="11_xiii4"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="12_8bvlf"]
 [ext_resource type="PackedScene" uid="uid://bw0bb3wgfesg1" path="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet1.tscn" id="12_bo405"]
+[ext_resource type="PackedScene" uid="uid://dsnxgtfflg43f" path="res://src/Maps/planets/sunset_sector_planets/DesertPlanet.tscn" id="13_bo405"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="13_xeu68"]
 [ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="14_5e3w3"]
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
@@ -170,7 +171,7 @@ offset_bottom = 12656.0
 border_color = Color(1, 1, 1, 1)
 
 [node name="Copper_Ore_8" parent="SunsetSector" unique_id=2051667465 instance=ExtResource("7_chnye")]
-position = Vector2(-7458, 8746)
+position = Vector2(-5190, 8778)
 
 [node name="PomPlanet" parent="SunsetSector" unique_id=293054058 instance_placeholder="res://src/Maps/planets/PomPlanet.tscn"]
 position = Vector2(-10152, 5233)
@@ -180,7 +181,10 @@ position = Vector2(-6606, 5931)
 rotation = -2.8159854
 
 [node name="SunsetPlanet3" parent="SunsetSector" unique_id=1861604287 instance=ExtResource("12_bo405")]
-position = Vector2(-8234, 8821)
+position = Vector2(-5966, 8853)
+
+[node name="DesertPlanet" parent="SunsetSector" unique_id=1401741126 instance=ExtResource("13_bo405")]
+position = Vector2(-10787.728, 8555.147)
 
 [node name="StaticBackground" type="CanvasLayer" parent="." unique_id=1761612136]
 layer = -1
@@ -268,6 +272,7 @@ horizontal_alignment = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="SafeZone" parent="." unique_id=1777228472 node_paths=PackedStringArray("darkness") instance=ExtResource("15_xkcec")]
+position = Vector2(1228, 0)
 scale = Vector2(5, 6)
 darkness = NodePath("CanvasModulate")
 
@@ -303,7 +308,10 @@ position = Vector2(-5029, -3640)
 position = Vector2(1458, -9081)
 
 [node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("23_6qt07")]
-position = Vector2(-8204, 8795)
+position = Vector2(-5936, 8827)
+
+[node name="HungryHarry2" parent="." unique_id=2070331131 instance=ExtResource("23_6qt07")]
+position = Vector2(-10707.999, 8571.001)
 
 [node name="Evil_Fred2" parent="." unique_id=1530806718 instance=ExtResource("25_tai8o")]
 position = Vector2(1474, -11349)
