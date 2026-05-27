@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="5_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="6_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://bfi3ec4shhb07" path="res://src/Environment/Hazards/geyser.tscn" id="7_bdxtq"]
+[ext_resource type="PackedScene" uid="uid://cngbkursgo1hv" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet1.tscn" id="8_xu2w5"]
 [ext_resource type="PackedScene" uid="uid://173wnvt86qfx" path="res://src/Maps/planets/dusk_sector_planets/planet4.tscn" id="8_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://13vuo3ai4enh" path="res://src/Maps/planets/dawn_sector_planets/InfestedPlanet1.tscn" id="9_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
@@ -112,6 +113,9 @@ position = Vector2(-803, 3041)
 
 [node name="Copper_Ore_6" parent="DuskSector" unique_id=162616924 instance=ExtResource("5_vkjj7")]
 position = Vector2(325, 1901)
+
+[node name="DuskPlanet" parent="DuskSector" unique_id=1527852538 instance=ExtResource("8_xu2w5")]
+position = Vector2(1287.6787, 5815.638)
 
 [node name="DawnSector" parent="." unique_id=152977746 instance=ExtResource("6_ybfy3")]
 position = Vector2(11, 0)
