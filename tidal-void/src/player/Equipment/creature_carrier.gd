@@ -11,6 +11,8 @@ class_name CreatureCarrier
 
 @onready var interact_source : InteractSource = $InteractSource
 
+@onready var disembark_marker : Marker2D = $DisembarkMarker
+
 #ship_clearance is the length of vehicle
 @export var vehicle_clearance : float = 160.0
 
@@ -92,7 +94,7 @@ func eject_player():
 	if(!controller):
 		return #only execute if we are being controlled
 	#if we jump, dismount and switch to the player
-	var spawn_pos :Vector2 = global_position + (Vector2.from_angle(global_rotation)*50)
+	var spawn_pos : Vector2 = disembark_marker.global_position
 	#spawn the player
 	var player_scene  = preload("res://src/player/player.tscn")
 	var player : PlayerPawn = player_scene.instantiate()

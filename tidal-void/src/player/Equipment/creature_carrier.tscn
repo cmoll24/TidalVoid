@@ -154,3 +154,6 @@ offset_top = -20.0
 offset_right = 21.0
 grow_vertical = 2
 texture = ExtResource("12_5xigg")
+
+[node name="DisembarkMarker" type="Marker2D" parent="." unique_id=1361135025]
+position = Vector2(-40.035614, -47.704643)
