@@ -3,6 +3,9 @@ class_name Player
 
 @onready var animated_sprite = $Sprite2D
 
+@onready var hover_particles_left = $Sprite2D/HoverParticleLeft
+@onready var hover_particles_right = $Sprite2D/HoverParticleRight
+
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 620.0
 
@@ -132,7 +135,7 @@ func player_movement(delta : float) -> void:
 			var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
 			
 			#keep track of direction for animation
-			ground_move_direction = 1 if mouse_angle -  player_angle > 0 else -1
+			ground_move_direction = 1 if angle_difference(player_angle, mouse_angle) > 0 else -1
 			is_moving = true
 			
 			new_pos = (Vector2.from_angle(final_angle)*
@@ -407,16 +410,27 @@ func _on_interact_area_body_exited(body: Node2D) -> void:
 func update_animation() -> void:
 	var animation_name = ""
 	
-	if walking_on_ground and is_moving:
-		animation_name += "hover_idle"
-		animated_sprite.flip_h = false if ground_move_direction == 1 else true
-	elif walking_on_ground and not is_moving:
-		animation_name += "hover_idle"
-		var mouse_vec = get_global_mouse_position() - grounded_body.global_position
-		var look_direction = 1 if grounded_normal.angle_to(mouse_vec) > 0 else -1 
-		animated_sprite.flip_h = false if look_direction == 1 else true
+	if walking_on_ground:
+		#Lift the player sprite off the ground when hovering
+		animated_sprite.offset.y = -50
+		
+		hover_particles_left.emitting = true
+		hover_particles_right.emitting = true
+		
+		if is_moving:
+			animation_name += "hover_idle"
+			animated_sprite.flip_h = false if ground_move_direction == 1 else true
+		else:
+			animation_name += "hover_idle"
+			var mouse_vec = get_global_mouse_position() - grounded_body.global_position
+			var look_direction = 1 if grounded_normal.angle_to(mouse_vec) > 0 else -1 
+			animated_sprite.flip_h = false if look_direction == 1 else true
 	else:
+		animated_sprite.offset.y = 0
 		animation_name += "idle"
+		
+		hover_particles_left.emitting = false
+		hover_particles_right.emitting = false
 	
 	if has_helmet_on:
 		animation_name += "_helmet"
