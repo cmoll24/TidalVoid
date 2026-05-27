@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl5vflc2ikxc7"
-path="res://.godot/imported/Medium plant.png-f19ccabbe78bf4a48f3ad5c76ede5fe8.ctex"
+uid="uid://unqkf22vafl0"
+path="res://.godot/imported/Dusk_Base2.png-fd7204d9ca142c95d6d105e33c1923aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Sunset/Medium plant.png"
-dest_files=["res://.godot/imported/Medium plant.png-f19ccabbe78bf4a48f3ad5c76ede5fe8.ctex"]
+source_file="res://assets/Textures/Environmental/Dusk/Dusk_Base2.png"
+dest_files=["res://.godot/imported/Dusk_Base2.png-fd7204d9ca142c95d6d105e33c1923aa.ctex"]
 
 [params]
 

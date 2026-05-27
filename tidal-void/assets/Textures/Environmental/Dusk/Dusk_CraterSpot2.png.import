@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfavbw5c384tm"
-path="res://.godot/imported/CraterSpot2.png-6d21c6a57b141f1b159be002e749f378.ctex"
+path="res://.godot/imported/Dusk_CraterSpot2.png-73e3b7f3b510cc7da1bc97d3ce7337dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Dusk/CraterSpot2.png"
-dest_files=["res://.godot/imported/CraterSpot2.png-6d21c6a57b141f1b159be002e749f378.ctex"]
+source_file="res://assets/Textures/Environmental/Dusk/Dusk_CraterSpot2.png"
+dest_files=["res://.godot/imported/Dusk_CraterSpot2.png-73e3b7f3b510cc7da1bc97d3ce7337dd.ctex"]
 
 [params]
 

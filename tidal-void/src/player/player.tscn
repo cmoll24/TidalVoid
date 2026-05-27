@@ -87,7 +87,6 @@ b_is_safe_collision = false
 
 [node name="HealthComponent" type="Node" parent="." unique_id=2032333964]
 script = ExtResource("2_x42xx")
-heat_tolerance = 100.0
 metadata/_custom_type_script = "uid://chuxbj1tello"
 
 [node name="VisionSource" type="Node" parent="." unique_id=786667853]

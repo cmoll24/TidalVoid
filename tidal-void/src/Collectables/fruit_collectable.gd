@@ -7,7 +7,7 @@ var fruit_tree : FruitTree
 func _ready() -> void:
 	super._ready()
 	# only go into orbit a little after starting 
-	get_tree().create_timer(1).timeout.connect(start_orbit)
+	get_tree().create_timer(1.5).timeout.connect(start_orbit)
 	
 func start_orbit() -> void:
 	velocity = GameManager.orbital_velocity(get_dominant_body(),global_position)

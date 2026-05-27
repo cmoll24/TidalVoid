@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ebysi1u54tpd"
-path="res://.godot/imported/Highlight1.png-24cbe03fc7317f71d3a07ddc17f3f001.ctex"
+uid="uid://1if6bivoslag"
+path="res://.godot/imported/Dusk_CraterSpot1.png-a8d80e2479b302b5db62f940d20d8d5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Dusk/Highlight1.png"
-dest_files=["res://.godot/imported/Highlight1.png-24cbe03fc7317f71d3a07ddc17f3f001.ctex"]
+source_file="res://assets/Textures/Environmental/Dusk/Dusk_CraterSpot1.png"
+dest_files=["res://.godot/imported/Dusk_CraterSpot1.png-a8d80e2479b302b5db62f940d20d8d5b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0nnosmxuyyko"
-path="res://.godot/imported/DuskBase1.png-cbf56e9a04c15fbceabbb64c606627bf.ctex"
+uid="uid://daqiejsrdmkph"
+path="res://.godot/imported/Sunset_Crater2.png-3b819ff5228df192f521cae4598495d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Dusk/DuskBase1.png"
-dest_files=["res://.godot/imported/DuskBase1.png-cbf56e9a04c15fbceabbb64c606627bf.ctex"]
+source_file="res://assets/Textures/Environmental/Sunset/Sunset_Crater2.png"
+dest_files=["res://.godot/imported/Sunset_Crater2.png-3b819ff5228df192f521cae4598495d7.ctex"]
 
 [params]
 

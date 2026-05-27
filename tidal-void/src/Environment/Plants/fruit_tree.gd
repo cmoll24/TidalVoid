@@ -20,16 +20,18 @@ func _ready() -> void:
 	super._ready()
 	# initialize dominant body and game manager
 	game_manager = get_tree().get_first_node_in_group("game_managers")
+	
+	call_deferred("post_ready")
+	
+func post_ready()->void:
+	#get the dominant body and get the escape speed from it
 	var closest_dist = INF
 	for body in game_manager.gravity_sources:
 		var dist = body.global_position.distance_squared_to(global_position)
 		if dist < closest_dist:
 			closest_dist = dist
 			dominant_body = body
-	call_deferred("post_ready")
-	
-func post_ready()->void:
-	escape_speed = GameManager.escape_speed(dominant_body,global_position)*0.9
+	escape_speed = GameManager.escape_speed(dominant_body,global_position)
 			
 func play_open_anim() -> void:
 	anim_player.play("fruit_tree_open")
@@ -49,7 +51,7 @@ func release_fruit() -> void:
 	fruit.global_position = spawn_pos
 	fruit.fruit_tree = self
 	#give it a random vertical velocity
-	fruit.velocity = randf()*escape_speed*global_transform.basis_xform(Vector2.UP)
+	fruit.velocity = randf_range(0.2,1.1) * escape_speed*global_transform.basis_xform(Vector2.UP)
 	#give it a random orbital direction
 	fruit.b_start_in_orbit_dir = randf() > 0.5
 	#play open animation in reverse

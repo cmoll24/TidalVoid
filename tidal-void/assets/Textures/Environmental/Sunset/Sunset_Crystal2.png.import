@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://docacdhqrsicy"
-path="res://.godot/imported/Grass.png-4e45f3440d919dedcfe2e05b8f22ac58.ctex"
+uid="uid://bjuhkvjyf7hlc"
+path="res://.godot/imported/Sunset_Crystal2.png-bf50df87a4f32cbfa964608bda25d07f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Dusk/Grass.png"
-dest_files=["res://.godot/imported/Grass.png-4e45f3440d919dedcfe2e05b8f22ac58.ctex"]
+source_file="res://assets/Textures/Environmental/Sunset/Sunset_Crystal2.png"
+dest_files=["res://.godot/imported/Sunset_Crystal2.png-bf50df87a4f32cbfa964608bda25d07f.ctex"]
 
 [params]
 

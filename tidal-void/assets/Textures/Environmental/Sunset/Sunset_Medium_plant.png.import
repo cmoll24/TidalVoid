@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b28levjno6xre"
-path="res://.godot/imported/Asteroid bits.png-98b9cea00802774ddfca14d90184b301.ctex"
+uid="uid://bl5vflc2ikxc7"
+path="res://.godot/imported/Sunset_Medium_plant.png-f6f7a8270571db04e8dfc9bfe052ae91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Sunset/Asteroid bits.png"
-dest_files=["res://.godot/imported/Asteroid bits.png-98b9cea00802774ddfca14d90184b301.ctex"]
+source_file="res://assets/Textures/Environmental/Sunset/Sunset_Medium_plant.png"
+dest_files=["res://.godot/imported/Sunset_Medium_plant.png-f6f7a8270571db04e8dfc9bfe052ae91.ctex"]
 
 [params]
 

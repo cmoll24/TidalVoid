@@ -1,0 +1,280 @@
+[gd_scene format=3 uid="uid://d2n0vjhsugkix"]
+
+[ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_jvxuy"]
+[ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_ohq06"]
+[ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_kpxo1"]
+[ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bo405"]
+[ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="5_c5n6l"]
+[ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="7_chnye"]
+[ext_resource type="PackedScene" uid="uid://d051l38xqv0gc" path="res://src/Maps/planets/LivingPlanet.tscn" id="8_2iftv"]
+[ext_resource type="PackedScene" uid="uid://cngbkursgo1hv" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet1.tscn" id="8_l0qou"]
+[ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="9_766bn"]
+[ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="10_pvpy1"]
+[ext_resource type="PackedScene" uid="uid://dc2kk2oqbg7a" path="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet2.tscn" id="11_kpxo1"]
+[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="11_xiii4"]
+[ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="12_8bvlf"]
+[ext_resource type="PackedScene" uid="uid://bw0bb3wgfesg1" path="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet1.tscn" id="12_bo405"]
+[ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="13_xeu68"]
+[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="14_5e3w3"]
+[ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
+[ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
+[ext_resource type="PackedScene" uid="uid://13vuo3ai4enh" path="res://src/Maps/planets/dawn_sector_planets/InfestedPlanet1.tscn" id="18_nhgkr"]
+[ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
+[ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="20_5nqmh"]
+[ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
+[ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
+[ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
+[ext_resource type="PackedScene" uid="uid://cc24nx1wr3j4f" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet2.tscn" id="24_l0qou"]
+[ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="25_tai8o"]
+
+[sub_resource type="Gradient" id="Gradient_imoib"]
+offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
+
+[node name="MainMap" type="Node2D" unique_id=120585206]
+script = ExtResource("1_jvxuy")
+
+[node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_ohq06")]
+
+[node name="SenseManager" type="Node2D" parent="GameManager" unique_id=949898002]
+script = ExtResource("3_kpxo1")
+metadata/_custom_type_script = "uid://knbcbvqoq4eb"
+
+[node name="VisionTimer" type="Timer" parent="GameManager/SenseManager" unique_id=1349854468]
+wait_time = 0.1
+autostart = true
+
+[node name="VisionRayCast" type="RayCast2D" parent="GameManager/SenseManager" unique_id=1887924053]
+target_position = Vector2(0, 0)
+collision_mask = 7
+collide_with_areas = true
+
+[node name="WorldManager" parent="GameManager" unique_id=648679912 node_paths=PackedStringArray("sectors") instance=ExtResource("4_bo405")]
+sectors = [null]
+
+[node name="DuskSector" parent="." unique_id=1361397144 instance=ExtResource("5_c5n6l")]
+
+[node name="ReferenceRect" parent="DuskSector" index="0" unique_id=66557810]
+offset_left = -7235.0
+offset_top = -5122.0
+offset_right = -1235.0
+offset_bottom = 878.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="Copper_Ore_1" parent="DuskSector" unique_id=1364662829 instance=ExtResource("7_chnye")]
+position = Vector2(-3382, -2807)
+
+[node name="Copper_Ore_2" parent="DuskSector" unique_id=1344231056 instance=ExtResource("7_chnye")]
+position = Vector2(-4774, -554)
+
+[node name="Copper_Ore_4" parent="DuskSector" unique_id=599281905 instance=ExtResource("7_chnye")]
+position = Vector2(-4326, -312)
+
+[node name="Copper_Ore_5" parent="DuskSector" unique_id=806682995 instance=ExtResource("7_chnye")]
+position = Vector2(-5768, -3860)
+
+[node name="Copper_Ore_6" parent="DuskSector" unique_id=654002687 instance=ExtResource("7_chnye")]
+position = Vector2(-3432, -3456)
+
+[node name="ShipBody" parent="DuskSector" unique_id=1137978725 instance=ExtResource("24_it7pe")]
+z_index = 0
+position = Vector2(-5169, -2457)
+
+[node name="DuskPlanet" parent="DuskSector" unique_id=2060639823 instance=ExtResource("8_l0qou")]
+position = Vector2(-3600, -3308)
+
+[node name="DawnSector" parent="." unique_id=2025655557 instance=ExtResource("5_c5n6l")]
+file_name = "dawn_sector"
+
+[node name="ReferenceRect" parent="DawnSector" index="0" unique_id=66557810]
+offset_left = -4106.0
+offset_top = -17704.0
+offset_right = 5894.0
+offset_bottom = -7704.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="Copper_Ore_3" parent="DawnSector" unique_id=2013339171 instance=ExtResource("7_chnye")]
+position = Vector2(4245, -11827)
+
+[node name="WaterPlanet" parent="DawnSector" unique_id=1153098428 instance_placeholder="res://src/Maps/planets/WaterPlanet.tscn"]
+position = Vector2(1285, -11886)
+
+[node name="ShroudComposite" parent="DawnSector" unique_id=445053664 instance_placeholder="res://src/Maps/other/ShroudComposite.tscn"]
+position = Vector2(368, -11875)
+
+[node name="Copper_Ore_7" parent="DawnSector" unique_id=515063576 instance=ExtResource("7_chnye")]
+position = Vector2(1941, -12340)
+
+[node name="DawnPlanet" parent="DawnSector" unique_id=870211363 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet1.tscn"]
+position = Vector2(-2017, -11155)
+
+[node name="DawnPlanet2" parent="DawnSector" unique_id=1066193264 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet2.tscn"]
+position = Vector2(1437, -9583)
+
+[node name="DawnPlanet3" parent="DawnSector" unique_id=206077063 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet3.tscn"]
+position = Vector2(-1166, -9282)
+
+[node name="DawnPlanet4" parent="DawnSector" unique_id=291526128 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet4.tscn"]
+position = Vector2(-718, -13232)
+
+[node name="LivingPlanet" parent="DawnSector" unique_id=947615788 instance=ExtResource("8_2iftv")]
+position = Vector2(2343, -14838)
+
+[node name="InfestedPlanet" parent="DawnSector" unique_id=1915373182 instance=ExtResource("18_nhgkr")]
+position = Vector2(3943, -11579)
+
+[node name="SunsetSector" parent="." unique_id=532933713 instance=ExtResource("5_c5n6l")]
+file_name = "sunset_sector"
+
+[node name="ReferenceRect" parent="SunsetSector" index="0" unique_id=66557810]
+offset_left = -12853.0
+offset_top = 3656.0
+offset_right = -3853.0
+offset_bottom = 12656.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="Copper_Ore_8" parent="SunsetSector" unique_id=2051667465 instance=ExtResource("7_chnye")]
+position = Vector2(-7458, 8746)
+
+[node name="PomPlanet" parent="SunsetSector" unique_id=293054058 instance_placeholder="res://src/Maps/planets/PomPlanet.tscn"]
+position = Vector2(-10152, 5233)
+
+[node name="SunsetPlanet" parent="SunsetSector" unique_id=1175010480 instance=ExtResource("11_kpxo1")]
+position = Vector2(-6606, 5931)
+
+[node name="SunsetPlanet3" parent="SunsetSector" unique_id=1861604287 instance=ExtResource("12_bo405")]
+position = Vector2(-8234, 8821)
+
+[node name="StaticBackground" type="CanvasLayer" parent="." unique_id=1761612136]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1191288506]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.011764706, 0.03529412, 0.050980393, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1772839039]
+environment = ExtResource("9_766bn")
+camera_attributes = ExtResource("10_pvpy1")
+
+[node name="Player" parent="." unique_id=1314638072 instance=ExtResource("12_8bvlf")]
+visibility_layer = 3
+position = Vector2(-5164, -2542)
+collision_layer = 14
+start_in_orbit = false
+start_orbit_dir = false
+
+[node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor", "throw_predictor") instance=ExtResource("11_xiii4")]
+player = NodePath("../Player")
+predictor = NodePath("../PlayerTrajectoryPredictor")
+throw_predictor = NodePath("../PlayerThrowPredictor")
+
+[node name="PlayerTrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("13_xeu68")]
+line = NodePath("../Line2D")
+steps = 500
+fake_steps = 0.0
+step_dist = 1.0
+player = NodePath("../Player")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=65887448]
+width = 3.0
+gradient = SubResource("Gradient_imoib")
+antialiased = true
+
+[node name="ThrowLine" type="Line2D" parent="." unique_id=1209255530]
+modulate = Color(0.6627451, 0.60784316, 1, 1)
+width = 3.0
+gradient = SubResource("Gradient_imoib")
+antialiased = true
+
+[node name="PlayerThrowPredictor" parent="." unique_id=1401941446 node_paths=PackedStringArray("line", "player") instance=ExtResource("13_xeu68")]
+line = NodePath("../ThrowLine")
+steps = 500
+fake_steps = 0.0
+step_dist = 1.0
+player = NodePath("../Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1257971085]
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1178399043 instance=ExtResource("14_5e3w3")]
+metadata/_edit_use_anchors_ = true
+
+[node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1941141880]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
+text = "FPS"
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=1509515973]
+process_mode = 3
+offset_left = 100.0
+offset_right = 141.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "Health"
+metadata/_edit_use_anchors_ = true
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1955750771]
+process_mode = 3
+offset_left = 1838.0
+offset_top = 1.0
+offset_right = 1915.0
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 24
+text = "Time"
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SafeZone" parent="." unique_id=1777228472 node_paths=PackedStringArray("darkness") instance=ExtResource("15_xkcec")]
+scale = Vector2(5, 6)
+darkness = NodePath("CanvasModulate")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="SafeZone" unique_id=29132806]
+position = Vector2(-396.01077, -417.775)
+scale = Vector2(0.1939328, 0.22046174)
+color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+
+[node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("20_5nqmh")]
+position = Vector2(-4789, -2524)
+start_in_orbit = false
+start_orbit_dir = false
+
+[node name="Steven" parent="." unique_id=1772247003 instance=ExtResource("17_c045k")]
+position = Vector2(2413, -4571)
+
+[node name="Jeremiah" parent="." unique_id=67025013 instance=ExtResource("19_hthak")]
+position = Vector2(-3946, -3074)
+max_velocity = 400.0
+
+[node name="Jeremiah2" parent="." unique_id=1291074712 instance=ExtResource("19_hthak")]
+position = Vector2(2811, -8583)
+max_velocity = 400.0
+
+[node name="Jeremiah3" parent="." unique_id=1834168270 instance=ExtResource("19_hthak")]
+position = Vector2(2270, 3970)
+max_velocity = 400.0
+
+[node name="Leaper" parent="." unique_id=164943933 instance=ExtResource("22_on3xc")]
+position = Vector2(-5029, -3640)
+
+[node name="Steven2" parent="." unique_id=352316998 instance=ExtResource("17_c045k")]
+position = Vector2(5063, -4608)
+
+[node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("23_6qt07")]
+position = Vector2(-8204, 8795)
+
+[node name="Evil_Fred2" parent="." unique_id=1530806718 instance=ExtResource("25_tai8o")]
+position = Vector2(5753, -6718)
+
+[node name="DuskPlanet" parent="." unique_id=1621441936 instance=ExtResource("24_l0qou")]
+position = Vector2(-5191, -3722)
+mass = 4000.0
+
+[editable path="DuskSector"]
+[editable path="DawnSector"]
+[editable path="SunsetSector"]

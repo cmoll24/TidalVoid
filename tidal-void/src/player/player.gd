@@ -370,10 +370,10 @@ func teleport():
 		var teleport_pos : Vector2 = Vector2.ZERO
 		var closest_dist_sqr  : float = INF
 		for tp in game_manager.teleport_sources:
-			var dist_sqr : float = global_position.distance_squared_to(tp.global_position)
+			var dist_sqr : float = global_position.distance_squared_to(tp)
 			if(dist_sqr < closest_dist_sqr):
 				closest_dist_sqr = dist_sqr
-				teleport_pos = tp.global_position
+				teleport_pos = tp
 		#perform teleportation
 		global_position = teleport_pos
 		#stop leftover velocity

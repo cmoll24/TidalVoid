@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpiq4f2ru81vl"
-path="res://.godot/imported/Crystal with plant.png-adac5f32c5895e3ba4b4d2ab6b40121c.ctex"
+uid="uid://bjtxyie0ay31q"
+path="res://.godot/imported/Dusk_Crater3.png-b872b86769d0a5b2d748436ce80a0e40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Sunset/Crystal with plant.png"
-dest_files=["res://.godot/imported/Crystal with plant.png-adac5f32c5895e3ba4b4d2ab6b40121c.ctex"]
+source_file="res://assets/Textures/Environmental/Dusk/Dusk_Crater3.png"
+dest_files=["res://.godot/imported/Dusk_Crater3.png-b872b86769d0a5b2d748436ce80a0e40.ctex"]
 
 [params]
 

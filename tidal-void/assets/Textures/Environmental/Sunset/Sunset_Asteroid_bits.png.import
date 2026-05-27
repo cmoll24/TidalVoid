@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do870ryo48587"
-path="res://.godot/imported/Crater2.png-55a0bd6a998a6ca57712e0d430c1024a.ctex"
+uid="uid://b28levjno6xre"
+path="res://.godot/imported/Sunset_Asteroid_bits.png-5809429f916507fc9bfa277e6a7a3005.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Dusk/Crater2.png"
-dest_files=["res://.godot/imported/Crater2.png-55a0bd6a998a6ca57712e0d430c1024a.ctex"]
+source_file="res://assets/Textures/Environmental/Sunset/Sunset_Asteroid_bits.png"
+dest_files=["res://.godot/imported/Sunset_Asteroid_bits.png-5809429f916507fc9bfa277e6a7a3005.ctex"]
 
 [params]
 

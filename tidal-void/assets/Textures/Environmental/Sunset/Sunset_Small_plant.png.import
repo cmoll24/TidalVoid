@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daqiejsrdmkph"
-path="res://.godot/imported/Crater2.png-1fcd63d7dcb1b1e30da10f9777f248f7.ctex"
+uid="uid://cuh0a85hbeql3"
+path="res://.godot/imported/Sunset_Small_plant.png-ab599243f29515733124cc60831e3c61.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Sunset/Crater2.png"
-dest_files=["res://.godot/imported/Crater2.png-1fcd63d7dcb1b1e30da10f9777f248f7.ctex"]
+source_file="res://assets/Textures/Environmental/Sunset/Sunset_Small_plant.png"
+dest_files=["res://.godot/imported/Sunset_Small_plant.png-ab599243f29515733124cc60831e3c61.ctex"]
 
 [params]
 

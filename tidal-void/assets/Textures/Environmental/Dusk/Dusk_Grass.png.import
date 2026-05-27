@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuh0a85hbeql3"
-path="res://.godot/imported/Small plant.png-537018dc85c2baa03b0841d519246908.ctex"
+uid="uid://docacdhqrsicy"
+path="res://.godot/imported/Dusk_Grass.png-5c3dd18b966b9be1a4fa0e39ecc2f1c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Sunset/Small plant.png"
-dest_files=["res://.godot/imported/Small plant.png-537018dc85c2baa03b0841d519246908.ctex"]
+source_file="res://assets/Textures/Environmental/Dusk/Dusk_Grass.png"
+dest_files=["res://.godot/imported/Dusk_Grass.png-5c3dd18b966b9be1a4fa0e39ecc2f1c6.ctex"]
 
 [params]
 

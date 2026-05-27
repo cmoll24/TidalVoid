@@ -18,10 +18,10 @@ func respawn():
 	var teleport_pos : Vector2 = Vector2.ZERO
 	var closest_dist_sqr  : float = INF
 	for tp in game_manager.teleport_sources:
-		var dist_sqr : float = global_position.distance_squared_to(tp.global_position)
+		var dist_sqr : float = global_position.distance_squared_to(tp)
 		if(dist_sqr < closest_dist_sqr):
 			closest_dist_sqr = dist_sqr
-			teleport_pos = tp.global_position
+			teleport_pos = tp
 	
 	#on death
 	var player_scene  = load(death_pawn_path)

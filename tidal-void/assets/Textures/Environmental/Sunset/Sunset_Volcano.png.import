@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3wi6kos0gg54"
-path="res://.godot/imported/Base planet.png-a7b96c0151ac3a4f0a32bd9c7645bbce.ctex"
+uid="uid://b4lxnqrqanli"
+path="res://.godot/imported/Sunset_Volcano.png-4baed25e2e915d6cf94ed50918dff53b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Sunset/Base planet.png"
-dest_files=["res://.godot/imported/Base planet.png-a7b96c0151ac3a4f0a32bd9c7645bbce.ctex"]
+source_file="res://assets/Textures/Environmental/Sunset/Sunset_Volcano.png"
+dest_files=["res://.godot/imported/Sunset_Volcano.png-4baed25e2e915d6cf94ed50918dff53b.ctex"]
 
 [params]
 

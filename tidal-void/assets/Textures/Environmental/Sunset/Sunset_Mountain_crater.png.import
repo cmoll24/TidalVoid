@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjtxyie0ay31q"
-path="res://.godot/imported/Crater3.png-3e90530c48d84fe9ade7b3a3a6271f54.ctex"
+uid="uid://bv1ws0m1h7khx"
+path="res://.godot/imported/Sunset_Mountain_crater.png-a587ae95ecc4ae597e41fe84dcbf0e13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Dusk/Crater3.png"
-dest_files=["res://.godot/imported/Crater3.png-3e90530c48d84fe9ade7b3a3a6271f54.ctex"]
+source_file="res://assets/Textures/Environmental/Sunset/Sunset_Mountain_crater.png"
+dest_files=["res://.godot/imported/Sunset_Mountain_crater.png-a587ae95ecc4ae597e41fe84dcbf0e13.ctex"]
 
 [params]
 

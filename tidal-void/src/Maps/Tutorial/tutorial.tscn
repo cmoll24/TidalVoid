@@ -14,12 +14,12 @@
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="14_r1w2l"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="20_bb73p"]
 [ext_resource type="PackedScene" uid="uid://d2kanj13jye30" path="res://src/Maps/planets/PomPlanet.tscn" id="21_6oxdl"]
-[ext_resource type="PackedScene" uid="uid://bfgeal6ybkj0n" path="res://src/Maps/planets/dusk_sector_planets/planet1.tscn" id="22_7ay3w"]
+[ext_resource type="PackedScene" uid="uid://bfgeal6ybkj0n" path="res://src/Maps/planets/dusk_sector_planets/Test/planet1.tscn" id="22_7ay3w"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="22_dqakm"]
-[ext_resource type="PackedScene" uid="uid://bq4arad21hka5" path="res://src/Maps/planets/dusk_sector_planets/planet2.tscn" id="23_8upge"]
+[ext_resource type="PackedScene" uid="uid://bq4arad21hka5" path="res://src/Maps/planets/dusk_sector_planets/Test/planet2.tscn" id="23_8upge"]
 [ext_resource type="PackedScene" uid="uid://b1df3kp5dqvna" path="res://src/Maps/Tutorial/TutorialMessage.tscn" id="23_vmvvh"]
-[ext_resource type="PackedScene" uid="uid://vmre2wpg2itq" path="res://src/Maps/planets/dusk_sector_planets/planet3.tscn" id="24_o4nfo"]
-[ext_resource type="PackedScene" uid="uid://173wnvt86qfx" path="res://src/Maps/planets/dusk_sector_planets/planet4.tscn" id="25_hxxks"]
+[ext_resource type="PackedScene" uid="uid://vmre2wpg2itq" path="res://src/Maps/planets/dusk_sector_planets/Test/planet3.tscn" id="24_o4nfo"]
+[ext_resource type="PackedScene" uid="uid://173wnvt86qfx" path="res://src/Maps/planets/dusk_sector_planets/Test/planet4.tscn" id="25_hxxks"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -308,9 +308,6 @@ position = Vector2(1595, 4533)
 [node name="ShipBody" parent="." unique_id=1522743882 instance=ExtResource("22_dqakm")]
 z_index = 0
 position = Vector2(457, 1910)
-
-[node name="Leaper" parent="ShipBody/CreatureStorage" parent_id_path=PackedInt32Array(1522743882, 10157181) index="2" unique_id=1314638072]
-position = Vector2(-1505, 1270)
 
 [node name="PomPlanet" parent="." unique_id=2060639823 instance=ExtResource("21_6oxdl")]
 position = Vector2(1940, 3968)

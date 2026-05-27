@@ -129,7 +129,7 @@ func _physics_process(_delta: float) -> void:
 	apply_velocity();
 	
 	if (grounded_buffer > 0):
-		grounded_buffer -= 1; #what the hell, I can't even do -- in gdscripts
+		grounded_buffer -= 1; 
 	else:
 		#Call Set Airborne so that child classes can detect the event
 		set_airborne();

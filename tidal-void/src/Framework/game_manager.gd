@@ -9,7 +9,7 @@ var gravity_sources : Array[GravitySource] = []
 #universal array of shroud revealing sources
 var revealing_sources : Array[Node2D] = []
 
-var teleport_sources: Array[Node2D] = []
+var teleport_sources: Array[Vector2] = []
 
 var streaming_sources : Array[Node2D] = []
 
@@ -30,9 +30,9 @@ func register_revealing_source(new_source: Node2D) -> void:
 func unregister_revealing_source(source : Node2D) -> void:
 	revealing_sources.erase(source)	
 	
-func register_teleport_source(new_source: Node2D) -> void:
+func register_teleport_source(new_source: Vector2) -> void:
 	teleport_sources.append(new_source)
-func unregister_teleport_source(source: Node2D) -> void:
+func unregister_teleport_source(source: Vector2) -> void:
 	teleport_sources.erase(source)
 	
 func register_streaming_source(new_source: Node2D) -> void:

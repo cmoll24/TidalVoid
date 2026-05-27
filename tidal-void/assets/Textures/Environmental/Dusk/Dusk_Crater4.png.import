@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://unqkf22vafl0"
-path="res://.godot/imported/DuskBase2.png-2c707e612ef8963c1b4ec4c7ea8b5da9.ctex"
+uid="uid://bo8tt5r3fgga2"
+path="res://.godot/imported/Dusk_Crater4.png-7a9f2d31ee2162ba321a30bbf42a8bd2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Textures/Environmental/Dusk/DuskBase2.png"
-dest_files=["res://.godot/imported/DuskBase2.png-2c707e612ef8963c1b4ec4c7ea8b5da9.ctex"]
+source_file="res://assets/Textures/Environmental/Dusk/Dusk_Crater4.png"
+dest_files=["res://.godot/imported/Dusk_Crater4.png-7a9f2d31ee2162ba321a30bbf42a8bd2.ctex"]
 
 [params]
 
