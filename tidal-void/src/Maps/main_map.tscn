@@ -141,6 +141,7 @@ position = Vector2(-10152, 5233)
 
 [node name="SunsetPlanet" parent="SunsetSector" unique_id=1175010480 instance=ExtResource("11_kpxo1")]
 position = Vector2(-6606, 5931)
+rotation = -2.8159854
 
 [node name="SunsetPlanet3" parent="SunsetSector" unique_id=1861604287 instance=ExtResource("12_bo405")]
 position = Vector2(-8234, 8821)

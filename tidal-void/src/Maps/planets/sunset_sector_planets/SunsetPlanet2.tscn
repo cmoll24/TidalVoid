@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bv1ws0m1h7khx" path="res://assets/Textures/Environmental/Sunset/Sunset_Mountain_crater.png" id="10_f84cn"]
 [ext_resource type="Texture2D" uid="uid://b4lxnqrqanli" path="res://assets/Textures/Environmental/Sunset/Sunset_Volcano.png" id="11_i3mlt"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="12_1dc0m"]
+[ext_resource type="PackedScene" uid="uid://bfi3ec4shhb07" path="res://src/Environment/Hazards/geyser.tscn" id="12_xmxe3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
 radius = 172.00291
@@ -221,6 +222,10 @@ grow_vertical = 2
 scale = Vector2(0.4, 0.4)
 pivot_offset_ratio = Vector2(0.525, 0.495)
 texture = ExtResource("11_i3mlt")
+
+[node name="Geyser" parent="." unique_id=39023203 instance=ExtResource("12_xmxe3")]
+position = Vector2(118, -161)
+rotation = 0.5176045
 
 [node name="PullRadius" type="TextureRect" parent="." unique_id=986787955]
 z_index = 120
