@@ -2,7 +2,7 @@ extends Control
 
 # Preload panel scenes because this will be first scene that opens up
 var inventory_panel_scene = preload("res://src/UI/inventory_ui/InventoryPanel.tscn")
-# var journal_panel_scene = preload("res://src/UI/panels/journal_panel.tscn")
+var journal_panel_scene = preload("res://src/UI/journal_ui/journal_menu.tscn")
 
 #References to UI elements
 @onready var inventory_button = $PanelContainer/VBoxContainer/TabBar/InventoryButton
@@ -49,8 +49,7 @@ func _on_inventory_button_pressed() -> void:
 
 #how journal panel
 func _on_journal_button_pressed() -> void:
-	#TO DO THIS IS NOT IMPLEMENTED YET!!!
-	print("Journal button pressed - panel not implemented yet")
+	_show_panel(journal_panel_scene)
 
 func _show_panel(panel_scene: PackedScene) -> void:
 	#Clear existing panel

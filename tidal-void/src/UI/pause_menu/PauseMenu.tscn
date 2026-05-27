@@ -40,24 +40,33 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 130.0
-offset_top = 153.0
-offset_right = -106.0
-offset_bottom = -83.0
+offset_left = 99.0
+offset_top = 84.0
+offset_right = -75.0
+offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ikix3")
 
-[node name="StarNoiseTinnyBackground4" type="Sprite2D" parent="." unique_id=921123994]
-position = Vector2(829, 385.5)
-scale = Vector2(1.8730469, 1.0517577)
+[node name="StarNoiseTinnyBackground4" type="TextureRect" parent="." unique_id=1601538157]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -777.0
+offset_top = -484.0
+offset_right = -777.0
+offset_bottom = -414.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
 texture = ExtResource("2_ixw0x")
 
 [node name="ButtonBackground" type="Panel" parent="." unique_id=1518912905]
 layout_mode = 0
 offset_left = -34.0
 offset_top = -14.0
-offset_right = 1718.0
+offset_right = 1773.0
 offset_bottom = 101.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_weer4")
 
@@ -83,7 +92,7 @@ theme_override_constants/separation = 100
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0.2627451, 0.4, 1)
-theme_override_colors/icon_normal_color = Color(0.2891341, 0.3229169, 0.82608396, 1)
+theme_override_colors/icon_normal_color = Color(0.2901961, 0.32156864, 0.827451, 1)
 theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_gsq3i")
 text = "Inventory"

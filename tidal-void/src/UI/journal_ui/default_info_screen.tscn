@@ -1,38 +1,37 @@
 [gd_scene format=3 uid="uid://vak3jxmqq1yd"]
 
 [ext_resource type="Script" uid="uid://c7wwgfxo4vkgh" path="res://src/UI/journal_ui/default_info_screen.gd" id="1_gftal"]
-[ext_resource type="Texture2D" uid="uid://cwnvlxj5vh8j8" path="res://icon.svg" id="1_vltfo"]
+[ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="2_gftal"]
+[ext_resource type="Theme" uid="uid://cqttoxo2ikf64" path="res://assets/UI/Themes/game_menu.tres" id="3_jfhdc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gftal"]
-bg_color = Color(0.05490196, 0.28235295, 0.6, 1)
+bg_color = Color(0.9254902, 0.98039216, 1, 1)
 
 [node name="InfoRect" type="ColorRect" unique_id=859684562 groups=["journal_info"]]
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1498.0
-grow_horizontal = 0
+offset_left = 2.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-color = Color(0.40784314, 0.34901962, 1, 1)
+color = Color(0.7254902, 0.90588236, 0.9647059, 1)
 script = ExtResource("1_gftal")
 
 [node name="DefaultInfoScreen" type="ScrollContainer" parent="." unique_id=938532203]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1495.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
 [node name="InfoMargin" type="MarginContainer" parent="DefaultInfoScreen" unique_id=1463107034]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
@@ -46,26 +45,31 @@ layout_mode = 2
 
 [node name="ImageBox" type="MarginContainer" parent="DefaultInfoScreen/InfoMargin/InfoBox/IntroBox" unique_id=273720256]
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="DefaultInfoScreen/InfoMargin/InfoBox/IntroBox/ImageBox" unique_id=1468208240]
+layout_mode = 2
+color = Color(0.9254902, 0.98039216, 1, 1)
 
 [node name="creature_image" type="TextureRect" parent="DefaultInfoScreen/InfoMargin/InfoBox/IntroBox/ImageBox" unique_id=144754017]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 300)
+custom_minimum_size = Vector2(250, 250)
 layout_mode = 2
-texture = ExtResource("1_vltfo")
+texture = ExtResource("2_gftal")
 expand_mode = 1
 
 [node name="NameBox" type="VBoxContainer" parent="DefaultInfoScreen/InfoMargin/InfoBox/IntroBox" unique_id=1290196860]
-custom_minimum_size = Vector2(950, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 
 [node name="creature_name" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/IntroBox/NameBox" unique_id=1998593560]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 100
+theme_override_colors/default_color = Color(0, 0.2627451, 0.4, 1)
+theme_override_font_sizes/normal_font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_gftal")
 text = "NAME HERE"
 fit_content = true
@@ -75,7 +79,8 @@ vertical_alignment = 1
 [node name="creature_story" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/IntroBox/NameBox" unique_id=193855930]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 60
+theme_override_colors/default_color = Color(0, 0.3563187, 0.5339941, 1)
+theme_override_font_sizes/normal_font_size = 50
 text = "STORY HERE"
 fit_content = true
 horizontal_alignment = 1
@@ -84,9 +89,9 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(343, 100)
 layout_mode = 2
 size_flags_horizontal = 0
-color = Color(0.05490196, 0.28235295, 0.6, 1)
+color = Color(0.9254902, 0.98039216, 1, 1)
 
-[node name="adaptation_title" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/back_adapt_title" unique_id=1151012733]
+[node name="adaptation_title" type="Label" parent="DefaultInfoScreen/InfoMargin/InfoBox/back_adapt_title" unique_id=919391110]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(323, 0)
 layout_mode = 1
@@ -103,9 +108,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 60
+theme = ExtResource("3_jfhdc")
 text = "Adaptation"
-fit_content = true
 vertical_alignment = 1
 
 [node name="adapt_info_margin" type="MarginContainer" parent="DefaultInfoScreen/InfoMargin/InfoBox" unique_id=931085558]
@@ -117,8 +121,10 @@ theme_override_constants/margin_bottom = 10
 
 [node name="adaptation_info" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/adapt_info_margin" unique_id=35082406]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1415, 0)
+custom_minimum_size = Vector2(1300, 0)
 layout_mode = 2
+theme = ExtResource("3_jfhdc")
+theme_type_variation = &"normal"
 theme_override_font_sizes/normal_font_size = 40
 text = "INSERT ADAPTATION HERE"
 fit_content = true
@@ -127,9 +133,9 @@ fit_content = true
 custom_minimum_size = Vector2(343, 100)
 layout_mode = 2
 size_flags_horizontal = 0
-color = Color(0.05490196, 0.28235295, 0.6, 1)
+color = Color(0.9254902, 0.98039216, 1, 1)
 
-[node name="diet_title" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/back_diet_title" unique_id=1893355535]
+[node name="diet_title" type="Label" parent="DefaultInfoScreen/InfoMargin/InfoBox/back_diet_title" unique_id=633738841]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(119, 0)
 layout_mode = 1
@@ -138,10 +144,9 @@ offset_top = 8.5
 offset_right = 231.0
 offset_bottom = 91.5
 size_flags_horizontal = 4
-theme_override_font_sizes/normal_font_size = 60
+theme = ExtResource("3_jfhdc")
 text = "Diet
 "
-fit_content = true
 vertical_alignment = 1
 
 [node name="diet_info_margin" type="MarginContainer" parent="DefaultInfoScreen/InfoMargin/InfoBox" unique_id=1256280929]
@@ -151,8 +156,9 @@ theme_override_constants/margin_bottom = 10
 
 [node name="diet_info" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/diet_info_margin" unique_id=959723698]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1415, 0)
+custom_minimum_size = Vector2(1300, 0)
 layout_mode = 2
+theme = ExtResource("3_jfhdc")
 theme_override_font_sizes/normal_font_size = 40
 text = "INSERT DIET HERE"
 fit_content = true
@@ -161,9 +167,9 @@ fit_content = true
 custom_minimum_size = Vector2(343, 100)
 layout_mode = 2
 size_flags_horizontal = 0
-color = Color(0.05490196, 0.28235295, 0.6, 1)
+color = Color(0.9254902, 0.98039216, 1, 1)
 
-[node name="behavior_title" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/back_behav_title" unique_id=754333901]
+[node name="behavior_title" type="Label" parent="DefaultInfoScreen/InfoMargin/InfoBox/back_behav_title" unique_id=1099961682]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -177,9 +183,8 @@ offset_right = 129.0
 offset_bottom = 41.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 60
+theme = ExtResource("3_jfhdc")
 text = "Behavior"
-fit_content = true
 vertical_alignment = 1
 
 [node name="behav_info_margin" type="MarginContainer" parent="DefaultInfoScreen/InfoMargin/InfoBox" unique_id=1635928215]
@@ -189,8 +194,9 @@ theme_override_constants/margin_bottom = 10
 
 [node name="behavior_info" type="RichTextLabel" parent="DefaultInfoScreen/InfoMargin/InfoBox/behav_info_margin" unique_id=563237219]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1415, 0)
+custom_minimum_size = Vector2(1300, 0)
 layout_mode = 2
+theme = ExtResource("3_jfhdc")
 theme_override_font_sizes/normal_font_size = 40
 text = "INERT BEHAVIOR HERE"
 fit_content = true

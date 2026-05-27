@@ -1,11 +1,15 @@
-extends CanvasLayer
+extends UIPanel
 @onready var default_button = load("res://src/UI/journal_ui/default_journal_button.tscn")
+
+@onready var side_button_container = $ScrollContainer/VBoxContainer
+
+@onready var info_panel_container = $PanelContainer
 
 func _ready() -> void:
 	# For every creature in the dictionary
 	for creature in GV.creature_button_dict:
 		# Instatiate a new default button
-		var new_button = default_button.instantiate()
+		var new_button : JournalButton = default_button.instantiate()
 		new_button.creature_dict = GV.creature_button_dict[creature]
 		
 		# Grab the creature data from the dictionary
@@ -22,8 +26,8 @@ func _ready() -> void:
 		# Give button an image
 		new_button.icon = load(creature_data["asset"])
 		
-		# Grab the VBoxContainer Node
-		var container = get_node("ScrollContainer/VBoxContainer")
+		#This allows the button to instance new info screen panels
+		new_button.set_info_panel_ref(info_panel_container)
 		
 		# Add the new button to the VBoxContainer
-		container.add_child(new_button)
+		side_button_container.add_child(new_button)
