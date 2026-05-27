@@ -50,7 +50,7 @@ collision_mask = 7
 collide_with_areas = true
 
 [node name="WorldManager" parent="GameManager" unique_id=648679912 node_paths=PackedStringArray("sectors") instance=ExtResource("4_bo405")]
-sectors = [null]
+sectors = [NodePath("../../DuskSector"), NodePath("../../DawnSector"), NodePath("../../SunsetSector")]
 
 [node name="DuskSector" parent="." unique_id=1361397144 instance=ExtResource("5_c5n6l")]
 
@@ -104,6 +104,42 @@ position = Vector2(368, -11875)
 
 [node name="Copper_Ore_7" parent="DawnSector" unique_id=515063576 instance=ExtResource("7_chnye")]
 position = Vector2(1941, -12340)
+
+[node name="Fruit" parent="DawnSector" unique_id=1301435372 instance=ExtResource("7_chnye")]
+position = Vector2(-58, -9748)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit2" parent="DawnSector" unique_id=350766369 instance=ExtResource("7_chnye")]
+position = Vector2(-1657, -9223)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit3" parent="DawnSector" unique_id=307608412 instance=ExtResource("7_chnye")]
+position = Vector2(-2332, -9794)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit4" parent="DawnSector" unique_id=1876624784 instance=ExtResource("7_chnye")]
+position = Vector2(1471, -10218)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit5" parent="DawnSector" unique_id=55316063 instance=ExtResource("7_chnye")]
+position = Vector2(2024, -9212)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit6" parent="DawnSector" unique_id=1164152605 instance=ExtResource("7_chnye")]
+position = Vector2(-784, -12720)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit7" parent="DawnSector" unique_id=847029929 instance=ExtResource("7_chnye")]
+position = Vector2(-646, -13593)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit8" parent="DawnSector" unique_id=1896905676 instance=ExtResource("7_chnye")]
+position = Vector2(-217, -14180)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit9" parent="DawnSector" unique_id=1222088776 instance=ExtResource("7_chnye")]
+position = Vector2(-217, -14180)
+spawn_path = "res://src/Collectables/collectable.tscn"
 
 [node name="DawnPlanet" parent="DawnSector" unique_id=870211363 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet1.tscn"]
 position = Vector2(-2017, -11155)
@@ -246,14 +282,14 @@ start_in_orbit = false
 start_orbit_dir = false
 
 [node name="Steven" parent="." unique_id=1772247003 instance=ExtResource("17_c045k")]
-position = Vector2(2413, -4571)
+position = Vector2(-368, -12969)
 
 [node name="Jeremiah" parent="." unique_id=67025013 instance=ExtResource("19_hthak")]
 position = Vector2(-3946, -3074)
 max_velocity = 400.0
 
 [node name="Jeremiah2" parent="." unique_id=1291074712 instance=ExtResource("19_hthak")]
-position = Vector2(2811, -8583)
+position = Vector2(-634, -9045)
 max_velocity = 400.0
 
 [node name="Jeremiah3" parent="." unique_id=1834168270 instance=ExtResource("19_hthak")]
@@ -264,13 +300,16 @@ max_velocity = 400.0
 position = Vector2(-5029, -3640)
 
 [node name="Steven2" parent="." unique_id=352316998 instance=ExtResource("17_c045k")]
-position = Vector2(5063, -4608)
+position = Vector2(1458, -9081)
 
 [node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("23_6qt07")]
 position = Vector2(-8204, 8795)
 
 [node name="Evil_Fred2" parent="." unique_id=1530806718 instance=ExtResource("25_tai8o")]
-position = Vector2(5753, -6718)
+position = Vector2(1474, -11349)
+
+[node name="Evil_Fred3" parent="." unique_id=1282437192 instance=ExtResource("25_tai8o")]
+position = Vector2(1791, -9255)
 
 [node name="DuskPlanet" parent="." unique_id=1621441936 instance=ExtResource("24_l0qou")]
 position = Vector2(-5191, -3722)
