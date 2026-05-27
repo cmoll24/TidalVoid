@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="27_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="28_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://d051l38xqv0gc" path="res://src/Maps/planets/LivingPlanet.tscn" id="28_ybfy3"]
+[ext_resource type="PackedScene" uid="uid://bw0bb3wgfesg1" path="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet1.tscn" id="29_ybfy3"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -331,6 +332,9 @@ darkness = NodePath("../GameManager/CanvasModulate")
 
 [node name="Evil_Fred2" parent="." unique_id=622799626 instance=ExtResource("13_i4pkw")]
 position = Vector2(8851, 3392)
+
+[node name="SunsetPlanet" parent="." unique_id=652675494 instance=ExtResource("29_ybfy3")]
+position = Vector2(6509.324, 10468.792)
 
 [editable path="DuskSector"]
 [editable path="DawnSector"]

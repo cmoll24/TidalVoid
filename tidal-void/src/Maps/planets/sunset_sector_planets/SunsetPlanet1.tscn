@@ -1,0 +1,241 @@
+[gd_scene format=3 uid="uid://bw0bb3wgfesg1"]
+
+[ext_resource type="Script" uid="uid://becxcr68kkbk8" path="res://src/Framework/Planet.gd" id="1_7f2ul"]
+[ext_resource type="Texture2D" uid="uid://c3wi6kos0gg54" path="res://assets/Textures/Environmental/Sunset/Base planet.png" id="2_l806q"]
+[ext_resource type="Texture2D" uid="uid://daqiejsrdmkph" path="res://assets/Textures/Environmental/Sunset/Crater2.png" id="3_gpt1f"]
+[ext_resource type="Texture2D" uid="uid://c7dhwevvwv0bb" path="res://assets/Textures/Environmental/Sunset/Crater with plant.png" id="4_dqmg4"]
+[ext_resource type="Texture2D" uid="uid://bjuhkvjyf7hlc" path="res://assets/Textures/Environmental/Sunset/Crystal2.png" id="5_7te1t"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_vpy7d"]
+[ext_resource type="Texture2D" uid="uid://cpiq4f2ru81vl" path="res://assets/Textures/Environmental/Sunset/Crystal with plant.png" id="6_43kx5"]
+[ext_resource type="Texture2D" uid="uid://bl5vflc2ikxc7" path="res://assets/Textures/Environmental/Sunset/Medium plant.png" id="7_lphu0"]
+[ext_resource type="Texture2D" uid="uid://cuh0a85hbeql3" path="res://assets/Textures/Environmental/Sunset/Small plant.png" id="8_ya3n6"]
+[ext_resource type="Texture2D" uid="uid://dtgcafnpdx6q6" path="res://assets/Textures/Environmental/Sunset/Big plant.png" id="9_qrk2m"]
+[ext_resource type="Texture2D" uid="uid://bv1ws0m1h7khx" path="res://assets/Textures/Environmental/Sunset/Mountain crater.png" id="10_qro7u"]
+[ext_resource type="Texture2D" uid="uid://b4lxnqrqanli" path="res://assets/Textures/Environmental/Sunset/Volcano.png" id="11_8ny58"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
+radius = 172.00291
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
+shader = ExtResource("5_vpy7d")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0.043137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pf5yv"]
+gradient = SubResource("Gradient_klrcr")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="SunsetPlanet" type="StaticBody2D" unique_id=2060639823 groups=["gravity_sources"]]
+z_index = 2
+collision_mask = 7
+script = ExtResource("1_7f2ul")
+mass = 13000.0
+collision_radius = 151.0
+metadata/_custom_type_script = "uid://becxcr68kkbk8"
+
+[node name="PlanetTexture" type="TextureRect" parent="." unique_id=1814879757]
+visibility_layer = 65
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("2_l806q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
+shape = SubResource("CircleShape2D_f54en")
+
+[node name="Crater1" type="TextureRect" parent="." unique_id=1765115768]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("3_gpt1f")
+
+[node name="Crater2" type="TextureRect" parent="." unique_id=37765992]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("4_dqmg4")
+
+[node name="Crystal1" type="TextureRect" parent="." unique_id=1725761334]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("5_7te1t")
+
+[node name="Crystal2" type="TextureRect" parent="." unique_id=510422338]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("6_43kx5")
+
+[node name="Plant1" type="TextureRect" parent="." unique_id=823180911]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("7_lphu0")
+
+[node name="Plant2" type="TextureRect" parent="." unique_id=2062536725]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("8_ya3n6")
+
+[node name="Plant3" type="TextureRect" parent="." unique_id=206720891]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("9_qrk2m")
+
+[node name="Volcano" type="TextureRect" parent="." unique_id=1119872993]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("10_qro7u")
+
+[node name="Volcano2" type="TextureRect" parent="." unique_id=753534532]
+visibility_layer = 65
+z_index = 15
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -640.0
+offset_right = 640.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.525, 0.495)
+texture = ExtResource("11_8ny58")
+
+[node name="PullRadius" type="TextureRect" parent="." unique_id=986787955]
+z_index = 120
+material = SubResource("ShaderMaterial_ps4nm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_pf5yv")
+stretch_mode = 3
