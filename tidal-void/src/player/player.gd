@@ -26,6 +26,7 @@ var held_creature : Creature = null
 
 var throw_trajectory : TrajectoryPredictor
 
+var speed_boost_timer : Timer
 #########################################################
 #the player can interact with things in this area
 @onready var interact_area : Area2D = $InteractArea
@@ -49,6 +50,9 @@ var lures_left : int = 5
 
 var grapple_max : int = 10
 var grapples_left : int = 10
+
+var speed_boost_max : int = 5
+var speed_boost_left : int = 5
 
 @export var propulsion_power : float = 300.0
 @export var lure_cloud_size : int = 10
@@ -394,13 +398,20 @@ func grapple():
 func collectableDetector():
 	pass
 	#idea is to detect collactibles like batman detective vision in the arkham games
-
+func speedBoost():
+	if speed_boost_left > 0:
+		var current_velocity : Vector2 = velocity
+		velocity *= 10
+		speed_boost_left -= 1
+		await get_tree().create_timer(3.0).timeout
+		velocity = current_velocity
+	pass
 func reset_abilities():
 	propulsions_left = propulsion_max
 	teleports_left = teleport_max 
 	lures_left = lure_max
 	grapples_left = grapple_max 
-	
+	speed_boost_left = speed_boost_max
 
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")

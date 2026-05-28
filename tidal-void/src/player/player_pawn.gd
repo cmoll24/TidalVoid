@@ -57,7 +57,8 @@ func collectableDetector():
 	pass
 func lure():
 	pass
-
+func speedBoost():
+	pass
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA

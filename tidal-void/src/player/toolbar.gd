@@ -17,7 +17,7 @@ func _ready() -> void:
 			abilities[type].append(null)
 	add_ability_to_slot(0, typeof(Player), "propulsion_ability")
 	add_ability_to_slot(1, typeof(Player), "teleport")
-
+	add_ability_to_slot(2, typeof(Player), "speedBoost")
 func add_ability_to_slot(index : int, type, function_name : String):
 	if index < abilities_slot_max and index >= 0:
 		abilities[type][index] = function_name
