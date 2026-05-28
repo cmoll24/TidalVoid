@@ -4,3 +4,4 @@
 
 [node name="ShieldAbility" type="Node" unique_id=1224404843]
 script = ExtResource("1_kkl53")
+max_uses = 5
