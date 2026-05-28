@@ -1,7 +1,7 @@
 extends PlayerAbility
 
 ### multiplier applied to thrust during the boost
-@export var boost_multiplier : float = 5.0;
+@export var boost_multiplier : float = 3;
 ### duration of the boost
 @export var boost_time : float = 1.5
 var is_boosting : bool = false
