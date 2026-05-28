@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b85h1exxmlif4"]
+
+[ext_resource type="Script" uid="uid://dklakaa6galmj" path="res://src/player/Abilities/Ability_Classes/teleport_ability.gd" id="1_pqxdy"]
+
+[node name="TeleportAbility" type="Node" unique_id=1073433293]
+script = ExtResource("1_pqxdy")
+metadata/_custom_type_script = "uid://dm8sriwtqcfub"

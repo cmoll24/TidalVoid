@@ -365,54 +365,6 @@ func perform_jump():
 		return
 	velocity += jump_vector
 
-func propulsion_ability():
-	if propulsions_left > 0:
-		propulsions_left -= 1
-		velocity += (propulsion_power * mouse_direction)
-
-func teleport():
-	if teleports_left > 0:
-		teleports_left -= 1
-		#teleport to the nearest teleport source
-		var teleport_pos : Vector2 = Vector2.ZERO
-		var closest_dist_sqr  : float = INF
-		for tp in game_manager.teleport_sources:
-			var dist_sqr : float = global_position.distance_squared_to(tp)
-			if(dist_sqr < closest_dist_sqr):
-				closest_dist_sqr = dist_sqr
-				teleport_pos = tp
-		#perform teleportation
-		global_position = teleport_pos
-		#stop leftover velocity
-		velocity = Vector2.ZERO
-
-func lure():
-	if lures_left > 0:
-		lures_left -= 1
-		#Idea is that creatures inside the lure cloud will automatically move closer to the player
-
-func grapple():
-	if grapples_left > 0:
-		grapples_left -= 1
-		#idea is to grapple to a creature and ride them like a lasso
-func collectableDetector():
-	pass
-	#idea is to detect collactibles like batman detective vision in the arkham games
-func speedBoost():
-	if speed_boost_left > 0:
-		var current_velocity : Vector2 = velocity
-		velocity *= 10
-		speed_boost_left -= 1
-		await get_tree().create_timer(3.0).timeout
-		velocity = current_velocity
-	pass
-func reset_abilities():
-	propulsions_left = propulsion_max
-	teleports_left = teleport_max 
-	lures_left = lure_max
-	grapples_left = grapple_max 
-	speed_boost_left = speed_boost_max
-
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")
 	if(source):
