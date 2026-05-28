@@ -17,5 +17,9 @@ func trigger_ability(player : PlayerPawn) -> bool:
 	uses -= 1
 	return true
 	
+# called when an ability is unequipped before destruction
+func deinit_ability()->void:
+	pass
+	
 func reset_uses():
 	uses = max_uses

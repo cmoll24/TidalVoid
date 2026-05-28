@@ -25,8 +25,10 @@ func _ready() -> void:
 func add_ability_to_slot(index : int, type, ability_path : String):
 	if index < abilities_slot_max and index >= 0:
 		#delete the old ability if there is one
-		if(abilities[type][index]):
-			abilities[type][index].queue_free()
+		var old_ability : PlayerAbility = abilities[type][index]
+		if(old_ability):
+			old_ability.deinit_ability()
+			old_ability.queue_free()
 		#make a new instance
 		var new_ability : PlayerAbility =load(ability_path).instantiate()
 		new_ability.init_ability()

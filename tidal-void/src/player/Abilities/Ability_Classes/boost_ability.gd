@@ -32,6 +32,6 @@ func stop_speed_boost():
 		player_ref.thrust_multiplier = 1
 	
 	
-func _exit_tree() -> void:
+func deinit_ability()->void:
 	#make sure that the speed boost stops even if this is deleted
 	stop_speed_boost()
