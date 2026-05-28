@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="20_5nqmh"]
-[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
+[ext_resource type="PackedScene" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]

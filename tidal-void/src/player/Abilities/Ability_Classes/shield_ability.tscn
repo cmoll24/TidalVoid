@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://barjn7ratudtg"]
+[gd_scene format=3 uid="uid://ctl5n7lj1up5k"]
 
 [ext_resource type="Script" uid="uid://be0n7wlpsp3oy" path="res://src/player/Abilities/Ability_Classes/shield_ability.gd" id="1_kkl53"]
 
