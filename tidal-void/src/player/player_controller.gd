@@ -97,7 +97,7 @@ func start_possess(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
 	predictor.update_player(player)
-	GV.player_reference(player)
+	GV.set_player_reference(player)
 	
 	if player is Player:
 		player.throw_trajectory = throw_predictor

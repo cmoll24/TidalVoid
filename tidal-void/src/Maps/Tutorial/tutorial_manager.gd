@@ -1,4 +1,4 @@
-extends OrbitTest
+extends Control
 class_name TutorialManager
 
 @export var camera_controls_msg : Label #0
@@ -19,7 +19,6 @@ var timing : float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	super._ready()
 	ground_mvmt_controls_msg.visible = false #1
 	jump_controls_msg.visible = false #2
 	space_controls_msg.visible = false #3
@@ -32,7 +31,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	super._process(delta)
 	match stage:
 		0:
 			#Show the player the scroll controls until they zoom in

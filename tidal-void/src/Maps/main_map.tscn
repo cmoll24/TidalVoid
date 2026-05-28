@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://d2n0vjhsugkix"]
 
-[ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_jvxuy"]
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_ohq06"]
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_kpxo1"]
 [ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bo405"]
@@ -12,11 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="11_xiii4"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="12_8bvlf"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="13_xeu68"]
-[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="14_5e3w3"]
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="20_5nqmh"]
+[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
@@ -27,7 +26,6 @@ offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
 
 [node name="MainMap" type="Node2D" unique_id=120585206]
-script = ExtResource("1_jvxuy")
 
 [node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_ohq06")]
 
@@ -244,38 +242,6 @@ fake_steps = 0.0
 step_dist = 1.0
 player = NodePath("../Player")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1257971085]
-
-[node name="PauseMenu" parent="CanvasLayer" unique_id=1178399043 instance=ExtResource("14_5e3w3")]
-metadata/_edit_use_anchors_ = true
-
-[node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1941141880]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 24
-text = "FPS"
-metadata/_edit_use_anchors_ = true
-
-[node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=1509515973]
-process_mode = 3
-offset_left = 100.0
-offset_right = 141.0
-offset_bottom = 34.0
-theme_override_font_sizes/font_size = 24
-text = "Health"
-metadata/_edit_use_anchors_ = true
-
-[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1955750771]
-process_mode = 3
-offset_left = 1838.0
-offset_top = 1.0
-offset_right = 1915.0
-offset_bottom = 35.0
-theme_override_font_sizes/font_size = 24
-text = "Time"
-horizontal_alignment = 2
-metadata/_edit_use_anchors_ = true
-
 [node name="SafeZone" parent="." unique_id=1777228472 node_paths=PackedStringArray("darkness") instance=ExtResource("15_xkcec")]
 position = Vector2(1228, 0)
 scale = Vector2(5, 6)
@@ -323,6 +289,8 @@ position = Vector2(1474, -11349)
 
 [node name="Evil_Fred3" parent="." unique_id=1282437192 instance=ExtResource("25_tai8o")]
 position = Vector2(1791, -9255)
+
+[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("21_mm3ko")]
 
 [editable path="DuskSector"]
 [editable path="DawnSector"]

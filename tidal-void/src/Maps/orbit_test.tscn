@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bcsp2j6ktrslb"]
 
-[ext_resource type="Script" uid="uid://d16ds6a0n0pde" path="res://src/Debug/orbit_test.gd" id="1_hd3kg"]
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_4vn8n"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="2_gnnns"]
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="3_gen7d"]
@@ -19,12 +18,12 @@
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
 [ext_resource type="PackedScene" uid="uid://b7xfx826u4njb" path="res://src/UI/inventory_ui/inventory_item.tscn" id="11_6pfde"]
-[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="11_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="12_2wvry"]
 [ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="12_uk65k"]
 [ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/upgrades_effects/effects/health_increase_effect.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
+[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="17_n6gpu"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_1e5fo"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="27_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="27_ybfy3"]
@@ -49,7 +48,6 @@ script = ExtResource("12_voqfk")
 metadata/_custom_type_script = "uid://cfqw8if3wfy87"
 
 [node name="OrbitTestScene" type="Node2D" unique_id=730832755]
-script = ExtResource("1_hd3kg")
 
 [node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_4vn8n")]
 
@@ -256,37 +254,7 @@ position = Vector2(529, 1750)
 [node name="Collectable13" parent="." unique_id=1474240198 instance=ExtResource("5_axjf6")]
 position = Vector2(761, 1710)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
-
-[node name="PauseMenu" parent="CanvasLayer" unique_id=1178399043 instance=ExtResource("11_i4pkw")]
-metadata/_edit_use_anchors_ = true
-
-[node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 24
-text = "FPS"
-metadata/_edit_use_anchors_ = true
-
-[node name="HealthLabel" type="Label" parent="CanvasLayer" unique_id=1834960123]
-process_mode = 3
-offset_left = 100.0
-offset_right = 141.0
-offset_bottom = 34.0
-theme_override_font_sizes/font_size = 24
-text = "Health"
-metadata/_edit_use_anchors_ = true
-
-[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1780474768]
-process_mode = 3
-offset_left = 1838.0
-offset_top = 1.0
-offset_right = 1915.0
-offset_bottom = 35.0
-theme_override_font_sizes/font_size = 24
-text = "Time"
-horizontal_alignment = 2
-metadata/_edit_use_anchors_ = true
+[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("17_n6gpu")]
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("10_lm5jn")]
 position = Vector2(428, 1982)

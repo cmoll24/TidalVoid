@@ -1,10 +1,7 @@
-[gd_scene format=3 uid="uid://ddwdqbcegxc8r"]
+[gd_scene format=3 uid="uid://dg35yaetklqpc"]
 
-[ext_resource type="Script" uid="uid://dxuqt3pdqp5cm" path="res://src/UI/pause_menu/pause_menu.gd" id="1_ikix3"]
-[ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="2_ixw0x"]
-[ext_resource type="PackedScene" uid="uid://by25jlk4v7qun" path="res://src/UI/base/PanelButton.tscn" id="3_ctpg8"]
-[ext_resource type="PackedScene" uid="uid://53j63lxbyw8u" path="res://src/UI/inventory_ui/InventoryPanel.tscn" id="4_ry8kb"]
-[ext_resource type="PackedScene" uid="uid://bp6i18gogltl4" path="res://src/UI/journal_ui/journal_menu.tscn" id="5_54ah3"]
+[ext_resource type="Script" uid="uid://dykmq3gsep4vf" path="res://src/UI/ship_menu/upgrade_menu.gd" id="1_ii1yr"]
+[ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="2_wwmcp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weer4"]
 bg_color = Color(0.7254902, 0.90588236, 0.9647059, 1)
@@ -14,7 +11,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gomoy"]
-bg_color = Color(0.7254902, 0.90588236, 0.9647059, 0.6509804)
+bg_color = Color(0.8294605, 0.8719416, 0.96233803, 0.6509804)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
@@ -23,7 +20,7 @@ expand_margin_left = 50.0
 expand_margin_top = 50.0
 expand_margin_right = 50.0
 
-[node name="PauseMenu" type="Control" unique_id=1178399043]
+[node name="UpgradeMenu" type="Control" unique_id=1178399043]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -35,7 +32,7 @@ offset_right = -75.0
 offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ikix3")
+script = ExtResource("1_ii1yr")
 
 [node name="StarNoiseTinnyBackground4" type="TextureRect" parent="." unique_id=1601538157]
 layout_mode = 1
@@ -49,7 +46,7 @@ offset_bottom = -414.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
-texture = ExtResource("2_ixw0x")
+texture = ExtResource("2_wwmcp")
 
 [node name="ButtonBackground" type="Panel" parent="." unique_id=1518912905]
 layout_mode = 0
@@ -76,16 +73,6 @@ theme_override_constants/separation = 50
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_constants/separation = 100
-
-[node name="InventoryButton" parent="PanelContainer/VBoxContainer/TabBar" unique_id=1261235340 instance=ExtResource("3_ctpg8")]
-layout_mode = 2
-text = "Inventory"
-panel_scene = ExtResource("4_ry8kb")
-
-[node name="JournalButton" parent="PanelContainer/VBoxContainer/TabBar" unique_id=2009763836 instance=ExtResource("3_ctpg8")]
-layout_mode = 2
-text = "Journal"
-panel_scene = ExtResource("5_54ah3")
 
 [node name="BodyRow" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=302551837]
 custom_minimum_size = Vector2(1700, 700)

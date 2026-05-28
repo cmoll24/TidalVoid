@@ -12,8 +12,8 @@ func _refresh_inventory() -> void:
 	_clear_grid()
 	
 	var inventory = GV.get_inventory()
-	print("Inventory size: ", inventory.size())
-	print("Inventory contents: ", inventory)
+	#print("Inventory size: ", inventory.size())
+	#print("Inventory contents: ", inventory)
 	
 	var slot_count = 0
 	
@@ -27,7 +27,7 @@ func _refresh_inventory() -> void:
 		else:
 			slot.set_empty_slot()
 			
-	print("Successfully instantiated ", slot_count, " slots into the grid.")
+	#print("Successfully instantiated ", slot_count, " slots into the grid.")
 
 #Clear all items from grid
 func _clear_grid() -> void:

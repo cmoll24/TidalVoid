@@ -71,7 +71,7 @@ var ground_move_direction : int = 1
 
 func _ready() -> void:
 	super._ready()
-	GV.player_reference(self)
+	GV.set_player_reference(self)
 
 func _process(_delta: float) -> void:
 	update_animation()
