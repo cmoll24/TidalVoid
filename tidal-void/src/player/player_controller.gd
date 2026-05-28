@@ -23,6 +23,8 @@ var player_body_health : float = 100
 
 
 func _ready() -> void:
+	GV.set_player_controller_ref(self)
+	
 	if(player):
 		if(player is Player):
 			player_body_health = player.health_comp.health

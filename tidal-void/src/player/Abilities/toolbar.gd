@@ -37,4 +37,11 @@ func call_ability(index : int, pawn : PlayerPawn):
 	var ability : PlayerAbility = abilities[pawn_type][index]
 	if(ability):
 		ability.trigger_ability(pawn)
+
+func reset_abilities():
+	for pawn_type in abilities:
+		print(pawn_type)
+		for ability in abilities[pawn_type]:
+			if ability is PlayerAbility:
+				ability.reset_uses()
 		
