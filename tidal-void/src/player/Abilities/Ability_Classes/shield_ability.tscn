@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://barjn7ratudtg"]
+
+[ext_resource type="Script" uid="uid://be0n7wlpsp3oy" path="res://src/player/Abilities/Ability_Classes/shield_ability.gd" id="1_kkl53"]
+
+[node name="ShieldAbility" type="Node" unique_id=1224404843]
+script = ExtResource("1_kkl53")
