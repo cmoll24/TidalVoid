@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://vh62h0pjaa4o" path="res://src/ship/terminals/reset_station.gd" id="1_48ixd"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="3_pbaax"]
-[ext_resource type="Texture2D" uid="uid://dh5qxvcvmbdwb" path="res://assets/Textures/Ship/Terminals/PC1.png" id="4_4eg1w"]
+[ext_resource type="Texture2D" uid="uid://dr1avrgkc6hq0" path="res://assets/Textures/Ship/Terminals/PC2.png" id="4_4eg1w"]
 [ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="4_tig68"]
-[ext_resource type="Texture2D" uid="uid://bugrrp7of02td" path="res://assets/Textures/Ship/Terminals/PC1_Outline.png" id="5_mdws3"]
+[ext_resource type="Texture2D" uid="uid://don46ayuj7idj" path="res://assets/Textures/Ship/Terminals/PC2_Outline.png" id="5_mdws3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b25x5"]
 size = Vector2(50, 50)

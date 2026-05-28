@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_4quqm"]
 [ext_resource type="PackedScene" uid="uid://mviv1dob273e" path="res://src/ship/terminals/UpgradeTerminal.tscn" id="7_4jr7v"]
 [ext_resource type="PackedScene" uid="uid://m6q2nv1sl10i" path="res://src/ship/terminals/ResetStation.tscn" id="8_o8l35"]
+[ext_resource type="PackedScene" uid="uid://djcnnxu0htcfr" path="res://src/ship/terminals/VehicleTerminal.tscn" id="9_i8eyn"]
 [ext_resource type="Script" uid="uid://bhbk3lhdhuvbw" path="res://src/player/Abilities/teleport_position.gd" id="9_shh8f"]
 [ext_resource type="PackedScene" uid="uid://bpqaoewt7kg6s" path="res://src/ship/shipLeg.tscn" id="11_i8eyn"]
 
@@ -148,8 +149,13 @@ position = Vector2(-73, -44.000004)
 rotation = -1.0471976
 
 [node name="ResetStation" parent="." unique_id=1336080030 instance=ExtResource("8_o8l35")]
-position = Vector2(75.00001, -38.000004)
+position = Vector2(69.00002, -44.000004)
 rotation = 1.0471976
+
+[node name="VehicleTerminal" parent="." unique_id=102877231 instance=ExtResource("9_i8eyn")]
+position = Vector2(72, 42)
+rotation = 2.0745623
+scale = Vector2(0.99999994, 0.99999994)
 
 [node name="TeleportPosition" type="Node2D" parent="." unique_id=1130417104]
 position = Vector2(1, -114)

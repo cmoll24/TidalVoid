@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://by25jlk4v7qun"]
+
+[ext_resource type="Theme" uid="uid://cqttoxo2ikf64" path="res://assets/UI/Themes/game_menu.tres" id="1_pumib"]
+[ext_resource type="Script" uid="uid://cjma8tdf4qocg" path="res://src/UI/base/panel_button.gd" id="2_3trs4"]
+
+[node name="InventoryButton" type="Button" unique_id=1261235340]
+size_flags_horizontal = 3
+theme = ExtResource("1_pumib")
+theme_override_colors/icon_normal_color = Color(0.2901961, 0.32156864, 0.827451, 1)
+text = "Text"
+script = ExtResource("2_3trs4")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
