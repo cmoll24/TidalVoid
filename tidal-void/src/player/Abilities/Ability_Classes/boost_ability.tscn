@@ -4,6 +4,6 @@
 
 [node name="BoostAbility" type="Node" unique_id=945310457]
 script = ExtResource("1_cn126")
-boost_multiplier = 10.0
+boost_time = 3.0
 max_uses = 10
 metadata/_custom_type_script = "uid://dm8sriwtqcfub"
