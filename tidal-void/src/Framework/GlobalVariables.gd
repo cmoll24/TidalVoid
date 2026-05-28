@@ -3,6 +3,7 @@ extends Node
 
 var player_health = 100
 var player_node: PlayerPawn = null
+var player_HUD : PlayerHUD = null
 @onready var inventory_slot_scene = preload("res://src/UI/inventory_ui/inventory_slot.tscn")
 
 const SAVE_PATH = "user://save.json"
@@ -118,8 +119,11 @@ func add_item(items) -> bool:
 func remove_item(target_item : String, quantity : int) -> void:
 	player_inventory.remove_item(target_item,quantity)
 			
-func player_reference(player : PlayerPawn):
+func set_player_reference(player : PlayerPawn):
 	player_node = player
+
+func set_HUD_reference(HUD : PlayerHUD):
+	player_HUD = HUD
 	
 func has_item(item_name: String, quantity: int) -> bool:
 	return player_inventory.has_item(item_name, quantity)

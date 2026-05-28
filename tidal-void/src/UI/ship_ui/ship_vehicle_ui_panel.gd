@@ -87,5 +87,8 @@ func try_build_vehicle(scene_path : String,price : Array[Dictionary]):
 	#now take the price
 	for price_item in price:
 		inventory.remove_item(price_item['item_name'],price_item['quantity'])
+		
+	#close the menu so the player can see the built vehicle
+	GV.player_HUD.vehicle_menu.close_menu()
 	return true
 	

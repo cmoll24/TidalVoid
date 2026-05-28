@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://pabhecqvmavd" path="res://src/Maps/Tutorial/TUTORIAL_player_controller.tscn" id="7_5sgeg"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="8_1hkq3"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="9_5lqq8"]
-[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="12_qpb1a"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="13_24how"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="14_r1w2l"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="20_bb73p"]
+[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="20_djmvo"]
 [ext_resource type="PackedScene" uid="uid://d2kanj13jye30" path="res://src/Maps/planets/PomPlanet.tscn" id="21_6oxdl"]
 [ext_resource type="PackedScene" uid="uid://bfgeal6ybkj0n" path="res://src/Maps/planets/dusk_sector_planets/Test/planet1.tscn" id="22_7ay3w"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="22_dqakm"]
@@ -250,35 +250,6 @@ position = Vector2(1623, 1732)
 [node name="Collectable13" parent="." unique_id=1474240198 instance=ExtResource("9_5lqq8")]
 position = Vector2(3780, 2351)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1725245320]
-
-[node name="PauseMenu" parent="CanvasLayer" unique_id=1178399043 instance=ExtResource("12_qpb1a")]
-visible = false
-
-[node name="FPSLabel" type="Label" parent="CanvasLayer" unique_id=1879251293]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 24
-text = "FPS"
-
-[node name="HealthLable" type="Label" parent="CanvasLayer" unique_id=1834960123]
-process_mode = 3
-offset_left = 100.0
-offset_right = 141.0
-offset_bottom = 34.0
-theme_override_font_sizes/font_size = 24
-text = "Health"
-
-[node name="TimeLabel" type="Label" parent="CanvasLayer" unique_id=1780474768]
-process_mode = 3
-offset_left = 1838.0
-offset_top = 1.0
-offset_right = 1915.0
-offset_bottom = 35.0
-theme_override_font_sizes/font_size = 24
-text = "Time"
-horizontal_alignment = 2
-
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("13_24how")]
 position = Vector2(3566, 1981)
 
@@ -323,5 +294,7 @@ position = Vector2(3821, 2066)
 
 [node name="Planet4" parent="." unique_id=583492956 instance=ExtResource("25_hxxks")]
 position = Vector2(1856, 1515)
+
+[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("20_djmvo")]
 
 [editable path="ShipBody"]

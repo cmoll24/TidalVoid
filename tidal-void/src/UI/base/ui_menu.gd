@@ -15,17 +15,17 @@ func _ready() -> void:
 
 func toggle_pause() -> void:
 	if visible:
-		close_pause_menu()
+		close_menu()
 	else:
-		open_pause_menu()
+		open_menu()
 
 #Open pause menu and show inventory by default
-func open_pause_menu() -> void:
+func open_menu() -> void:
 	show()
 	get_tree().paused = true
 
 #Close pause menu
-func close_pause_menu() -> void:
+func close_menu() -> void:
 	hide()
 	get_tree().paused = false
 	
@@ -49,3 +49,7 @@ func _clear_panel() -> void:
 		body_row.remove_child(current_panel)
 		current_panel.queue_free()
 		current_panel = null
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_close_dialog"):
+		close_menu()

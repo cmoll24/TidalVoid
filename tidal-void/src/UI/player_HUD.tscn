@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://nufwpmpogmr1"]
+
+[ext_resource type="Script" uid="uid://byikkyy76uit8" path="res://src/UI/player_hud.gd" id="1_blb5a"]
+[ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="1_prv6a"]
+[ext_resource type="PackedScene" uid="uid://brjd71y7ei1oa" path="res://src/UI/ship_menu/VehicleMenu.tscn" id="2_h0iit"]
+
+[node name="PlayerHUD" type="CanvasLayer" unique_id=644111349]
+script = ExtResource("1_blb5a")
+
+[node name="PauseMenu" parent="." unique_id=1178399043 instance=ExtResource("1_prv6a")]
+metadata/_edit_use_anchors_ = true
+
+[node name="VehicleMenu" parent="." unique_id=518815343 instance=ExtResource("2_h0iit")]
+visible = false
+
+[node name="FPSLabel" type="Label" parent="." unique_id=245988330]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 24
+text = "FPS"
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthLabel" type="Label" parent="." unique_id=356553612]
+process_mode = 3
+offset_left = 100.0
+offset_right = 141.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "Health"
+metadata/_edit_use_anchors_ = true
+
+[node name="TimeLabel" type="Label" parent="." unique_id=108209288]
+process_mode = 3
+offset_left = 1838.0
+offset_top = 1.0
+offset_right = 1915.0
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 24
+text = "Time"
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true
