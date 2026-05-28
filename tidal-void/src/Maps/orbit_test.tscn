@@ -9,11 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="4_je76y"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="4_lm5jn"]
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="5_axjf6"]
+[ext_resource type="Script" uid="uid://y0h0cmisaif4" path="res://src/ship/ship_manager.gd" id="5_n6gpu"]
 [ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="5_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="6_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://bfi3ec4shhb07" path="res://src/Environment/Hazards/geyser.tscn" id="7_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://cngbkursgo1hv" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet1.tscn" id="8_xu2w5"]
-[ext_resource type="PackedScene" uid="uid://173wnvt86qfx" path="res://src/Maps/planets/dusk_sector_planets/planet4.tscn" id="8_ybfy3"]
+[ext_resource type="PackedScene" uid="uid://173wnvt86qfx" path="res://src/Maps/planets/dusk_sector_planets/Test/planet4.tscn" id="8_ybfy3"]
 [ext_resource type="PackedScene" uid="uid://13vuo3ai4enh" path="res://src/Maps/planets/dawn_sector_planets/InfestedPlanet1.tscn" id="9_vkjj7"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="10_lm5jn"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="10_v2br0"]
@@ -71,6 +72,13 @@ color = Color(0.49803922, 0.49803922, 0.49803922, 1)
 [node name="WorldManager" parent="GameManager" unique_id=1564910993 node_paths=PackedStringArray("sectors") instance=ExtResource("4_bdxtq")]
 sectors = [NodePath("../../DuskSector")]
 
+[node name="ShipManager" type="Node2D" parent="GameManager" unique_id=283194236]
+script = ExtResource("5_n6gpu")
+metadata/_custom_type_script = "uid://y0h0cmisaif4"
+
+[node name="VehicleSpawnMarker" type="Node2D" parent="GameManager/ShipManager" unique_id=396063145]
+position = Vector2(-1512, 2663)
+
 [node name="DuskSector" parent="." unique_id=1361397144 instance=ExtResource("6_ybfy3")]
 
 [node name="ReferenceRect" parent="DuskSector" index="0" unique_id=66557810]
@@ -110,6 +118,18 @@ position = Vector2(1361, 4100)
 
 [node name="Copper_Ore_5" parent="DuskSector" unique_id=1262114419 instance=ExtResource("5_vkjj7")]
 position = Vector2(-803, 3041)
+
+[node name="Copper_Ore_7" parent="DuskSector" unique_id=993954093 instance=ExtResource("5_vkjj7")]
+position = Vector2(-808, 2959)
+
+[node name="Copper_Ore_8" parent="DuskSector" unique_id=2069118755 instance=ExtResource("5_vkjj7")]
+position = Vector2(-747, 3126)
+
+[node name="Copper_Ore_9" parent="DuskSector" unique_id=640624579 instance=ExtResource("5_vkjj7")]
+position = Vector2(-727, 3208)
+
+[node name="Copper_Ore_10" parent="DuskSector" unique_id=169381002 instance=ExtResource("5_vkjj7")]
+position = Vector2(-727, 3208)
 
 [node name="Copper_Ore_6" parent="DuskSector" unique_id=162616924 instance=ExtResource("5_vkjj7")]
 position = Vector2(325, 1901)
@@ -330,6 +350,7 @@ z_index = 0
 position = Vector2(-1309.2389, 3019.6692)
 
 [node name="SafeZone" parent="." unique_id=1740084655 node_paths=PackedStringArray("darkness") instance=ExtResource("27_ybfy3")]
+z_index = -128
 position = Vector2(2042, 1895)
 scale = Vector2(5.1564255, 4.5359344)
 darkness = NodePath("../GameManager/CanvasModulate")

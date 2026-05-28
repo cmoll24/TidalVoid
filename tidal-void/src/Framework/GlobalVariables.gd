@@ -115,8 +115,8 @@ func _on_inventory_changed() -> void:
 func add_item(items) -> bool:
 	return player_inventory.add_item(items)
 	
-func remove_item(target_item) -> void:
-	player_inventory.remove_item(target_item)
+func remove_item(target_item : String, quantity : int) -> void:
+	player_inventory.remove_item(target_item,quantity)
 			
 func player_reference(player : PlayerPawn):
 	player_node = player

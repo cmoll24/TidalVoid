@@ -59,4 +59,4 @@ func _on_use_button_pressed() -> void:
 			# applies the effect
 			effect.apply_effect(GV.player_node)
 		# remove after use
-		GV.remove_item(item)
+		GV.remove_item(item['item_name'],1)

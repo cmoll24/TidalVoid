@@ -29,10 +29,10 @@ func add_item(item: Dictionary) -> bool:
 	return false
 
 #Remove_item uses similar logic as add item
-func remove_item(target_item) -> void:
+func remove_item(target_item : String, amount : int) -> void:
 	for i in range(inventory_items.size()):
-		if inventory_items[i] == target_item:
-			inventory_items[i]["quantity"] -= 1
+		if inventory_items[i]["item_name"] == target_item:
+			inventory_items[i]["quantity"] -= amount
 			if inventory_items[i]["quantity"] <= 0:
 				inventory_items[i] = null
 			inventory_changed.emit()
@@ -44,6 +44,13 @@ func has_item(item_name: String, quantity: int) -> bool:
 		if inventory_items[i] != null and inventory_items[i]["item_name"] == item_name:
 			return inventory_items[i]["quantity"] >= quantity
 	return false
+	
+#get the number of a certain item
+func get_item_count(item_name: String) -> int:
+	for i in range(inventory_items.size()):
+		if inventory_items[i] != null and inventory_items[i]["item_name"] == item_name:
+			return inventory_items[i]["quantity"]
+	return 0
 
 #Resize inventory (could be useful for upgrade that increases inventory size)
 func resize_inventory(new_size: int) -> void:

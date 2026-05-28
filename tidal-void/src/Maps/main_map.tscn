@@ -5,27 +5,21 @@
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_kpxo1"]
 [ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bo405"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="5_c5n6l"]
+[ext_resource type="Script" uid="uid://y0h0cmisaif4" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="7_chnye"]
-[ext_resource type="PackedScene" uid="uid://d051l38xqv0gc" path="res://src/Maps/planets/LivingPlanet.tscn" id="8_2iftv"]
-[ext_resource type="PackedScene" uid="uid://cngbkursgo1hv" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet1.tscn" id="8_l0qou"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="9_766bn"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="10_pvpy1"]
-[ext_resource type="PackedScene" uid="uid://dc2kk2oqbg7a" path="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet2.tscn" id="11_kpxo1"]
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="11_xiii4"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="12_8bvlf"]
-[ext_resource type="PackedScene" uid="uid://bw0bb3wgfesg1" path="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet1.tscn" id="12_bo405"]
-[ext_resource type="PackedScene" uid="uid://dsnxgtfflg43f" path="res://src/Maps/planets/sunset_sector_planets/DesertPlanet.tscn" id="13_bo405"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="13_xeu68"]
 [ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="14_5e3w3"]
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
-[ext_resource type="PackedScene" uid="uid://13vuo3ai4enh" path="res://src/Maps/planets/dawn_sector_planets/InfestedPlanet1.tscn" id="18_nhgkr"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="20_5nqmh"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
-[ext_resource type="PackedScene" uid="uid://cc24nx1wr3j4f" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet2.tscn" id="24_l0qou"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="25_tai8o"]
 
 [sub_resource type="Gradient" id="Gradient_imoib"]
@@ -52,6 +46,13 @@ collide_with_areas = true
 
 [node name="WorldManager" parent="GameManager" unique_id=648679912 node_paths=PackedStringArray("sectors") instance=ExtResource("4_bo405")]
 sectors = [NodePath("../../DuskSector"), NodePath("../../DawnSector"), NodePath("../../SunsetSector")]
+
+[node name="ShipManager" type="Node2D" parent="GameManager" unique_id=1976062999]
+script = ExtResource("5_mm3ko")
+metadata/_custom_type_script = "uid://y0h0cmisaif4"
+
+[node name="VehicleSpawnMarker" type="Node2D" parent="GameManager/ShipManager" unique_id=1362488751]
+position = Vector2(-4860, -2630)
 
 [node name="DuskSector" parent="." unique_id=1361397144 instance=ExtResource("5_c5n6l")]
 
@@ -81,7 +82,11 @@ position = Vector2(-3432, -3456)
 z_index = 0
 position = Vector2(-5169, -2457)
 
-[node name="DuskPlanet" parent="DuskSector" unique_id=2060639823 instance=ExtResource("8_l0qou")]
+[node name="DuskPlanet2" parent="DuskSector" unique_id=1621441936 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet2.tscn"]
+position = Vector2(-5191, -3722)
+mass = 4000.0
+
+[node name="DuskPlanet" parent="DuskSector" unique_id=2060639823 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet1.tscn"]
 position = Vector2(-3600, -3308)
 
 [node name="DawnSector" parent="." unique_id=2025655557 instance=ExtResource("5_c5n6l")]
@@ -154,10 +159,10 @@ position = Vector2(-1166, -9282)
 [node name="DawnPlanet4" parent="DawnSector" unique_id=291526128 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet4.tscn"]
 position = Vector2(-718, -13232)
 
-[node name="LivingPlanet" parent="DawnSector" unique_id=947615788 instance=ExtResource("8_2iftv")]
+[node name="LivingPlanet" parent="DawnSector" unique_id=947615788 instance_placeholder="res://src/Maps/planets/LivingPlanet.tscn"]
 position = Vector2(2343, -14838)
 
-[node name="InfestedPlanet" parent="DawnSector" unique_id=1915373182 instance=ExtResource("18_nhgkr")]
+[node name="InfestedPlanet" parent="DawnSector" unique_id=1915373182 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/InfestedPlanet1.tscn"]
 position = Vector2(3943, -11579)
 
 [node name="SunsetSector" parent="." unique_id=532933713 instance=ExtResource("5_c5n6l")]
@@ -176,14 +181,14 @@ position = Vector2(-5190, 8778)
 [node name="PomPlanet" parent="SunsetSector" unique_id=293054058 instance_placeholder="res://src/Maps/planets/PomPlanet.tscn"]
 position = Vector2(-10152, 5233)
 
-[node name="SunsetPlanet" parent="SunsetSector" unique_id=1175010480 instance=ExtResource("11_kpxo1")]
+[node name="SunsetPlanet" parent="SunsetSector" unique_id=1175010480 instance_placeholder="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet2.tscn"]
 position = Vector2(-6606, 5931)
 rotation = -2.8159854
 
-[node name="SunsetPlanet3" parent="SunsetSector" unique_id=1861604287 instance=ExtResource("12_bo405")]
+[node name="SunsetPlanet3" parent="SunsetSector" unique_id=1861604287 instance_placeholder="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet1.tscn"]
 position = Vector2(-5966, 8853)
 
-[node name="DesertPlanet" parent="SunsetSector" unique_id=1401741126 instance=ExtResource("13_bo405")]
+[node name="DesertPlanet" parent="SunsetSector" unique_id=1401741126 instance_placeholder="res://src/Maps/planets/sunset_sector_planets/DesertPlanet.tscn"]
 position = Vector2(-10787.728, 8555.147)
 
 [node name="StaticBackground" type="CanvasLayer" parent="." unique_id=1761612136]
@@ -318,10 +323,6 @@ position = Vector2(1474, -11349)
 
 [node name="Evil_Fred3" parent="." unique_id=1282437192 instance=ExtResource("25_tai8o")]
 position = Vector2(1791, -9255)
-
-[node name="DuskPlanet" parent="." unique_id=1621441936 instance=ExtResource("24_l0qou")]
-position = Vector2(-5191, -3722)
-mass = 4000.0
 
 [editable path="DuskSector"]
 [editable path="DawnSector"]

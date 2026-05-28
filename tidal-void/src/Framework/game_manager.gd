@@ -3,6 +3,8 @@ class_name GameManager
 
 @onready var sense_manager :SenseManager
 
+@onready var ship_manager :ShipManager = $ShipManager
+
 #universal array of gravity sources
 var gravity_sources : Array[GravitySource] = []
 
@@ -31,7 +33,10 @@ func unregister_revealing_source(source : Node2D) -> void:
 	revealing_sources.erase(source)	
 	
 func register_teleport_source(new_source: Vector2) -> void:
-	teleport_sources.append(new_source)
+	#prevent duplicates
+	if(!teleport_sources.has(new_source)):
+		teleport_sources.append(new_source)
+	
 func unregister_teleport_source(source: Vector2) -> void:
 	teleport_sources.erase(source)
 	
