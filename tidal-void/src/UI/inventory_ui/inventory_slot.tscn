@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dps340qvmhsor"]
 
 [ext_resource type="Script" uid="uid://dwe1ru6ik7gt7" path="res://src/UI/inventory_ui/inventory_slot.gd" id="1_v55le"]
-[ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="2_s3dt7"]
+[ext_resource type="Texture2D" uid="uid://bgulpinximl80" path="res://assets/Textures/Collectables/Copper_Ore.png" id="2_4s1gr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ligvq"]
 bg_color = Color(1, 1, 1, 0.59607846)
@@ -69,10 +69,6 @@ offset_right = 100.0
 offset_bottom = 100.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ligvq")
 
-[node name="icon" type="Sprite2D" parent="background" unique_id=1112900210]
-position = Vector2(50, 50)
-texture = ExtResource("2_s3dt7")
-
 [node name="quantity" type="Label" parent="background" unique_id=705328170]
 layout_mode = 0
 offset_left = 10.0
@@ -81,6 +77,16 @@ offset_right = 48.325
 offset_bottom = 25.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1"
+
+[node name="icon" type="TextureRect" parent="background" unique_id=1721346961]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("2_4s1gr")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="detail" type="Panel" parent="." unique_id=975075705]
 visible = false

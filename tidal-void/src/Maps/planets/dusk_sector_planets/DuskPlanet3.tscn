@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://bfi1rxm38yych"]
+
+[ext_resource type="Script" uid="uid://becxcr68kkbk8" path="res://src/Framework/Planet.gd" id="1_d73o6"]
+[ext_resource type="Texture2D" uid="uid://unqkf22vafl0" path="res://assets/Textures/Environmental/Dusk/Dusk_Base2.png" id="2_mfasg"]
+[ext_resource type="Texture2D" uid="uid://cfavbw5c384tm" path="res://assets/Textures/Environmental/Dusk/Dusk_CraterSpot2.png" id="3_d73o6"]
+[ext_resource type="Texture2D" uid="uid://bo8tt5r3fgga2" path="res://assets/Textures/Environmental/Dusk/Dusk_Crater4.png" id="4_mfasg"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_jnfao"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
+radius = 269.65
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
+shader = ExtResource("5_jnfao")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0.043137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pf5yv"]
+gradient = SubResource("Gradient_klrcr")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="DuskPlanet" type="StaticBody2D" unique_id=2060639823 groups=["gravity_sources"]]
+z_index = 2
+collision_mask = 7
+script = ExtResource("1_d73o6")
+mass = 20000.0
+collision_radius = 269.0
+metadata/_custom_type_script = "uid://becxcr68kkbk8"
+
+[node name="PlanetTexture" type="TextureRect" parent="." unique_id=1814879757]
+visibility_layer = 65
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -755.4039
+offset_top = -750.23816
+offset_right = 744.5961
+offset_bottom = 749.76184
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.5604718
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.505, 0.5)
+texture = ExtResource("2_mfasg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
+z_index = 50
+shape = SubResource("CircleShape2D_f54en")
+
+[node name="Crater3" type="TextureRect" parent="." unique_id=293612860]
+visibility_layer = 2
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -755.4039
+offset_top = -750.23816
+offset_right = 744.5961
+offset_bottom = 749.76184
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.8238691
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.505, 0.5)
+texture = ExtResource("3_d73o6")
+
+[node name="Crater1" type="TextureRect" parent="." unique_id=418719079]
+visibility_layer = 2
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -785.00006
+offset_top = -688.00006
+offset_right = 714.99994
+offset_bottom = 811.99994
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.2880193
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.505, 0.5)
+texture = ExtResource("4_mfasg")
+
+[node name="PullRadius" type="TextureRect" parent="." unique_id=986787955]
+z_index = 120
+material = SubResource("ShaderMaterial_ps4nm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_pf5yv")
+stretch_mode = 3
