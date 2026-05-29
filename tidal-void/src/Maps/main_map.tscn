@@ -396,7 +396,7 @@ position = Vector2(-634, -9045)
 max_velocity = 400.0
 
 [node name="Jeremiah3" parent="." unique_id=1834168270 instance=ExtResource("19_hthak")]
-position = Vector2(-4216, -5045)
+position = Vector2(-4225, -5021)
 max_velocity = 400.0
 
 [node name="Leaper" parent="." unique_id=164943933 instance=ExtResource("22_on3xc")]

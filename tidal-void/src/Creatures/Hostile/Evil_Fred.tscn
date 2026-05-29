@@ -30,7 +30,7 @@ v_source_loyalty_time = 5.0
 v_source_loyalty_dist = 1.75
 creature_type = 3
 mass = 20.0
-thrust_power = 5.0
+thrust_power = 12.0
 start_in_orbit = true
 start_orbit_dir = false
 

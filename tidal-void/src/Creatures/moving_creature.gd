@@ -43,7 +43,7 @@ func orbital_movment(altitude_sqr : float):
 	# return from deep space
 	if(altitude_sqr > dominant_body.pull_radius ** 2):
 		var dir : Vector2 = (dominant_body.global_position - global_position).normalized();
-		var min_compliance = 45;
+		var min_compliance = 40;
 		if(velocity.dot(dir) < min_compliance):
 			set_thrust(dir)
 		return
@@ -55,31 +55,49 @@ func orbital_movment(altitude_sqr : float):
 	
 	#Align move_dir with target dir
 	if(!target_dir):
-		move_dir = - move_dir
+		move_dir = -move_dir
+		
+	var target_speed = sqrt(dominant_body.mass / sqrt(target_altitude_sqr))
 		
 	var velocity_grounded_threshold_sqr :float = 400 
 		
 	if(b_is_grounded && velocity.length_squared() < velocity_grounded_threshold_sqr):
 		velocity += move_dir * sqrt((dominant_body.mass / 
-		dominant_body.global_position.distance_to(global_position))) * 1.2
-	
-	var velocity_deviation = (
-		move_dir - velocity.normalized())
+		sqrt(altitude_sqr))) * 1.2
 		
-	var acceptable_deviation = 0.1;
+	
+	var velocity_length : float= velocity.length();
+	
+	var velocity_normalized : Vector2 = velocity/velocity_length
+	
+	var velocity_dot = velocity_normalized.dot(move_dir)
+	
+	#velocity deviation from the perfect circle
+	var velocity_deviation = move_dir - velocity_normalized
+		
+	var acceptable_deviation = 0.2;
 	
 	if(velocity_deviation.length_squared() < acceptable_deviation):
 		velocity_deviation =Vector2.ZERO
-	var altitude_diff = altitude_sqr - target_altitude_sqr
-	var deadzone = 25
+		
+	var altitude_diff = altitude_sqr - target_altitude_sqr;
+	
+	var deadzone = 100
 	
 	if abs(altitude_diff) < deadzone:
 		set_thrust(velocity_deviation)
-	elif altitude_diff < 0:
-		set_thrust(move_dir + velocity_deviation)
+	elif velocity_dot < -0.05:
+		#if we are going against the move direction, fall to the planet to swap the direction
+		set_thrust(-velocity_normalized);
+	elif ((altitude_diff < 0 && velocity_length < 1.5*target_speed)):
+		#burn prograde
+		set_thrust(move_dir + velocity_deviation);
+	elif(velocity.dot(move_dir) > 0.7*target_speed):
+		#burn retrograde
+		set_thrust(-move_dir+velocity_deviation);
 	else:
-		move_dir = -move_dir
-		set_thrust(move_dir + velocity_deviation)
+		set_thrust(-move_dir+velocity_deviation,0.1)
+		
 		
 func hibernation_movement(altitude_sqr : float):
 	# return from deep space
