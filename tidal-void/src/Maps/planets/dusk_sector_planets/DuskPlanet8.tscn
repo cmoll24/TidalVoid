@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_dn80e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
-radius = 182.98907
+radius = 186.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
 shader = ExtResource("5_dn80e")
@@ -30,7 +30,7 @@ z_index = 2
 collision_mask = 7
 script = ExtResource("1_uwt2v")
 mass = 17000.0
-collision_radius = 182.0
+collision_radius = 186.0
 metadata/_custom_type_script = "uid://becxcr68kkbk8"
 
 [node name="PlanetTexture" type="TextureRect" parent="." unique_id=1814879757]
@@ -41,9 +41,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -753.0
+offset_left = -749.0
 offset_top = -750.0
-offset_right = 747.0
+offset_right = 751.0
 offset_bottom = 750.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -53,7 +53,6 @@ texture = ExtResource("2_6lm4n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
 z_index = 50
-position = Vector2(3, 0)
 shape = SubResource("CircleShape2D_f54en")
 
 [node name="Crater1" type="TextureRect" parent="." unique_id=418719079]
