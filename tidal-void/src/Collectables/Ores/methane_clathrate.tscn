@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://bu0c567x14lx2"]
+[gd_scene format=3 uid="uid://b27gn6xbj02fw"]
 
-[ext_resource type="Script" uid="uid://nghglfygt4k2" path="res://src/UI/inventory_ui/inventory_item.gd" id="1_5ik0a"]
-[ext_resource type="Texture2D" uid="uid://bgulpinximl80" path="res://assets/Textures/Collectables/Copper_Ore.png" id="2_om2ya"]
-[ext_resource type="Script" uid="uid://bxh3o75ie1f81" path="res://src/upgrades_effects/base/base_effect.gd" id="3_om2ya"]
+[ext_resource type="Script" uid="uid://nghglfygt4k2" path="res://src/UI/inventory_ui/inventory_item.gd" id="1_drm3m"]
+[ext_resource type="Script" uid="uid://bxh3o75ie1f81" path="res://src/upgrades_effects/base/base_effect.gd" id="3_myeh7"]
+[ext_resource type="Texture2D" uid="uid://bvvluw4sbxyk2" path="res://assets/Textures/Collectables/Methane_Clathrate.png" id="4_drm3m"]
 
 [sub_resource type="Resource" id="Resource_cgyau"]
-script = ExtResource("3_om2ya")
+script = ExtResource("3_myeh7")
 metadata/_custom_type_script = "uid://bxh3o75ie1f81"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4fhm2"]
@@ -15,10 +15,10 @@ radius = 33.06055
 visibility_layer = 2
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_5ik0a")
+script = ExtResource("1_drm3m")
 item_type = "Ore"
-item_name = "Copper Ore"
-item_texture = ExtResource("2_om2ya")
+item_name = "Methane Clathrate"
+item_texture = ExtResource("4_drm3m")
 effect = SubResource("Resource_cgyau")
 b_start_in_orbit_dir = false
 b_has_trajectory_predictor = false
@@ -31,8 +31,9 @@ shape = SubResource("CircleShape2D_4fhm2")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=474276740]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1987118997]
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("2_om2ya")
+position = Vector2(-3, 0)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("4_drm3m")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered_inventory"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
