@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
-[ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="20_5nqmh"]
 [ext_resource type="PackedScene" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
@@ -381,11 +380,6 @@ darkness = NodePath("CanvasModulate")
 position = Vector2(-396.01077, -417.775)
 scale = Vector2(0.1939328, 0.22046174)
 color = Color(0.49803922, 0.49803922, 0.49803922, 1)
-
-[node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("20_5nqmh")]
-position = Vector2(-4789, -2524)
-start_in_orbit = false
-start_orbit_dir = false
 
 [node name="Steven" parent="." unique_id=1772247003 instance=ExtResource("17_c045k")]
 position = Vector2(-368, -12969)

@@ -47,7 +47,6 @@ _data = {
 visibility_layer = 2
 script = ExtResource("1_j5wqp")
 fruit_spawn_offset = Vector2(0, -60)
-max_fruit_velocity_boost = 100.0
 metadata/_custom_type_script = "uid://cho6a8c73cng4"
 
 [node name="ShakeArea" type="Area2D" parent="." unique_id=595026967]
@@ -69,7 +68,7 @@ playback_auto_capture = false
 
 [node name="ReleaseFruitTimer" type="Timer" parent="." unique_id=1356561586]
 process_callback = 0
-wait_time = 10.0
+wait_time = 12.0
 autostart = true
 
 [connection signal="body_entered" from="ShakeArea" to="." method="_on_shake_area_body_entered"]

@@ -1,7 +1,7 @@
 extends Collectable
 class_name FruitCollectible
 
-var fruit_tree : FruitTree
+@export var lifetime : float = 60
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +14,23 @@ func start_orbit() -> void:
 	if(!b_start_in_orbit_dir):
 		velocity = -velocity
 		
-func _exit_tree() -> void:
-	#decrement the fruit count
-	if(fruit_tree):
-		fruit_tree.fruit_count -= 1
+		
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	# die when lifetime runs out(prevents too many fruits from spawning)
+	lifetime -= delta
+	if(lifetime <= 0):
+		die()
+	
+func die():
+	queue_free()
+
+		
+func save() -> Dictionary:
+	var node_data : Dictionary = super.save()
+	node_data.merge({'lifetime' = lifetime})
+	return node_data
+	
+func load_state(node_data : Dictionary):
+	super.load_state(node_data)
+	lifetime = node_data['lifetime']

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c672eyf840qfj"]
 
 [ext_resource type="Script" uid="uid://nghglfygt4k2" path="res://src/UI/inventory_ui/inventory_item.gd" id="1_mlpjn"]
+[ext_resource type="Material" uid="uid://dxmr7ijauayrq" path="res://assets/Materials/M_highlight_shader.tres" id="1_o8rkc"]
 [ext_resource type="Texture2D" uid="uid://bi3vvca1xf8x2" path="res://assets/Textures/Collectables/Nickel_Ore.png" id="2_o8rkc"]
 [ext_resource type="Script" uid="uid://bxh3o75ie1f81" path="res://src/upgrades_effects/base/base_effect.gd" id="3_oaxpc"]
 
@@ -31,6 +32,7 @@ shape = SubResource("CircleShape2D_4fhm2")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=474276740]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1987118997]
+material = ExtResource("1_o8rkc")
 position = Vector2(2, -4)
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("2_o8rkc")
