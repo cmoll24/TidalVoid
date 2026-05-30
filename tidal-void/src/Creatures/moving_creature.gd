@@ -89,7 +89,7 @@ func orbital_movment(altitude_sqr : float):
 	elif velocity_dot < -0.05:
 		#if we are going against the move direction, fall to the planet to swap the direction
 		set_thrust(-velocity_normalized);
-	elif ((altitude_diff < 0 && velocity_length < 1.5*target_speed)):
+	elif ((altitude_diff < 0 && velocity.dot(move_dir) < 1.5*target_speed)):
 		#burn prograde
 		set_thrust(move_dir + velocity_deviation);
 	elif(velocity.dot(move_dir) > 0.7*target_speed):

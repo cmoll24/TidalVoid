@@ -233,7 +233,6 @@ func  apply_velocity() -> void:
 					other_body.on_collide_with_other_drift_body(self);
 					var total_mass = mass + other_body.mass;
 					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
-					other_body.velocity += velocityAdjustment * (mass/total_mass) * avg_elasticity;
 					velocity -= velocityAdjustment * (other_body.mass/total_mass) * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
 				#Treat it as having infinite mass if it is not a drift body 
@@ -318,7 +317,7 @@ func update_dominant_body() -> void:
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue
-		var pull = body.get_gravity_pull(global_position).length()
+		var pull = body.get_gravity_pull(global_position).length_squared()
 		if pull > strongest_pull:
 			strongest_pull = pull
 			dominant_body = body

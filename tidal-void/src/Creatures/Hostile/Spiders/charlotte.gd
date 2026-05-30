@@ -25,6 +25,13 @@ var b_on_home_planet : bool = true;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+	#call post ready on the next frame
+	call_deferred('_post_ready')
+	
+	#set the v types
+	v_types = (1 << VisionSource.v_source_type.sPrey) | (1 << VisionSource.v_source_type.mPrey)
+
+func _post_ready() -> void:
 	#get the home planet
 	var shortest_dist : float = INF
 	for source in game_manager.gravity_sources:
@@ -33,8 +40,6 @@ func _ready() -> void:
 			if(dist_sqr < shortest_dist):
 				home_planet = source
 				shortest_dist = dist_sqr
-	#set the v types
-	v_types = (1 << VisionSource.v_source_type.sPrey) | (1 << VisionSource.v_source_type.mPrey)
 	
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)

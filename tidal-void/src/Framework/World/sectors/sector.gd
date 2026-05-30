@@ -171,7 +171,7 @@ func load_sector():
 			add_child(new_object)
 			
 		#now feed the node back its save data if it has a load function
-		if(new_object.has_method('load')):
+		if(new_object.has_method('load_state')):
 			new_object.load_state(node_data)
 				
 	#save that this is not the first load

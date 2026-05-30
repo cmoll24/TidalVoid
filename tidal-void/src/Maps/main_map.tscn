@@ -400,10 +400,10 @@ position = Vector2(-4225, -5021)
 max_velocity = 400.0
 
 [node name="Leaper" parent="." unique_id=164943933 instance=ExtResource("22_on3xc")]
-position = Vector2(-2926, -4654)
+position = Vector2(-7352, 2198)
 
 [node name="Leaper2" parent="." unique_id=292751059 instance=ExtResource("22_on3xc")]
-position = Vector2(-5915, 1500)
+position = Vector2(-4095, 2107)
 
 [node name="Steven2" parent="." unique_id=352316998 instance=ExtResource("17_c045k")]
 position = Vector2(1458, -9081)
