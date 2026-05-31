@@ -150,8 +150,8 @@ func lunge(dist : float):
 	velocity = lunge_dir *lunge_power
 	
 	#counteract gravity if needed
-	if(lunge_dir.dot(gravity_force) < -0.1):
-		velocity -= (gravity_force*impact_time*0.5)
+	#if(lunge_dir.dot(gravity_force) < -0.1):
+		#velocity -= (gravity_force*impact_time*0.5)
 	
 	#reset the cooldown
 	lunge_cldwn = lunge_cldwn_time
