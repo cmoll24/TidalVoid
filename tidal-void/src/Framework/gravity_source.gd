@@ -3,7 +3,6 @@ extends StaticBody2D
 
 @onready var pull_radius_circle = $PullRadius
 @onready var collision_radius_shape : CollisionShape2D = $CollisionShape2D
-@onready var texture_rect : TextureRect = $TextureRect
 @onready var shape : CollisionShape2D = $CollisionShape2D
 
 @export var mass : float = 1000.0
@@ -31,16 +30,15 @@ func _ready() -> void:
 	#initialize values
 	mass = mass*MASS_SCALE
 	pull_radius = calculate_pull_radius()
+	#set the pull radius
 	pull_radius_circle.scale = Vector2(pull_radius, pull_radius) / (pull_radius_circle.size / 2)#because scale is diameter
 	pull_radius_circle.position = -Vector2(pull_radius, pull_radius)#/ 2.0
-	if(collision_radius_shape):
+	#correct the collision radius if it is off
+	if(collision_radius_shape &&
+	 collision_radius_shape.shape.radius - collision_radius < 0.7):
 		var new_shape = CircleShape2D.new()
 		new_shape.radius = collision_radius
 		collision_radius_shape.shape = new_shape
-
-	if texture_rect:
-		texture_rect.scale = Vector2(collision_radius, collision_radius) / 50.0
-		texture_rect.position = -Vector2(collision_radius, collision_radius)
 	#all gravity sources exist on layer 1
 	collision_layer = 1
 

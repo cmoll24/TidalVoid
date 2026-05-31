@@ -9,8 +9,8 @@ class_name Sector
 #delay before unloaded when all streaming sources have left the area, prevents rapid loading and unloading when the player is skirting the edge
 @export var unload_delay : float = 3
 
-#the max amount of bytes to load each frame when loading the sector
-@export var bytes_per_frame_load : int = 120
+#the number of json lines to read and process every frame when loading
+@export var lines_per_frame_load : int = 1
 
 var time_to_unload : float = 0
 
@@ -101,18 +101,40 @@ func load_sector():
 	#first load if applicable
 	if(!loaded_before):
 		#on first load, unpack the instance placeholders and build the spawn points
+		var placeholders_till_wait : int = lines_per_frame_load
 		for node in get_children():
-			if(node is InstancePlaceholder):
+			if(node and node is InstancePlaceholder):
+				#asynchonously load the assets
+				var scene = await async_load(node.get_instance_path());
+				if(!scene):
+					printerr("instance placeholder was invalid, path: %s" % node.get_instance_path())
+					continue
+				#now run create instance
 				node.create_instance(true)
+				
+				#spread the load across multiple frames
+				placeholders_till_wait -= 1
+				if(placeholders_till_wait <= 0):
+					#wait for a frame
+					await get_tree().process_frame
+					#reset the wait
+					placeholders_till_wait = lines_per_frame_load;
 				
 	#respawn anything if applicable
 	for spawn_point : Dictionary in spawn_points:
 		#if the spawn point is marked to be respawned on load, and it has nothing spawned, respawn it
 		if(spawn_point['respwn_on_ld'] && !spawn_point['had_curr_obj']):
 			spawn_point['respwn_on_ld'] = false
-			var new_object : Node2D = load(spawn_point['path']).instantiate()
+			#asynchonously load the assets
+			var scene = await async_load(spawn_point['path']);
+			if(!scene):
+				printerr("spawn point path %s could not be loaded, spawn aborted" % spawn_point['path'])
+				continue
+			#instantiate and intialize the object
+			var new_object : Node2D = scene.instantiate()
 			new_object.global_position = spawn_point['pos']
 			get_tree().root.add_child(new_object)
+			#save a reference to the object
 			spawn_point['curr_obj'] = new_object
 			
 	#check to see if a file exists
@@ -125,14 +147,8 @@ func load_sector():
 	#open the save file
 	var save_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 	#iterate through the file
-	var next_wait_pos : int = bytes_per_frame_load
+	var lines_till_wait : int = lines_per_frame_load
 	while save_file.get_position() < save_file.get_length():
-		#spread the load across multiple frames, pause execution upon hitting bytes per frame
-		if(save_file.get_position() >= next_wait_pos):
-			#increment the next wait position and await the next frame
-			next_wait_pos += bytes_per_frame_load
-			await get_tree().process_frame
-		
 		#get the line
 		var json_string = save_file.get_line()
 
@@ -149,7 +165,24 @@ func load_sector():
 		var node_data : Dictionary = json.data
 
 		# First, we need to create the object and add it to the tree and set its position.
-		var new_object : Node2D = load(node_data["path"]).instantiate()
+		
+		#asynchronously load it
+		var scene = await async_load(node_data["path"]);
+		if(!scene):
+			printerr("sector %s could not load path %s, load aborted" % [file_name,node_data["path"]])
+			continue
+		#instantiaate the object
+		var new_object : Node2D = scene.instantiate()
+		
+		#spread the load across multiple frames
+		lines_till_wait -= 1
+		if(lines_till_wait <= 0):
+			#wait for a frame
+			await get_tree().process_frame
+			#reset the wait
+			lines_till_wait = lines_per_frame_load;
+		
+		#finish initializing
 		new_object.global_position = Vector2(node_data["pos_x"], node_data["pos_y"])
 		new_object.global_rotation = node_data["rot"]
 		#check to see if this was spawned by a spawn point
@@ -249,3 +282,29 @@ func unpack_spawn_points():
 			spawn_points.append(spawn_point)
 			#Delete the node now that the data is extracted from it
 			node.queue_free()
+
+
+func async_load(path : String) -> Variant:
+	#start loading
+	ResourceLoader.load_threaded_request(path)
+	#wait for load to complete
+	while(true):
+		#get the status
+		var status : ResourceLoader.ThreadLoadStatus = ResourceLoader.load_threaded_get_status(path);
+		match status:
+			ResourceLoader.THREAD_LOAD_FAILED,ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
+				printerr("Invalid path sent to sector: %s asnyc_load, path: %s" % [file_name,path])
+				return null
+			ResourceLoader.THREAD_LOAD_LOADED:
+				#success, fully loaded
+				return ResourceLoader.load_threaded_get(path)
+			_:
+				#not loaded yet await next frame
+				await get_tree().process_frame
+				
+	return null;
+		
+		
+		
+		
+		
