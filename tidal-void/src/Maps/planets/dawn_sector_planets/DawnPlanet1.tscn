@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://tyq0l8irn5lt" path="res://assets/Textures/Environmental/Dawn/dawnplanetduckweed.png" id="3_tqubq"]
 [ext_resource type="Texture2D" uid="uid://0gtgsdisocwp" path="res://assets/Textures/Environmental/Dawn/dawnsectorlilypads.png" id="4_tw8y6"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_wbr58"]
+[ext_resource type="Script" uid="uid://b65d06biwrd60" path="res://src/Tools/pull_radius_visualizer.gd" id="6_tqubq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
 radius = 136.01471
@@ -98,11 +99,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -200.0
-offset_right = 200.0
-offset_bottom = 200.0
+offset_left = -1048.8088
+offset_top = -1048.8088
+offset_right = -548.80884
+offset_bottom = -548.80884
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(4.1952353, 4.1952353)
 texture = SubResource("GradientTexture2D_pf5yv")
 stretch_mode = 3
+script = ExtResource("6_tqubq")
+mass = 11000.0

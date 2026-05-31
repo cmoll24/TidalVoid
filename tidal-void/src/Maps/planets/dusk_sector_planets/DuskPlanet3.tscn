@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cfavbw5c384tm" path="res://assets/Textures/Environmental/Dusk/Dusk_CraterSpot2.png" id="3_d73o6"]
 [ext_resource type="Texture2D" uid="uid://bo8tt5r3fgga2" path="res://assets/Textures/Environmental/Dusk/Dusk_Crater4.png" id="4_mfasg"]
 [ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_jnfao"]
+[ext_resource type="Script" uid="uid://b65d06biwrd60" path="res://src/Tools/pull_radius_visualizer.gd" id="6_mfasg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
 radius = 269.65
@@ -102,11 +103,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -200.0
-offset_right = 200.0
-offset_bottom = 200.0
+offset_left = -1414.2136
+offset_top = -1414.2136
+offset_right = -914.2136
+offset_bottom = -914.2136
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(5.6568546, 5.6568546)
 texture = SubResource("GradientTexture2D_pf5yv")
 stretch_mode = 3
+script = ExtResource("6_mfasg")
+mass = 20000.0
