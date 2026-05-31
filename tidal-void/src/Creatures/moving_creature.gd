@@ -63,7 +63,7 @@ func orbital_movment(altitude_sqr : float):
 		
 	if(b_is_grounded && velocity.length_squared() < velocity_grounded_threshold_sqr):
 		velocity += move_dir * sqrt((dominant_body.mass / 
-		sqrt(altitude_sqr))) * 1.2
+		sqrt(altitude_sqr))) * 1.1
 		
 	
 	var velocity_length : float= velocity.length();

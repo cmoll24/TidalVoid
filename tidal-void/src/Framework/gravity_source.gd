@@ -48,6 +48,10 @@ func calculate_pull_radius() -> float:
 	return sqrt((mass) / negligible_threshold)
 
 func get_gravity_pull(from_positon : Vector2) -> Vector2:
+	#First perform bounds check
+	if(!_in_bounds(from_positon)):
+		return Vector2.ZERO
+		
 	var offset_distance = global_position - from_positon
 	#now just squared given that no sqrt was ever necessary
 	var distance_sqr = offset_distance.length_squared()
@@ -63,3 +67,17 @@ func get_gravity_pull(from_positon : Vector2) -> Vector2:
 func unload():
 	#unregister the gravity source
 	game_manager.unregister_gravity_source(self)
+	
+func _in_bounds(pos : Vector2) -> bool:
+	#do basic rectangle bounds check
+	if(pos.x < global_position.x - pull_radius):
+		return false
+	if(pos.x > global_position.x + pull_radius):
+		return false
+	if(pos.y < global_position.y - pull_radius):
+		return false
+	if(pos.y > global_position.y + pull_radius):
+		return false
+		
+	#if we are between all the sides, we are in the rectangle
+	return true

@@ -23,6 +23,8 @@ var load_area_pos : Vector2
 
 var loaded : bool = false
 
+var force_load_unload : bool = true
+
 ### built at runtime, format:
 ### pos :Vector2
 ### path : String = to scene to instantiate
@@ -46,6 +48,7 @@ func _ready() -> void:
 	load_area_pos = ref_rect.global_position
 	# delete the ref rect, it has served its purpose
 	ref_rect.queue_free()
+	remove_child(ref_rect)
 	
 	#unpack all the spawn point info 
 	unpack_spawn_points()
@@ -64,16 +67,17 @@ func _physics_process(delta: float) -> void:
 			#if one was found, reset the unload timer
 			time_to_unload = unload_delay
 			#reload the area if it was unloaded
-			if(!loaded):
+			if(!loaded || force_load_unload):
 				load_sector()
 			break;
 	#unload if we have gone too long without a streaming source
-	if(loaded && time_to_unload <= 0):
+	if((loaded || force_load_unload)) && time_to_unload <= 0:
 		unload_sector()
 
 func unload_sector():
 	#set loaded status
 	loaded = false
+	force_load_unload = false
 	#update the current object status of all the spawn points
 	for spawn_point in spawn_points:
 		if(spawn_point['curr_obj']):
@@ -86,6 +90,8 @@ func unload_sector():
 	
 	#Save all the children
 	for node in get_children():
+		if(node is InstancePlaceholder || node.is_queued_for_deletion()):
+			continue; #ignore placeholders and dying nodes
 		save_and_unload_node(node,save_file,false)
 		
 	#now get all dynamic actors within range
@@ -97,6 +103,7 @@ func unload_sector():
 func load_sector():
 	#set loaded status
 	loaded = true
+	force_load_unload = false
 	
 	#first load if applicable
 	if(!loaded_before):
@@ -111,11 +118,13 @@ func load_sector():
 					continue
 				#now run create instance
 				node.create_instance(true)
+				#print("loaded placeholder from path %s for sector %s" % [node.get_instance_path(),file_name])
 				
 				#spread the load across multiple frames
 				placeholders_till_wait -= 1
 				if(placeholders_till_wait <= 0):
-					#wait for a frame
+					#wait for a couple frames
+					await get_tree().process_frame
 					await get_tree().process_frame
 					#reset the wait
 					placeholders_till_wait = lines_per_frame_load;
@@ -177,7 +186,8 @@ func load_sector():
 		#spread the load across multiple frames
 		lines_till_wait -= 1
 		if(lines_till_wait <= 0):
-			#wait for a frame
+			#wait for a couple frames
+			await get_tree().process_frame
 			await get_tree().process_frame
 			#reset the wait
 			lines_till_wait = lines_per_frame_load;

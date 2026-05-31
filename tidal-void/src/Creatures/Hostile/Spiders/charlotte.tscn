@@ -63,10 +63,10 @@ color_ramp = SubResource("Gradient_l7kxh")
 script = ExtResource("3_6jow0")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1262817742]
-offset_left = -26.0
-offset_top = -39.0
-offset_right = 153.0
-offset_bottom = 181.0
+offset_left = -27.0
+offset_top = -37.0
+offset_right = 152.0
+offset_bottom = 183.0
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_7eayt")
 

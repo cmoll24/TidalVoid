@@ -164,13 +164,22 @@ func  apply_acceleration() -> void:
 	total_force = thruster_force + gravity_force
 	velocity = new_vel.limit_length(max_velocity)
 	
+#updates total gravity force and dominant body
 func update_gravity_force() -> void:
 	gravity_force = Vector2.ZERO
+	var max_pull : float = 0
 	
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue
-		gravity_force += body.get_gravity_pull(global_position)
+		#get the gravity force
+		var gravity : Vector2 = body.get_gravity_pull(global_position);
+		gravity_force += gravity;
+		#also update dominant body(increases performance at the cost of neatness)
+		var pull : float = gravity.length_squared()
+		if(pull > 1 and pull > max_pull): #if pull is valid and the greatest
+			dominant_body = body
+			max_pull = pull
 
 func update_thruster_force() -> void:
 	if thrust_direction != Vector2.ZERO:
@@ -311,6 +320,7 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	else:
 		thrust_direction = Vector2.ZERO
 
+### prefer to rely on the automatic updates in update_gravity_force, only use this for instantaneous updates
 func update_dominant_body() -> void:
 	#the domiannt body is the grav source with the strongest pull
 	var strongest_pull = 0.0
