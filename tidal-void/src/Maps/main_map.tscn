@@ -486,6 +486,7 @@ player = NodePath("../Player")
 [node name="Line2D" type="Line2D" parent="." unique_id=65887448]
 width = 3.0
 gradient = SubResource("Gradient_imoib")
+texture_mode = 2
 antialiased = true
 
 [node name="ThrowLine" type="Line2D" parent="." unique_id=1209255530]
