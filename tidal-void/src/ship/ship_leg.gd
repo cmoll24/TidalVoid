@@ -47,6 +47,7 @@ func _process(_delta: float) -> void:
 	#Only update kinematics when the position changes to save performance
 	if(last_target_pos != target.global_position):
 		solve_inverse_kinematics()
+		last_target_pos = target.global_position
 
 func solve_inverse_kinematics() -> void:
 	var l1 : float = top_segment_length

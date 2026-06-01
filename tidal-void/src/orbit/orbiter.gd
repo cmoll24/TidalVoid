@@ -74,15 +74,17 @@ func _physics_process(delta: float) -> void:
 	
 	for body in game_manager.gravity_sources:
 		#get the gravity
-		total_gravity += body.get_gravity_pull(global_position)
-		#check for grounding
-		var dist_sqr : float = global_position.distance_squared_to(body.global_position)
-		if(dist_sqr <= (body.collision_radius + grounded_radius)**2 ):
-			#stop physics so the orbiter can be fully grounded on the planet
-			b_simulate_gravity = false
-			#add as child to ensure that the orbiter will follow a moving gravity source
-			reparent(body)
-			return
+		var gravity_pull = body.get_gravity_pull(global_position);
+		if(gravity_pull != Vector2.ZERO):
+			total_gravity += gravity_pull
+			#check for grounding
+			var dist_sqr : float = global_position.distance_squared_to(body.global_position)
+			if(dist_sqr <= (body.collision_radius + grounded_radius)**2 ):
+				#stop physics so the orbiter can be fully grounded on the planet
+				b_simulate_gravity = false
+				#add as child to ensure that the orbiter will follow a moving gravity source
+				reparent(body)
+				return
 					
 			
 	#set and apply velocity
