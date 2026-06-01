@@ -12,7 +12,7 @@ max_time = 4.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355272366]
 scale = Vector2(100, 100)
 shape = SubResource("CircleShape2D_llxcy")
-debug_color = Color(0, 0.5950001, 0.7, 0.05882353)
+debug_color = Color(0, 0.5950001, 0.7, 0)
 
 [node name="Label" type="Label" parent="." unique_id=40704978]
 offset_left = -1412.0

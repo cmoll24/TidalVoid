@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_kpxo1"]
 [ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bo405"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="5_c5n6l"]
-[ext_resource type="Script" uid="uid://y0h0cmisaif4" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
+[ext_resource type="Script" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="7_chnye"]
 [ext_resource type="PackedScene" uid="uid://owmsoqjuynhh" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet8.tscn" id="8_ykslk"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="9_766bn"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
-[ext_resource type="PackedScene" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
+[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
@@ -48,7 +48,6 @@ sectors = [NodePath("../../DuskSector"), NodePath("../../LowerDawnSector"), Node
 
 [node name="ShipManager" type="Node2D" parent="GameManager" unique_id=1976062999]
 script = ExtResource("5_mm3ko")
-metadata/_custom_type_script = "uid://y0h0cmisaif4"
 
 [node name="VehicleSpawnMarker" type="Node2D" parent="GameManager/ShipManager" unique_id=1362488751]
 position = Vector2(-4860, -2630)
@@ -502,10 +501,10 @@ fake_steps = 0.0
 step_dist = 1.0
 
 [node name="SafeZone" parent="." unique_id=1777228472 node_paths=PackedStringArray("darkness") instance=ExtResource("15_xkcec")]
-visible = false
 position = Vector2(-964.00024, 53)
 scale = Vector2(8, 10)
 darkness = NodePath("CanvasModulate")
+metadata/_edit_lock_ = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="SafeZone" unique_id=29132806]
 position = Vector2(-396.01077, -417.775)
