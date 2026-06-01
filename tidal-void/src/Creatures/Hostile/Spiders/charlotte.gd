@@ -170,6 +170,9 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 			time_since_last_vision = 0	
 			ground_move_direction = other.ground_move_direction
 	
+	if b_in_hibernation: #Cannot attack while hibernating
+		return
+	
 	#damage the drift body if vision confirms it to be prey
 	var vs : VisionSource = other.get_node_or_null("VisionSource")
 	if(vs && (1 << vs.v_type) & v_types):

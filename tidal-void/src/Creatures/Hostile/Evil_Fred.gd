@@ -28,6 +28,10 @@ func _physics_process(delta: float) -> void:
 	
 func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	super.on_collide_with_other_drift_body(other);
+	
+	if b_in_hibernation: #Cannot attack while hibernating
+		return
+	
 	var vs : VisionSource = other.get_node_or_null("VisionSource")
 	if(vs && (1 << vs.v_type) & v_types):
 		if(vs == primary_v_source):
@@ -40,13 +44,18 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 				hc.take_damage(bite_damage,HealthComponent.e_dmg_types.physical,self,self)
 				#knockback damage
 				hc.take_damage(bite_knockback,HealthComponent.e_dmg_types.knockback,self,self)
+				
+				attack_animation(1.0)
 
 func lunge(dist : float):
 	super.lunge(dist);
+	attack_animation(lunge_cldwn_time - 0.5)
+
+func attack_animation(time : float):
 	#set the sprite to open the mouth
 	animated_sprite.play("attack")
 	#close the mouth later
-	get_tree().create_timer(lunge_cldwn_time - 0.5).timeout.connect(set_sprite_closed)	
+	get_tree().create_timer(time).timeout.connect(set_sprite_closed)	
 
 
 func set_sprite_closed():
