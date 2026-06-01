@@ -4,7 +4,7 @@ class_name EvilFred
 @export var bite_damage : float = 90
 @export var bite_knockback : float = 20
 
-@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -44,10 +44,10 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 func lunge(dist : float):
 	super.lunge(dist);
 	#set the sprite to open the mouth
-	sprite.frame = 1
+	animated_sprite.play("attack")
 	#close the mouth later
 	get_tree().create_timer(lunge_cldwn_time - 0.5).timeout.connect(set_sprite_closed)	
 
 
 func set_sprite_closed():
-	sprite.frame = 0
+	animated_sprite.play("closed")

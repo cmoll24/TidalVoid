@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://g6up4bofkmn4" path="res://assets/Textures/Creatures/evil_fred_attack.png" id="6_fu7wm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
-radius = 35.0
+radius = 39.115215
 
 [sub_resource type="Curve" id="Curve_5f2sf"]
 _data = [Vector2(0, 0.41573036), 0.0, 0.0, 0, 0, Vector2(0.24468085, 0.64044946), 0.0, 0.0, 0, 0, Vector2(0.6914894, 0.6516854), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -24,13 +24,18 @@ colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 1,
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_g6gnr")
-}, {
-"duration": 1.0,
 "texture": ExtResource("6_fu7wm")
 }],
 "loop": true,
-"name": &"default",
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_g6gnr")
+}],
+"loop": true,
+"name": &"closed",
 "speed": 5.0
 }]
 
@@ -87,11 +92,12 @@ metadata/_custom_type_script = "uid://cjj7b86r7hhuv"
 
 [node name="Sprite2D" type="Sprite2D" parent="InteractSource" unique_id=1677752448]
 z_index = 20
-position = Vector2(0, -40)
-scale = Vector2(0.5, 0.5)
+position = Vector2(0, -72)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_fu7wm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1589344310]
 position = Vector2(-1.9999999, 3.9999998)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.35, 0.35)
 sprite_frames = SubResource("SpriteFrames_8xwci")
+animation = &"closed"
