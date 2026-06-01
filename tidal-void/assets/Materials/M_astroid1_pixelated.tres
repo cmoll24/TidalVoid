@@ -6,4 +6,4 @@
 shader = ExtResource("1_tbhar")
 shader_parameter/radius = 0.5
 shader_parameter/edge_smoothness = 0.01
-shader_parameter/rotation_speed = Vector2(0, 0)
+shader_parameter/rotation_speed = Vector2(0.1, 0.04)

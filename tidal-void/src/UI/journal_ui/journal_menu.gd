@@ -1,0 +1,33 @@
+extends UIPanel
+@onready var default_button = load("res://src/UI/journal_ui/default_journal_button.tscn")
+
+@onready var side_button_container = $ScrollContainer/VBoxContainer
+
+@onready var info_panel_container = $PanelContainer
+
+func _ready() -> void:
+	# For every creature in the dictionary
+	for creature in GV.creature_button_dict:
+		# Instatiate a new default button
+		var new_button : JournalButton = default_button.instantiate()
+		new_button.creature_dict = GV.creature_button_dict[creature]
+		
+		# Grab the creature data from the dictionary
+		var creature_data = GV.creature_button_dict[creature]
+		
+		# Align the image of the button to middle
+		new_button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		new_button.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
+		new_button.custom_minimum_size = Vector2(423, 250)
+		
+		# Make sure image does not make button bigger
+		new_button.expand_icon = true
+		
+		# Give button an image
+		new_button.icon = load(creature_data["asset"])
+		
+		#This allows the button to instance new info screen panels
+		new_button.set_info_panel_ref(info_panel_container)
+		
+		# Add the new button to the VBoxContainer
+		side_button_container.add_child(new_button)

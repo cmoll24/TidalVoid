@@ -7,14 +7,27 @@ extends Node
 
 @onready var camera : ZoomCamera = $Camera2D
 
+@onready var toolbar : Toolbar = $Toolbar
+
 @export var throw_predictor : TrajectoryPredictor
 
 var reverse_thrust = false
 
 var controller_mode = false
 
+#saves the health of the basic player body(ensures player health persists when entering and exiting vehicles)
+#also enables constant access to player health
+#IMPORTANT: not used in final save game, only temporarily in game
+var player_body_health : float = 100
+
+
+
 func _ready() -> void:
+	GV.set_player_controller_ref(self)
+	
 	if(player):
+		if(player is Player):
+			player_body_health = player.health_comp.health
 		start_possess(player, Vector2.ZERO)
 		player.call_deferred("apply_save_state")
 
@@ -52,24 +65,25 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed("thrust"):
 		thrust_direction = mouse_direction
 	
-	var thrust_multiplier = 1.0
-	if Input.is_action_pressed("boost"):
-		thrust_multiplier = 10.0
+	#var thrust_multiplier = 1.0
+	#if Input.is_action_pressed("boost"):
+		#thrust_multiplier = 10.0
 	
 	#if Input.is_action_just_pressed("jump"):
- 	#	player.jump()
-	
+ 		#player.jump()
+		
 	if reverse_thrust:
-		player.set_thrust(thrust_direction.rotated(PI), thrust_multiplier)
+		player.set_thrust(thrust_direction.rotated(PI), player.thrust_multiplier)
 	else:
-		player.set_thrust(thrust_direction, thrust_multiplier)
+		player.set_thrust(thrust_direction, player.thrust_multiplier)
 
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("propulsion"):
-		player.propulsion_ability()
-	elif event.is_action_pressed("Use"):
+	for i in toolbar.abilities_slot_max:
+		if event.is_action_pressed("toolbar_slot_" + str(i + 1)):
+			toolbar.call_ability(i, player)
+	if event.is_action_pressed("Use"):
 		player.action_use(true)
 	elif event.is_action_released("Use"):
 		player.action_use(false)
@@ -77,7 +91,7 @@ func _input(event: InputEvent) -> void:
 		
 func possess_pawn(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	camera.player = pawn
-	player.stop_possess();
+	player.stop_possess(self);
 	
 	start_possess(pawn, previous_pawn_velocity)
 
@@ -85,7 +99,7 @@ func start_possess(pawn : PlayerPawn, previous_pawn_velocity : Vector2):
 	pawn.start_possess(self, previous_pawn_velocity);
 	player = pawn;
 	predictor.update_player(player)
-	GV.player_reference(player)
+	GV.set_player_reference(player)
 	
 	if player is Player:
 		player.throw_trajectory = throw_predictor

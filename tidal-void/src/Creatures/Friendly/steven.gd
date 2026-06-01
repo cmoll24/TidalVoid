@@ -11,20 +11,20 @@ class_name Steven
 var v_types : int
 
 ### all visible vision sources
-var v_sources : Array[VisionSource]
+var v_sources : Array[VisionSource] = []
 
 ### the primary visible vision source(the target)
-var primary_v_source : VisionSource
+var primary_v_source : VisionSource 
 
 var v_exceptions : Array[RID] = []
 
 ### the amount of time steven will continue to follow the
 ### same target even after it has gone out of sight
-@export var v_source_loyalty_time : float = 3
+@export var v_source_loyalty_time : float = 3.0
 
 ### continue to follow the same source until one is closer by this factor
 ### e.g. follow unless something twice as close appears
-@export var v_source_loyalty_dist : float = 2;
+@export var v_source_loyalty_dist : float = 2.0;
 
 var primary_v_source_time : float = 0
 
@@ -33,9 +33,15 @@ var last_primary_source_dist : float = 0;
 
 var time_since_last_vision : float = 0;
 
-var time_before_hibernate : float = 12;
+@export var time_before_hibernate : float = 12;
 
 ################################################
+
+@export var b_can_lunge = true
+@export var min_lunge_dist_sqr = 3600
+@export var lunge_power = 100
+@export var lunge_cldwn_time = 6
+var lunge_cldwn : float
 
 func _ready() -> void:
 	super._ready()
@@ -49,6 +55,13 @@ func post_ready() -> void:
 	
 func creature_movement(_delta):
 	super.creature_movement(_delta)
+	#lunge if we are close, have a target and are not on cooldown
+	if(b_can_lunge):
+		lunge_cldwn -= _delta
+		if(primary_v_source && lunge_cldwn <= 0):
+			var dist_sqr : float = global_position.distance_squared_to(primary_v_source.parent.global_position)
+			if(dist_sqr < min_lunge_dist_sqr):
+				lunge(sqrt(dist_sqr))
 	
 func update_vision():
 	#do nothing if stunned
@@ -83,10 +96,11 @@ func update_vision():
 	for v in v_sources:
 		var dist : float =(global_position - v.parent.global_position).length_squared()
 		if(dist < lowest_dist):
-			var v_alt : float = dominant_body.global_position.distance_squared_to(v.parent.global_position)
-			if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
-				#don't chase things out of orbit
-				continue
+			if(dominant_body):
+				var v_alt : float = dominant_body.global_position.distance_squared_to(v.parent.global_position)
+				if(v_alt > dominant_body.pull_radius*dominant_body.pull_radius):
+					#don't chase things out of orbit
+					continue
 			primary_v_source_time = v_source_loyalty_time
 			primary_v_source = v;
 			lowest_dist = dist	
@@ -108,12 +122,36 @@ func update_behavior() -> void:
 		if(primary_v_source && primary_v_source.parent.has_method("get_velocity")):
 			var v_move_dir = (dominant_body.global_position - primary_v_source.parent.global_position)
 			# move dir is tangent to gravity
-			v_move_dir = Vector2(v_move_dir.y,-v_move_dir.x).normalized()
+			v_move_dir = Vector2(v_move_dir.y,-v_move_dir.x)
 			#move the opposite directiton to maximize chances of catching up
 			target_dir = (v_move_dir.dot(primary_v_source.parent.get_velocity()) < 0)
 	else:
 		##keep roughly in our orbit unless hibernating
 		if(!b_in_hibernation):
-			target_altitude_sqr = min(
-				(dominant_body.pull_radius-20)**2,
-				get_square_altitude(dominant_body))
+			if(dominant_body):
+				target_altitude_sqr = min(
+					(dominant_body.pull_radius-30)**2,
+					get_square_altitude(dominant_body))
+					
+					
+func lunge(dist : float):
+	if !primary_v_source:
+		return # only procede if primary_v_source is valid
+	#calculate a lead of the target
+	var target_point : Vector2 = primary_v_source.parent.global_position
+	var impact_time : float = (dist - collision_shape.shape.get_rect().size.x/2) / thrust_power
+	if(primary_v_source.parent.has_method("get_velocity")):
+		target_point += (primary_v_source.parent.get_velocity()+0.5*gravity_force) * impact_time
+	else:
+		return
+	#lunge at the target point
+	var lunge_dir : Vector2  = (target_point - global_position).normalized()
+	
+	velocity = lunge_dir *lunge_power
+	
+	#counteract gravity if needed
+	#if(lunge_dir.dot(gravity_force) < -0.1):
+		#velocity -= (gravity_force*impact_time*0.5)
+	
+	#reset the cooldown
+	lunge_cldwn = lunge_cldwn_time

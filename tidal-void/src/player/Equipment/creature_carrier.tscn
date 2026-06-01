@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c15qcqyp8vxjq" path="res://src/player/Equipment/creature_carrier.gd" id="1_wnmps"]
 [ext_resource type="Texture2D" uid="uid://d4lgugcg7afl8" path="res://assets/Textures/Player/CreatureCarrier_body.png" id="2_23cqy"]
+[ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="3_mta1b"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_ypvpx"]
 [ext_resource type="Script" uid="uid://e5bcknpxfmgo" path="res://src/Framework/Physics/one_way_bubble.gd" id="4_23cqy"]
 [ext_resource type="Texture2D" uid="uid://cvqn1xfyn3ufi" path="res://assets/Textures/Player/playerside.png" id="4_jkqj7"]
@@ -45,6 +46,17 @@ thrust_power = 80.0
 max_velocity = 600.0
 start_in_orbit = true
 b_rotation_to_gravity = false
+
+[node name="VisionSource" type="Node" parent="." unique_id=1242615595]
+script = ExtResource("10_f44oo")
+v_type = 2
+metadata/_custom_type_script = "uid://cloexwtl4gxf3"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=180048754]
+script = ExtResource("3_mta1b")
+max_health = 150.0
+grace_period_time = 0.5
+metadata/_custom_type_script = "uid://chuxbj1tello"
 
 [node name="ThrustParticles2" type="CPUParticles2D" parent="." unique_id=963839452]
 position = Vector2(1, 12)
@@ -127,11 +139,6 @@ z_index = 20
 position = Vector2(0, -50)
 texture = ExtResource("9_f44oo")
 
-[node name="VisionSource" type="Node" parent="." unique_id=1242615595]
-script = ExtResource("10_f44oo")
-v_type = 2
-metadata/_custom_type_script = "uid://cloexwtl4gxf3"
-
 [node name="FuelContainer" type="Sprite2D" parent="." unique_id=1588764202]
 position = Vector2(-4, 20)
 scale = Vector2(0.5, 0.5)
@@ -147,3 +154,6 @@ offset_top = -20.0
 offset_right = 21.0
 grow_vertical = 2
 texture = ExtResource("12_5xigg")
+
+[node name="DisembarkMarker" type="Marker2D" parent="." unique_id=1361135025]
+position = Vector2(-40.035614, -47.704643)

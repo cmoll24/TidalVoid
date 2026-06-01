@@ -3,15 +3,20 @@ class_name GameManager
 
 @onready var sense_manager :SenseManager
 
+@onready var ship_manager :ShipManager = $ShipManager
+
 #universal array of gravity sources
 var gravity_sources : Array[GravitySource] = []
 
 #universal array of shroud revealing sources
 var revealing_sources : Array[Node2D] = []
 
+var teleport_sources: Array[Vector2] = []
+
+var streaming_sources : Array[Node2D] = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	gravity_sources.assign(get_tree().get_nodes_in_group("gravity_sources"))
 	sense_manager = $SenseManager
 	#inventory_menu.hide()
 
@@ -26,6 +31,25 @@ func register_revealing_source(new_source: Node2D) -> void:
 	
 func unregister_revealing_source(source : Node2D) -> void:
 	revealing_sources.erase(source)	
+	
+func register_teleport_source(new_source: Vector2) -> void:
+	#prevent duplicates
+	if(!teleport_sources.has(new_source)):
+		teleport_sources.append(new_source)
+	
+func unregister_teleport_source(source: Vector2) -> void:
+	teleport_sources.erase(source)
+	
+func register_streaming_source(new_source: Node2D) -> void:
+	streaming_sources.append(new_source)
+	
+func unregister_streaming_source(source: Node2D) -> void:
+	streaming_sources.erase(source)
+	
+	
+#returns the current total playtime in seconds
+func get_elapsed_seconds() -> float:
+	return GV.save_data["play_time"] + (Time.get_ticks_msec() / 1000)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 

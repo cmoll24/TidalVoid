@@ -3,7 +3,9 @@ extends Node
 
 var player_health = 100
 var player_node: PlayerPawn = null
-@onready var inventory_slot_scene = preload("res://src/UI/upgrade_inventory_ui/inventory_slot.tscn")
+var player_HUD : PlayerHUD = null
+var player_controller : PlayerController = null
+@onready var inventory_slot_scene = preload("res://src/UI/inventory_ui/inventory_slot.tscn")
 
 const SAVE_PATH = "user://save.json"
 
@@ -20,66 +22,119 @@ var save_data: Dictionary = {
 }
 
 # where our inventory item goes
-var inventory = []
+var player_inventory: PlayerInventory = null
 signal inventory_update
 
-func _process(_delta):
-	pass
+# Defines the dictionary for creature for journal
+var creature_button_dict = {
+	"creature1": {
+		"asset": "res://assets/Textures/Placeholder/Evil_Fred.png",
+		"found": false,
+		"name": "Evil Fred",
+		"story": "Fred...But not good",
+		"adapt": "Normally we see Fred as good, but they're in space now, so they adapted to be evil",
+		"diet": "Surpisingly a pretty healthy diet...except for the mushrooms...the bad ones",
+		"behavior": "We say he's evil, but he's acts like Fred except he doesn't recycle"
+	},
+	"creature2": {
+		"asset": "res://assets/Textures/Placeholder/floater.png",
+		"found": false,
+		"name": "Floater",
+		"story": "Never gonna guess what it does",
+		"adapt": "I think it was a rock that wanted to prove it's other rock friends wrong. Please read Land of the Lusterous",
+		"diet": "Microbes or something I think",
+		"behavior": "You'll really never guess what it does"
+	},
+	"creature3": {
+		"asset": "res://assets/Textures/Placeholder/Jeremy.png",
+		"found": false,
+		"name": "Jermey",
+		"story": "You are not worthy enough for their story",
+		"adapt": "Not worthy",
+		"diet": "Nuhuh, ask them",
+		"behavior": "Look Jermey is a good guy, literally go up and say hi, you can learn this from them yourself"
+	},
+	"creature4": {
+		"asset": "res://assets/Textures/Placeholder/leaper.png",
+		"found": false,
+		"name": "Leaper",
+		"story": "*Insert the floater joke here*",
+		"adapt": "I think this was a bunch of worms that didn't want to be in the ground anymore, or an octopus",
+		"diet": "Have no idea, been watching it for 100 hours and it's just been jumping in place",
+		"behavior": "You get the joke"
+	},
+	"creature5": {
+		"asset": "res://assets/Textures/Placeholder/Thick_Jim.png",
+		"found": false,
+		"name": "Thick Jim",
+		"story": "Jim...but ate a little to much Arby's",
+		"adapt": "Looks like he ended up this way because finals were coming up and he kept snacking (also Arby's)",
+		"diet": "Salad, yeah, he's really trying to slim down",
+		"behavior": "Jogs every morning, goes to the gym after doing work, pretty normal guy"
+	},
+	"creature6": {
+		"asset": "res://assets/Textures/Placeholder/astronaut.png",
+		"found": false,
+		"name": "Astronaut",
+		"story": "Oh shiii- that me",
+		"adapt": "With this treasure, I summon Eight-Handled Sword Divergent Sila Divine General Mahoraga",
+		"diet": "Panda Express, yeah I don't want to cook",
+		"behavior": "Crying at 12:47 AM on the dot, every day"
+	},
+	"creature7": {
+		"asset": "res://assets/Textures/Placeholder/cookie.png",
+		"found": false,
+		"name": "Cookie",
+		"story": "It's...a cookie...",
+		"adapt": "What do you want, it's a cookie",
+		"diet": "...They can't eat...",
+		"behavior": "Look, if you can show me a cookie can do things on it's own, that 5 bucks for you"
+	},
+	"creature8": {
+		"asset": "res://assets/circle.png",
+		"found": false,
+		"name": "Circle",
+		"story": "ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE",
+		"adapt": "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. A sing lap should be completed every time you hear this sound. ding Remember to run in a straight line and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark. Get ready!… Start. ",
+		"diet": "Your Mother",
+		"behavior": "Stealing Social Security Numbers"
+	}
+}
 
 func _ready():
-	# our default size of inventory is 20
-	inventory.resize(20)
+	#Create player inventory instance
+	player_inventory = PlayerInventory.new()
+	add_child(player_inventory)
+	
+	# onnect inventory signal to global signal
+	player_inventory.inventory_changed.connect(_on_inventory_changed)
 	
 	load_from_save_file = load_game()
 
-func add_item(items):
-	for i in range(inventory.size()):
-		#if item exit in inventory AND it matches the name and effect type
-		if inventory[i] != null and inventory[i]["item_name"] == items["item_name"] and inventory[i]["item_effect"] == items["item_effect"]:
-			#updates the quantity
-			inventory[i]["quantity"] += items["quantity"]
-			inventory_update.emit()
-			return true
-		#if item does not exist, then we make a new one
-		elif inventory[i] == null:
-			inventory[i] = items
-			inventory_update.emit()
-			return true
+func _on_inventory_changed() -> void:
+	inventory_update.emit()
+
+func add_item(items) -> bool:
+	return player_inventory.add_item(items)
 	
-func remove_item(target_item):
-	# goes thru items 0 - 19
-	for i in range(inventory.size()):
-		# find the matching item
-		if inventory[i] == target_item:
-			# subtract quantity by 1
-			inventory[i]["quantity"] -= 1
-			# if less than 0, then null it
-			if inventory[i]["quantity"] <= 0:
-				inventory[i] = null
-			# updates inventory after
-			inventory_update.emit()
-			return
-	
-func player_reference(player : PlayerPawn):
+func remove_item(target_item : String, quantity : int) -> void:
+	player_inventory.remove_item(target_item,quantity)
+			
+func set_player_reference(player : PlayerPawn):
 	player_node = player
+
+func set_HUD_reference(HUD : PlayerHUD):
+	player_HUD = HUD
+
+func set_player_controller_ref(controller : PlayerController):
+	player_controller = controller
 	
 func has_item(item_name: String, quantity: int) -> bool:
-	for i in range(inventory.size()):
-		if inventory[i] != null and inventory[i]["item_name"] == item_name:
-			return inventory[i]["quantity"] >= quantity
-	return false
+	return player_inventory.has_item(item_name, quantity)
+	
+func get_inventory() -> Array:
+	return player_inventory.get_items()
 
-func remove_item_by_name(item_name: String, quantity: int):
-	for i in range(inventory.size()):
-		if inventory[i] != null and inventory[i]["item_name"] == item_name:
-			inventory[i]["quantity"] -= quantity
-			if inventory[i]["quantity"] <= 0:
-				inventory[i] = null
-			inventory_update.emit()
-			return
-
-
-## SAVE LOGIC
 
 func save_game() -> void:
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)

@@ -1,0 +1,40 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://jdp3of2r6mhj"]
+
+[sub_resource type="Curve" id="Curve_ve7n0"]
+bake_resolution = 40
+_data = [Vector2(0, 0.0033142567), 0.0, 0.0, 0, 0, Vector2(0.02621723, 1), 0.0, 0.0, 0, 0, Vector2(0.21910112, 0.9971277), 0.0, 0.0, 0, 0, Vector2(0.846442, 0.43128592), -1.3804244, -1.3804244, 0, 0, Vector2(0.994382, 0), -2.2863586, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_o54e7"]
+curve = SubResource("Curve_ve7n0")
+
+[sub_resource type="Curve" id="Curve_irf6s"]
+bake_resolution = 30
+_data = [Vector2(0, 0.009058833), 0.0, 0.0, 0, 0, Vector2(0.10674158, 0.9971277), 0.0, 0.0, 0, 0, Vector2(0.73595506, 1), 0.0, 0.0, 0, 0, Vector2(0.994382, 0.03203714), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_a3thi"]
+curve = SubResource("Curve_irf6s")
+
+[resource]
+lifetime_randomness = 0.5
+particle_flag_align_y = true
+emission_shape_offset = Vector3(-4000, 0, 0)
+emission_shape = 3
+emission_box_extents = Vector3(10, 3000, 1)
+angle_min = -179.99998
+angle_max = 180.00002
+spread = 5.0
+initial_velocity_min = 2000.0
+initial_velocity_max = 3000.0
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -100.0
+linear_accel_max = 800.0
+scale_min = 2.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_a3thi")
+alpha_curve = SubResource("CurveTexture_o54e7")
+hue_variation_min = -0.100000024
+hue_variation_max = 0.09999997

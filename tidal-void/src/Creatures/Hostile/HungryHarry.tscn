@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfncu7u18wwgo" path="res://src/Creatures/Hostile/Hungry_Harry.gd" id="1_fa72h"]
 [ext_resource type="Texture2D" uid="uid://b4ikoo55v2qf4" path="res://assets/Textures/Placeholder/PLACEHOLDER_WormHead.png" id="2_f3ssv"]
+[ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_udy5y"]
 [ext_resource type="Texture2D" uid="uid://ddqjrpcomxjys" path="res://assets/Textures/Placeholder/PLACEHOLDER_WormMiddleLong.png" id="4_udy5y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_udy5y"]
@@ -19,17 +20,28 @@ visibility_layer = 2
 collision_layer = 2
 collision_mask = 11
 script = ExtResource("1_fa72h")
+bite_knockback = 50.0
 line_point_num = 512
 worm_burrow_distance = 180.0
+show_particles_distance = 100.0
 burrow_rotation_boost = 0.005
-v_distance = 300.0
+v_distance = 1000.0
 v_source_loyalty_time = 6.0
 creature_size = 3
+creature_type = 4
 mass = 50.0
 elasticity = 0.2
 max_velocity = 600.0
 b_is_safe_collision = false
 b_rotation_to_gravity = false
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1011895615]
+script = ExtResource("2_udy5y")
+max_health = 5000.0
+body_temperature = 80.0
+heat_tolerance = 340.0
+heat_regulation_speed = 40.0
+metadata/_custom_type_script = "uid://chuxbj1tello"
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=267736086]
 target_position = Vector2(0, 0)

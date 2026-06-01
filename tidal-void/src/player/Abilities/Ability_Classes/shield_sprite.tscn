@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://yud5sjd4wo8a"]
+
+[ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="1_kifbb"]
+[ext_resource type="Script" uid="uid://7mlrkuerac0p" path="res://src/player/Abilities/Ability_Classes/shield_sprite.gd" id="2_ma1yq"]
+
+[node name="ShieldSprite" type="Sprite2D" unique_id=2124401383]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("1_kifbb")
+script = ExtResource("2_ma1yq")

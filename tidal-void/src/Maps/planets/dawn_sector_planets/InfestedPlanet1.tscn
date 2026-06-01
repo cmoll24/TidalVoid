@@ -1,0 +1,211 @@
+[gd_scene format=3 uid="uid://13vuo3ai4enh"]
+
+[ext_resource type="Script" uid="uid://y3yu8mx4u8cq" path="res://src/Creatures/Hostile/Spiders/infested_planet.gd" id="1_kibk4"]
+[ext_resource type="Texture2D" uid="uid://ce4mhqh5e4d4r" path="res://assets/Textures/Environmental/Dawn/dawnplanetwater.png" id="2_a6f8n"]
+[ext_resource type="Texture2D" uid="uid://d4hiwtxfyg84e" path="res://assets/Textures/Environmental/Dawn/dawnplanetcliffs.png" id="3_d7v1j"]
+[ext_resource type="Texture2D" uid="uid://cwrrviv0s0d1l" path="res://assets/Textures/Placeholder/PLACEHOLDER_SpiderHole.png" id="4_6p6g8"]
+[ext_resource type="Texture2D" uid="uid://tyq0l8irn5lt" path="res://assets/Textures/Environmental/Dawn/dawnplanetduckweed.png" id="4_kibk4"]
+[ext_resource type="Shader" uid="uid://desdltq05v5mw" path="res://assets/shaders/circle.gdshader" id="5_6p6g8"]
+[ext_resource type="Texture2D" uid="uid://0gtgsdisocwp" path="res://assets/Textures/Environmental/Dawn/dawnsectorlilypads.png" id="5_xuku7"]
+[ext_resource type="Texture2D" uid="uid://blbmxe0ougbh1" path="res://assets/Textures/Environmental/water_particles.png" id="7_qw3dr"]
+[ext_resource type="Script" uid="uid://b65d06biwrd60" path="res://src/Tools/pull_radius_visualizer.gd" id="9_6p6g8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f54en"]
+radius = 151.00331
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ps4nm"]
+shader = ExtResource("5_6p6g8")
+shader_parameter/radius = 0.50000002375
+shader_parameter/edge_smoothness = 0.0
+
+[sub_resource type="Gradient" id="Gradient_klrcr"]
+offsets = PackedFloat32Array(0, 0.57228917, 0.6987952)
+colors = PackedColorArray(1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0, 1, 0.68235296, 0.22352941, 0.043137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pf5yv"]
+gradient = SubResource("Gradient_klrcr")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="InfestedPlanet" type="StaticBody2D" unique_id=1915373182 groups=["gravity_sources"]]
+z_index = 2
+collision_mask = 7
+script = ExtResource("1_kibk4")
+spider_holes = Array[Vector2]([Vector2(-32, -173), Vector2(-177, 43), Vector2(107, 67)])
+v_distance = 1600.0
+stay_grounded_altitude_sqr = 40000
+mass = 16000.0
+collision_radius = 151.0
+metadata/_custom_type_script = "uid://y3yu8mx4u8cq"
+
+[node name="PlanetTexture" type="TextureRect" parent="." unique_id=1814879757]
+visibility_layer = 65
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_a6f8n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130919874]
+shape = SubResource("CircleShape2D_f54en")
+
+[node name="Foreground2" type="TextureRect" parent="." unique_id=56770716]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_d7v1j")
+
+[node name="SpiderHole1" type="TextureRect" parent="." unique_id=45191087]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -173.0
+offset_right = 32.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_6p6g8")
+
+[node name="SpiderHole2" type="TextureRect" parent="." unique_id=1219600926]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = 43.0
+offset_right = -113.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.8325958
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_6p6g8")
+
+[node name="SpiderHole3" type="TextureRect" parent="." unique_id=1071790014]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 107.0
+offset_top = 67.0
+offset_right = 171.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -4.1887903
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_6p6g8")
+
+[node name="Foreground3" type="TextureRect" parent="." unique_id=1786883883]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("5_xuku7")
+
+[node name="Foreground4" type="TextureRect" parent="." unique_id=1767247440]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("4_kibk4")
+
+[node name="Foreground" type="TextureRect" parent="." unique_id=838847746]
+visibility_layer = 2
+z_index = 12
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -646.0
+offset_top = -642.0
+offset_right = 634.0
+offset_bottom = 638.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("7_qw3dr")
+
+[node name="PullRadius" type="TextureRect" parent="." unique_id=986787955]
+z_index = 120
+material = SubResource("ShaderMaterial_ps4nm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1264.911
+offset_top = -1264.911
+offset_right = -764.911
+offset_bottom = -764.911
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5.059644, 5.059644)
+texture = SubResource("GradientTexture2D_pf5yv")
+stretch_mode = 3
+script = ExtResource("9_6p6g8")
+mass = 16000.0
+
+[node name="SpiderRespawnTimer" type="Timer" parent="." unique_id=975443397]
+wait_time = 50.0
+autostart = true

@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://bavacp2d3cthk"]
+
+[resource]
+default_font_size = 12
+Label/colors/font_color = Color(1, 0.13333334, 0.2627451, 1)
+Label/font_sizes/font_size = 60
+RichTextLabel/colors/default_color = Color(1, 0.13333334, 0.2627451, 1)
+RichTextLabel/font_sizes/normal_font_size = 40

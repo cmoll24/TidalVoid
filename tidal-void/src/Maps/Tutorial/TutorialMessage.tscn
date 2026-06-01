@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://b1df3kp5dqvna"]
+
+[node name="TutorialMessage" type="Label" unique_id=1631242706]
+text = "Hold left click to move along the ground towards your mouse position"

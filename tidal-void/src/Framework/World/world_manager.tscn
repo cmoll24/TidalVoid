@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dmqhwdhvpjhuh"]
+
+[ext_resource type="Texture2D" uid="uid://bv81eripqf0np" path="res://assets/Textures/Placeholder/PLACEHOLDER_Silicate_Rock.png" id="1_f6hth"]
+[ext_resource type="Script" uid="uid://c04lb5rk5lyji" path="res://src/Framework/World/world_manager.gd" id="1_n17mw"]
+[ext_resource type="Material" uid="uid://jdp3of2r6mhj" path="res://assets/Particles/PPM_meteor_shower_rock_main.tres" id="2_n17mw"]
+
+[node name="WorldManager" type="Node2D" unique_id=648679912]
+script = ExtResource("1_n17mw")
+min_meteor_shower_time = 60.0
+max_meteor_shower_time = 100.0
+metadata/_custom_type_script = "uid://c04lb5rk5lyji"
+
+[node name="MinorMeteorShowerParticles" type="GPUParticles2D" parent="." unique_id=1290728194]
+z_index = 1
+emitting = false
+amount = 10
+texture = ExtResource("1_f6hth")
+lifetime = 8.0
+one_shot = true
+explosiveness = 0.1
+randomness = 0.3
+visibility_rect = Rect2(0, -540, 1920, 1080)
+process_material = ExtResource("2_n17mw")
+
+[node name="MajorMeteorShowerParticles" type="GPUParticles2D" parent="." unique_id=2064675048]
+z_index = 40
+emitting = false
+amount = 250
+texture = ExtResource("1_f6hth")
+lifetime = 3.5
+one_shot = true
+explosiveness = 0.1
+randomness = 0.3
+visibility_rect = Rect2(0, -1000, 4000, 2000)
+process_material = ExtResource("2_n17mw")

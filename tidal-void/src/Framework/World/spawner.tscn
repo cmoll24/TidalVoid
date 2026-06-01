@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://oa61kgdn2cm3"]
+
+[ext_resource type="Script" uid="uid://c7yry7qwph3u5" path="res://src/Framework/World/spawner.gd" id="1_7cjbo"]
+
+[node name="Spawner" type="Node2D" unique_id=1364662829]
+script = ExtResource("1_7cjbo")
+spawn_path = "res://src/Collectables/Ores/copper_ore.tscn"
+metadata/_custom_type_script = "uid://c7yry7qwph3u5"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="." unique_id=1881863200]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+border_color = Color(0, 1, 0, 1)
+border_width = 25.0

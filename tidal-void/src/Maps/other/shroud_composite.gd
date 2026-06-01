@@ -4,6 +4,9 @@ class_name ShroudComposite
 var shroud_lookup : Dictionary
 # for performance, shrouds are placed into "tiles" in a dictionary so only ones in a tile are updated
 @export var shroud_tile_size = 200
+@export var extra_fade_radius = 200
+#fraction of the size of a cloud, when within this distance, the shroud is fully faded
+@export var full_fade_dist_scalar = 0.2
 
 var game_manager : GameManager
 
@@ -31,8 +34,6 @@ func _ready() -> void:
 				shroud_lookup.get_or_add(tile,[]).append(node)	
 			
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
@@ -46,6 +47,17 @@ func _physics_process(delta: float) -> void:
 				#fade the shroud out based on the player's proximity
 				#we actually want this to be squared for smooth transition
 				var size = node.size.x * node.scale.x
-				var dist_sqr = body.global_position.distance_squared_to(node.global_position+Vector2(size,size)/2)
-				var alpha : float = dist_sqr/(size**2)
+				var center_offset = Vector2(size,size)/2
+				var dist_sqr = body.global_position.distance_squared_to(node.global_position + center_offset)
+				
+				var min_distance = size * full_fade_dist_scalar #when at min distance the fog has fully faded
+				var max_distance = size + extra_fade_radius #the distance at which it starts to fade
+				
+				var alpha : float = (dist_sqr - (min_distance**2)) / (max_distance**2)
+				alpha = clampf(alpha, 0.0, 1.0)
 				node.self_modulate = Color(1,1,1,alpha)
+
+func _input(event: InputEvent) -> void:
+	#DEBUG
+	if event.is_action_pressed("debug_toggle_fog"):
+		visible = !visible

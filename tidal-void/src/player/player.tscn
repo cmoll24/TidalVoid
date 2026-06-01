@@ -2,10 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cdv2knblbvawf" path="res://src/player/player.gd" id="1_5f2sf"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_o822w"]
+[ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_x42xx"]
 [ext_resource type="Texture2D" uid="uid://c1l4ub46eywpl" path="res://assets/Textures/Player/player.png" id="3_5f2sf"]
 [ext_resource type="Texture2D" uid="uid://dfms40uf6fvh0" path="res://assets/Textures/Placeholder/PLACEHOLDER_circle_light.png" id="4_244u8"]
 [ext_resource type="Texture2D" uid="uid://dvgm2dsf62eem" path="res://assets/Textures/Player/playernohelmet.png" id="4_jiejy"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="5_5f2sf"]
+[ext_resource type="Texture2D" uid="uid://bc2euw2ij5w62" path="res://assets/Textures/Player/hover_particle.png" id="5_cwolq"]
+[ext_resource type="Texture2D" uid="uid://bcaxjr7i50sxf" path="res://assets/Textures/Placeholder/nohelmethover1.png" id="5_ylhto"]
+[ext_resource type="Texture2D" uid="uid://j6b6r4narn17" path="res://assets/Textures/Placeholder/nohelmethover2.png" id="6_cwolq"]
+[ext_resource type="Texture2D" uid="uid://v0ft4uinx7uw" path="res://assets/Textures/Placeholder/helmethover1.png" id="7_2smqc"]
+[ext_resource type="Texture2D" uid="uid://ceyw2viml4kfl" path="res://assets/Textures/Placeholder/helmethover2.png" id="8_rl62b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
 radius = 20.0
@@ -23,20 +29,49 @@ colors = PackedColorArray(1, 1, 0.85, 0.8784314, 1, 1, 0.26, 0.7294118, 1, 0.120
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_5f2sf")
+"texture": ExtResource("5_ylhto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_cwolq")
 }],
 "loop": true,
-"name": &"helmet_idle",
-"speed": 5.0
+"name": &"hover_idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_2smqc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rl62b")
+}],
+"loop": true,
+"name": &"hover_idle_helmet",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_jiejy")
 }],
 "loop": true,
-"name": &"no_helmet_idle",
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5f2sf")
+}],
+"loop": true,
+"name": &"idle_helmet",
 "speed": 5.0
 }]
+
+[sub_resource type="Gradient" id="Gradient_2smqc"]
+offsets = PackedFloat32Array(0, 0.52469134, 1)
+colors = PackedColorArray(0.4822746, 0.6080301, 0.7845677, 0.717, 0.54004896, 1, 1, 0.536, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_rl62b"]
+colors = PackedColorArray(0.4822746, 0.432765, 0.7845677, 1, 1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_244u8"]
 radius = 80.0
@@ -54,25 +89,26 @@ static_friction_coefficient = 0.5
 kinetic_friction_coefficient = 0.3
 elasticity = 0.5
 thrust_power = 15.0
-max_velocity = 10000.0
+max_velocity = 800.0
 start_in_orbit = true
 b_is_safe_collision = false
+
+[node name="HealthComponent" type="Node" parent="." unique_id=2032333964]
+script = ExtResource("2_x42xx")
+metadata/_custom_type_script = "uid://chuxbj1tello"
+
+[node name="VisionSource" type="Node" parent="." unique_id=786667853]
+script = ExtResource("5_5f2sf")
+v_type = 2
+metadata/_custom_type_script = "uid://cloexwtl4gxf3"
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
+visible = false
 shape = SubResource("CircleShape2D_rc2ur")
-
-[node name="GravityLabel" type="Label" parent="." unique_id=1770463010]
-offset_left = -26.0
-offset_top = -33.0
-offset_right = 27.0
-offset_bottom = -19.0
-theme_override_font_sizes/font_size = 10
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ThrustParticles" type="CPUParticles2D" parent="." unique_id=168159882]
 amount = 20
@@ -92,7 +128,50 @@ script = ExtResource("2_o822w")
 position = Vector2(0, -2)
 scale = Vector2(0.08, 0.08)
 sprite_frames = SubResource("SpriteFrames_o822w")
-animation = &"helmet_idle"
+animation = &"hover_idle_helmet"
+
+[node name="HoverParticleRight" type="CPUParticles2D" parent="Sprite2D" unique_id=1382592038]
+modulate = Color(0.66, 0.66, 0.66, 1)
+z_index = 5
+z_as_relative = false
+position = Vector2(62.5, 187.5)
+scale = Vector2(12.5, 12.5)
+amount = 4
+texture = ExtResource("5_cwolq")
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(1, 0)
+particle_flag_align_y = true
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_2smqc")
+color_initial_ramp = SubResource("Gradient_rl62b")
+
+[node name="HoverParticleLeft" type="CPUParticles2D" parent="Sprite2D" unique_id=1051520932]
+z_index = 5
+z_as_relative = false
+position = Vector2(-25, 187.5)
+scale = Vector2(12.5, 12.5)
+amount = 4
+texture = ExtResource("5_cwolq")
+lifetime = 0.5
+emission_shape = 3
+emission_rect_extents = Vector2(1, 0)
+particle_flag_align_y = true
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_2smqc")
+color_initial_ramp = SubResource("Gradient_rl62b")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1545037244]
 light_mask = 1023
@@ -105,14 +184,10 @@ texture_scale = 20.0
 
 [node name="InteractArea" type="Area2D" parent="." unique_id=1331845340]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1539383539]
+visible = false
 shape = SubResource("CircleShape2D_244u8")
-
-[node name="VisionSource" type="Node" parent="." unique_id=786667853]
-script = ExtResource("5_5f2sf")
-v_type = 2
-metadata/_custom_type_script = "uid://cloexwtl4gxf3"
 
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

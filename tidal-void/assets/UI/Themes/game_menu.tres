@@ -1,0 +1,20 @@
+[gd_resource type="Theme" format=3 uid="uid://cqttoxo2ikf64"]
+
+[ext_resource type="StyleBox" uid="uid://vsylakx3fa8s" path="res://assets/UI/Themes/StyleBoxes/button_disabled.tres" id="1_ijajv"]
+[ext_resource type="StyleBox" uid="uid://bkgb4wjdw5kn4" path="res://assets/UI/Themes/StyleBoxes/button_focused.tres" id="2_umgnr"]
+[ext_resource type="StyleBox" uid="uid://c7p6i3f0akij0" path="res://assets/UI/Themes/StyleBoxes/button_hover.tres" id="3_8nn00"]
+[ext_resource type="StyleBox" uid="uid://c37ufekuf4muc" path="res://assets/UI/Themes/StyleBoxes/button_normal.tres" id="4_6oqsg"]
+[ext_resource type="StyleBox" uid="uid://cng3lc83qwq6f" path="res://assets/UI/Themes/StyleBoxes/button_pressed.tres" id="5_8j60q"]
+
+[resource]
+Button/colors/font_color = Color(0, 0.2627451, 0.4, 1)
+Button/font_sizes/font_size = 60
+Button/styles/disabled = ExtResource("1_ijajv")
+Button/styles/focus = ExtResource("2_umgnr")
+Button/styles/hover = ExtResource("3_8nn00")
+Button/styles/normal = ExtResource("4_6oqsg")
+Button/styles/pressed = ExtResource("5_8j60q")
+Label/colors/font_color = Color(0, 0.2627451, 0.4, 1)
+Label/font_sizes/font_size = 60
+RichTextLabel/colors/default_color = Color(0, 0.3563187, 0.5339941, 1)
+RichTextLabel/font_sizes/normal_font_size = 40

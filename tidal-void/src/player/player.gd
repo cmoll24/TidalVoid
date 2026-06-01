@@ -3,6 +3,9 @@ class_name Player
 
 @onready var animated_sprite = $Sprite2D
 
+@onready var hover_particles_left = $Sprite2D/HoverParticleLeft
+@onready var hover_particles_right = $Sprite2D/HoverParticleRight
+
 #@export var jump_power : float = 200.0
 @export var walk_speed : float = 620.0
 
@@ -23,6 +26,7 @@ var held_creature : Creature = null
 
 var throw_trajectory : TrajectoryPredictor
 
+var speed_boost_timer : Timer
 #########################################################
 #the player can interact with things in this area
 @onready var interact_area : Area2D = $InteractArea
@@ -37,17 +41,40 @@ var interact_source : InteractSource = null
 #it won't be returned till after the player redocks with their ship
 var propulsion_max : int = 3
 var propulsions_left : int = 3
+
+var teleport_max : int = 3
+var teleports_left : int = 3
+
+var lure_max : int = 5
+var lures_left : int = 5
+
+var grapple_max : int = 10
+var grapples_left : int = 10
+
+var speed_boost_max : int = 5
+var speed_boost_left : int = 5
+
 @export var propulsion_power : float = 300.0
+@export var lure_cloud_size : int = 10
+@export var grapple_max_rope_size : float = 500.0
 
 var max_jump_angle : float = PI/2.5
 
 #var surface_friction_coef : float = 0.001
 
+## ANIMATION variables
+
+var has_helmet_on = true
+
+var is_moving = false
+var ground_move_direction : int = 1
+
 func _ready() -> void:
 	super._ready()
-	GV.player_reference(self)
-	if self.is_in_group("player"):
-		print("in player")
+	GV.set_player_reference(self)
+
+func _process(_delta: float) -> void:
+	update_animation()
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -61,7 +88,7 @@ func _physics_process(delta: float) -> void:
 			held_creature.prediction_velocity = get_throw_velocity(held_creature)
 
 func player_movement(delta : float) -> void:
-	if b_is_grounded && walking_on_ground:
+	if b_is_grounded && grounded_body && walking_on_ground:
 		#Exit Condition
 		if(velocity.dot(grounded_normal) < -1):
 			walking_on_ground = false
@@ -92,6 +119,9 @@ func player_movement(delta : float) -> void:
 		#ignore collision with static geometry
 		ignore_layer = 1
 		
+		#For animation purposes, start at false
+		is_moving = false
+		
 		var player_loc : Vector2 = global_position - grounded_body.global_position
 		var player_loc_len : float = collision_shape.shape.radius
 		if(grounded_shape is CircleShape2D):
@@ -107,11 +137,21 @@ func player_movement(delta : float) -> void:
 			var mouse_angle : float = mouse_loc.angle()
 			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
 			var final_angle : float = rotate_toward(player_angle,mouse_angle,rot_speed)
+			
+			#keep track of direction for animation
+			ground_move_direction = 1 if angle_difference(player_angle, mouse_angle) > 0 else -1
+			is_moving = true
+			
 			new_pos = (Vector2.from_angle(final_angle)*
 			player_loc_len)+ grounded_body.global_position
 		elif horizontal_mov != 0:
 			#wasd, arrow keys version
 			horizontal_mov = 1 if horizontal_mov > 0 else -1 #normalizes it
+			
+			#keep track of direction for animation
+			ground_move_direction = horizontal_mov
+			is_moving = true
+			
 			var rot_speed = (walk_speed/(2*PI*player_loc_len)) * delta
 			var final_angle : float = rotate_toward(player_angle,
 			player_angle + (rot_speed*horizontal_mov),rot_speed)
@@ -196,7 +236,9 @@ func action_use(pressed : bool)  -> void:
 		var end : Vector2 = start + (dir*dist)
 		
 		
-		var query = PhysicsRayQueryParameters2D.create(start, end,2,[self.get_rid()])
+		var query = PhysicsRayQueryParameters2D.create(start, end,7,[self.get_rid()])
+		
+		query.hit_from_inside = true
 
 		var result = space_state.intersect_ray(query)
 		
@@ -204,10 +246,11 @@ func action_use(pressed : bool)  -> void:
 			var source : InteractSource = result.collider.get_node_or_null("InteractSource")
 			if(source):
 				source.interact()
+			#Special cases only apply to code that must execute in player, for other purposes, connect code to the source's interact signal to avoid bloating player.gd
 			if(result.collider is PlayerPawn):
 				# if we hit a player pawn, swtich to it
 				controller.possess_pawn(result.collider, velocity)
-			elif(result.collider is Creature and result.collider.creature_size == Creature.creature_size_type.small):
+			elif(result.collider is Creature and result.collider.creature_size == Creature.size_type.small):
 				# if we hit a small creature, hold it
 				held_creature = result.collider
 				held_creature.stun_time = hold_stun_time
@@ -245,6 +288,9 @@ func get_throw_velocity(body : DriftBody) -> Vector2:
 	if target_r <= start_r:
 		return Vector2.ZERO
 	
+	## Target a little bit above the mouse
+	target_r += 50
+	
 	var mu = dominant_body.mass
 	
 	#orbital transfer energy
@@ -260,7 +306,7 @@ func update_interact_source() -> void:
 	var closest_source : InteractSource = null;
 	for thing in interact_area.get_overlapping_bodies():
 		var source : InteractSource = thing.get_node_or_null("InteractSource")
-		if(!source):
+		if(!source || !source.b_enabled):
 			continue
 		### get information on the position and direction
 		var diff : Vector2 = thing.global_position - global_position;
@@ -289,15 +335,22 @@ func start_possess(player_controller : PlayerController, previous_pawn_velocity 
 	super.start_possess(player_controller, previous_pawn_velocity)
 	#GV.player_reference(self)
 	velocity = previous_pawn_velocity
+	#load health(presumably returning from a vehicle)
+	health_comp.set_health(player_controller.player_body_health)
 
-func stop_possess() -> void:
-	super.stop_possess()
+func stop_possess(player_controller : PlayerController) -> void:
+	super.stop_possess(player_controller)
 	### hide interact icons
 	for thing in interact_area.get_overlapping_bodies():
 		var source : InteractSource = thing.get_node_or_null("InteractSource")
 		if(!source):
 			continue
 		source.disable_interact_sprite()
+	#save health(presumably we are getting in a vehicle or something similar)
+	if(health_comp.health > 0):
+		player_controller.player_body_health = health_comp.health
+	else:
+		player_controller.player_body_health = health_comp.max_health
 	### destroy
 	queue_free()
 
@@ -312,21 +365,43 @@ func perform_jump():
 		return
 	velocity += jump_vector
 
-func propulsion_ability():
-	if propulsions_left > 0:
-		propulsions_left -= 1
-		velocity += (propulsion_power * mouse_direction)
-		
-func reset_abilities():
-	propulsions_left = propulsion_max
-
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")
 	if(source):
 		source.disable_interact_sprite()
 
+func update_animation() -> void:
+	var animation_name = ""
+	
+	if walking_on_ground:
+		#Lift the player sprite off the ground when hovering
+		animated_sprite.offset.y = -50
+		
+		hover_particles_left.emitting = true
+		hover_particles_right.emitting = true
+		
+		if is_moving:
+			animation_name += "hover_idle"
+			animated_sprite.flip_h = false if ground_move_direction == 1 else true
+		else:
+			animation_name += "hover_idle"
+			var mouse_vec = get_global_mouse_position() - grounded_body.global_position
+			var look_direction = 1 if grounded_normal.angle_to(mouse_vec) > 0 else -1 
+			animated_sprite.flip_h = false if look_direction == 1 else true
+	else:
+		animated_sprite.offset.y = 0
+		animation_name += "idle"
+		
+		hover_particles_left.emitting = false
+		hover_particles_right.emitting = false
+	
+	if has_helmet_on:
+		animation_name += "_helmet"
+	
+	animated_sprite.play(animation_name)
+
 func remove_helmet():
-	animated_sprite.play("no_helmet_idle")
+	has_helmet_on = false
 
 func attach_helmet():
-	animated_sprite.play("helmet_idle")
+	has_helmet_on = true

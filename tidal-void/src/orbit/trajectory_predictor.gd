@@ -51,36 +51,38 @@ func draw_trajectory() -> void:
 	for i in steps:
 		#simulate gravity
 		var grav = Vector2.ZERO
+		var hit = false;
 		for body in game_manager.gravity_sources:
-			grav += body.get_gravity_pull(sim_pos)
+			var gravity_pull = body.get_gravity_pull(sim_pos)
+			if(gravity_pull != Vector2.ZERO):
+				grav += gravity_pull;
+			
+				#we stop drawing if we hit an orbital body
+				var distance : float = sim_pos.distance_to(body.global_position)-collision_radius
+				if  distance < body.collision_radius:
+					hit = true
+					var past_pos = points[points.size()-1]
+					var delta : Vector2 = sim_pos - past_pos
+					sim_pos = lerp(past_pos,sim_pos,(distance-body.collision_radius)
+					/delta.length())
+					break
 		sim_vel += grav * step
-		sim_vel = sim_vel.limit_length(player.max_velocity)
 		sim_pos += sim_vel * step
 		
-		#we stop drwaing if we hit an orbital body
-		var hit = false
-		for body in game_manager.gravity_sources:
-			var distance : float = sim_pos.distance_to(body.global_position)-collision_radius
-			if  distance < body.collision_radius:
-				hit = true
-				var past_pos = points[points.size()-1]
-				var delta : Vector2 = sim_pos - past_pos
-				sim_pos = lerp(past_pos,sim_pos,(distance-body.collision_radius)
-				/delta.length())
-				break
 		
 		#first add steps interpolating to the current step to keep the curve smooth
-		var count = points.size()
-		if(count > 1):
-			var past_pos : Vector2 = points[count-1]
-			var past_pos_tan : Vector2 = (past_pos - points[count -2])
-			for j in range(1,fake_steps):
-				var progress = (float)(j)/fake_steps
-				var lin_pos = lerp(past_pos,sim_pos,progress)
-				var tan_pos = lerp(Vector2.ZERO,past_pos_tan,
-				progress)
-				var inter_pos = lerp(past_pos+tan_pos,lin_pos,progress)
-				points.append(inter_pos)
+		if(fake_steps > 0):
+			var count = points.size()
+			if(count > 1):
+				var past_pos : Vector2 = points[count-1]
+				var past_pos_tan : Vector2 = (past_pos - points[count -2])
+				for j in range(1,fake_steps):
+					var progress = (float)(j)/fake_steps
+					var lin_pos = lerp(past_pos,sim_pos,progress)
+					var tan_pos = lerp(Vector2.ZERO,past_pos_tan,
+					progress)
+					var inter_pos = lerp(past_pos+tan_pos,lin_pos,progress)
+					points.append(inter_pos)
 		#Now append actual location of new physics step
 		points.append(sim_pos)
 		if hit:

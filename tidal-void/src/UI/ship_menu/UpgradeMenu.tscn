@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dg35yaetklqpc"]
+
+[ext_resource type="Script" uid="uid://dykmq3gsep4vf" path="res://src/UI/ship_menu/upgrade_menu.gd" id="1_ii1yr"]
+[ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="2_wwmcp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weer4"]
+bg_color = Color(0.7254902, 0.90588236, 0.9647059, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gomoy"]
+bg_color = Color(0.8294605, 0.8719416, 0.96233803, 0.6509804)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 50.0
+expand_margin_top = 50.0
+expand_margin_right = 50.0
+
+[node name="UpgradeMenu" type="Control" unique_id=1178399043]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 99.0
+offset_top = 84.0
+offset_right = -75.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ii1yr")
+
+[node name="StarNoiseTinnyBackground4" type="TextureRect" parent="." unique_id=1601538157]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -777.0
+offset_top = -484.0
+offset_right = -777.0
+offset_bottom = -414.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("2_wwmcp")
+
+[node name="ButtonBackground" type="Panel" parent="." unique_id=1518912905]
+layout_mode = 0
+offset_left = -34.0
+offset_top = -14.0
+offset_right = 1773.0
+offset_bottom = 101.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_weer4")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=853731929]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gomoy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1303153996]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="TabBar" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=301097375]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="BodyRow" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=302551837]
+custom_minimum_size = Vector2(1700, 700)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30

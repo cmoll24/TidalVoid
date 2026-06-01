@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://pabhecqvmavd"]
+
+[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="1_ljylx"]
+[ext_resource type="Script" uid="uid://b84bu6patqlq3" path="res://src/Maps/Tutorial/tutorial_player_controller.gd" id="2_f83sw"]
+
+[node name="PlayerController" unique_id=1484923074 instance=ExtResource("1_ljylx")]
+script = ExtResource("2_f83sw")

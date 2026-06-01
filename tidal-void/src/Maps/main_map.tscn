@@ -1,0 +1,570 @@
+[gd_scene format=3 uid="uid://d2n0vjhsugkix"]
+
+[ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_ohq06"]
+[ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_kpxo1"]
+[ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bo405"]
+[ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="5_c5n6l"]
+[ext_resource type="Script" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
+[ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="7_chnye"]
+[ext_resource type="PackedScene" uid="uid://owmsoqjuynhh" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet8.tscn" id="8_ykslk"]
+[ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="9_766bn"]
+[ext_resource type="PackedScene" uid="uid://cdnxlavu2ekhj" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet9.tscn" id="9_ihctt"]
+[ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="10_pvpy1"]
+[ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="11_xiii4"]
+[ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="12_8bvlf"]
+[ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="13_xeu68"]
+[ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
+[ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
+[ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
+[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
+[ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
+[ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
+[ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
+[ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="25_tai8o"]
+
+[sub_resource type="Gradient" id="Gradient_imoib"]
+offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.92, 0.92, 0.92, 0.67058825, 0.33, 0.33, 0.33, 0.38431373, 0.33, 0.33, 0.33, 0)
+
+[node name="MainMap" type="Node2D" unique_id=120585206]
+
+[node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_ohq06")]
+
+[node name="SenseManager" type="Node2D" parent="GameManager" unique_id=949898002]
+script = ExtResource("3_kpxo1")
+metadata/_custom_type_script = "uid://knbcbvqoq4eb"
+
+[node name="VisionTimer" type="Timer" parent="GameManager/SenseManager" unique_id=1349854468]
+wait_time = 0.1
+autostart = true
+
+[node name="VisionRayCast" type="RayCast2D" parent="GameManager/SenseManager" unique_id=1887924053]
+target_position = Vector2(0, 0)
+collision_mask = 7
+collide_with_areas = true
+
+[node name="WorldManager" parent="GameManager" unique_id=648679912 node_paths=PackedStringArray("sectors") instance=ExtResource("4_bo405")]
+sectors = [NodePath("../../DuskSector"), NodePath("../../LowerDawnSector"), NodePath("../../SunsetSector"), NodePath("../../DuskToDawnSector"), NodePath("../../DuskToSunsetSector")]
+
+[node name="ShipManager" type="Node2D" parent="GameManager" unique_id=1976062999]
+script = ExtResource("5_mm3ko")
+
+[node name="VehicleSpawnMarker" type="Node2D" parent="GameManager/ShipManager" unique_id=1362488751]
+position = Vector2(-4860, -2630)
+
+[node name="DuskSector" parent="." unique_id=1361397144 instance=ExtResource("5_c5n6l")]
+
+[node name="ReferenceRect" parent="DuskSector" index="0" unique_id=66557810]
+offset_left = -6496.0
+offset_top = -6275.0
+offset_right = -496.0
+offset_bottom = 725.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="Copper_Ore_1" parent="DuskSector" unique_id=1364662829 instance=ExtResource("7_chnye")]
+position = Vector2(-3382, -2807)
+
+[node name="Copper_Ore_2" parent="DuskSector" unique_id=1344231056 instance=ExtResource("7_chnye")]
+position = Vector2(-4774, -554)
+
+[node name="Copper_Ore_4" parent="DuskSector" unique_id=599281905 instance=ExtResource("7_chnye")]
+position = Vector2(-3898, -198)
+
+[node name="Copper_Ore_5" parent="DuskSector" unique_id=806682995 instance=ExtResource("7_chnye")]
+position = Vector2(-4194, -5157)
+
+[node name="Copper_Ore_6" parent="DuskSector" unique_id=654002687 instance=ExtResource("7_chnye")]
+position = Vector2(-3432, -3456)
+
+[node name="Methane_Clathrate" parent="DuskSector" unique_id=1250914456 instance=ExtResource("7_chnye")]
+position = Vector2(-4920, -3703)
+spawn_path = "res://src/Collectables/Ores/methane_clathrate.tscn"
+
+[node name="Fruit10" parent="DuskSector" unique_id=212728256 instance=ExtResource("7_chnye")]
+position = Vector2(-3955, -5295)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit11" parent="DuskSector" unique_id=1169998577 instance=ExtResource("7_chnye")]
+position = Vector2(-4126, -5628)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit12" parent="DuskSector" unique_id=1252740404 instance=ExtResource("7_chnye")]
+position = Vector2(-5240, -5583)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit13" parent="DuskSector" unique_id=669334092 instance=ExtResource("7_chnye")]
+position = Vector2(-3137, -4903)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit14" parent="DuskSector" unique_id=1027248854 instance=ExtResource("7_chnye")]
+position = Vector2(-2898, -645)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="ShipBody" parent="DuskSector" unique_id=1137978725 instance=ExtResource("24_it7pe")]
+z_index = 0
+position = Vector2(-5169, -2457)
+
+[node name="DuskPlanet2" parent="DuskSector" unique_id=1621441936 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet2.tscn"]
+position = Vector2(-5236, -3785)
+mass = 4000.0
+
+[node name="DuskPlanet" parent="DuskSector" unique_id=2060639823 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet1.tscn"]
+position = Vector2(-3600, -3308)
+
+[node name="DuskPlanet3" parent="DuskSector" unique_id=741594751 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet3.tscn"]
+position = Vector2(-3569, -785)
+
+[node name="DuskPlanet4" parent="DuskSector" unique_id=204323066 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet4.tscn"]
+position = Vector2(-4530, -5181)
+
+[node name="DuskPlanet5" parent="DuskSector" unique_id=497959671 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet5.tscn"]
+position = Vector2(-2804, -4770)
+
+[node name="DuskToDawnSector" parent="." unique_id=786491347 instance=ExtResource("5_c5n6l")]
+file_name = "dusk_to_dawn_sector"
+
+[node name="ReferenceRect" parent="DuskToDawnSector" index="0" unique_id=66557810]
+offset_left = -6536.0
+offset_top = -9700.0
+offset_right = -1536.0
+offset_bottom = -5700.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="DuskPlanet" parent="DuskToDawnSector" unique_id=1231813804 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet6.tscn"]
+position = Vector2(-2793, -7308)
+
+[node name="DuskPlanet2" parent="DuskToDawnSector" unique_id=1003209995 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet7.tscn"]
+position = Vector2(-5137, -6878)
+
+[node name="Methane_Clathrate2" parent="DuskToDawnSector" unique_id=127055315 instance=ExtResource("7_chnye")]
+position = Vector2(-2397, -7246)
+spawn_path = "res://src/Collectables/Ores/methane_clathrate.tscn"
+
+[node name="DuskToSunsetSector" parent="." unique_id=1237795100 instance=ExtResource("5_c5n6l")]
+file_name = "dusk_to_sunset_sector"
+
+[node name="ReferenceRect" parent="DuskToSunsetSector" index="0" unique_id=66557810]
+offset_left = -9660.0
+offset_top = 40.0
+offset_right = -4160.0
+offset_bottom = 4040.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="Copper_Ore_4" parent="DuskToSunsetSector" unique_id=1361218658 instance=ExtResource("7_chnye")]
+position = Vector2(-7548, 1823)
+
+[node name="DuskPlanet" parent="DuskToSunsetSector" unique_id=586539501 instance=ExtResource("8_ykslk")]
+position = Vector2(-5413, 972)
+
+[node name="DuskPlanet2" parent="DuskToSunsetSector" unique_id=729754085 instance=ExtResource("9_ihctt")]
+position = Vector2(-7697, 2427)
+
+[node name="LowerDawnSector" parent="." unique_id=2025655557 instance=ExtResource("5_c5n6l")]
+file_name = "lower_dawn_sector"
+metadata/_edit_lock_ = true
+
+[node name="ReferenceRect" parent="LowerDawnSector" index="0" unique_id=66557810]
+z_index = -10
+offset_left = -8424.0
+offset_top = -15665.0
+offset_right = 16576.0
+offset_bottom = -7665.0
+border_color = Color(1, 1, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="Copper_Ore_3" parent="LowerDawnSector" unique_id=2013339171 instance=ExtResource("7_chnye")]
+position = Vector2(3401, -9617)
+
+[node name="Copper_Ore_7" parent="LowerDawnSector" unique_id=515063576 instance=ExtResource("7_chnye")]
+position = Vector2(404, -11565)
+
+[node name="Copper_Ore_8" parent="LowerDawnSector" unique_id=1220230013 instance=ExtResource("7_chnye")]
+position = Vector2(-1135, -11067)
+
+[node name="Copper_Ore_9" parent="LowerDawnSector" unique_id=1176666128 instance=ExtResource("7_chnye")]
+position = Vector2(-582, -12221)
+
+[node name="Copper_Ore_10" parent="LowerDawnSector" unique_id=372051620 instance=ExtResource("7_chnye")]
+position = Vector2(4855, -10065)
+
+[node name="Fruit" parent="LowerDawnSector" unique_id=1301435372 instance=ExtResource("7_chnye")]
+position = Vector2(446, -9503)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit2" parent="LowerDawnSector" unique_id=350766369 instance=ExtResource("7_chnye")]
+position = Vector2(-1553, -9335)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit3" parent="LowerDawnSector" unique_id=307608412 instance=ExtResource("7_chnye")]
+position = Vector2(-2663, -9893)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit4" parent="LowerDawnSector" unique_id=1876624784 instance=ExtResource("7_chnye")]
+position = Vector2(-37, -10967)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit5" parent="LowerDawnSector" unique_id=55316063 instance=ExtResource("7_chnye")]
+position = Vector2(-3620, -10769)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit6" parent="LowerDawnSector" unique_id=1164152605 instance=ExtResource("7_chnye")]
+position = Vector2(-3142, -12899)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit7" parent="LowerDawnSector" unique_id=847029929 instance=ExtResource("7_chnye")]
+position = Vector2(6660, -8448)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit12" parent="LowerDawnSector" unique_id=436374423 instance=ExtResource("7_chnye")]
+position = Vector2(2240, -9363)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit10" parent="LowerDawnSector" unique_id=1565010693 instance=ExtResource("7_chnye")]
+position = Vector2(7700, -9969)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit11" parent="LowerDawnSector" unique_id=349081470 instance=ExtResource("7_chnye")]
+position = Vector2(8985, -9200)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit8" parent="LowerDawnSector" unique_id=1896905676 instance=ExtResource("7_chnye")]
+position = Vector2(-2192, -14394)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit9" parent="LowerDawnSector" unique_id=1222088776 instance=ExtResource("7_chnye")]
+position = Vector2(-4339, -11182)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="WaterPlanet" parent="LowerDawnSector" unique_id=1153098428 instance_placeholder="res://src/Maps/planets/WaterPlanet.tscn"]
+position = Vector2(-439, -11328)
+
+[node name="DawnPlanet10" parent="LowerDawnSector" unique_id=2078453775 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet1.tscn"]
+position = Vector2(6342, -8924)
+
+[node name="DawnPlanet7" parent="LowerDawnSector" unique_id=1099181804 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet1.tscn"]
+position = Vector2(-2107, -9496)
+
+[node name="DawnPlanet8" parent="LowerDawnSector" unique_id=173759156 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet2.tscn"]
+position = Vector2(1347, -9381)
+
+[node name="DawnPlanet3" parent="LowerDawnSector" unique_id=206077063 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet3.tscn"]
+position = Vector2(-2902, -13578)
+
+[node name="DawnPlanet9" parent="LowerDawnSector" unique_id=2006592865 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet3.tscn"]
+position = Vector2(4005, -9780)
+
+[node name="DawnPlanet4" parent="LowerDawnSector" unique_id=1871962344 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet_4.tscn"]
+position = Vector2(-3618, -11193)
+
+[node name="DawnPlanet11" parent="LowerDawnSector" unique_id=760704511 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet_4.tscn"]
+position = Vector2(8357, -9688)
+
+[node name="InfestedPlanet" parent="LowerDawnSector" unique_id=1915373182 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/InfestedPlanet1.tscn"]
+position = Vector2(8067, -12100)
+
+[node name="Methane_Clathrate4" parent="LowerDawnSector" unique_id=631043690 instance=ExtResource("7_chnye")]
+position = Vector2(-1317, -9286)
+spawn_path = "res://src/Collectables/Ores/methane_clathrate.tscn"
+
+[node name="Methane_Clathrate3" parent="LowerDawnSector" unique_id=7321446 instance=ExtResource("7_chnye")]
+position = Vector2(4061, -8788)
+spawn_path = "res://src/Collectables/Ores/methane_clathrate.tscn"
+
+[node name="Basalt4" parent="LowerDawnSector" unique_id=1022333382 instance=ExtResource("7_chnye")]
+position = Vector2(7931, -11372)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
+
+[node name="Basalt5" parent="LowerDawnSector" unique_id=964900086 instance=ExtResource("7_chnye")]
+position = Vector2(8513, -12644)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
+
+[node name="ShroudComposite" parent="LowerDawnSector" unique_id=445053664 instance_placeholder="res://src/Maps/other/ShroudComposite.tscn"]
+position = Vector2(-1688, -11452)
+
+[node name="ShroudComposite3" parent="LowerDawnSector" unique_id=359727728 instance_placeholder="res://src/Maps/other/ShroudComposite.tscn"]
+position = Vector2(4828, -13434)
+
+[node name="CentralDawnSector" parent="." unique_id=442186905 instance=ExtResource("5_c5n6l")]
+file_name = "central_dawn_sector"
+load_buffer_margin = 3000.0
+metadata/_edit_lock_ = true
+
+[node name="ReferenceRect" parent="CentralDawnSector" index="0" unique_id=66557810]
+z_index = -10
+offset_left = -1519.0
+offset_top = -20315.0
+offset_right = 8481.0
+offset_bottom = -10315.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="BigDawnPlanet" parent="CentralDawnSector" unique_id=1017861922 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/BigDawnPlanet.tscn"]
+position = Vector2(3522, -15219)
+
+[node name="Fruit7" parent="CentralDawnSector" unique_id=1609299367 instance=ExtResource("7_chnye")]
+position = Vector2(6643, -15005)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="UpperLeftDawnSector" parent="." unique_id=2123309729 instance=ExtResource("5_c5n6l")]
+file_name = "upper_left_dawn_sector"
+load_buffer_margin = 3500.0
+metadata/_edit_lock_ = true
+
+[node name="ReferenceRect" parent="UpperLeftDawnSector" index="0" unique_id=66557810]
+z_index = -10
+offset_left = -8614.0
+offset_top = -27202.0
+offset_right = 3886.0
+offset_bottom = -15202.0
+border_color = Color(1, 1, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="Fruit8" parent="UpperLeftDawnSector" unique_id=125806945 instance=ExtResource("7_chnye")]
+position = Vector2(-941, -22279)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="ShroudComposite2" parent="UpperLeftDawnSector" unique_id=456167086 instance_placeholder="res://src/Maps/other/ShroudComposite.tscn"]
+position = Vector2(-2236, -18650)
+
+[node name="DawnPlanet6" parent="UpperLeftDawnSector" unique_id=602422687 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet_4.tscn"]
+position = Vector2(-1316, -19773)
+
+[node name="DawnPlanet15" parent="UpperLeftDawnSector" unique_id=28570992 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet1.tscn"]
+position = Vector2(175, -24015)
+
+[node name="DawnPlanet13" parent="UpperLeftDawnSector" unique_id=890432945 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet3.tscn"]
+position = Vector2(2775, -22942)
+
+[node name="LivingPlanet" parent="UpperLeftDawnSector" unique_id=947615788 instance_placeholder="res://src/Maps/planets/LivingPlanet.tscn"]
+position = Vector2(-5127, -18809)
+
+[node name="DawnPlanet" parent="UpperLeftDawnSector" unique_id=1923569606 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet1.tscn"]
+position = Vector2(-3284, -16076)
+
+[node name="DawnPlanet2" parent="UpperLeftDawnSector" unique_id=1364869420 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet2.tscn"]
+position = Vector2(-1471, -17281)
+
+[node name="DawnPlanet5" parent="UpperLeftDawnSector" unique_id=2111454072 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet2.tscn"]
+position = Vector2(837, -21110)
+
+[node name="DawnPlanet14" parent="UpperLeftDawnSector" unique_id=1571077603 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet3.tscn"]
+position = Vector2(-1780, -22099)
+
+[node name="UpperRightDawnSector" parent="." unique_id=1510638425 instance=ExtResource("5_c5n6l")]
+file_name = "upper_right_dawn_sector"
+load_buffer_margin = 3500.0
+metadata/_edit_lock_ = true
+
+[node name="ReferenceRect" parent="UpperRightDawnSector" index="0" unique_id=66557810]
+z_index = -10
+offset_left = 2968.0
+offset_top = -27202.0
+offset_right = 15468.0
+offset_bottom = -15202.0
+border_color = Color(1, 1, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="ShroudComposite4" parent="UpperRightDawnSector" unique_id=1360996251 instance_placeholder="res://src/Maps/other/ShroudComposite.tscn"]
+position = Vector2(6959, -19962)
+
+[node name="WaterPlanet2" parent="UpperRightDawnSector" unique_id=1951512174 instance_placeholder="res://src/Maps/planets/WaterPlanet.tscn"]
+position = Vector2(9091, -19204)
+
+[node name="LivingPlanet2" parent="UpperRightDawnSector" unique_id=1003027817 instance_placeholder="res://src/Maps/planets/LivingPlanet.tscn"]
+position = Vector2(11910, -17512)
+
+[node name="InfestedPlanet2" parent="UpperRightDawnSector" unique_id=1224066451 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/InfestedPlanet1.tscn"]
+position = Vector2(4281, -20714)
+
+[node name="DawnPlanet12" parent="UpperRightDawnSector" unique_id=1468939127 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet_4.tscn"]
+position = Vector2(6696, -20184)
+
+[node name="SunsetSector" parent="." unique_id=532933713 instance=ExtResource("5_c5n6l")]
+file_name = "sunset_sector"
+
+[node name="ReferenceRect" parent="SunsetSector" index="0" unique_id=66557810]
+offset_left = -12853.0
+offset_top = 3656.0
+offset_right = -3853.0
+offset_bottom = 12656.0
+border_color = Color(1, 1, 1, 1)
+
+[node name="Methane_Clathrate5" parent="SunsetSector" unique_id=337833714 instance=ExtResource("7_chnye")]
+position = Vector2(-9525, 7804)
+spawn_path = "res://src/Collectables/Ores/methane_clathrate.tscn"
+
+[node name="Basalt" parent="SunsetSector" unique_id=199445839 instance=ExtResource("7_chnye")]
+position = Vector2(-6636, 8206)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
+
+[node name="Basalt2" parent="SunsetSector" unique_id=387831915 instance=ExtResource("7_chnye")]
+position = Vector2(-6324, 6369)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
+
+[node name="Basalt3" parent="SunsetSector" unique_id=2053032348 instance=ExtResource("7_chnye")]
+position = Vector2(-10014, 5634)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
+
+[node name="Nickel" parent="SunsetSector" unique_id=1156018967 instance=ExtResource("7_chnye")]
+position = Vector2(-10230, 8580)
+spawn_path = "res://src/Collectables/Ores/nickel_ore.tscn"
+
+[node name="Nickel2" parent="SunsetSector" unique_id=1724985931 instance=ExtResource("7_chnye")]
+position = Vector2(-10422, 8118)
+spawn_path = "res://src/Collectables/Ores/nickel_ore.tscn"
+
+[node name="Nickel3" parent="SunsetSector" unique_id=773875288 instance=ExtResource("7_chnye")]
+position = Vector2(-11078, 8048)
+spawn_path = "res://src/Collectables/Ores/nickel_ore.tscn"
+
+[node name="Nickel5" parent="SunsetSector" unique_id=1994915807 instance=ExtResource("7_chnye")]
+position = Vector2(-5893, 8415)
+spawn_path = "res://src/Collectables/Ores/nickel_ore.tscn"
+
+[node name="Nickel6" parent="SunsetSector" unique_id=91370395 instance=ExtResource("7_chnye")]
+position = Vector2(-6212, 9220)
+spawn_path = "res://src/Collectables/Ores/nickel_ore.tscn"
+
+[node name="Nickel7" parent="SunsetSector" unique_id=5088277 instance=ExtResource("7_chnye")]
+position = Vector2(-6235, 8483)
+spawn_path = "res://src/Collectables/Ores/nickel_ore.tscn"
+
+[node name="Nickel4" parent="SunsetSector" unique_id=1621461572 instance=ExtResource("7_chnye")]
+position = Vector2(-10313, 8820)
+spawn_path = "res://src/Collectables/Ores/nickel_ore.tscn"
+
+[node name="Copper_Ore_8" parent="SunsetSector" unique_id=2051667465 instance=ExtResource("7_chnye")]
+position = Vector2(-5190, 8778)
+
+[node name="PomPlanet" parent="SunsetSector" unique_id=293054058 instance_placeholder="res://src/Maps/planets/PomPlanet.tscn"]
+position = Vector2(-10152, 5233)
+
+[node name="SunsetPlanet" parent="SunsetSector" unique_id=1175010480 instance_placeholder="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet2.tscn"]
+position = Vector2(-6606, 5931)
+rotation = -2.8159854
+
+[node name="SunsetPlanet3" parent="SunsetSector" unique_id=1861604287 instance_placeholder="res://src/Maps/planets/sunset_sector_planets/SunsetPlanet1.tscn"]
+position = Vector2(-5966, 8853)
+
+[node name="DesertPlanet" parent="SunsetSector" unique_id=1401741126 instance_placeholder="res://src/Maps/planets/sunset_sector_planets/DesertPlanet.tscn"]
+position = Vector2(-10787.728, 8555.147)
+
+[node name="StaticBackground" type="CanvasLayer" parent="." unique_id=1761612136]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1191288506]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.011764706, 0.03529412, 0.050980393, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1772839039]
+environment = ExtResource("9_766bn")
+camera_attributes = ExtResource("10_pvpy1")
+
+[node name="Player" parent="." unique_id=1314638072 instance=ExtResource("12_8bvlf")]
+visibility_layer = 3
+position = Vector2(-5164, -2542)
+collision_layer = 14
+start_in_orbit = false
+start_orbit_dir = false
+
+[node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor", "throw_predictor") instance=ExtResource("11_xiii4")]
+player = NodePath("../Player")
+predictor = NodePath("../PlayerTrajectoryPredictor")
+throw_predictor = NodePath("../PlayerThrowPredictor")
+
+[node name="PlayerTrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("13_xeu68")]
+line = NodePath("../Line2D")
+steps = 500
+fake_steps = 0.0
+step_dist = 1.0
+player = NodePath("../Player")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=65887448]
+width = 3.0
+gradient = SubResource("Gradient_imoib")
+antialiased = true
+
+[node name="ThrowLine" type="Line2D" parent="." unique_id=1209255530]
+modulate = Color(0.6627451, 0.60784316, 1, 1)
+width = 3.0
+gradient = SubResource("Gradient_imoib")
+antialiased = true
+
+[node name="PlayerThrowPredictor" parent="." unique_id=1401941446 node_paths=PackedStringArray("line") instance=ExtResource("13_xeu68")]
+line = NodePath("../ThrowLine")
+steps = 250
+fake_steps = 0.0
+step_dist = 1.0
+
+[node name="SafeZone" parent="." unique_id=1777228472 node_paths=PackedStringArray("darkness") instance=ExtResource("15_xkcec")]
+position = Vector2(-964.00024, 53)
+scale = Vector2(8, 10)
+darkness = NodePath("CanvasModulate")
+metadata/_edit_lock_ = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="SafeZone" unique_id=29132806]
+position = Vector2(-396.01077, -417.775)
+scale = Vector2(0.1939328, 0.22046174)
+color = Color(0.49803922, 0.49803922, 0.49803922, 1)
+
+[node name="Steven_Low_Dawn" parent="." unique_id=1772247003 instance=ExtResource("17_c045k")]
+position = Vector2(-2573, -12843)
+
+[node name="Steven3" parent="." unique_id=28152034 instance=ExtResource("17_c045k")]
+position = Vector2(-9728, 5646)
+
+[node name="Jeremiah" parent="." unique_id=67025013 instance=ExtResource("19_hthak")]
+position = Vector2(-3946, -3074)
+max_velocity = 400.0
+
+[node name="Jeremiah_Low_Dawn" parent="." unique_id=1291074712 instance=ExtResource("19_hthak")]
+position = Vector2(-1421, -9563)
+max_velocity = 400.0
+
+[node name="Jeremiah_Low_Dawn2" parent="." unique_id=718363217 instance=ExtResource("19_hthak")]
+position = Vector2(7817, -9523)
+max_velocity = 400.0
+
+[node name="Jeremiah_Upper_Left_Dawn1" parent="." unique_id=478091979 instance=ExtResource("19_hthak")]
+position = Vector2(-1979, -21685)
+max_velocity = 400.0
+
+[node name="Jeremiah3" parent="." unique_id=1834168270 instance=ExtResource("19_hthak")]
+position = Vector2(-4225, -5021)
+max_velocity = 400.0
+
+[node name="Leaper" parent="." unique_id=164943933 instance=ExtResource("22_on3xc")]
+position = Vector2(-7352, 2198)
+
+[node name="Leaper2" parent="." unique_id=292751059 instance=ExtResource("22_on3xc")]
+position = Vector2(-4095, 2107)
+
+[node name="Steven_Low_Dawn2" parent="." unique_id=352316998 instance=ExtResource("17_c045k")]
+position = Vector2(1455, -8804)
+
+[node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("23_6qt07")]
+position = Vector2(-5936, 8827)
+
+[node name="HungryHarry2" parent="." unique_id=2070331131 instance=ExtResource("23_6qt07")]
+position = Vector2(-10707.999, 8571.001)
+
+[node name="Evil_Fred_Low_Dawn" parent="." unique_id=1530806718 instance=ExtResource("25_tai8o")]
+position = Vector2(304, -11361)
+
+[node name="Evil_Fred_Low_Dawn2" parent="." unique_id=1282437192 instance=ExtResource("25_tai8o")]
+position = Vector2(4209, -9186)
+
+[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("21_mm3ko")]
+
+[editable path="DuskSector"]
+[editable path="DuskToDawnSector"]
+[editable path="DuskToSunsetSector"]
+[editable path="LowerDawnSector"]
+[editable path="CentralDawnSector"]
+[editable path="UpperLeftDawnSector"]
+[editable path="UpperRightDawnSector"]
+[editable path="SunsetSector"]

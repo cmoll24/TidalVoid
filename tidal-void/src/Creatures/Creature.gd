@@ -1,16 +1,32 @@
 class_name Creature
 extends DriftBody
 
-enum creature_size_type {none ,small ,medium ,large ,leviathan}
+enum size_type {none ,small ,medium ,large ,leviathan}
+enum crafting_type {
+	jeremiah,
+	steven,
+	leaper,
+	evil_fred,
+	hungry_harry,
+	charlotte
+}
 
 ### if greater than 0, behavior is disabled and time will be brought down
 @export var stun_time : float = 0
 
-@export var creature_size : creature_size_type = creature_size_type.small
+@export var creature_size : Creature.size_type = size_type.small
+
+@export var creature_type : Creature.crafting_type 
+
+@onready var health_comp : HealthComponent = $HealthComponent
+
+var b_dead : bool = false
 
 func _ready() -> void:
 	super._ready()
 	start_in_orbit = true
+	health_comp.on_death.connect(die)
+	health_comp.on_take_damage.connect(on_take_damage)
 	
 
 func _physics_process(delta: float) -> void:
@@ -66,4 +82,24 @@ func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	return r_opposite - body.collision_radius
 	
 func die():
-	queue_free();
+	if(!b_dead):
+		b_dead = true
+		queue_free();
+		
+func on_take_damage(damage : float, dmg_type : HealthComponent.e_dmg_types, damage_causer : Node2D = null, instigator : Node = null):
+	match dmg_type:
+		HealthComponent.e_dmg_types.grab:
+			stun_time = damage
+		_:
+			pass
+	
+func save():
+	var node_data : Dictionary = {
+		"health_dict" : health_comp.save()
+	}
+	node_data.merge(super.save())
+	return node_data
+
+func load_state(node_data : Dictionary):
+	health_comp.load_state(node_data["health_dict"])
+	super.load_state(node_data)

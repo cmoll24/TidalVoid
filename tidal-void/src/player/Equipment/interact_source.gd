@@ -7,9 +7,14 @@ var parent : Node2D
 
 @export var b_lock_interact_sprite_rotation : bool = false 
 
+@export var b_enabled : bool = true 
+
 var sprite_scale : float = 0
 
-var on_interacted : Signal
+signal on_interacted()
+
+signal update_highlight(on : bool)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	parent = get_parent();
@@ -31,6 +36,8 @@ func disable_interact_sprite() -> void:
 	
 ### enables or disables "highlight", for when this interact source is the dominant one for the player
 func set_highlight(on : bool):
+	update_highlight.emit(on)
+	
 	var new_scale : float
 	if(on):
 		new_scale = sprite_scale*1.5
@@ -38,3 +45,8 @@ func set_highlight(on : bool):
 		new_scale = sprite_scale
 	interact_sprite.scale = Vector2(new_scale,new_scale)
 	
+func disable_source():
+	b_enabled = false
+	
+func enable_source():
+	b_enabled = true

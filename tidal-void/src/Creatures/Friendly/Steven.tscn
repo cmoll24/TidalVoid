@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b0xqv07re7ovb"]
 
 [ext_resource type="Script" uid="uid://bed3ebjxe4vsg" path="res://src/Creatures/Friendly/steven.gd" id="1_qvmga"]
+[ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_gbl04"]
 [ext_resource type="Texture2D" uid="uid://bdwyrbnfqtcjj" path="res://assets/Textures/Placeholder/floater.png" id="2_marqm"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_qvmga"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="4_u2jf1"]
@@ -26,9 +27,17 @@ collision_mask = 3
 script = ExtResource("1_qvmga")
 v_distance = 3000.0
 v_source_loyalty_time = 5.0
+creature_type = 1
 mass = 2.0
 thrust_power = 5.0
 start_in_orbit = true
+
+[node name="HealthComponent" type="Node" parent="." unique_id=694071641]
+script = ExtResource("2_gbl04")
+max_health = 120.0
+body_temperature = 30.0
+heat_tolerance = 100.0
+metadata/_custom_type_script = "uid://chuxbj1tello"
 
 [node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
 target_position = Vector2(0, 0)

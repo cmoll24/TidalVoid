@@ -12,6 +12,7 @@ collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_uvbnf")
 b_start_in_orbit = false
+b_has_trajectory_predictor = false
 metadata/_custom_type_script = "uid://c5rwjyeanre2b"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1884730571]

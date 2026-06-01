@@ -64,8 +64,6 @@ const STATIC_FRICTION_THRESHOLD: float = 0.005
 ## (note that this system is gravity agnostic, fling something hard enough against a wall, and it is ground)
 @export var min_dot_for_ground: float = 0.5
 
-const MIN_MOVE_DISTANCE: float = 0.001
-
 ## How much energy is conserved during collisions
 @export var elasticity: float = 0.8
 
@@ -96,10 +94,18 @@ var target_rotation : float = 0;
 
 ###############################################################
 
+#automatically decremented, disables gravity while above 0
+#set to -15 or lower for infinite time
+@export var ignore_gravity_time : float = 0
+
 
 var game_manager : GameManager
 var dominant_body : GravitySource = null
 
+
+func _enter_tree():
+	#ensure all drift bodies are in the dynamic save group
+	add_to_group('dynamic_save',true)
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
@@ -123,7 +129,7 @@ func _physics_process(_delta: float) -> void:
 	apply_velocity();
 	
 	if (grounded_buffer > 0):
-		grounded_buffer -= 1; #what the hell, I can't even do -- in gdscripts
+		grounded_buffer -= 1; 
 	else:
 		#Call Set Airborne so that child classes can detect the event
 		set_airborne();
@@ -144,7 +150,10 @@ func update_rotation(delta : float):
 ##Calculate the changes to velocity as a result of gravity and thrusters
 func  apply_acceleration() -> void:
 	
-	update_gravity_force()
+	if(ignore_gravity_time <= 0 && ignore_gravity_time > -15):
+		update_gravity_force()
+	else:
+		ignore_gravity_time -= get_physics_process_delta_time()
 	
 	var new_vel  = velocity + (gravity_force * get_physics_process_delta_time())
 	
@@ -155,13 +164,22 @@ func  apply_acceleration() -> void:
 	total_force = thruster_force + gravity_force
 	velocity = new_vel.limit_length(max_velocity)
 	
+#updates total gravity force and dominant body
 func update_gravity_force() -> void:
 	gravity_force = Vector2.ZERO
+	var max_pull : float = 0
 	
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue
-		gravity_force += body.get_gravity_pull(global_position)
+		#get the gravity force
+		var gravity : Vector2 = body.get_gravity_pull(global_position);
+		gravity_force += gravity;
+		#also update dominant body(increases performance at the cost of neatness)
+		var pull : float = gravity.length_squared()
+		if(pull > 1 and pull > max_pull): #if pull is valid and the greatest
+			dominant_body = body
+			max_pull = pull
 
 func update_thruster_force() -> void:
 	if thrust_direction != Vector2.ZERO:
@@ -176,8 +194,8 @@ func  apply_velocity() -> void:
 	
 	#Initial movment amount
 	var moveDelta : Vector2 = velocity * get_physics_process_delta_time();
-	#Skip tiny movements to optimize performance and prevent weird behavior from small amounts of residual velocity
-	if(true || abs(max(moveDelta.x,moveDelta.y)) > MIN_MOVE_DISTANCE): #temporarily disabled the MinMoveDist
+
+	if(true): #placeholder for conditions
 		#var InitialVelocity : Vector2 = velocity;
 		
 		#Trace what hits would happen with the current course of movement and save the initial hits
@@ -224,7 +242,6 @@ func  apply_velocity() -> void:
 					other_body.on_collide_with_other_drift_body(self);
 					var total_mass = mass + other_body.mass;
 					var avg_elasticity = lerp(elasticity,other_body.elasticity,0.5)
-					other_body.velocity += velocityAdjustment * (mass/total_mass) * avg_elasticity;
 					velocity -= velocityAdjustment * (other_body.mass/total_mass) * avg_elasticity;
 					on_collide_with_other_drift_body(other_body)
 				#Treat it as having infinite mass if it is not a drift body 
@@ -303,13 +320,14 @@ func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	else:
 		thrust_direction = Vector2.ZERO
 
+### prefer to rely on the automatic updates in update_gravity_force, only use this for instantaneous updates
 func update_dominant_body() -> void:
 	#the domiannt body is the grav source with the strongest pull
 	var strongest_pull = 0.0
 	for body in game_manager.gravity_sources:
 		if(body == gravity_source):
 			continue
-		var pull = body.get_gravity_pull(global_position).length()
+		var pull = body.get_gravity_pull(global_position).length_squared()
 		if pull > strongest_pull:
 			strongest_pull = pull
 			dominant_body = body
@@ -324,9 +342,22 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 
 @warning_ignore("unused_parameter")	
 func on_collide_with_bubble(bubble : Bubble) -> void:
-	pass
-	#For subclasses
+	#temporarily disable gravity
+	if(ignore_gravity_time > -15):
+		ignore_gravity_time = 0.5
 
 func get_velocity() -> Vector2:
 	return velocity
+	
+#save the velocity	
+func save():
+	var node_data : Dictionary = {
+		"velo_x" : velocity.x,
+		"velo_y" : velocity.y}
+	return node_data
+	
+#load the velocity
+func load_state(node_data : Dictionary):
+	velocity.x = node_data["velo_x"]
+	velocity.y = node_data["velo_y"]
 	

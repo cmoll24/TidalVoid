@@ -1,13 +1,13 @@
 shader_type canvas_item;
 
-const float RippleStrength = 0.2f;
-const float RippleRate = 0.07f;
-const float RippleRate2 = 0.1f;
-const vec2 Dir = vec2(0.447f,0.894f);
+const float RippleStrength = 0.3f;
+const float RippleRate = 0.05f;
+const float RippleRate2 = 0.07f;
+uniform vec2 Dir = vec2(0.447f,0.894f);
 
 void fragment() {
 	float alpha = texture(TEXTURE, UV).a;
-	if(alpha < 0.1){
+	if(alpha < 0.5){
 		discard;
 	}
 	vec2 DeltaUV = vec2(0);
@@ -23,7 +23,7 @@ void fragment() {
 	
 	DeltaUV = Dir*TimeScalar*RippleStrength*RippleScalar;
 	COLOR = texture(TEXTURE, mod(UV+DeltaUV,vec2(1)));
-	COLOR.a = alpha;
+	COLOR.a = 1.0f;
 }
 
 //void light() {
