@@ -52,7 +52,7 @@ func after_ready() -> void:
 		collectable_traj_predict.fake_steps = 5;
 		get_parent().add_child.call_deferred(collectable_traj_predict)
 	
-
+### only call for an instaneous update
 func get_dominant_body() -> GravitySource:
 	var strongest_pull = 0.0
 	var dominant_body : GravitySource = null

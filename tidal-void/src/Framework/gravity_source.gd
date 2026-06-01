@@ -11,6 +11,8 @@ const MASS_SCALE = 1000.0 #the masses must be big so this a multipler
 
 var pull_radius : float = 600.0
 
+var pull_radius_sqr : float = 0
+
 @export var collision_radius : float = 50.0
 
 @export var no_grav_radius : float = 1.0
@@ -30,6 +32,7 @@ func _ready() -> void:
 	#initialize values
 	mass = mass*MASS_SCALE
 	pull_radius = calculate_pull_radius()
+	pull_radius_sqr = pull_radius**2
 	#set the pull radius
 	pull_radius_circle.scale = Vector2(pull_radius, pull_radius) / (pull_radius_circle.size / 2)#because scale is diameter
 	pull_radius_circle.position = -Vector2(pull_radius, pull_radius)#/ 2.0
@@ -56,11 +59,11 @@ func get_gravity_pull(from_positon : Vector2) -> Vector2:
 	#now just squared given that no sqrt was ever necessary
 	var distance_sqr = offset_distance.length_squared()
 	
-	if distance_sqr > pull_radius**2 or distance_sqr < no_grav_radius: #no grav radius is just 1 by default, so the square is skipped
+	if distance_sqr > pull_radius_sqr or distance_sqr < no_grav_radius: #no grav radius is just 1 by default, so the square is skipped
 		return Vector2.ZERO
 	
 	#strength = M / R^2
-	var strength = (mass) / max(distance_sqr, 5000.0)
+	var strength = (mass) / max(distance_sqr, 8000.0)
 	
 	return offset_distance.normalized() * strength
 

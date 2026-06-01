@@ -23,7 +23,7 @@
 [ext_resource type="Script" uid="uid://cfqw8if3wfy87" path="res://src/upgrades_effects/effects/health_increase_effect.gd" id="12_voqfk"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="13_i4pkw"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="14_i4pkw"]
-[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="17_n6gpu"]
+[ext_resource type="PackedScene" path="res://src/UI/player_HUD.tscn" id="17_n6gpu"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_1e5fo"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="27_bdxtq"]
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="27_ybfy3"]
@@ -167,7 +167,7 @@ position = Vector2(9803.702, 2047.6396)
 [node name="DawnPlanet3" parent="DawnSector" unique_id=1554690236 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet3.tscn"]
 position = Vector2(7297.8164, 5108.0195)
 
-[node name="DawnPlanet4" parent="DawnSector" unique_id=380947341 instance_placeholder="res://src/Maps/planets/dawn_sector_planets/DawnPlanet4.tscn"]
+[node name="DawnPlanet4" parent="DawnSector" unique_id=380947341]
 position = Vector2(8559.501, 811.77124)
 
 [node name="LivingPlanet" parent="DawnSector" unique_id=1204210594 instance=ExtResource("28_ybfy3")]
