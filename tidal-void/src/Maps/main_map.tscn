@@ -478,7 +478,7 @@ throw_predictor = NodePath("../PlayerThrowPredictor")
 
 [node name="PlayerTrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("13_xeu68")]
 line = NodePath("../Line2D")
-steps = 500
+steps = 400
 fake_steps = 0.0
 step_dist = 1.0
 player = NodePath("../Player")
