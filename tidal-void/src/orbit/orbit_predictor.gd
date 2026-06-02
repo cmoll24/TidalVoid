@@ -47,11 +47,14 @@ func draw_orbit() -> void:
 		line.points = []
 		return
 	
+	var sim_pos = player.global_position
+	var sim_vel = player.prediction_velocity
+	
 	#Our classic orbital variables of mu, radial_vector and velocity
 	var mu : float = dominant.mass #mu = GM
-	var r_vec : Vector2 = player.global_position - dominant.global_position
+	var r_vec : Vector2 = sim_pos - dominant.global_position
 	var r : float = r_vec.length()
-	var v_vec : Vector2 = player.velocity
+	var v_vec : Vector2 = sim_vel
 	
 	if r < 0.001:
 		line.points = []
@@ -102,7 +105,7 @@ func draw_orbit() -> void:
 	var true_anomaly = get_true_anomaly(r_vec, ecc_vec, h)
 
 	# draw the ellipse
-	draw_ellipse(dominant.global_position, a, b, ecc, periapsis_angle)# true_anomaly, h)
+	draw_ellipse(dominant.global_position, a, b, ecc, periapsis_angle, h)# true_anomaly, h)
 
 func get_eccentricity_vector(r_vec: Vector2, v: Vector2, mu: float) -> Vector2:
 	# e_vec = (v × h) / μ - r_hat
@@ -148,7 +151,7 @@ func draw_circle(center : Vector2, radius : float):
 
 	line.points = points
 
-func draw_ellipse(focus: Vector2, a: float, b: float, ecc: float, periapsis_angle: float) -> void:
+func draw_ellipse(focus: Vector2, a: float, b: float, ecc: float, periapsis_angle: float, h : float) -> void:
 	var points: PackedVector2Array = []
 
 	var c = a * ecc
@@ -158,8 +161,10 @@ func draw_ellipse(focus: Vector2, a: float, b: float, ecc: float, periapsis_angl
 	var player_local = (player.global_position - center).rotated(-periapsis_angle)
 	var start_angle = atan2(player_local.y / b, player_local.x / a)
 
+	var direction = 1 if h > 0 else -1
+
 	for i in resolution + 1:
-		var angle = start_angle + (float(i) / resolution) * TAU
+		var angle = start_angle + direction * (float(i) / resolution) * TAU
 		var local_point = Vector2(a * cos(angle), b * sin(angle))
 		# rotate the point to match orbit orientation before adding to world space
 		points.append(center + local_point.rotated(periapsis_angle))
