@@ -97,7 +97,7 @@ func unload_sector():
 	#now get all dynamic actors within range
 	for node in get_tree().get_nodes_in_group("dynamic_save"):
 		#assume everything is node2D, if it isn't it will crash, but that is intended behavior
-		if(_in_bounds(node.global_position)):
+		if(!node.is_queued_for_deletion() && _in_bounds(node.global_position)):
 			save_and_unload_node(node,save_file,true)
 			
 func load_sector():
@@ -256,6 +256,7 @@ func save_and_unload_node(node :Node,save_file,b_dynamic_save : bool):
 	#run the unload function if it has one
 	if(node.has_method('unload')):
 		node.unload()
+		
 	#delete the node now that it is prepared
 	node.queue_free()
 	

@@ -89,7 +89,7 @@ position = Vector2(-4126, -5628)
 spawn_path = "res://src/Collectables/collectable.tscn"
 
 [node name="Fruit12" parent="DuskSector" unique_id=1252740404 instance=ExtResource("7_chnye")]
-position = Vector2(-5240, -5583)
+position = Vector2(-5523, -6631)
 spawn_path = "res://src/Collectables/collectable.tscn"
 
 [node name="Fruit13" parent="DuskSector" unique_id=669334092 instance=ExtResource("7_chnye")]
@@ -318,8 +318,40 @@ offset_bottom = -15202.0
 border_color = Color(1, 1, 1, 1)
 metadata/_edit_lock_ = true
 
+[node name="Methane_Clathrate3" parent="UpperLeftDawnSector" unique_id=1065164687 instance=ExtResource("7_chnye")]
+position = Vector2(9, -21566)
+spawn_path = "res://src/Collectables/Ores/methane_clathrate.tscn"
+
+[node name="Methane_Clathrate4" parent="UpperLeftDawnSector" unique_id=1839256268 instance=ExtResource("7_chnye")]
+position = Vector2(-5417, -19043)
+spawn_path = "res://src/Collectables/Ores/methane_clathrate.tscn"
+
 [node name="Fruit8" parent="UpperLeftDawnSector" unique_id=125806945 instance=ExtResource("7_chnye")]
-position = Vector2(-941, -22279)
+position = Vector2(-2387, -22479)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit9" parent="UpperLeftDawnSector" unique_id=35715826 instance=ExtResource("7_chnye")]
+position = Vector2(-1064, -21615)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit10" parent="UpperLeftDawnSector" unique_id=1503195702 instance=ExtResource("7_chnye")]
+position = Vector2(1201, -21800)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit11" parent="UpperLeftDawnSector" unique_id=759121392 instance=ExtResource("7_chnye")]
+position = Vector2(2324, -22330)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit12" parent="UpperLeftDawnSector" unique_id=111304228 instance=ExtResource("7_chnye")]
+position = Vector2(456, -23609)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit13" parent="UpperLeftDawnSector" unique_id=592026679 instance=ExtResource("7_chnye")]
+position = Vector2(3214, -23436)
+spawn_path = "res://src/Collectables/collectable.tscn"
+
+[node name="Fruit14" parent="UpperLeftDawnSector" unique_id=504767964 instance=ExtResource("7_chnye")]
+position = Vector2(-647, -19764)
 spawn_path = "res://src/Collectables/collectable.tscn"
 
 [node name="ShroudComposite2" parent="UpperLeftDawnSector" unique_id=456167086 instance_placeholder="res://src/Maps/other/ShroudComposite.tscn"]
@@ -368,6 +400,24 @@ position = Vector2(6959, -19962)
 
 [node name="WaterPlanet2" parent="UpperRightDawnSector" unique_id=1951512174 instance_placeholder="res://src/Maps/planets/WaterPlanet.tscn"]
 position = Vector2(9091, -19204)
+
+[node name="Basalt7" parent="UpperRightDawnSector" unique_id=2009817192 instance=ExtResource("7_chnye")]
+position = Vector2(4343, -20554)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
+
+[node name="Copper_Ore_11" parent="UpperRightDawnSector" unique_id=1659228075 instance=ExtResource("7_chnye")]
+position = Vector2(4138, -20782)
+
+[node name="Copper_Ore_12" parent="UpperRightDawnSector" unique_id=1182492486 instance=ExtResource("7_chnye")]
+position = Vector2(10943, -17742)
+
+[node name="Basalt6" parent="UpperRightDawnSector" unique_id=1061433227 instance=ExtResource("7_chnye")]
+position = Vector2(3881, -21068)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
+
+[node name="Basalt8" parent="UpperRightDawnSector" unique_id=1453405591 instance=ExtResource("7_chnye")]
+position = Vector2(8540, -18590)
+spawn_path = "res://src/Collectables/Ores/basalt.tscn"
 
 [node name="LivingPlanet2" parent="UpperRightDawnSector" unique_id=1003027817 instance_placeholder="res://src/Maps/planets/LivingPlanet.tscn"]
 position = Vector2(11910, -17512)
@@ -512,52 +562,66 @@ position = Vector2(-396.01077, -417.775)
 scale = Vector2(0.1939328, 0.22046174)
 color = Color(0.49803922, 0.49803922, 0.49803922, 1)
 
-[node name="Steven_Low_Dawn" parent="." unique_id=1772247003 instance=ExtResource("17_c045k")]
+[node name="Steven_Low_Dawn" parent="." unique_id=1772247003 groups=["dynamic_save"] instance=ExtResource("17_c045k")]
 position = Vector2(-2573, -12843)
 
-[node name="Steven3" parent="." unique_id=28152034 instance=ExtResource("17_c045k")]
+[node name="Steven3" parent="." unique_id=28152034 groups=["dynamic_save"] instance=ExtResource("17_c045k")]
 position = Vector2(-9728, 5646)
 
-[node name="Jeremiah" parent="." unique_id=67025013 instance=ExtResource("19_hthak")]
+[node name="Jeremiah" parent="." unique_id=67025013 groups=["dynamic_save"] instance=ExtResource("19_hthak")]
 position = Vector2(-3946, -3074)
 max_velocity = 400.0
 
-[node name="Jeremiah_Low_Dawn" parent="." unique_id=1291074712 instance=ExtResource("19_hthak")]
+[node name="Jeremiah_Low_Dawn" parent="." unique_id=1291074712 groups=["dynamic_save"] instance=ExtResource("19_hthak")]
 position = Vector2(-1421, -9563)
 max_velocity = 400.0
 
-[node name="Jeremiah_Low_Dawn2" parent="." unique_id=718363217 instance=ExtResource("19_hthak")]
+[node name="Jeremiah_Low_Dawn2" parent="." unique_id=718363217 groups=["dynamic_save"] instance=ExtResource("19_hthak")]
 position = Vector2(7817, -9523)
 max_velocity = 400.0
 
-[node name="Jeremiah_Upper_Left_Dawn1" parent="." unique_id=478091979 instance=ExtResource("19_hthak")]
+[node name="Evil_Fred_Low_Dawn" parent="." unique_id=1530806718 groups=["dynamic_save"] instance=ExtResource("25_tai8o")]
+position = Vector2(304, -11361)
+
+[node name="Evil_Fred_Low_Dawn2" parent="." unique_id=1282437192 groups=["dynamic_save"] instance=ExtResource("25_tai8o")]
+position = Vector2(4209, -9186)
+
+[node name="Steven_Low_Dawn2" parent="." unique_id=352316998 groups=["dynamic_save"] instance=ExtResource("17_c045k")]
+position = Vector2(1455, -8804)
+
+[node name="Jeremiah_Upper_Left_Dawn1" parent="." unique_id=478091979 groups=["dynamic_save"] instance=ExtResource("19_hthak")]
 position = Vector2(-1979, -21685)
 max_velocity = 400.0
 
-[node name="Jeremiah3" parent="." unique_id=1834168270 instance=ExtResource("19_hthak")]
+[node name="Jeremiah_Upper_Left_Dawn2" parent="." unique_id=998980638 groups=["dynamic_save"] instance=ExtResource("19_hthak")]
+position = Vector2(232, -20759)
+max_velocity = 400.0
+
+[node name="Jeremiah_Upper_Left_Dawn3" parent="." unique_id=1552889540 groups=["dynamic_save"] instance=ExtResource("19_hthak")]
+position = Vector2(2012, -23214)
+max_velocity = 400.0
+
+[node name="Evil_Fred_Upper_Left_Dawn" parent="." unique_id=842933201 groups=["dynamic_save"] instance=ExtResource("25_tai8o")]
+position = Vector2(-768, -17406)
+
+[node name="Evil_Fred_Upper_Right_Dawn2" parent="." unique_id=983470429 groups=["dynamic_save"] instance=ExtResource("25_tai8o")]
+position = Vector2(9017, -18514)
+
+[node name="Jeremiah3" parent="." unique_id=1834168270 groups=["dynamic_save"] instance=ExtResource("19_hthak")]
 position = Vector2(-4225, -5021)
 max_velocity = 400.0
 
-[node name="Leaper" parent="." unique_id=164943933 instance=ExtResource("22_on3xc")]
+[node name="Leaper" parent="." unique_id=164943933 groups=["dynamic_save"] instance=ExtResource("22_on3xc")]
 position = Vector2(-7352, 2198)
 
-[node name="Leaper2" parent="." unique_id=292751059 instance=ExtResource("22_on3xc")]
+[node name="Leaper2" parent="." unique_id=292751059 groups=["dynamic_save"] instance=ExtResource("22_on3xc")]
 position = Vector2(-4095, 2107)
 
-[node name="Steven_Low_Dawn2" parent="." unique_id=352316998 instance=ExtResource("17_c045k")]
-position = Vector2(1455, -8804)
-
-[node name="HungryHarry" parent="." unique_id=1520081079 instance=ExtResource("23_6qt07")]
+[node name="HungryHarry" parent="." unique_id=1520081079 groups=["dynamic_save"] instance=ExtResource("23_6qt07")]
 position = Vector2(-5936, 8827)
 
-[node name="HungryHarry2" parent="." unique_id=2070331131 instance=ExtResource("23_6qt07")]
+[node name="HungryHarry2" parent="." unique_id=2070331131 groups=["dynamic_save"] instance=ExtResource("23_6qt07")]
 position = Vector2(-10707.999, 8571.001)
-
-[node name="Evil_Fred_Low_Dawn" parent="." unique_id=1530806718 instance=ExtResource("25_tai8o")]
-position = Vector2(304, -11361)
-
-[node name="Evil_Fred_Low_Dawn2" parent="." unique_id=1282437192 instance=ExtResource("25_tai8o")]
-position = Vector2(4209, -9186)
 
 [node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("21_mm3ko")]
 
