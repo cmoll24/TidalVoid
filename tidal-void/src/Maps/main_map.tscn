@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_kpxo1"]
 [ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bo405"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="5_c5n6l"]
-[ext_resource type="Script" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
+[ext_resource type="Script" uid="uid://y0h0cmisaif4" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="7_chnye"]
 [ext_resource type="PackedScene" uid="uid://owmsoqjuynhh" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet8.tscn" id="8_ykslk"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="9_766bn"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ee06mynd5n8m" path="res://src/player/PlayerController.tscn" id="11_xiii4"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="12_8bvlf"]
 [ext_resource type="PackedScene" uid="uid://db3gtf6gcmmhf" path="res://src/orbit/trajectory_predictor.tscn" id="13_xeu68"]
+[ext_resource type="PackedScene" uid="uid://bmtcw7bqh3lee" path="res://src/orbit/orbit_predictor.tscn" id="14_ykslk"]
 [ext_resource type="PackedScene" uid="uid://chi25ugks646" path="res://src/player/safe_zone.tscn" id="15_xkcec"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="17_c045k"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
@@ -473,14 +474,11 @@ start_orbit_dir = false
 
 [node name="PlayerController" parent="." unique_id=1484923074 node_paths=PackedStringArray("player", "predictor", "throw_predictor") instance=ExtResource("11_xiii4")]
 player = NodePath("../Player")
-predictor = NodePath("../PlayerTrajectoryPredictor")
+predictor = NodePath("../OrbitPredictor")
 throw_predictor = NodePath("../PlayerThrowPredictor")
 
-[node name="PlayerTrajectoryPredictor" parent="." unique_id=401195789 node_paths=PackedStringArray("line", "player") instance=ExtResource("13_xeu68")]
+[node name="OrbitPredictor" parent="." unique_id=1255318633 node_paths=PackedStringArray("line", "player") instance=ExtResource("14_ykslk")]
 line = NodePath("../Line2D")
-steps = 400
-fake_steps = 0.0
-step_dist = 1.0
 player = NodePath("../Player")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=65887448]
