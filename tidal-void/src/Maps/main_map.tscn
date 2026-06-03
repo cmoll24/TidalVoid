@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
 [ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
+[ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="22_ykslk"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="25_tai8o"]
@@ -553,7 +554,7 @@ step_dist = 1.0
 
 [node name="SafeZone" parent="." unique_id=1777228472 node_paths=PackedStringArray("darkness") instance=ExtResource("15_xkcec")]
 position = Vector2(-964.00024, 53)
-scale = Vector2(8, 10)
+scale = Vector2(12, 14)
 darkness = NodePath("CanvasModulate")
 metadata/_edit_lock_ = true
 
@@ -624,6 +625,9 @@ position = Vector2(-5936, 8827)
 position = Vector2(-10707.999, 8571.001)
 
 [node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("21_mm3ko")]
+
+[node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("22_ykslk")]
+position = Vector2(-5514, -2781)
 
 [editable path="DuskSector"]
 [editable path="DuskToDawnSector"]

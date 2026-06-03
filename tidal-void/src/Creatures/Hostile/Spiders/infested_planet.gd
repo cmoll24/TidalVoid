@@ -18,7 +18,7 @@ var spiders_outside : int = 0
 @onready var spider_respawn_timer : Timer = $SpiderRespawnTimer
 
 #square altitude at which spiders will stay on ground to wait for prey instead of jumping (should be larger than square collision radius)
-@export var stay_grounded_altitude_sqr = 60000;
+@export var stay_grounded_altitude_sqr = 50000;
 
 ### types of things it cares about in vision (bitmask), see VisionSource.gd
 var v_types : int

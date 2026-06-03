@@ -121,7 +121,7 @@ func orbit_dominant_body() -> void:
 		velocity = -velocity
 
 func _physics_process(_delta: float) -> void:
-	update_dominant_body()
+	#update_dominant_body()
 
 	#Apply the accerlation
 	apply_acceleration();

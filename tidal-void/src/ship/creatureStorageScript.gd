@@ -9,10 +9,7 @@ var target_position : Vector2 = Vector2.ZERO
 
 var move_velocity : Vector2 = Vector2.ZERO
 
-##The creature list is a dictionary where 
-##             the key is they type of creature
-##             and the value is the number of creatures
-var stored_creatures : Dictionary[Creature.crafting_type, int]
+@onready var creature_detector : Area2D = $CreatureDetector
 
 func _ready() -> void:
 	super._ready()
@@ -31,7 +28,7 @@ func _physics_process(delta: float) -> void:
 		position = target_position
 		super._physics_process(delta)
 	
-	var direction : Vector2 = target_vec.normalized()
+	var direction : Vector2 = target_vec/distance
 	
 	var target_speed : float = move_speed
 	if distance < slow_radius:
@@ -47,19 +44,20 @@ func _physics_process(delta: float) -> void:
 	#Determine velocity for creatures in bubble
 	velocity = move_velocity
 
-func _on_creature_detector_body_entered(body: Node2D) -> void:
-	if body is Creature:
-		var creature_type : Creature.crafting_type = body.creature_type
-		if stored_creatures.has(creature_type):
-			stored_creatures[creature_type] += 1
-		else:
-			stored_creatures[creature_type] = 1
+### not a trival function, only call when needed
+func get_stored_creatures() -> Dictionary[Creature.crafting_type, int]:
+	##The creature list is a dictionary where 
+	##             the key is they type of creature
+	##             and the value is the number of creatures
+	var stored_creatures : Dictionary[Creature.crafting_type, int] = {}
 
-func _on_creature_detector_body_exited(body: Node2D) -> void:
-	if body is Creature:
-		var creature_type : Creature.crafting_type = body.creature_type
-		if stored_creatures.has(creature_type):
-			if stored_creatures[creature_type] > 1:
-				stored_creatures[creature_type] -= 1
+	#go through every overlapping body	
+	for body in creature_detector.get_overlapping_bodies():
+		if body is Creature:
+			var creature_type : Creature.crafting_type = body.creature_type
+			if stored_creatures.has(creature_type):
+				stored_creatures[creature_type] += 1
 			else:
-				stored_creatures.erase(creature_type)
+				stored_creatures[creature_type] = 1
+				
+	return stored_creatures
