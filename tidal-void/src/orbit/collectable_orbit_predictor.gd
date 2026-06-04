@@ -14,7 +14,7 @@ var game_manager : GameManager
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("game_managers")
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not collectable:
 		line.queue_free()
 		queue_free()
@@ -24,6 +24,8 @@ func _process(_delta: float) -> void:
 			draw_orbit()
 		else:
 			line.visible = false
+	else:
+		line.points = []
 
 func draw_orbit() -> void:
 	var dominant = collectable.dominant_body

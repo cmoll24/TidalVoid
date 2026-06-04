@@ -14,7 +14,7 @@ var move_velocity : Vector2 = Vector2.ZERO
 func _ready() -> void:
 	super._ready()
 	target_position = position
-	
+	GV.player_inventory.creature_storage = self;
 
 func set_target_position(new_target : Vector2):
 	target_position = new_target
@@ -61,3 +61,11 @@ func get_stored_creatures() -> Dictionary[Creature.crafting_type, int]:
 				stored_creatures[creature_type] = 1
 				
 	return stored_creatures
+
+#changes the dictionary gotten from get_stored_creature into the format of items, with string names
+static func stored_creatures_to_items(dict : Dictionary[Creature.crafting_type, int]) -> Array:
+	var out : Array = []
+	for k in dict.keys():
+		out.append({"item_name" : Creature.crafting_type_to_name_table[k],
+		"quantity" : dict[k]})
+	return out;

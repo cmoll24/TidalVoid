@@ -7,6 +7,9 @@ func _ready() -> void:
 
 func open_menu() -> void:
 	super.open_menu()
+	#update the hidden inventory
+	GV.player_inventory.set_hidden_inventory_to_creatures()
+	
 	if upgrade_panel:
 		upgrade_panel.open_panel()
 

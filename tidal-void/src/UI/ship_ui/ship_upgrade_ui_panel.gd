@@ -11,9 +11,10 @@ var upgrade_table : Array[Dictionary] = [
 	{
 		upgrade_name = 'Impulse thrusters',
 		upgrade_desc = 'Unlocks and equips impulse thrusters, fireable by pressing 1. Impulse thrusters provide an instant velocity boost in the direction the mouse.
-		Can be fired 3 times before requiring a recharge at the reset terminal on the ship.',
+		Can be fired 5 times before requiring a recharge at the reset terminal on the ship.',
 		upgrade_cost = [{item_name ='Methane Clathrate',quantity = 3},
-		{item_name = 'Basalt',quantity = 1}],
+		{item_name = 'Basalt',quantity = 1},
+		{item_name = 'Jeremiah',quantity = 1}],
 		upgrade_resource = preload('res://src/upgrades_effects/upgrades/abilities/impulse_thruster_upgrade.tres'),
 		image = preload('res://assets/Textures/Placeholder/Thick_Jim.png')
 	},
@@ -21,8 +22,9 @@ var upgrade_table : Array[Dictionary] = [
 		upgrade_name = 'Overdrive',
 		upgrade_desc = 'Unlocks and equips overdrive thrusters, fireable by pressing 3. On use, thrusters become significantly more powerful for a short time.
 		Can be fired 10 times before requiring a recharge at the reset terminal on the ship.',
-		upgrade_cost = [{item_name ='Methane Clathrate',quantity = 1},
-		{item_name = 'Nickel Ore',quantity = 3}],
+		upgrade_cost = [{item_name ='Methane Clathrate',quantity = 2},
+		{item_name = 'Nickel Ore',quantity = 3},
+		{item_name = 'Charlotte',quantity = 2}],
 		upgrade_resource = preload('res://src/upgrades_effects/upgrades/abilities/overdrive_thruster_upgrade.tres'),
 		image = preload('res://assets/Textures/Placeholder/Thick_Jim.png')
 	},
@@ -32,7 +34,8 @@ var upgrade_table : Array[Dictionary] = [
 		Can be fired 5 times before requiring a recharge at the reset terminal on the ship.',
 		upgrade_cost = [{item_name ='Copper Ore',quantity = 4},
 		{item_name = 'Methane Clathrate',quantity = 1},
-		{item_name = 'Basalt',quantity = 2}],
+		{item_name = 'Basalt',quantity = 2},
+		{item_name = 'Steven',quantity = 1}],
 		upgrade_resource = preload('res://src/upgrades_effects/upgrades/abilities/pulse_shield_upgrade.tres'),
 		image = preload('res://assets/Textures/Player/CreatureCarrier_bubble.png')
 	},
@@ -78,7 +81,7 @@ func unpack_upgrade_table():
 
 func try_buy_upgrade(upgrade_name: String, upgrade: base_upgrade, upgrade_cost : Array[Dictionary], widget: UpgradeBuildWidget) -> bool:
 	for price_item in upgrade_cost:
-		if !inventory.has_item(price_item['item_name'],price_item['quantity']):
+		if !inventory.has_item(price_item['item_name'],price_item['quantity'],true):
 			#if we are missing something, return false, show what is missing
 			widget.show_missing(inventory)
 			return false

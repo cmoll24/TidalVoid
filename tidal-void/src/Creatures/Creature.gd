@@ -11,6 +11,15 @@ enum crafting_type {
 	charlotte
 }
 
+static var crafting_type_to_name_table : Dictionary[crafting_type,String] = {
+	crafting_type.jeremiah : 'Jeremiah',
+	crafting_type.steven : 'Steven',
+	crafting_type.leaper : 'Leaper',
+	crafting_type.evil_fred : 'Evil Fred',
+	crafting_type.hungry_harry : 'Hungry Harry',
+	crafting_type.charlotte : 'Charlotte',
+}
+
 ### if greater than 0, behavior is disabled and time will be brought down
 @export var stun_time : float = 0
 

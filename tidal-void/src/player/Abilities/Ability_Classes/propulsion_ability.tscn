@@ -4,5 +4,4 @@
 
 [node name="PropulsionAbility" type="Node" unique_id=1218112921]
 script = ExtResource("1_pysg7")
-max_uses = 3
-metadata/_custom_type_script = "uid://dm8sriwtqcfub"
+max_uses = 5

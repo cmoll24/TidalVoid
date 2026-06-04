@@ -29,7 +29,7 @@ func show_missing(inventory : BaseInventory):
 	var missing_res : String = "Missing: "
 	for i in range(upgrade_price.size()):
 		var item_name : String = upgrade_price[i]['item_name']
-		var num_missing : int = upgrade_price[i]['quantity'] - inventory.get_item_count(item_name)
+		var num_missing : int = upgrade_price[i]['quantity'] - inventory.get_item_count(item_name,true)
 		if(num_missing <= 0): #only positive values are missing
 			continue;
 		missing_res += ("%s " % num_missing) + item_name 
