@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="speedboost" format=3 uid="uid://bygcv5qanjlgm"]
+
+[ext_resource type="Script" uid="uid://cixahvt0d0oqn" path="res://src/upgrades_effects/upgrades/speedboost_upgrade.gd" id="1_ei3lk"]
+
+[resource]
+script = ExtResource("1_ei3lk")
+metadata/_custom_type_script = "uid://cixahvt0d0oqn"

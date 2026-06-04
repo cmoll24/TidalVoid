@@ -1,10 +1,17 @@
 extends UIMenu
 
-func _ready() -> void:
-	print("UpgradeMenu _ready called, in tree: ", is_inside_tree())
-	super._ready()  # keeps UIMenu's own _ready logic
+@onready var upgrade_panel: ShipUpgradePanel = $PanelContainer/VBoxContainer/BodyRow/ShipUpgradeUiPanel
 
-func _on_open_upgrade_menu() -> void:
-	print("upgrade menu received signal - toggling")
-	toggle_pause()
-	print("UpgradeMenu visible after toggle: ", visible)
+func _ready() -> void:
+	super._ready()
+
+func open_menu() -> void:
+	super.open_menu()
+	if upgrade_panel:
+		upgrade_panel.open_panel()
+
+func close_menu() -> void:
+	hide()
+	get_tree().paused = false
+	if upgrade_panel:
+		upgrade_panel.close_panel()
