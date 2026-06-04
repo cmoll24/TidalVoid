@@ -28,11 +28,11 @@ func _physics_process(delta: float) -> void:
 		position = target_position
 		super._physics_process(delta)
 	
-	var direction : Vector2 = target_vec/distance
+	var direction : Vector2 = target_vec/distance if distance > 0.001 else Vector2.ZERO # normalize
 	
 	var target_speed : float = move_speed
 	if distance < slow_radius:
-		#gradually reduce speed linearly as distnace approaches 0
+		#gradually reduce speed linearly as distnace approaches
 		target_speed = move_speed * (distance / slow_radius)
 	
 	var target_velocity : Vector2 = direction * target_speed

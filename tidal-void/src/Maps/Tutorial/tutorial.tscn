@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_7ay3w"]
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_8upge"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="4_o4nfo"]
+[ext_resource type="Script" path="res://src/ship/ship_manager.gd" id="4_wxukv"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="5_hxxks"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="6_cfpck"]
 [ext_resource type="PackedScene" uid="uid://pabhecqvmavd" path="res://src/Maps/Tutorial/TUTORIAL_player_controller.tscn" id="7_5sgeg"]
@@ -11,15 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://cmvbyrs6dht4x" path="res://src/Collectables/collectable.tscn" id="9_5lqq8"]
 [ext_resource type="PackedScene" uid="uid://b0xqv07re7ovb" path="res://src/Creatures/Friendly/Steven.tscn" id="13_24how"]
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="14_r1w2l"]
+[ext_resource type="PackedScene" uid="uid://bvaml7yul4764" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet7.tscn" id="17_vi1nj"]
+[ext_resource type="PackedScene" uid="uid://d2w4gn84j84my" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet5.tscn" id="18_djmvo"]
+[ext_resource type="PackedScene" uid="uid://bfi1rxm38yych" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet3.tscn" id="19_1g2is"]
+[ext_resource type="PackedScene" uid="uid://bu0c567x14lx2" path="res://src/Collectables/Ores/copper_ore.tscn" id="20_1g2is"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="20_bb73p"]
-[ext_resource type="PackedScene" path="res://src/UI/player_HUD.tscn" id="20_djmvo"]
-[ext_resource type="PackedScene" uid="uid://d2kanj13jye30" path="res://src/Maps/planets/PomPlanet.tscn" id="21_6oxdl"]
-[ext_resource type="PackedScene" uid="uid://bfgeal6ybkj0n" path="res://src/Maps/planets/dusk_sector_planets/Test/planet1.tscn" id="22_7ay3w"]
+[ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="20_djmvo"]
+[ext_resource type="PackedScene" uid="uid://cc24nx1wr3j4f" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet2.tscn" id="21_1g2is"]
+[ext_resource type="PackedScene" uid="uid://b27gn6xbj02fw" path="res://src/Collectables/Ores/methane_clathrate.tscn" id="21_wxukv"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="22_dqakm"]
-[ext_resource type="PackedScene" uid="uid://bq4arad21hka5" path="res://src/Maps/planets/dusk_sector_planets/Test/planet2.tscn" id="23_8upge"]
 [ext_resource type="PackedScene" uid="uid://b1df3kp5dqvna" path="res://src/Maps/Tutorial/TutorialMessage.tscn" id="23_vmvvh"]
-[ext_resource type="PackedScene" uid="uid://vmre2wpg2itq" path="res://src/Maps/planets/dusk_sector_planets/Test/planet3.tscn" id="24_o4nfo"]
-[ext_resource type="PackedScene" uid="uid://173wnvt86qfx" path="res://src/Maps/planets/dusk_sector_planets/Test/planet4.tscn" id="25_hxxks"]
 
 [sub_resource type="Gradient" id="Gradient_je76y"]
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
@@ -32,7 +34,7 @@ radius = 158.15
 offsets = PackedFloat32Array(0, 0.79012346, 0.9259259, 1)
 colors = PackedColorArray(1, 0.44, 0.9813334, 1, 0.92, 0.45080003, 0.90436006, 0.67058825, 0.33, 0.072600015, 0.32142, 0.38431373, 0.33, 0.05280001, 0.32076, 0)
 
-[node name="Tutorial" type="Node2D" unique_id=730832755 node_paths=PackedStringArray("camera_controls_msg", "ground_mvmt_controls_msg", "jump_controls_msg", "space_controls_msg", "prograde_controls_msg", "interact_controls_msg", "vehicles_msg", "capture_creature_msg", "completion_msg", "creature_carrier", "bubble_area")]
+[node name="Tutorial" type="Node2D" unique_id=730832755 node_paths=PackedStringArray("camera_controls_msg", "ground_mvmt_controls_msg", "jump_controls_msg", "space_controls_msg", "prograde_controls_msg", "interact_controls_msg", "vehicles_msg", "capture_creature_msg", "completion_msg", "creature_carrier", "bubble_area", "collect_copper")]
 script = ExtResource("1_vmvvh")
 camera_controls_msg = NodePath("CameraCrtl")
 ground_mvmt_controls_msg = NodePath("GroundMove")
@@ -45,6 +47,7 @@ capture_creature_msg = NodePath("capturing")
 completion_msg = NodePath("Congrasdfdulalataions")
 creature_carrier = NodePath("CreatureCarrier")
 bubble_area = NodePath("BubbleArea")
+collect_copper = NodePath("CopperToCollect")
 
 [node name="GameManager" parent="." unique_id=1973439095 instance=ExtResource("2_7ay3w")]
 
@@ -64,8 +67,15 @@ collide_with_areas = true
 [node name="CanvasModulate" type="CanvasModulate" parent="GameManager" unique_id=225797975]
 color = Color(0.49803922, 0.49803922, 0.49803922, 1)
 
+[node name="ShipManager" type="Node2D" parent="GameManager" unique_id=245775551]
+script = ExtResource("4_wxukv")
+
+[node name="VehicleSpawnMarker" type="Node2D" parent="GameManager/ShipManager" unique_id=334246935]
+position = Vector2(132, 1967)
+
 [node name="StaticBackground" type="CanvasLayer" parent="." unique_id=891405338]
 layer = -1
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="StaticBackground" unique_id=1790725163]
 anchors_preset = 15
@@ -115,6 +125,9 @@ steps = 500
 fake_steps = 0.0
 step_dist = 1.0
 
+[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("20_djmvo")]
+visible = false
+
 [node name="CameraCrtl" parent="." unique_id=1631242706 instance=ExtResource("23_vmvvh")]
 offset_left = 208.0
 offset_top = 448.0
@@ -145,17 +158,22 @@ offset_bottom = 706.0
 text = "In space, hold left click to propel yourself in the direction of the mouse"
 
 [node name="AdvSpaceThrust" parent="." unique_id=125009785 instance=ExtResource("23_vmvvh")]
-offset_left = 595.0
-offset_top = 657.0
-offset_right = 1140.0
-offset_bottom = 706.0
+offset_left = 587.0
+offset_top = 585.0
+offset_right = 1257.0
+offset_bottom = 894.0
 text = "In Orbit:
 to go \"up\" thrust towards your current velocity(the white line)
 to go \"down\" thrust against your current velocity
 
 When touching a planet, press space to grab onto it
 
-Try landing"
+Try to grab the chunk of copper orbiting the planet
+Try landing
+
+Hint: it is easier to catch up with something if you are orbiting in the opposite direction
+
+Hint 2: To jump into orbit, jump \"sideways\", not up"
 
 [node name="InteractCrtls" parent="." unique_id=1177818164 instance=ExtResource("23_vmvvh")]
 offset_left = 595.0
@@ -192,18 +210,23 @@ Drive into a creature, or throw it into the bubble to capture it
 
 Interact while in the vehicle to toggle the bubble
 
-Try delivering a creature to the bubble in the ship below you"
+Try delivering a creature to the bubble in the ship below you
+
+
+Note: For your own safety, the vehicle autopilot will not let you get
+too close to planets. Creatures on planets may need to be thrown into
+range."
 
 [node name="Congrasdfdulalataions" parent="." unique_id=415630970 instance=ExtResource("23_vmvvh")]
-offset_left = 184.0
-offset_top = 2346.0
-offset_right = 820.0
-offset_bottom = 2525.0
+offset_left = 151.0
+offset_top = 2796.0
+offset_right = 787.0
+offset_bottom = 2975.0
 theme_override_font_sizes/font_size = 48
 text = "You completed the tutorial!"
 
 [node name="BubbleArea" type="Area2D" parent="." unique_id=1552774016]
-position = Vector2(451, 2148)
+position = Vector2(436, 2573)
 collision_layer = 0
 collision_mask = 2
 
@@ -215,43 +238,43 @@ shape = SubResource("CircleShape2D_wxukv")
 position = Vector2(512.2966, 452.5486)
 
 [node name="Collectable2" parent="." unique_id=241563427 instance=ExtResource("9_5lqq8")]
-position = Vector2(3014, 2004)
+position = Vector2(3014, 2179)
 
 [node name="Collectable3" parent="." unique_id=84615810 instance=ExtResource("9_5lqq8")]
 position = Vector2(727, 604)
 
 [node name="Collectable4" parent="." unique_id=1964092763 instance=ExtResource("9_5lqq8")]
-position = Vector2(3645, 1655)
+position = Vector2(3670, 3480)
 
 [node name="Collectable5" parent="." unique_id=1892822805 instance=ExtResource("9_5lqq8")]
-position = Vector2(782, 552)
+position = Vector2(972, 4144)
 
 [node name="Collectable6" parent="." unique_id=1945323454 instance=ExtResource("9_5lqq8")]
 position = Vector2(830, 532)
 
 [node name="Collectable7" parent="." unique_id=342270177 instance=ExtResource("9_5lqq8")]
-position = Vector2(873, 505)
+position = Vector2(1199, 4470)
 
 [node name="Collectable8" parent="." unique_id=574767553 instance=ExtResource("9_5lqq8")]
-position = Vector2(370, 845)
+position = Vector2(1439, 3697)
 
 [node name="Collectable9" parent="." unique_id=148827875 instance=ExtResource("9_5lqq8")]
 position = Vector2(1911, 1212)
 
 [node name="Collectable10" parent="." unique_id=512758479 instance=ExtResource("9_5lqq8")]
-position = Vector2(1954, 1652)
+position = Vector2(1931, 1670)
 
 [node name="Collectable11" parent="." unique_id=1526817881 instance=ExtResource("9_5lqq8")]
 position = Vector2(3514, 2184)
 
 [node name="Collectable12" parent="." unique_id=27494866 instance=ExtResource("9_5lqq8")]
-position = Vector2(1623, 1732)
+position = Vector2(1803, 1446)
 
 [node name="Collectable13" parent="." unique_id=1474240198 instance=ExtResource("9_5lqq8")]
 position = Vector2(3780, 2351)
 
 [node name="Steven" parent="." unique_id=1314638072 instance=ExtResource("13_24how")]
-position = Vector2(3566, 1981)
+position = Vector2(1471, 3609)
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1373020704]
 visible = false
@@ -264,37 +287,42 @@ position = Vector2(532, 820)
 max_velocity = 400.0
 
 [node name="Jeremiah2" parent="." unique_id=809396105 instance=ExtResource("14_r1w2l")]
-position = Vector2(1972, 1752)
+position = Vector2(1978, 1635)
 max_velocity = 400.0
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance_placeholder="res://src/player/Equipment/creature_carrier.tscn"]
 position = Vector2(685, 611)
 
 [node name="Leaper" parent="." unique_id=984884791 instance=ExtResource("20_bb73p")]
-position = Vector2(1718, 804)
+position = Vector2(1219, 3728)
 
 [node name="Steven2" parent="." unique_id=2145063656 instance=ExtResource("13_24how")]
-position = Vector2(1595, 4533)
+position = Vector2(2720, 2800)
 
 [node name="ShipBody" parent="." unique_id=1522743882 instance=ExtResource("22_dqakm")]
 z_index = 0
-position = Vector2(457, 1910)
+position = Vector2(439, 2230)
 
-[node name="PomPlanet" parent="." unique_id=2060639823 instance=ExtResource("21_6oxdl")]
-position = Vector2(1940, 3968)
-
-[node name="Planet" parent="." unique_id=519984572 instance=ExtResource("22_7ay3w")]
+[node name="DuskPlanet" parent="." unique_id=1933495033 instance=ExtResource("21_1g2is")]
 position = Vector2(423, 690)
 
-[node name="Planet2" parent="." unique_id=468230439 instance=ExtResource("23_8upge")]
-position = Vector2(1606, 797)
+[node name="DuskPlanet2" parent="." unique_id=2060639823 instance=ExtResource("17_vi1nj")]
+position = Vector2(1236, 3908)
 
-[node name="Planet3" parent="." unique_id=891119518 instance=ExtResource("24_o4nfo")]
-position = Vector2(3821, 2066)
+[node name="DuskPlanet3" parent="." unique_id=2079478064 instance=ExtResource("18_djmvo")]
+position = Vector2(2035, 1346)
 
-[node name="Planet4" parent="." unique_id=583492956 instance=ExtResource("25_hxxks")]
-position = Vector2(1856, 1515)
+[node name="DuskPlanet4" parent="." unique_id=1738031239 instance=ExtResource("19_1g2is")]
+position = Vector2(3382, 3100)
 
-[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("20_djmvo")]
+[node name="InventoryItem" parent="." unique_id=2082957781 instance=ExtResource("20_1g2is")]
+position = Vector2(1281, 3350)
+
+[node name="InventoryItem2" parent="." unique_id=958237230 instance=ExtResource("21_wxukv")]
+position = Vector2(2149, 1752)
+
+[node name="CopperToCollect" parent="." unique_id=1274040807 instance=ExtResource("20_1g2is")]
+position = Vector2(464, -5)
+b_start_in_orbit_dir = true
 
 [editable path="ShipBody"]
