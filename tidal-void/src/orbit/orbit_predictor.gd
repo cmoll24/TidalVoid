@@ -45,6 +45,7 @@ func draw_orbit() -> void:
 	var dominant = player.dominant_body
 	if not dominant:
 		line.points = []
+		print("no dom body")
 		return
 	
 	var sim_pos = player.global_position
@@ -85,12 +86,13 @@ func draw_orbit() -> void:
 	
 	var ecc = sqrt(ecc_sq)
 	
-	if ecc >= 1.0:
-		# hyperbolic trajectory arc
-		return
-	
 	#semi-latus rectum
 	var p = h2 / mu
+	
+	if ecc >= 1.0:
+		# hyperbolic trajectory arc
+		line.points = []
+		return
 	
 	# semi-major and semi-minor axes
 	var a = p / (1.0 - ecc ** 2)
@@ -101,11 +103,8 @@ func draw_orbit() -> void:
 	var ecc_vec = get_eccentricity_vector(r_vec, v_vec, mu)
 	var periapsis_angle = ecc_vec.angle()
 
-	# current true anomaly — angle of current position from periapsis
-	var true_anomaly = get_true_anomaly(r_vec, ecc_vec, h)
-
 	# draw the ellipse
-	draw_ellipse(dominant.global_position, a, b, ecc, periapsis_angle, h)# true_anomaly, h)
+	draw_ellipse(dominant.global_position, a, b, ecc, periapsis_angle, h)
 
 func get_eccentricity_vector(r_vec: Vector2, v: Vector2, mu: float) -> Vector2:
 	# e_vec = (v × h) / μ - r_hat
@@ -115,30 +114,6 @@ func get_eccentricity_vector(r_vec: Vector2, v: Vector2, mu: float) -> Vector2:
 	var v_cross_h = Vector2(v.y, -v.x) * h_scalar / mu
 	var e_vec = v_cross_h - r_vec.normalized()
 	return -e_vec
-
-func get_true_anomaly(r_vec: Vector2, ecc_vec: Vector2, h: float) -> float:
-	# true anomaly is angle between eccentricity vector and position vector
-	var ecc_mag = ecc_vec.length()
-	if ecc_mag < 0.0001:
-		# circular orbit — use angle from reference direction
-		return r_vec.angle()
-
-	var cos_nu = ecc_vec.dot(r_vec.normalized()) / ecc_mag
-	cos_nu = clamp(cos_nu, -1.0, 1.0)
-	var nu = acos(cos_nu)
-
-	# sign from angular momentum — if h < 0 orbit is clockwise
-	if h < 0:
-		nu = -nu
-	# if moving away from periapsis (radial velocity positive), nu is positive
-	# already handled by eccentricity vector construction
-	return nu
-
-func _true_to_eccentric_anomaly(nu: float, ecc: float, periapsis_angle : float) -> float:
-	# converts true anomaly to eccentric anomaly for ellipse parameter
-	var cos_e = (ecc + cos(nu)) / (1.0 + ecc * cos(nu))
-	var sin_e = sqrt(1.0 - ecc * ecc) * sin(nu) / (1.0 + ecc * cos(nu))
-	return atan2(sin_e, cos_e)
 
 func draw_circle(center : Vector2, radius : float):
 	var points: PackedVector2Array = []
@@ -151,7 +126,11 @@ func draw_circle(center : Vector2, radius : float):
 
 	line.points = points
 
-func draw_ellipse(focus: Vector2, a: float, b: float, ecc: float, periapsis_angle: float, h : float) -> void:
+func draw_ellipse(focus: Vector2, 
+	a: float, b: float, ecc: float, 
+	periapsis_angle: float, h : float
+	) -> void:
+		
 	var points: PackedVector2Array = []
 
 	var c = a * ecc
@@ -163,10 +142,18 @@ func draw_ellipse(focus: Vector2, a: float, b: float, ecc: float, periapsis_angl
 
 	var direction = 1 if h > 0 else -1
 
+	var collision_radius_sq = player.dominant_body.collision_radius ** 2
+
 	for i in resolution + 1:
 		var angle = start_angle + direction * (float(i) / resolution) * TAU
 		var local_point = Vector2(a * cos(angle), b * sin(angle))
+		
 		# rotate the point to match orbit orientation before adding to world space
-		points.append(center + local_point.rotated(periapsis_angle))
+		var new_point = center + local_point.rotated(periapsis_angle)
+		
+		if focus.distance_squared_to(new_point) < collision_radius_sq:
+			break
+		
+		points.append(new_point)
 
 	line.points = points
