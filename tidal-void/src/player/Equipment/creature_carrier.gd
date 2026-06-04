@@ -29,6 +29,8 @@ class_name CreatureCarrier
 
 var fuel : float = 100;
 
+var min_distance_line : Line2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -37,6 +39,15 @@ func _ready() -> void:
 	fuel = max_fuel
 	health_comp.on_take_damage.connect(on_take_damage)
 	
+	call_deferred("after_ready")
+
+func after_ready() -> void:
+	var line : Line2D = Line2D.new()
+	line.width = 10.0
+	line.default_color = Color(0.584, 0.291, 0.71, 0.1)
+	get_parent().add_child.call_deferred(line)
+	min_distance_line = line
+
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	if(fuel <= 0):
 		#can't thrust if we run out
@@ -72,6 +83,9 @@ func _physics_process(_delta: float) -> void:
 		if dominant_body is Ship:
 			minimum_clearance_dist += dominant_body.inside_ship_radius
 		
+		var push_back_radius = max(sqrt(dominant_body.mass / thrust_output), minimum_clearance_dist)
+		draw_planet_pushback(dominant_body.global_position, push_back_radius)
+		
 		if ((dominant_body.mass / dist_sq) > thrust_output) or (dist_sq < minimum_clearance_dist**2):
 			## if we are too close, push back to the edge
 			var dir :Vector2 = (global_position-dominant_body.global_position).normalized()
@@ -89,7 +103,24 @@ func _physics_process(_delta: float) -> void:
 			
 	### apply velocity colors
 	update_traj_color.emit(lerp(Color.BLUE, Color.AQUA,velocity.length_squared()/122500))
+
+func draw_planet_pushback(center : Vector2, radius : float):
+	if not min_distance_line:
+		return
+	if not controller:
+		min_distance_line.points = []
+		return
 	
+	var points: PackedVector2Array = []
+	
+	var resolution = 128
+
+	for i in resolution + 1:
+		var angle = (float(i) / resolution) * TAU
+		points.append(center + Vector2.from_angle(angle) * radius)
+
+	min_distance_line.points = points
+
 func eject_player():
 	if(!controller):
 		return #only execute if we are being controlled
