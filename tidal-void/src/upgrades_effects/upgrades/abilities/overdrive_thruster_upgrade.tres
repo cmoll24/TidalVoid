@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AbilityUnlockUpgrade" format=3 uid="uid://bm5cfueqniorj"]
+
+[ext_resource type="Script" uid="uid://o3hdc2o4kqcr" path="res://src/upgrades_effects/upgrades/abilities/ability_unlock_upgrade.gd" id="1_1qduk"]
+
+[resource]
+script = ExtResource("1_1qduk")
+ability_slot = 2
+ability_path = "res://src/player/Abilities/Ability_Classes/boost_ability.tscn"
+metadata/_custom_type_script = "uid://dam453nm5q6sx"

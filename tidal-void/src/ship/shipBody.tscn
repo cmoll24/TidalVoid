@@ -202,5 +202,37 @@ bottom_segment_length = 260
 flipped = true
 behind = true
 
+[node name="TEMP_LABEL" type="Label" parent="." unique_id=1511634492]
+z_index = 1
+offset_left = 59.0
+offset_top = -56.000004
+offset_right = 102.0
+offset_bottom = -33.000004
+rotation = 1.0596367
+scale = Vector2(0.67429405, 0.69272554)
+text = "Reset"
+
+[node name="TEMP_LABEL2" type="Label" parent="." unique_id=158497930]
+z_index = 1
+offset_left = 80.99999
+offset_top = 20.999996
+offset_right = 145.0
+offset_bottom = 70.0
+rotation = 2.0978434
+scale = Vector2(0.67429405, 0.69272554)
+text = "Vehicles
+"
+
+[node name="TEMP_LABEL3" type="Label" parent="." unique_id=116716041]
+z_index = 1
+offset_left = -82.00001
+offset_top = -19.0
+offset_right = -8.000008
+offset_bottom = 30.000004
+rotation = -1.1330252
+scale = Vector2(0.67429405, 0.69272554)
+text = "Upgrades
+"
+
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]

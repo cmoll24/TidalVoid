@@ -9,29 +9,33 @@ var build_widget_scene = preload("res://src/UI/ship_ui/upgrade_build_widget.tscn
 
 var upgrade_table : Array[Dictionary] = [
 	{
-		upgrade_name = 'Health Boost',
-		upgrade_desc = 'Increases maximum health by 25 and heals the same amount.',
-		cost_item_name = 'Copper Ore',
-		cost_quantity = 1,
-		upgrade_resource = preload('res://src/upgrades_effects/upgrades/health_upgrade.tres'),
-		image = preload('res://assets/Textures/Placeholder/SunDLC.png')
+		upgrade_name = 'Impulse thrusters',
+		upgrade_desc = 'Unlocks and equips impulse thrusters, fireable by pressing 1. Impulse thrusters provide an instant velocity boost in the direction the mouse.
+		Can be fired 3 times before requiring a recharge at the reset terminal on the ship.',
+		upgrade_cost = [{item_name ='Methane Clathrate',quantity = 3},
+		{item_name = 'Basalt',quantity = 1}],
+		upgrade_resource = preload('res://src/upgrades_effects/upgrades/abilities/impulse_thruster_upgrade.tres'),
+		image = preload('res://assets/Textures/Placeholder/Thick_Jim.png')
 	},
 	{
-		upgrade_name = 'Speed Boost',
-		upgrade_desc = 'Increases movement speed for better mobility.',
-		cost_item_name = 'Copper Ore',
-		cost_quantity = 1,
-		upgrade_resource = preload('res://src/upgrades_effects/upgrades/double_grapple.tres'),
-		image = preload('res://assets/Textures/Placeholder/SunDLC.png')
+		upgrade_name = 'Overdrive',
+		upgrade_desc = 'Unlocks and equips overdrive thrusters, fireable by pressing 3. On use, thrusters become significantly more powerful for a short time.
+		Can be fired 10 times before requiring a recharge at the reset terminal on the ship.',
+		upgrade_cost = [{item_name ='Methane Clathrate',quantity = 1},
+		{item_name = 'Nickel Ore',quantity = 3}],
+		upgrade_resource = preload('res://src/upgrades_effects/upgrades/abilities/overdrive_thruster_upgrade.tres'),
+		image = preload('res://assets/Textures/Placeholder/Thick_Jim.png')
 	},
 	{
-		upgrade_name = 'Double Grapple',
-		upgrade_desc = 'Doubles your grapple charges.',
-		cost_item_name = 'Copper Ore',
-		cost_quantity = 1,
-		upgrade_resource = preload('res://src/upgrades_effects/upgrades/double_grapple.tres'),
-		image = preload('res://assets/Textures/Placeholder/SunDLC.png')
-	}
+		upgrade_name = 'Pulse Shield',
+		upgrade_desc = 'Unlocks and equips the pulse shield, fireable by pressing 4. The pulse shield provides temporary protection from damage.
+		Can be fired 5 times before requiring a recharge at the reset terminal on the ship.',
+		upgrade_cost = [{item_name ='Copper Ore',quantity = 4},
+		{item_name = 'Methane Clathrate',quantity = 1},
+		{item_name = 'Basalt',quantity = 2}],
+		upgrade_resource = preload('res://src/upgrades_effects/upgrades/abilities/pulse_shield_upgrade.tres'),
+		image = preload('res://assets/Textures/Player/CreatureCarrier_bubble.png')
+	},
 ]
 
 @onready var upgrade_entries : VBoxContainer = $ScrollContainer/UpgradeEntries
@@ -54,29 +58,34 @@ func unpack_upgrade_table():
 	await get_tree().process_frame
 
 	for i in range(upgrade_table.size()):
-		var widget = upgrade_entries.get_child(i)
+		var widget : UpgradeBuildWidget = upgrade_entries.get_child(i)
+		#explictly set the type of the upgrade cost(godot crashes otherwise, spagetti code)
+		var upgrade_price : Array[Dictionary]
+		upgrade_price.assign(upgrade_table[i]['upgrade_cost']);
 		widget.set_upgrade_info(
 			upgrade_table[i]['upgrade_name'],
 			upgrade_table[i]['upgrade_desc'],
-			upgrade_table[i]['cost_item_name'],
-			upgrade_table[i]['cost_quantity'],
+			upgrade_price,
 			upgrade_table[i]['upgrade_resource'],
 			upgrade_table[i]['image']
 		)
 		widget.buy_button.pressed.connect(try_buy_upgrade.bind(
 			upgrade_table[i]['upgrade_name'],
 			upgrade_table[i]['upgrade_resource'],
-			upgrade_table[i]['cost_item_name'],
-			upgrade_table[i]['cost_quantity'],
+			upgrade_price,
 			widget
 		))
 
-func try_buy_upgrade(upgrade_name: String, upgrade: base_upgrade, cost_item_name: String, cost_quantity: int, widget: UpgradeBuildWidget) -> bool:
-	if !inventory.has_item(cost_item_name, cost_quantity):
-		widget.show_missing(inventory)
-		return false
+func try_buy_upgrade(upgrade_name: String, upgrade: base_upgrade, upgrade_cost : Array[Dictionary], widget: UpgradeBuildWidget) -> bool:
+	for price_item in upgrade_cost:
+		if !inventory.has_item(price_item['item_name'],price_item['quantity']):
+			#if we are missing something, return false, show what is missing
+			widget.show_missing(inventory)
+			return false
 
-	inventory.remove_item(cost_item_name, cost_quantity)
+	#subtract the price
+	for price_item in upgrade_cost:
+		inventory.remove_item(price_item['item_name'],price_item['quantity'])
 	upgrade.apply_effect(GV.player_node)
 	print("You purchased %s!" % upgrade_name)
 	widget.clear_missing()

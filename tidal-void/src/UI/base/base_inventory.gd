@@ -31,6 +31,8 @@ func add_item(item: Dictionary) -> bool:
 #Remove_item uses similar logic as add item
 func remove_item(target_item : String, amount : int) -> void:
 	for i in range(inventory_items.size()):
+		if(!inventory_items[i]):
+			continue
 		if inventory_items[i]["item_name"] == target_item:
 			inventory_items[i]["quantity"] -= amount
 			if inventory_items[i]["quantity"] <= 0:

@@ -63,7 +63,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_bgehi")
 text = "Upgrade"
 fit_content = true
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Desc" type="RichTextLabel" parent="." unique_id=102585015]
 unique_name_in_owner = true
@@ -115,7 +114,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_frdii")
 theme_override_font_sizes/normal_font_size = 16
-text = "Missing: 3 Copper Ore"
 fit_content = true
 
 [node name="BuildButton" type="Button" parent="." unique_id=452970096]

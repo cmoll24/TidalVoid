@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HealthUpgrade" format=3 uid="uid://b75aj0m6idns0"]
 
-[ext_resource type="Script" uid="uid://dam453nm5q6sx" path="res://src/upgrades_effects/upgrades/health_upgrade.gd" id="1_o3oqv"]
+[ext_resource type="Script" uid="uid://dam453nm5q6sx" path="res://src/upgrades_effects/upgrades/example/health_upgrade.gd" id="1_o3oqv"]
 
 [resource]
 script = ExtResource("1_o3oqv")
