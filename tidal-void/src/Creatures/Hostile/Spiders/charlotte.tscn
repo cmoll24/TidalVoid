@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://u1iknov3idu8" path="res://src/Creatures/Hostile/Spiders/charlotte.gd" id="1_m7j1w"]
 [ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_7eayt"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_6jow0"]
-[ext_resource type="Texture2D" uid="uid://h7dslgfcvbrd" path="res://assets/Textures/Creatures/charlotteopen.png" id="4_6jow0"]
-[ext_resource type="Texture2D" uid="uid://2og4qflw8ggm" path="res://assets/Textures/Creatures/charlotte.png" id="5_hov7b"]
+[ext_resource type="Texture2D" uid="uid://bv1qyaknxhic8" path="res://assets/Textures/Creatures/charlotteopen2.png" id="4_6jow0"]
+[ext_resource type="Texture2D" uid="uid://brg4qrp10sqfc" path="res://assets/Textures/Creatures/charlotte2.png" id="5_hov7b"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="5_mlkca"]
 [ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="6_gjowe"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="7_ec3bq"]
@@ -83,10 +83,10 @@ color_ramp = SubResource("Gradient_l7kxh")
 script = ExtResource("3_6jow0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1665123332]
-position = Vector2(0, -7.5)
+position = Vector2(0, -19.5)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_mlkca")
-animation = &"closed"
+animation = &"attack"
 
 [node name="InteractSource" type="Node2D" parent="." unique_id=1929089534]
 scale = Vector2(0.5, 0.5)
