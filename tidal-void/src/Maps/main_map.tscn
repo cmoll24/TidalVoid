@@ -18,8 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://8cyt0tmbquu" path="res://src/Creatures/Friendly/Jeremiah.tscn" id="19_hthak"]
 [ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="21_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
-[ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="22_ykslk"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
+[ext_resource type="Texture2D" uid="uid://bokq6aj31pvto" path="res://assets/Textures/Placeholder/Jeremy.png" id="23_ihctt"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="25_tai8o"]
 
@@ -499,6 +499,8 @@ position = Vector2(-5966, 8853)
 [node name="DesertPlanet" parent="SunsetSector" unique_id=1401741126 instance_placeholder="res://src/Maps/planets/sunset_sector_planets/DesertPlanet.tscn"]
 position = Vector2(-10787.728, 8555.147)
 
+[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("21_mm3ko")]
+
 [node name="StaticBackground" type="CanvasLayer" parent="." unique_id=1761612136]
 layer = -1
 
@@ -624,10 +626,45 @@ position = Vector2(-5936, 8827)
 [node name="HungryHarry2" parent="." unique_id=2070331131 groups=["dynamic_save"] instance=ExtResource("23_6qt07")]
 position = Vector2(-10707.999, 8571.001)
 
-[node name="PlayerHUD" parent="." unique_id=644111349 instance=ExtResource("21_mm3ko")]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=617936749]
+offset_left = -24599.996
+offset_top = -3348.999
+offset_right = -24535.996
+offset_bottom = -3284.999
+scale = Vector2(20, 20)
+texture = ExtResource("23_ihctt")
 
-[node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("22_ykslk")]
-position = Vector2(-5514, -2781)
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1330346432]
+offset_left = -26101.0
+offset_top = -4128.0
+offset_right = -26037.0
+offset_bottom = -4064.0
+scale = Vector2(20, 20)
+texture = ExtResource("23_ihctt")
+
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=826885933]
+offset_left = -25286.0
+offset_top = -1858.9996
+offset_right = -25222.0
+offset_bottom = -1794.9996
+scale = Vector2(20, 20)
+texture = ExtResource("23_ihctt")
+
+[node name="TextureRect4" type="TextureRect" parent="." unique_id=1216777598]
+offset_left = -28369.0
+offset_top = -3174.0002
+offset_right = -28305.0
+offset_bottom = -3110.0002
+scale = Vector2(20, 20)
+texture = ExtResource("23_ihctt")
+
+[node name="Label" type="Label" parent="." unique_id=1012761035]
+offset_left = -27137.998
+offset_top = -2636.9995
+offset_right = -26875.998
+offset_bottom = -2613.9995
+scale = Vector2(10, 10)
+text = "Say Hello to Jeremy and Friends!!!!"
 
 [editable path="DuskSector"]
 [editable path="DuskToDawnSector"]
