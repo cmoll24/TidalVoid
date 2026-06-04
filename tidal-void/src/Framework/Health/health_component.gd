@@ -63,11 +63,11 @@ func take_damage(damage : float, dmg_type : e_dmg_types, damage_causer : Node2D 
 		e_dmg_types.physical:
 			if(phys_dmg_cooldown <= 0):
 				set_health(health - damage)
-				phys_dmg_cooldown = 0.1
+				phys_dmg_cooldown = 0.5
 		e_dmg_types.knockback:
 			if(knockback_cooldown <= 0 && damage_causer && parent is DriftBody):
 				parent.velocity += (parent.global_position - damage_causer.global_position).normalized() * damage
-				knockback_cooldown = 0.1
+				knockback_cooldown = 0.5
 		e_dmg_types.heat:
 			temperature = damage
 		e_dmg_types.grab:
