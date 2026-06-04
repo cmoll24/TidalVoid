@@ -31,6 +31,7 @@ func _on_buy_button_pressed() -> void:
 	#make sure player has enough item
 	if GV.has_item(store_item.cost_item_name, store_item.cost_quantity):
 		# applies said effect
+		GV.remove_item(store_item.cost_item_name, store_item.cost_quantity)
 		store_item.upgrade.apply_effect(GV.player_node)
 		insufficient_label.visible = false
 	#insufficient lable only shows when not enough item

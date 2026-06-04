@@ -10,7 +10,7 @@ extends Node
 ## The amount of steps to traverse in each step, numbers over 1 skip steps to save on performance,may cause some stuttering in the trajectory, should be used was fake steps to avoid pointy lines
 @export var step_dist : float = 20;
 ## Used to ensure accurate predications of when collision may occur, set to the radius of whatever is being predicted
-@export var collision_radius_sqr : float = 225;
+@export var collision_radius : float = 15;
 #@export var step_delta : float = 0.005
 var game_manager : GameManager
 
@@ -76,20 +76,21 @@ func draw_trajectory() -> void:
 			if(gravity_pull != Vector2.ZERO):
 				grav += gravity_pull;
 				##we stop drawing if we hit an orbital body
+				var margin : float = body.collision_radius + collision_radius
 				#perform a bounds check
-				if(sim_pos.x > body.global_position.x - body.collision_radius):
-					if(sim_pos.x < body.global_position.x + body.collision_radius):
-						if(sim_pos.y > body.global_position.y - body.collision_radius):
-							if(sim_pos.y < body.global_position.y + body.collision_radius):
-								var distance_sqr : float = sim_pos.distance_squared_to(body.global_position)-collision_radius_sqr
-								if  distance_sqr < body.collision_radius**2:
-									hit = true
-									var distance = sqrt(distance_sqr)
-									var past_pos = points[points.size()-1]
-									var delta : Vector2 = sim_pos - past_pos
-									sim_pos = lerp(past_pos,sim_pos,(distance-body.collision_radius)
-									/delta.length())
-									break
+				if(sim_pos.x > body.global_position.x - margin &&
+				sim_pos.x < body.global_position.x + margin &&
+				sim_pos.y > body.global_position.y - margin &&
+				sim_pos.y < body.global_position.y + margin):
+					var distance_sqr : float = sim_pos.distance_squared_to(body.global_position)
+					if  distance_sqr < margin**2:
+						hit = true
+						var distance = sqrt(distance_sqr)
+						var past_pos = points[points.size()-1]
+						var delta : Vector2 = sim_pos - past_pos
+						sim_pos = lerp(past_pos,sim_pos,(distance)
+						/delta.length())
+						break
 		sim_vel += grav * step
 		sim_pos += sim_vel * step
 		

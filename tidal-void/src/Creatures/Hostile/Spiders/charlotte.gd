@@ -22,6 +22,10 @@ var ground_move_direction : int = -1
 #checks to see if orbit was left
 var b_on_home_planet : bool = true;
 
+@onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
+
+var anim_timer : SceneTreeTimer = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
@@ -55,11 +59,13 @@ func check_on_home_planet():
 		if(b_on_home_planet):
 			#tell home planet we left
 			home_planet.spiders_outside -= 1
+			#print("left home planet: inside %s outside %s" % [home_planet.spiders_inside,home_planet.spiders_outside])
 		b_on_home_planet = false
 	else:
 		if(!b_on_home_planet):
 			#tell home planet we returned
 			home_planet.spiders_outside += 1
+			#print("renetered home planet:  inside %s outside %s" % [home_planet.spiders_inside,home_planet.spiders_outside])
 		b_on_home_planet = true
 	
 func creature_movement(_delta):
@@ -152,6 +158,7 @@ func hibernation_movement(altitude_sqr : float):
 func burrow():
 	home_planet.spiders_inside += 1
 	home_planet.spiders_outside -= 1
+	
 	queue_free()
 
 func die():
@@ -169,6 +176,7 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 			primary_v_source = other.primary_v_source
 			time_since_last_vision = 0	
 			ground_move_direction = other.ground_move_direction
+		return # go no further
 	
 	if b_in_hibernation: #Cannot attack while hibernating
 		return
@@ -186,6 +194,25 @@ func on_collide_with_other_drift_body(other : DriftBody) -> void:
 				hc.take_damage(bite_damage,HealthComponent.e_dmg_types.physical,self,self)
 				#knockback damage
 				hc.take_damage(bite_knockback,HealthComponent.e_dmg_types.knockback,self,self)
+				#show the open mouth 
+				play_attack_animation(1)
+
+
+func lunge(dist : float):
+	super.lunge(dist);
+	#show the open mouth 
+	play_attack_animation(lunge_cldwn_time - 1)
+
+func play_attack_animation(time : float):
+	#set the sprite to open the mouth
+	animated_sprite.play("attack")
+	#close the mouth later
+	anim_timer = get_tree().create_timer(time)
+	anim_timer.timeout.connect(set_sprite_closed)	
+
+
+func set_sprite_closed():
+	animated_sprite.play("closed")
 				
 				
 func save() -> Dictionary:

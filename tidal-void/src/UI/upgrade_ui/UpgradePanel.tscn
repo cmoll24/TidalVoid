@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ukjyoxqjsrby"]
+
+[ext_resource type="Script" uid="uid://dttbkdhcomcbf" path="res://src/UI/upgrade_ui/upgrade_panel.gd" id="1_sywkb"]
+[ext_resource type="PackedScene" uid="uid://dme5g28pceimf" path="res://src/UI/upgrade_ui/upgrade_store_slot.tscn" id="2_858cl"]
+
+[node name="UpgradePanel" type="VBoxContainer" unique_id=878548370]
+size_flags_horizontal = 3
+script = ExtResource("1_sywkb")
+slot_scene = ExtResource("2_858cl")

@@ -1,4 +1,3 @@
-@tool
 class_name max_health_increase
 extends base_upgrade
 

@@ -23,7 +23,9 @@ var save_data: Dictionary = {
 
 # where our inventory item goes
 var player_inventory: PlayerInventory = null
+
 signal inventory_update
+signal open_upgrade_menu
 
 # Defines the dictionary for creature for journal
 var creature_button_dict = {
@@ -110,7 +112,7 @@ func _ready():
 	player_inventory.inventory_changed.connect(_on_inventory_changed)
 	
 	load_from_save_file = load_game()
-
+	
 func _on_inventory_changed() -> void:
 	inventory_update.emit()
 

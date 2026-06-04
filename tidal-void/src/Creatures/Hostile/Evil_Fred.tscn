@@ -51,6 +51,7 @@ v_source_loyalty_dist = 1.75
 min_lunge_dist_sqr = 6400
 lunge_power = 80
 lunge_cldwn_time = 4
+creature_size = 2
 creature_type = 3
 mass = 30.0
 thrust_power = 9.0

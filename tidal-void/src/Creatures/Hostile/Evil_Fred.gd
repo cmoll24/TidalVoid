@@ -6,6 +6,8 @@ class_name EvilFred
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 
+var anim_timer : SceneTreeTimer = null
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,7 +31,7 @@ func _physics_process(delta: float) -> void:
 func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	super.on_collide_with_other_drift_body(other);
 	
-	if b_in_hibernation: #Cannot attack while hibernating
+	if b_in_hibernation: #Cannot attack while stunned
 		return
 	
 	var vs : VisionSource = other.get_node_or_null("VisionSource")
@@ -55,7 +57,8 @@ func attack_animation(time : float):
 	#set the sprite to open the mouth
 	animated_sprite.play("attack")
 	#close the mouth later
-	get_tree().create_timer(time).timeout.connect(set_sprite_closed)	
+	anim_timer = get_tree().create_timer(time) #reset the reference to prevent duplicate timers
+	anim_timer.timeout.connect(set_sprite_closed)	
 
 
 func set_sprite_closed():
