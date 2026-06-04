@@ -84,7 +84,9 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("toolbar_slot_" + str(i + 1)):
 			toolbar.call_ability(i, player)
 	if event.is_action_pressed("Use"):
-		player.action_use(true)
+		if!get_tree().paused:	
+			#only start use when not paused
+			player.action_use(true)
 	elif event.is_action_released("Use"):
 		player.action_use(false)
 		

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://djcnnxu0htcfr"]
 
-[ext_resource type="Script" uid="uid://bjrr7jd3tytna" path="res://src/ship/terminals/vehicle_terminal.gd" id="1_17vd2"]
+[ext_resource type="Script" path="res://src/ship/terminals/vehicle_terminal.gd" id="1_17vd2"]
 [ext_resource type="Texture2D" uid="uid://crm6tk8vcj4go" path="res://assets/Textures/Ship/Terminals/VehicleTerminal.png" id="2_17vd2"]
 [ext_resource type="Texture2D" uid="uid://by6tr2h3xlyay" path="res://assets/Textures/Ship/Terminals/VehicleTerminal_Outline.png" id="3_np7b4"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="4_lum4h"]
