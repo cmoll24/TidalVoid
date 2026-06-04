@@ -29,7 +29,6 @@ func draw_orbit() -> void:
 	var dominant = collectable.dominant_body
 	if not dominant:
 		line.points = []
-		print("no dom body")
 		return
 	
 	var sim_pos = collectable.global_position

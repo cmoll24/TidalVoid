@@ -45,7 +45,6 @@ func draw_orbit() -> void:
 	var dominant = player.dominant_body
 	if not dominant:
 		line.points = []
-		print("no dom body")
 		return
 	
 	var sim_pos = player.global_position
