@@ -3,7 +3,7 @@ extends Node
 
 @export var player : PlayerPawn
 
-@export var predictor : OrbitPredictor
+@export var predictor : TrajectoryPredictor
 
 @onready var camera : ZoomCamera = $Camera2D
 
