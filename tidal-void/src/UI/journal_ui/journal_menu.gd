@@ -31,3 +31,6 @@ func _ready() -> void:
 		
 		# Add the new button to the VBoxContainer
 		side_button_container.add_child(new_button)
+		
+	#TEMP
+	side_button_container.get_child(0)._on_pressed()

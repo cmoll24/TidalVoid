@@ -30,6 +30,61 @@ signal open_upgrade_menu
 # Defines the dictionary for creature for journal
 var creature_button_dict = {
 	"creature1": {
+		"asset": "res://assets/Textures/Creatures/jeremiah.png",
+		"found": false,
+		"name": "Jeremiah",
+		"story": "A small prey creature, uses limited thrust to catch food in orbit",
+		"adapt": "Tentacles aid in fruit collection",
+		"diet": "Fruitarian",
+		"behavior": "Passive to just about everything, a harmless creature"
+	},
+	"creature2": {
+		"asset": "res://assets/Textures/Creatures/magnetbigspike.png",
+		"found": false,
+		"name": "Steven",
+		"story": "A small prey creature, uses limited thrust to catch food in orbit",
+		"adapt": "Spikes deter predation",
+		"diet": "Fruitarian",
+		"behavior": "Orbits to collect fruit, passive, yet also dangerous enough to have no natural predators"
+	},
+	"creature3": {
+		"asset": "res://assets/Textures/Creatures/leaper.png",
+		"found": false,
+		"name": "Leaper",
+		"story": "A organism more flora than fauna. Spends the majority of a lifetime passively growing before jumping to other planets to spread.",
+		"adapt": "The leaper has adapted to use energy sparingly",
+		"diet": "Have no idea, been watching it for 100 hours and it's just been jumping in place",
+		"behavior": "It umm, leaps"
+	},
+	"creature4": {
+		"asset": "res://assets/Textures/Creatures/evil_fred_move.png",
+		"found": false,
+		"name": "Evil Fred",
+		"story": "A moderately sized predator, tends to live in foggy areas, capable of orbital movement",
+		"adapt": "Unique mouth aids in full capture of prey",
+		"diet": "Carnivorous",
+		"behavior": "Spends the majority of time in hibernation, waiting for prey to get close."
+	},
+	"creature5": {
+		"asset": "res://assets/Textures/Creatures/charlotte.png",
+		"found": false,
+		"name": "Charlotte",
+		"story": "A small predator, lives in colonies built under the surface of planets, capable of both walking and orbiting",
+		"adapt": "Burrowing protects against radiation, Web production aids in hunting",
+		"diet": "Carnivorous",
+		"behavior": "Fires webs from a distance in an effort to knock prey out of orbit. Once prey has been grounded,
+		walks quickly on the surface to consume it."
+	},
+	"creature6": {
+		"asset": "res://assets/Textures/Placeholder/PLACEHOLDER_WormHead.png",
+		"found": false,
+		"name": "Hungry Harry",
+		"story": "A large predator, lives within large planets in particulary hot areas",
+		"adapt": "Burrowing protects against radiation, Capable of surviving immense heat",
+		"diet": "Carnivorous and Lithovorous",
+		"behavior": "Lives in constant motion, slowing eating planets. Shifts to face prey that gets within range."
+	},
+	"creature7": {
 		"asset": "res://assets/Textures/Placeholder/Evil_Fred.png",
 		"found": false,
 		"name": "Evil Fred",
@@ -38,16 +93,7 @@ var creature_button_dict = {
 		"diet": "Surpisingly a pretty healthy diet...except for the mushrooms...the bad ones",
 		"behavior": "We say he's evil, but he's acts like Fred except he doesn't recycle"
 	},
-	"creature2": {
-		"asset": "res://assets/Textures/Placeholder/floater.png",
-		"found": false,
-		"name": "Floater",
-		"story": "Never gonna guess what it does",
-		"adapt": "I think it was a rock that wanted to prove it's other rock friends wrong. Please read Land of the Lusterous",
-		"diet": "Microbes or something I think",
-		"behavior": "You'll really never guess what it does"
-	},
-	"creature3": {
+	"creature8": {
 		"asset": "res://assets/Textures/Placeholder/Jeremy.png",
 		"found": false,
 		"name": "Jermey",
@@ -56,16 +102,7 @@ var creature_button_dict = {
 		"diet": "Nuhuh, ask them",
 		"behavior": "Look Jermey is a good guy, literally go up and say hi, you can learn this from them yourself"
 	},
-	"creature4": {
-		"asset": "res://assets/Textures/Placeholder/leaper.png",
-		"found": false,
-		"name": "Leaper",
-		"story": "*Insert the floater joke here*",
-		"adapt": "I think this was a bunch of worms that didn't want to be in the ground anymore, or an octopus",
-		"diet": "Have no idea, been watching it for 100 hours and it's just been jumping in place",
-		"behavior": "You get the joke"
-	},
-	"creature5": {
+	"creature9": {
 		"asset": "res://assets/Textures/Placeholder/Thick_Jim.png",
 		"found": false,
 		"name": "Thick Jim",
@@ -74,7 +111,7 @@ var creature_button_dict = {
 		"diet": "Salad, yeah, he's really trying to slim down",
 		"behavior": "Jogs every morning, goes to the gym after doing work, pretty normal guy"
 	},
-	"creature6": {
+	"creature10": {
 		"asset": "res://assets/Textures/Placeholder/astronaut.png",
 		"found": false,
 		"name": "Astronaut",
@@ -83,7 +120,7 @@ var creature_button_dict = {
 		"diet": "Panda Express, yeah I don't want to cook",
 		"behavior": "Crying at 12:47 AM on the dot, every day"
 	},
-	"creature7": {
+	"creature11": {
 		"asset": "res://assets/Textures/Placeholder/cookie.png",
 		"found": false,
 		"name": "Cookie",
@@ -92,7 +129,7 @@ var creature_button_dict = {
 		"diet": "...They can't eat...",
 		"behavior": "Look, if you can show me a cookie can do things on it's own, that 5 bucks for you"
 	},
-	"creature8": {
+	"creature12": {
 		"asset": "res://assets/circle.png",
 		"found": false,
 		"name": "Circle",
