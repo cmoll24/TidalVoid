@@ -22,7 +22,6 @@ item_name = "Nickel Ore"
 item_texture = ExtResource("2_o8rkc")
 effect = SubResource("Resource_cgyau")
 b_start_in_orbit_dir = false
-b_has_trajectory_predictor = false
 metadata/_custom_type_script = "uid://nghglfygt4k2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=658466756]
