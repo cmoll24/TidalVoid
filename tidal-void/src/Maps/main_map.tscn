@@ -135,7 +135,7 @@ border_color = Color(1, 1, 1, 1)
 position = Vector2(-2793, -7308)
 
 [node name="DuskPlanet2" parent="DuskToDawnSector" unique_id=1003209995 instance_placeholder="res://src/Maps/planets/dusk_sector_planets/DuskPlanet7.tscn"]
-position = Vector2(-5137, -6878)
+position = Vector2(-5098, -7041)
 
 [node name="Methane_Clathrate2" parent="DuskToDawnSector" unique_id=127055315 instance=ExtResource("7_chnye")]
 position = Vector2(-2397, -7246)

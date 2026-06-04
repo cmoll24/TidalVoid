@@ -160,24 +160,24 @@ func lunge(dist : float):
 	lunge_cldwn = lunge_cldwn_time
 
 # +++++++++++++++ DRAW DEBUG ++++++++++++++++++++++
-var draw_debug : bool = true
-
-func _process(_delta: float) -> void:
-	queue_redraw()
-
-func _draw() -> void:
-	if not draw_debug:
-		return
-	if !primary_v_source:
-		return # only procede if primary_v_source is valid
-
-	
-	var lunge_radius: float = sqrt(min_lunge_dist_sqr)
-	
-	var radius_color: Color = Color(1.0, 0.3, 0.3, 0.4) if lunge_cldwn > 0 else Color(0.3, 1.0, 0.3, 0.4)
-	draw_arc(Vector2.ZERO, lunge_radius, 0.0, TAU, 64, radius_color, 1.5, true)
-	
-	if primary_v_source.parent:
-		var local_target: Vector2 = to_local(primary_v_source.parent.global_position)
-		
-		draw_line(Vector2.ZERO, local_target, Color.CHARTREUSE, 2.0)
+#var draw_debug : bool = true
+#
+#func _process(_delta: float) -> void:
+	#queue_redraw()
+#
+#func _draw() -> void:
+	#if not draw_debug:
+		#return
+	#if !primary_v_source:
+		#return # only procede if primary_v_source is valid
+#
+	#
+	#var lunge_radius: float = sqrt(min_lunge_dist_sqr)
+	#
+	#var radius_color: Color = Color(1.0, 0.3, 0.3, 0.4) if lunge_cldwn > 0 else Color(0.3, 1.0, 0.3, 0.4)
+	#draw_arc(Vector2.ZERO, lunge_radius, 0.0, TAU, 64, radius_color, 1.5, true)
+	#
+	#if primary_v_source.parent:
+		#var local_target: Vector2 = to_local(primary_v_source.parent.global_position)
+		#
+		#draw_line(Vector2.ZERO, local_target, Color.CHARTREUSE, 2.0)
