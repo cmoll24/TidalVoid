@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dykmq3gsep4vf" path="res://src/UI/ship_menu/upgrade_menu.gd" id="1_ii1yr"]
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="2_wwmcp"]
+[ext_resource type="PackedScene" uid="uid://ukjyoxqjsrby" path="res://src/UI/upgrade_ui/UpgradePanel.tscn" id="3_wwmcp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weer4"]
 bg_color = Color(0.7254902, 0.90588236, 0.9647059, 1)
@@ -79,3 +80,6 @@ custom_minimum_size = Vector2(1700, 700)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 30
+
+[node name="UpgradePanel" parent="PanelContainer/VBoxContainer/BodyRow" unique_id=379818172 instance=ExtResource("3_wwmcp")]
+layout_mode = 2
