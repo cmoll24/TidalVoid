@@ -170,6 +170,7 @@ func action_use(pressed : bool) -> void:
 				collider.velocity += Vector2.from_angle(global_rotation)*bubble_push
 
 func on_take_damage(damage : float, dmg_type : HealthComponent.e_dmg_types, damage_causer : Node2D = null, instigator : Node = null):
+	super.on_take_damage(damage, dmg_type, damage_causer, instigator)
 	match dmg_type:
 		#eject the player when grabbed
 		HealthComponent.e_dmg_types.grab:

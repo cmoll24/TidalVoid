@@ -33,6 +33,9 @@ var b_dead : bool = false
 func _ready() -> void:
 	super._ready()
 	health_comp.on_death.connect(die)
+	health_comp.on_take_damage.connect(on_take_damage)
+	
+	GV.player_HUD.reset_damage_display(health_comp.health, health_comp.max_health)
 
 #Should be removed/Deprecated soon, current save system handles this
 func apply_save_state():
@@ -74,6 +77,8 @@ func start_possess(player_controller : PlayerController, previous_pawn_velocity 
 	#Don't get unloaded when occupied by the player
 	remove_from_group('dynamic_save')
 	
+	GV.player_HUD.reset_damage_display(health_comp.health, health_comp.max_health)
+	
 	
 ### called when the controller stops taking possession of this pawn	
 func stop_possess(player_controller : PlayerController) -> void:
@@ -85,7 +90,10 @@ func stop_possess(player_controller : PlayerController) -> void:
 	game_manager.unregister_streaming_source(self)
 	#Allow for unloading when player is no longer possessing
 	add_to_group('dynamic_save')
-	
+
+func on_take_damage(_damage, _dmg_type, _damage_causer, _instigator):
+	GV.player_HUD.damage_spike(health_comp.health, health_comp.max_health)
+
 func die() -> void:
 	if(b_dead):
 		return #this isn't sekiro, only die once
