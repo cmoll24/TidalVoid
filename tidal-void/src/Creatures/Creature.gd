@@ -27,7 +27,6 @@ func _ready() -> void:
 	start_in_orbit = true
 	health_comp.on_death.connect(die)
 	health_comp.on_take_damage.connect(on_take_damage)
-	
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -42,6 +41,15 @@ func creature_movement(delta):
 func get_square_altitude(body : GravitySource):
 	return global_position.distance_squared_to(body.global_position)
 	
+
+func on_collide_with_other_drift_body(other : DriftBody) -> void:
+	super.on_collide_with_other_drift_body(other)
+	if other is Player:
+		GV.discover_creature(creature_type)
+
+func on_collide_with_bubble(bubble : Bubble) -> void:
+	super.on_collide_with_bubble(bubble)
+	GV.discover_creature(creature_type)
 
 func get_opposite_altitude(body : GravitySource,pos : Vector2) -> float:
 	var mu = body.mass #mu = GM

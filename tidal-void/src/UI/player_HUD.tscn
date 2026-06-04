@@ -8,10 +8,12 @@
 script = ExtResource("1_blb5a")
 
 [node name="PauseMenu" parent="." unique_id=1178399043 instance=ExtResource("1_prv6a")]
+z_index = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="VehicleMenu" parent="." unique_id=518815343 instance=ExtResource("2_h0iit")]
 visible = false
+z_index = 1
 
 [node name="FPSLabel" type="Label" parent="." unique_id=245988330]
 offset_right = 40.0

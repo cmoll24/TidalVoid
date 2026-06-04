@@ -29,7 +29,7 @@ signal open_upgrade_menu
 
 # Defines the dictionary for creature for journal
 var creature_button_dict = {
-	"creature1": {
+	Creature.crafting_type.jeremiah: {
 		"asset": "res://assets/Textures/Creatures/jeremiah.png",
 		"found": false,
 		"name": "Jeremiah",
@@ -38,7 +38,7 @@ var creature_button_dict = {
 		"diet": "Fruitarian",
 		"behavior": "Passive to just about everything, a harmless creature"
 	},
-	"creature2": {
+	Creature.crafting_type.steven: {
 		"asset": "res://assets/Textures/Creatures/magnetbigspike.png",
 		"found": false,
 		"name": "Steven",
@@ -47,7 +47,7 @@ var creature_button_dict = {
 		"diet": "Fruitarian",
 		"behavior": "Orbits to collect fruit, passive, yet also dangerous enough to have no natural predators"
 	},
-	"creature3": {
+	Creature.crafting_type.leaper: {
 		"asset": "res://assets/Textures/Creatures/leaper.png",
 		"found": false,
 		"name": "Leaper",
@@ -56,7 +56,7 @@ var creature_button_dict = {
 		"diet": "Have no idea, been watching it for 100 hours and it's just been jumping in place",
 		"behavior": "It umm, leaps"
 	},
-	"creature4": {
+	Creature.crafting_type.evil_fred: {
 		"asset": "res://assets/Textures/Creatures/evil_fred_move.png",
 		"found": false,
 		"name": "Evil Fred",
@@ -65,7 +65,7 @@ var creature_button_dict = {
 		"diet": "Carnivorous",
 		"behavior": "Spends the majority of time in hibernation, waiting for prey to get close."
 	},
-	"creature5": {
+	Creature.crafting_type.charlotte: {
 		"asset": "res://assets/Textures/Creatures/charlotte.png",
 		"found": false,
 		"name": "Charlotte",
@@ -75,7 +75,7 @@ var creature_button_dict = {
 		"behavior": "Fires webs from a distance in an effort to knock prey out of orbit. Once prey has been grounded,
 		walks quickly on the surface to consume it."
 	},
-	"creature6": {
+	Creature.crafting_type.hungry_harry: {
 		"asset": "res://assets/Textures/Placeholder/PLACEHOLDER_WormHead.png",
 		"found": false,
 		"name": "Hungry Harry",
@@ -83,62 +83,14 @@ var creature_button_dict = {
 		"adapt": "Burrowing protects against radiation, Capable of surviving immense heat",
 		"diet": "Carnivorous and Lithovorous",
 		"behavior": "Lives in constant motion, slowing eating planets. Shifts to face prey that gets within range."
-	},
-	"creature7": {
-		"asset": "res://assets/Textures/Placeholder/Evil_Fred.png",
-		"found": false,
-		"name": "Evil Fred",
-		"story": "Fred...But not good",
-		"adapt": "Normally we see Fred as good, but they're in space now, so they adapted to be evil",
-		"diet": "Surpisingly a pretty healthy diet...except for the mushrooms...the bad ones",
-		"behavior": "We say he's evil, but he's acts like Fred except he doesn't recycle"
-	},
-	"creature8": {
-		"asset": "res://assets/Textures/Placeholder/Jeremy.png",
-		"found": false,
-		"name": "Jermey",
-		"story": "You are not worthy enough for their story",
-		"adapt": "Not worthy",
-		"diet": "Nuhuh, ask them",
-		"behavior": "Look Jermey is a good guy, literally go up and say hi, you can learn this from them yourself"
-	},
-	"creature9": {
-		"asset": "res://assets/Textures/Placeholder/Thick_Jim.png",
-		"found": false,
-		"name": "Thick Jim",
-		"story": "Jim...but ate a little to much Arby's",
-		"adapt": "Looks like he ended up this way because finals were coming up and he kept snacking (also Arby's)",
-		"diet": "Salad, yeah, he's really trying to slim down",
-		"behavior": "Jogs every morning, goes to the gym after doing work, pretty normal guy"
-	},
-	"creature10": {
-		"asset": "res://assets/Textures/Placeholder/astronaut.png",
-		"found": false,
-		"name": "Astronaut",
-		"story": "Oh shiii- that me",
-		"adapt": "With this treasure, I summon Eight-Handled Sword Divergent Sila Divine General Mahoraga",
-		"diet": "Panda Express, yeah I don't want to cook",
-		"behavior": "Crying at 12:47 AM on the dot, every day"
-	},
-	"creature11": {
-		"asset": "res://assets/Textures/Placeholder/cookie.png",
-		"found": false,
-		"name": "Cookie",
-		"story": "It's...a cookie...",
-		"adapt": "What do you want, it's a cookie",
-		"diet": "...They can't eat...",
-		"behavior": "Look, if you can show me a cookie can do things on it's own, that 5 bucks for you"
-	},
-	"creature12": {
-		"asset": "res://assets/circle.png",
-		"found": false,
-		"name": "Circle",
-		"story": "ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE",
-		"adapt": "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. A sing lap should be completed every time you hear this sound. ding Remember to run in a straight line and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark. Get ready!… Start. ",
-		"diet": "Your Mother",
-		"behavior": "Stealing Social Security Numbers"
 	}
 }
+
+func discover_creature(creature_type : Creature.crafting_type):
+	if not creature_button_dict[creature_type]["found"]:
+		
+		creature_button_dict[creature_type]["found"] = true
+		player_HUD.create_toast("You discovered a creature!")
 
 func _ready():
 	#Create player inventory instance

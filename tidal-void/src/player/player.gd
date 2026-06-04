@@ -257,6 +257,8 @@ func action_use(pressed : bool)  -> void:
 				held_creature.stun_time = hold_stun_time
 				held_creature.velocity = velocity
 				
+				GV.discover_creature(held_creature.creature_type)
+				
 				held_creature.b_prediction_velo_is_real = false
 				throw_trajectory.set_target(held_creature)
 	else:
