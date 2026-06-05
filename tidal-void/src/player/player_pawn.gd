@@ -92,7 +92,7 @@ func stop_possess(player_controller : PlayerController) -> void:
 	add_to_group('dynamic_save')
 
 func on_take_damage(_damage, dmg_type, _damage_causer, _instigator):
-	if dmg_type == HealthComponent.e_dmg_types.physical:
+	if controller and dmg_type == HealthComponent.e_dmg_types.physical:
 		GV.player_HUD.damage_spike(health_comp.health, health_comp.max_health)
 
 func die() -> void:
