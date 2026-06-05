@@ -41,3 +41,5 @@ func reset_damage_display(current_hp : float, max_hp : float):
 	damage_target_alpha = 1.0 - (current_hp / max_hp)
 	damage_display.modulate.a = damage_target_alpha
 	
+func update_damage_alpha(current_hp : float, max_hp : float):
+	damage_target_alpha = 1.0 - (current_hp / max_hp)

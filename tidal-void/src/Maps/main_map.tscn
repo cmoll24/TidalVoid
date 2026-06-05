@@ -618,7 +618,7 @@ max_velocity = 400.0
 position = Vector2(-7352, 2198)
 
 [node name="Leaper2" parent="." unique_id=292751059 groups=["dynamic_save"] instance=ExtResource("22_on3xc")]
-position = Vector2(-4095, 2107)
+position = Vector2(-5136, -7171)
 
 [node name="HungryHarry" parent="." unique_id=1520081079 groups=["dynamic_save"] instance=ExtResource("23_6qt07")]
 position = Vector2(-5936, 8827)

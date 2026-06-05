@@ -75,6 +75,9 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	update_animation()
+	
+	#TEMP, get rid of this soon, last minute change for showcase
+	GV.player_HUD.update_damage_alpha(health_comp.health,health_comp.max_health)
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
