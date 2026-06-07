@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 	
 	var final_zoom_value = clamp(target_zoom * (1.0 + jump_zoom_offset), min_zoom, max_zoom)
 	
-	#framerate in-depedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
+	#framerate indepedent lerp: Mathf.Lerp(a, b, 1 - Mathf.Exp(-lambda * dt)) from https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 	zoom = zoom.lerp(
 		Vector2(final_zoom_value, final_zoom_value),
 		1.0 - exp(-zoom_smoothing * delta * 60.0)
@@ -117,16 +117,16 @@ func apply_camera_shake(delta):
 		jump_charge = clamp(jump_charge + delta * charge_speed, 0.0, 1.0)
 		
 		# zoom OUT while charging
-		jump_zoom_offset = lerp(0.0, max_charge_zoom_in, jump_charge)
+		#jump_zoom_offset = lerp(0.0, max_charge_zoom_in, jump_charge)
 		#print(jump_zoom_offset)
 		
 		# small camera shake
-		var shake = Vector2(
-			randf_range(-1, 1),
-			randf_range(-1, 1)
-		) * jump_shake_strength * jump_charge*(player.last_jump_power/player.max_jump_power)
-		
-		apply_screen_shake(shake)
+		#var shake = Vector2(
+			#randf_range(-1, 1),
+			#randf_range(-1, 1)
+		#) * jump_shake_strength * jump_charge*(player.last_jump_power/player.max_jump_power)
+		#
+		#apply_screen_shake(shake)
 	else:
 		jump_charge = 0
 		if jump_zoom_offset < 0.0:

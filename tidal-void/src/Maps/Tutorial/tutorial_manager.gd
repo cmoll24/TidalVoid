@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 class_name TutorialManager
 
 @export var camera_controls_msg : Label #0
@@ -12,6 +12,7 @@ class_name TutorialManager
 @export var completion_msg : Label #8
 @export var creature_carrier : Node
 @export var bubble_area : Area2D
+@export var collect_copper : Node2D
 
 var stage : int = 0
 
@@ -61,9 +62,9 @@ func _process(delta: float) -> void:
 					prograde_controls_msg.visible = true;
 					timing = 0
 		4:
-			#show the player the prograde controls until they land
+			#show the player the prograde controls until a little bit after they've landed and collected copper
 			if(GV.player_node is Player):
-				if(GV.player_node.walking_on_ground):
+				if(GV.player_node.walking_on_ground && !collect_copper):
 					timing += delta
 			if(timing > 1):
 				stage+= 1

@@ -25,7 +25,7 @@ func unregister_vision_source(source : VisionSource) -> void:
 ###and returns anything the viewer can see
 ### use v_mask to include all the vision source types that matter, ie v_source_type.x | v_source_type.y
 func check_vision(viewer : Node2D, sight_dist : float, v_mask : int,exceptions : Array[RID] = []) -> Array[VisionSource]:
-	var out : Array[VisionSource]
+	var out : Array[VisionSource] = []
 	
 	var space_state = get_world_2d().direct_space_state
 		
@@ -37,14 +37,17 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int,exceptions :
 	# check all the vision sources
 	for vs in VisionSources:
 		
+		if(!vs || !vs.parent):
+			continue
+			
 		if(!((1 << vs.v_type) & v_mask)):
 			# skip if the the vision source doesn't fit the bitmask
 			continue
+			
 		if((viewer.global_position - vs.parent.global_position).length_squared() > sight_dist_squared):
 			#if it is too far away, don't check it
 			continue
-		if(!vs || !vs.parent):
-			continue
+		
 		##Perform the raycast
 		
 		#end at the v_source
@@ -62,6 +65,7 @@ func check_vision(viewer : Node2D, sight_dist : float, v_mask : int,exceptions :
 			#We assume a very specific structure and naming scheme here
 			var out_vs : VisionSource = node.get_node_or_null("VisionSource")
 			if(out_vs != null):
-				out.append(out_vs)
+				if(((1 << out_vs.v_type) & v_mask)):
+					out.append(out_vs)
 	return out
 				

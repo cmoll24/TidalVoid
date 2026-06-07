@@ -99,9 +99,9 @@ func player_movement(delta : float) -> void:
 			#This stops them from building velocity due to collision when grounded
 			velocity = Vector2.ZERO
 			#Also need to set the delta velcoity to zero to stop the shaking
-			smoothed_delta_velocity = 0
+			#smoothed_delta_velocity = 0
 		
-		#Handle Jumping
+		### Handle Jumping
 		if Input.is_action_just_pressed("jump"):
 			is_charging_jump = true
 			b_prediction_velo_is_real = false;
@@ -114,7 +114,8 @@ func player_movement(delta : float) -> void:
 			walking_on_ground = false
 			b_prediction_velo_is_real = true;
 			update_traj_color.emit(Color.WHITE)
-		#Handle walking on ground
+			
+		### Handle walking on ground
 		
 		#ignore collision with static geometry
 		ignore_layer = 1
@@ -255,6 +256,8 @@ func action_use(pressed : bool)  -> void:
 				held_creature = result.collider
 				held_creature.stun_time = hold_stun_time
 				held_creature.velocity = velocity
+				
+				GV.discover_creature(held_creature.creature_type)
 				
 				held_creature.b_prediction_velo_is_real = false
 				throw_trajectory.set_target(held_creature)

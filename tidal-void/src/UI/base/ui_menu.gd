@@ -51,5 +51,5 @@ func _clear_panel() -> void:
 		current_panel = null
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_close_dialog"):
-		close_menu()
+	if visible and (event.is_action_pressed("ui_close_dialog") || event.is_action_pressed('Use')):
+		call_deferred('close_menu')

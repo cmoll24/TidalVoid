@@ -23,83 +23,74 @@ var save_data: Dictionary = {
 
 # where our inventory item goes
 var player_inventory: PlayerInventory = null
+
 signal inventory_update
+signal open_upgrade_menu
 
 # Defines the dictionary for creature for journal
 var creature_button_dict = {
-	"creature1": {
-		"asset": "res://assets/Textures/Placeholder/Evil_Fred.png",
+	Creature.crafting_type.jeremiah: {
+		"asset": "res://assets/Textures/Creatures/jeremiah.png",
 		"found": false,
-		"name": "Evil Fred",
-		"story": "Fred...But not good",
-		"adapt": "Normally we see Fred as good, but they're in space now, so they adapted to be evil",
-		"diet": "Surpisingly a pretty healthy diet...except for the mushrooms...the bad ones",
-		"behavior": "We say he's evil, but he's acts like Fred except he doesn't recycle"
+		"name": "Jeremiah",
+		"story": "A small prey creature, uses limited thrust to catch food in orbit",
+		"adapt": "Tentacles aid in fruit collection",
+		"diet": "Fruitarian",
+		"behavior": "Passive to just about everything, a harmless creature"
 	},
-	"creature2": {
-		"asset": "res://assets/Textures/Placeholder/floater.png",
+	Creature.crafting_type.steven: {
+		"asset": "res://assets/Textures/Creatures/magnetbigspike.png",
 		"found": false,
-		"name": "Floater",
-		"story": "Never gonna guess what it does",
-		"adapt": "I think it was a rock that wanted to prove it's other rock friends wrong. Please read Land of the Lusterous",
-		"diet": "Microbes or something I think",
-		"behavior": "You'll really never guess what it does"
+		"name": "Steven",
+		"story": "A small prey creature, uses limited thrust to catch food in orbit",
+		"adapt": "Spikes deter predation",
+		"diet": "Fruitarian",
+		"behavior": "Orbits to collect fruit, passive, yet also dangerous enough to have no natural predators"
 	},
-	"creature3": {
-		"asset": "res://assets/Textures/Placeholder/Jeremy.png",
-		"found": false,
-		"name": "Jermey",
-		"story": "You are not worthy enough for their story",
-		"adapt": "Not worthy",
-		"diet": "Nuhuh, ask them",
-		"behavior": "Look Jermey is a good guy, literally go up and say hi, you can learn this from them yourself"
-	},
-	"creature4": {
-		"asset": "res://assets/Textures/Placeholder/leaper.png",
+	Creature.crafting_type.leaper: {
+		"asset": "res://assets/Textures/Creatures/leaper.png",
 		"found": false,
 		"name": "Leaper",
-		"story": "*Insert the floater joke here*",
-		"adapt": "I think this was a bunch of worms that didn't want to be in the ground anymore, or an octopus",
+		"story": "A organism more flora than fauna. Spends the majority of a lifetime passively growing before jumping to other planets to spread.",
+		"adapt": "The leaper has adapted to use energy sparingly",
 		"diet": "Have no idea, been watching it for 100 hours and it's just been jumping in place",
-		"behavior": "You get the joke"
+		"behavior": "It umm, leaps"
 	},
-	"creature5": {
-		"asset": "res://assets/Textures/Placeholder/Thick_Jim.png",
+	Creature.crafting_type.evil_fred: {
+		"asset": "res://assets/Textures/Creatures/evil_fred_move.png",
 		"found": false,
-		"name": "Thick Jim",
-		"story": "Jim...but ate a little to much Arby's",
-		"adapt": "Looks like he ended up this way because finals were coming up and he kept snacking (also Arby's)",
-		"diet": "Salad, yeah, he's really trying to slim down",
-		"behavior": "Jogs every morning, goes to the gym after doing work, pretty normal guy"
+		"name": "Evil Fred",
+		"story": "A moderately sized predator, tends to live in foggy areas, capable of orbital movement",
+		"adapt": "Unique mouth aids in full capture of prey",
+		"diet": "Carnivorous",
+		"behavior": "Spends the majority of time in hibernation, waiting for prey to get close."
 	},
-	"creature6": {
-		"asset": "res://assets/Textures/Placeholder/astronaut.png",
+	Creature.crafting_type.charlotte: {
+		"asset": "res://assets/Textures/Creatures/charlotte.png",
 		"found": false,
-		"name": "Astronaut",
-		"story": "Oh shiii- that me",
-		"adapt": "With this treasure, I summon Eight-Handled Sword Divergent Sila Divine General Mahoraga",
-		"diet": "Panda Express, yeah I don't want to cook",
-		"behavior": "Crying at 12:47 AM on the dot, every day"
+		"name": "Charlotte",
+		"story": "A small predator, lives in colonies built under the surface of planets, capable of both walking and orbiting",
+		"adapt": "Burrowing protects against radiation, Web production aids in hunting",
+		"diet": "Carnivorous",
+		"behavior": "Fires webs from a distance in an effort to knock prey out of orbit. Once prey has been grounded,
+		walks quickly on the surface to consume it."
 	},
-	"creature7": {
-		"asset": "res://assets/Textures/Placeholder/cookie.png",
+	Creature.crafting_type.hungry_harry: {
+		"asset": "res://assets/Textures/Placeholder/PLACEHOLDER_WormHead.png",
 		"found": false,
-		"name": "Cookie",
-		"story": "It's...a cookie...",
-		"adapt": "What do you want, it's a cookie",
-		"diet": "...They can't eat...",
-		"behavior": "Look, if you can show me a cookie can do things on it's own, that 5 bucks for you"
-	},
-	"creature8": {
-		"asset": "res://assets/circle.png",
-		"found": false,
-		"name": "Circle",
-		"story": "ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE, ALL HAIL THE CIRCLE",
-		"adapt": "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. A sing lap should be completed every time you hear this sound. ding Remember to run in a straight line and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark. Get ready!… Start. ",
-		"diet": "Your Mother",
-		"behavior": "Stealing Social Security Numbers"
+		"name": "Hungry Harry",
+		"story": "A large predator, lives within large planets in particulary hot areas",
+		"adapt": "Burrowing protects against radiation, Capable of surviving immense heat",
+		"diet": "Carnivorous and Lithovorous",
+		"behavior": "Lives in constant motion, slowing eating planets. Shifts to face prey that gets within range."
 	}
 }
+
+func discover_creature(creature_type : Creature.crafting_type):
+	if not creature_button_dict[creature_type]["found"]:
+		
+		creature_button_dict[creature_type]["found"] = true
+		player_HUD.create_toast("You discovered a creature!")
 
 func _ready():
 	#Create player inventory instance
@@ -110,7 +101,7 @@ func _ready():
 	player_inventory.inventory_changed.connect(_on_inventory_changed)
 	
 	load_from_save_file = load_game()
-
+	
 func _on_inventory_changed() -> void:
 	inventory_update.emit()
 

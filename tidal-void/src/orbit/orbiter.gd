@@ -16,6 +16,8 @@ var grounded_radius : float
 
 @onready var collision_shape : CollisionShape2D = $CollisionShape2D
 
+var dominant_body : GravitySource
+
 func _enter_tree():
 	#ensure orbiters are in the dynamic save group
 	add_to_group('dynamic_save',true)
@@ -28,7 +30,8 @@ func _ready() -> void:
 	grounded_radius = ((collision_shape.shape.get_rect().size.x/2)-f_grounded_sink_amount)
 func after_ready() -> void:
 	if(b_start_in_orbit):
-		velocity = GameManager.orbital_velocity(get_dominant_body(), global_position)
+		dominant_body = get_dominant_body()
+		velocity = GameManager.orbital_velocity(dominant_body, global_position)
 		if(b_start_in_orbit_dir):
 			velocity = -velocity
 	
@@ -44,24 +47,22 @@ func after_ready() -> void:
 		line.gradient = gradient
 		get_parent().add_child.call_deferred(line)
 		
-		var collectable_traj_predict : CollecTrajectoryPredictor = CollecTrajectoryPredictor.new()
+		var collectable_traj_predict : CollecOrbitPredictor = CollecOrbitPredictor.new()
 		collectable_traj_predict.line = line
 		collectable_traj_predict.collectable = self
-		collectable_traj_predict.steps = 20
-		collectable_traj_predict.step_dist = 25;
-		collectable_traj_predict.fake_steps = 5;
+		collectable_traj_predict.resolution = 128
 		get_parent().add_child.call_deferred(collectable_traj_predict)
 	
 ### only call for an instaneous update
 func get_dominant_body() -> GravitySource:
 	var strongest_pull = 0.0
-	var dominant_body : GravitySource = null
+	var my_dominant_body : GravitySource = null
 	for body in game_manager.gravity_sources:
 		var pull = body.get_gravity_pull(global_position).length_squared()
 		if pull > strongest_pull:
 			strongest_pull = pull
-			dominant_body = body
-	return dominant_body
+			my_dominant_body = body
+	return my_dominant_body
 
 func _physics_process(delta: float) -> void:
 	#mitigate static bodies by fake rotation

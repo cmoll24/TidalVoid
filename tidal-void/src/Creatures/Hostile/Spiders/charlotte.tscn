@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://u1iknov3idu8" path="res://src/Creatures/Hostile/Spiders/charlotte.gd" id="1_m7j1w"]
 [ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_7eayt"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="3_6jow0"]
-[ext_resource type="Texture2D" uid="uid://jefgk7wainth" path="res://assets/Textures/Placeholder/PLACEHOLDER_Spider.png" id="4_7eayt"]
+[ext_resource type="Texture2D" uid="uid://bv1qyaknxhic8" path="res://assets/Textures/Creatures/charlotteopen2.png" id="4_6jow0"]
+[ext_resource type="Texture2D" uid="uid://brg4qrp10sqfc" path="res://assets/Textures/Creatures/charlotte2.png" id="5_hov7b"]
 [ext_resource type="Script" uid="uid://cjj7b86r7hhuv" path="res://src/player/Equipment/interact_source.gd" id="5_mlkca"]
 [ext_resource type="Texture2D" uid="uid://bt5yxh304ok6x" path="res://assets/Textures/Placeholder/PLACEHOLDER_grab_icon.png" id="6_gjowe"]
 [ext_resource type="Script" uid="uid://cloexwtl4gxf3" path="res://src/Framework/Senses/vision_source.gd" id="7_ec3bq"]
@@ -19,6 +20,25 @@ point_count = 4
 interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.2019544, 0.38762215, 0.8175896, 1)
 colors = PackedColorArray(1, 0.85, 0.85249996, 0.8784314, 1, 1, 1, 0.7294118, 0.83137256, 0.9607843, 0.9254902, 0.6862745, 0.21, 0.0252, 0.19460006, 0.20392157, 0.17, 0.17, 0.17, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mlkca"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6jow0")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_hov7b")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}]
 
 [node name="Charlotte" type="StaticBody2D" unique_id=1196549559]
 collision_layer = 2
@@ -62,13 +82,11 @@ scale_amount_curve = SubResource("Curve_36ttu")
 color_ramp = SubResource("Gradient_l7kxh")
 script = ExtResource("3_6jow0")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1262817742]
-offset_left = -27.0
-offset_top = -37.0
-offset_right = 152.0
-offset_bottom = 183.0
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("4_7eayt")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1665123332]
+position = Vector2(0, -19.5)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_mlkca")
+animation = &"attack"
 
 [node name="InteractSource" type="Node2D" parent="." unique_id=1929089534]
 scale = Vector2(0.5, 0.5)

@@ -18,10 +18,10 @@ func _ready() -> void:
 		abilities[type] = empty_array
 		for i in abilities_slot_max:
 			abilities[type].append(null)
-	add_ability_to_slot(0, typeof(Player), "res://src/player/Abilities/Ability_Classes/propulsion_ability.tscn")
+	#add_ability_to_slot(0, typeof(Player), "res://src/player/Abilities/Ability_Classes/propulsion_ability.tscn")
 	add_ability_to_slot(1, typeof(Player), "res://src/player/Abilities/Ability_Classes/teleport_ability.tscn")
-	add_ability_to_slot(2, typeof(Player), "res://src/player/Abilities/Ability_Classes/boost_ability.tscn")
-	add_ability_to_slot(3, typeof(Player), "res://src/player/Abilities/Ability_Classes/shield_ability.tscn")
+	#add_ability_to_slot(2, typeof(Player), "res://src/player/Abilities/Ability_Classes/boost_ability.tscn")
+	#add_ability_to_slot(3, typeof(Player), "res://src/player/Abilities/Ability_Classes/shield_ability.tscn")
 func add_ability_to_slot(index : int, type, ability_path : String):
 	if index < abilities_slot_max and index >= 0:
 		#delete the old ability if there is one

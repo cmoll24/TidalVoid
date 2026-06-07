@@ -4,14 +4,26 @@
 [ext_resource type="PackedScene" uid="uid://ddwdqbcegxc8r" path="res://src/UI/pause_menu/PauseMenu.tscn" id="1_prv6a"]
 [ext_resource type="PackedScene" uid="uid://brjd71y7ei1oa" path="res://src/UI/ship_menu/VehicleMenu.tscn" id="2_h0iit"]
 
+[sub_resource type="Gradient" id="Gradient_blb5a"]
+offsets = PackedFloat32Array(0.25301206, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.5)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7l17f"]
+gradient = SubResource("Gradient_blb5a")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="PlayerHUD" type="CanvasLayer" unique_id=644111349]
 script = ExtResource("1_blb5a")
 
 [node name="PauseMenu" parent="." unique_id=1178399043 instance=ExtResource("1_prv6a")]
+visible = false
+z_index = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="VehicleMenu" parent="." unique_id=518815343 instance=ExtResource("2_h0iit")]
 visible = false
+z_index = 1
 
 [node name="FPSLabel" type="Label" parent="." unique_id=245988330]
 offset_right = 40.0
@@ -22,10 +34,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HealthLabel" type="Label" parent="." unique_id=356553612]
 process_mode = 3
-offset_left = 100.0
-offset_right = 141.0
-offset_bottom = 34.0
-theme_override_font_sizes/font_size = 24
+offset_left = 4.0
+offset_top = 64.0
+offset_right = 81.0
+offset_bottom = 98.0
+theme_override_font_sizes/font_size = 36
 text = "Health"
 metadata/_edit_use_anchors_ = true
 
@@ -39,3 +52,13 @@ theme_override_font_sizes/font_size = 24
 text = "Time"
 horizontal_alignment = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="DamageDisplay" type="TextureRect" parent="." unique_id=1712645444]
+self_modulate = Color(1, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_7l17f")

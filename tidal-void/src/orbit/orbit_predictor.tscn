@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bmtcw7bqh3lee"]
+
+[ext_resource type="Script" uid="uid://cvamtv1ca25wb" path="res://src/orbit/orbit_predictor.gd" id="1_vnvcp"]
+
+[node name="OrbitPredictor" type="Node" unique_id=1255318633]
+script = ExtResource("1_vnvcp")

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DoubleGrappleUpgrade" format=3 uid="uid://j57dfsscbmhf"]
+
+[ext_resource type="Script" uid="uid://c1h6brq6cjugy" path="res://src/upgrades_effects/upgrades/example/double_grapple_upgrade.gd" id="1_mw00r"]
+
+[resource]
+script = ExtResource("1_mw00r")
+metadata/_custom_type_script = "uid://c1h6brq6cjugy"

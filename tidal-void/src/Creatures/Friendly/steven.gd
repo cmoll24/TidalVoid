@@ -53,11 +53,11 @@ func post_ready() -> void:
 	##Hook up to the vision timer
 	game_manager.sense_manager.vision_timer.timeout.connect(update_vision)
 	
-func creature_movement(_delta):
-	super.creature_movement(_delta)
+func creature_movement(delta):
+	super.creature_movement(delta)
 	#lunge if we are close, have a target and are not on cooldown
 	if(b_can_lunge):
-		lunge_cldwn -= _delta
+		lunge_cldwn -= delta
 		if(primary_v_source && lunge_cldwn <= 0):
 			var dist_sqr : float = global_position.distance_squared_to(primary_v_source.parent.global_position)
 			if(dist_sqr < min_lunge_dist_sqr):
@@ -104,7 +104,7 @@ func update_vision():
 			primary_v_source_time = v_source_loyalty_time
 			primary_v_source = v;
 			lowest_dist = dist	
-			last_primary_source_dist = dist	
+			last_primary_source_dist = dist
 			
 	# with vision complete, update the behavior
 	update_behavior()
@@ -139,9 +139,12 @@ func lunge(dist : float):
 		return # only procede if primary_v_source is valid
 	#calculate a lead of the target
 	var target_point : Vector2 = primary_v_source.parent.global_position
-	var impact_time : float = (dist - collision_shape.shape.get_rect().size.x/2) / thrust_power
+	
+	### I REMOVED THE IMPACT TIME LOOK AHEAD AS IT WAS LOOKING TOO FAR AHEAD
+	#var impact_time : float = (dist - collision_shape.shape.get_rect().size.x/2) / thrust_power
+	
 	if(primary_v_source.parent.has_method("get_velocity")):
-		target_point += (primary_v_source.parent.get_velocity()+0.5*gravity_force) * impact_time
+		target_point += 0.5 * (primary_v_source.parent.get_velocity())
 	else:
 		return
 	#lunge at the target point
@@ -155,3 +158,26 @@ func lunge(dist : float):
 	
 	#reset the cooldown
 	lunge_cldwn = lunge_cldwn_time
+
+# +++++++++++++++ DRAW DEBUG ++++++++++++++++++++++
+#var draw_debug : bool = true
+#
+#func _process(_delta: float) -> void:
+	#queue_redraw()
+#
+#func _draw() -> void:
+	#if not draw_debug:
+		#return
+	#if !primary_v_source:
+		#return # only procede if primary_v_source is valid
+#
+	#
+	#var lunge_radius: float = sqrt(min_lunge_dist_sqr)
+	#
+	#var radius_color: Color = Color(1.0, 0.3, 0.3, 0.4) if lunge_cldwn > 0 else Color(0.3, 1.0, 0.3, 0.4)
+	#draw_arc(Vector2.ZERO, lunge_radius, 0.0, TAU, 64, radius_color, 1.5, true)
+	#
+	#if primary_v_source.parent:
+		#var local_target: Vector2 = to_local(primary_v_source.parent.global_position)
+		#
+		#draw_line(Vector2.ZERO, local_target, Color.CHARTREUSE, 2.0)

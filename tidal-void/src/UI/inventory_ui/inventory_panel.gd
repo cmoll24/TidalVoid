@@ -26,8 +26,6 @@ func _refresh_inventory() -> void:
 			slot.set_item_slot(item)
 		else:
 			slot.set_empty_slot()
-			
-	#print("Successfully instantiated ", slot_count, " slots into the grid.")
 
 #Clear all items from grid
 func _clear_grid() -> void:

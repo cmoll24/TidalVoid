@@ -60,10 +60,10 @@ func lure():
 func speedBoost():
 	pass
 func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
 	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA
 	smoothed_delta_velocity = lerp(smoothed_delta_velocity,delta_velocity,delta*delta_velocity_smooth_factor)
 	last_velocity = velocity
+	super._physics_process(delta)
 	
 ### called when the controller takes possession of this pawn
 func start_possess(player_controller : PlayerController, previous_pawn_velocity : Vector2) -> void:
@@ -85,7 +85,7 @@ func stop_possess(player_controller : PlayerController) -> void:
 	game_manager.unregister_streaming_source(self)
 	#Allow for unloading when player is no longer possessing
 	add_to_group('dynamic_save')
-	
+
 func die() -> void:
 	if(b_dead):
 		return #this isn't sekiro, only die once
