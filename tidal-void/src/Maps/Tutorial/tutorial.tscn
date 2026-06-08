@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d14mm2h0fm168" path="res://src/Framework/game_manager.tscn" id="2_7ay3w"]
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_8upge"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="4_o4nfo"]
-[ext_resource type="Script" path="res://src/ship/ship_manager.gd" id="4_wxukv"]
+[ext_resource type="Script" uid="uid://y0h0cmisaif4" path="res://src/ship/ship_manager.gd" id="4_wxukv"]
 [ext_resource type="CameraAttributesPractical" uid="uid://cgunmctrl6vj2" path="res://assets/Environment/camera_attributes_practical1.tres" id="5_hxxks"]
 [ext_resource type="PackedScene" uid="uid://dpc0b3n2r5f74" path="res://src/player/player.tscn" id="6_cfpck"]
 [ext_resource type="PackedScene" uid="uid://pabhecqvmavd" path="res://src/Maps/Tutorial/TUTORIAL_player_controller.tscn" id="7_5sgeg"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://d2w4gn84j84my" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet5.tscn" id="18_djmvo"]
 [ext_resource type="PackedScene" uid="uid://bfi1rxm38yych" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet3.tscn" id="19_1g2is"]
 [ext_resource type="PackedScene" uid="uid://bu0c567x14lx2" path="res://src/Collectables/Ores/copper_ore.tscn" id="20_1g2is"]
-[ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="20_bb73p"]
 [ext_resource type="PackedScene" uid="uid://nufwpmpogmr1" path="res://src/UI/player_HUD.tscn" id="20_djmvo"]
 [ext_resource type="PackedScene" uid="uid://cc24nx1wr3j4f" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet2.tscn" id="21_1g2is"]
 [ext_resource type="PackedScene" uid="uid://b27gn6xbj02fw" path="res://src/Collectables/Ores/methane_clathrate.tscn" id="21_wxukv"]
@@ -292,9 +291,6 @@ max_velocity = 400.0
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance_placeholder="res://src/player/Equipment/creature_carrier.tscn"]
 position = Vector2(685, 611)
-
-[node name="Leaper" parent="." unique_id=984884791 instance=ExtResource("20_bb73p")]
-position = Vector2(1219, 3728)
 
 [node name="Steven2" parent="." unique_id=2145063656 instance=ExtResource("13_24how")]
 position = Vector2(2720, 2800)

@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://5v1de1wqgunl"]
+
+[ext_resource type="Script" uid="uid://dl72k5r8pcj6a" path="res://src/UI/main_menu/main_menu.gd" id="1_yqdnv"]
+[ext_resource type="Theme" uid="uid://cqttoxo2ikf64" path="res://assets/UI/Themes/game_menu.tres" id="2_l2exy"]
+
+[node name="MainMenu" type="CanvasLayer" unique_id=1608548447]
+script = ExtResource("1_yqdnv")
+
+[node name="Title" type="Label" parent="." unique_id=963104024]
+offset_left = 783.5
+offset_top = 118.5
+offset_right = 1136.5
+offset_bottom = 206.5
+theme_override_font_sizes/font_size = 64
+text = "TIDAL VOID"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=181633098]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -44.0
+offset_right = 176.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TutorialButton" type="Button" parent="VBoxContainer" unique_id=1189841355]
+layout_mode = 2
+theme = ExtResource("2_l2exy")
+text = "Tutorial"
+
+[node name="MainGameButton" type="Button" parent="VBoxContainer" unique_id=732501327]
+layout_mode = 2
+theme = ExtResource("2_l2exy")
+text = "Main Game"
+
+[connection signal="pressed" from="VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainGameButton" to="." method="_on_main_game_button_pressed"]
