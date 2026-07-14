@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://knbcbvqoq4eb" path="res://src/Framework/Senses/sense_manager.gd" id="3_kpxo1"]
 [ext_resource type="PackedScene" uid="uid://dmqhwdhvpjhuh" path="res://src/Framework/World/world_manager.tscn" id="4_bo405"]
 [ext_resource type="PackedScene" uid="uid://0byfxbuf11fd" path="res://src/Framework/World/sectors/sector.tscn" id="5_c5n6l"]
-[ext_resource type="Script" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
+[ext_resource type="Script" uid="uid://y0h0cmisaif4" path="res://src/ship/ship_manager.gd" id="5_mm3ko"]
 [ext_resource type="PackedScene" uid="uid://oa61kgdn2cm3" path="res://src/Framework/World/spawner.tscn" id="7_chnye"]
 [ext_resource type="PackedScene" uid="uid://owmsoqjuynhh" path="res://src/Maps/planets/dusk_sector_planets/DuskPlanet8.tscn" id="8_ykslk"]
 [ext_resource type="Environment" uid="uid://c3qb0rennbj5b" path="res://assets/Environment/SpaceEnvironment1.tres" id="9_766bn"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://ojym1xpw04vj" path="res://src/Creatures/Friendly/Leaper.tscn" id="22_on3xc"]
 [ext_resource type="PackedScene" uid="uid://25tfa7kghc3q" path="res://src/Creatures/Hostile/HungryHarry.tscn" id="23_6qt07"]
 [ext_resource type="Texture2D" uid="uid://bokq6aj31pvto" path="res://assets/Textures/Placeholder/Jeremy.png" id="23_ihctt"]
+[ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="23_l0qou"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="25_tai8o"]
 
@@ -665,6 +666,9 @@ offset_right = -26875.998
 offset_bottom = -2613.9995
 scale = Vector2(10, 10)
 text = "Say Hello to Jeremy and Friends!!!!"
+
+[node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("23_l0qou")]
+position = Vector2(-4762.509, -2788.3213)
 
 [editable path="DuskSector"]
 [editable path="DuskToDawnSector"]
