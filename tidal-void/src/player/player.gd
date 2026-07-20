@@ -16,7 +16,7 @@ var walking_on_ground : bool = false
 var is_charging_jump : bool = false
 ### records the jump power for camera effects
 var last_jump_power : float = 0
-
+var jump_boost_upgrade : int = 1
 ####################################################### used for the creature holding mechanic
 ### the velocity applied to things the player throws
 @export var throw_velocity : float = 75
@@ -53,6 +53,9 @@ var grapples_left : int = 10
 
 var speed_boost_max : int = 5
 var speed_boost_left : int = 5
+
+var jump_boost_max : int = 3
+var jump_boost_left : int = 3
 
 @export var propulsion_power : float = 300.0
 @export var lure_cloud_size : int = 10
@@ -362,12 +365,17 @@ func perform_jump():
 	if not b_is_grounded:
 		return
 	
-	var jump_vector = get_jump_vector()
+	var jump_vector = get_jump_vector() * jump_boost_upgrade
 	
 	if(jump_vector == Vector2.ZERO):
 		return
 	velocity += jump_vector
-
+	jump_boost_activated(false)
+func jump_boost_activated(active : bool):
+	if active:
+		jump_boost_upgrade = 2
+	else:
+		jump_boost_upgrade = 1
 func _on_interact_area_body_exited(body: Node2D) -> void:
 	var source : InteractSource = body.get_node_or_null("InteractSource")
 	if(source):
