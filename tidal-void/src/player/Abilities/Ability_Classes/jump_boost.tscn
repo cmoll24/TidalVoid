@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cotf2op70o37h"]
+
+[ext_resource type="Script" uid="uid://bkogvkp1jafrv" path="res://src/player/Abilities/Ability_Classes/jump_boost.gd" id="1_x08dq"]
+
+[node name="JumpBoost" type="Node" unique_id=1521468705]
+script = ExtResource("1_x08dq")

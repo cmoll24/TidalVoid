@@ -59,6 +59,8 @@ func lure():
 	pass
 func speedBoost():
 	pass
+func jumpBoost():
+	pass
 func _physics_process(delta: float) -> void:
 	var delta_velocity = (velocity - last_velocity).length()*INVERSE_PHYSICS_DELTA
 	smoothed_delta_velocity = lerp(smoothed_delta_velocity,delta_velocity,delta*delta_velocity_smooth_factor)
