@@ -5,3 +5,9 @@
 [node name="InvisibilityAbility" type="Node" unique_id=1910257073]
 script = ExtResource("1_fgoyl")
 max_uses = 3
+
+[node name="Invisibility_Timer" type="Timer" parent="." unique_id=1490317338]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="Invisibility_Timer" to="." method="_on_timer_timeout"]
