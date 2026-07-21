@@ -1,3 +1,7 @@
 [gd_scene format=3 uid="uid://i07gxnye00gr"]
 
+[ext_resource type="Script" uid="uid://dddjcuo1qgxrb" path="res://src/player/Abilities/Ability_Classes/invisibility_ability.gd" id="1_fgoyl"]
+
 [node name="InvisibilityAbility" type="Node" unique_id=1910257073]
+script = ExtResource("1_fgoyl")
+max_uses = 3

@@ -4,3 +4,4 @@
 
 [node name="JumpBoost" type="Node" unique_id=1521468705]
 script = ExtResource("1_x08dq")
+max_uses = 3
