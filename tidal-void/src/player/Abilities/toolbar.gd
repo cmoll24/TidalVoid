@@ -4,7 +4,7 @@ extends CanvasLayer
 # takes in inputs from the Player Controller
 var abilities : Dictionary
 # abilites length should be however big the upgrade slots
-var abilities_slot_max : int = 5
+var abilities_slot_max : int = 6
 
 #The list should store the current loadout, store before toolbar slots
 #store the information for each upgrade somewhere else

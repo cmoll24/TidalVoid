@@ -4,5 +4,5 @@ extends PlayerAbility
 
 func trigger_ability(player : PlayerPawn) -> bool:
 	print("test")
-	
+	player.visible = false
 	return true
