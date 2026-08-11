@@ -8,7 +8,8 @@ enum crafting_type {
 	leaper,
 	evil_fred,
 	hungry_harry,
-	charlotte
+	charlotte,
+	star_ray
 }
 
 static var crafting_type_to_name_table : Dictionary[crafting_type,String] = {
@@ -18,6 +19,7 @@ static var crafting_type_to_name_table : Dictionary[crafting_type,String] = {
 	crafting_type.evil_fred : 'Evil Fred',
 	crafting_type.hungry_harry : 'Hungry Harry',
 	crafting_type.charlotte : 'Charlotte',
+	crafting_type.star_ray : 'Star Ray',
 }
 
 ### if greater than 0, behavior is disabled and time will be brought down

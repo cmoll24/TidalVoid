@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://5xugetry1ybw"]
+
+[ext_resource type="Script" uid="uid://vxprec3p8j6b" path="res://src/Creatures/Hostile/star_ray.gd" id="1_pyjyv"]
+[ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_vsibk"]
+[ext_resource type="Texture2D" uid="uid://c5oo3i68jvg0k" path="res://assets/Textures/Creatures/star_mantaray.png" id="3_q4n4i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rc2ur"]
+radius = 109.0
+
+[sub_resource type="Animation" id="Animation_pyjyv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aufdy"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q4n4i"]
+resource_name = "default"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.0666666, 3.5333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.2), Color(1, 1, 1, 0.05), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aufdy"]
+_data = {
+&"RESET": SubResource("Animation_pyjyv"),
+&"attack": SubResource("Animation_aufdy"),
+&"default": SubResource("Animation_q4n4i")
+}
+
+[node name="StarRay" type="StaticBody2D" unique_id=1314638072]
+visibility_layer = 2
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_pyjyv")
+creature_size = 3
+creature_type = 6
+thrust_power = 100.0
+max_velocity = 1000.0
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1151172643]
+script = ExtResource("2_vsibk")
+max_health = 12300.0
+body_temperature = 0.0
+heat_tolerance = 500.0
+heat_regulation_speed = 50.0
+metadata/_custom_type_script = "uid://chuxbj1tello"
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="." unique_id=508256905]
+target_position = Vector2(0, 0)
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2139683668]
+shape = SubResource("CircleShape2D_rc2ur")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=974945902]
+position = Vector2(-6.0000005, 72)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_q4n4i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=750808735]
+libraries/ = SubResource("AnimationLibrary_aufdy")
+autoplay = &"default"
+speed_scale = 0.5

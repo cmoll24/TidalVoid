@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bokq6aj31pvto" path="res://assets/Textures/Placeholder/Jeremy.png" id="23_ihctt"]
 [ext_resource type="PackedScene" uid="uid://b56tl64vvewxi" path="res://src/player/Equipment/creature_carrier.tscn" id="23_l0qou"]
 [ext_resource type="PackedScene" uid="uid://c1qr8x2b5xsl6" path="res://src/ship/shipBody.tscn" id="24_it7pe"]
+[ext_resource type="PackedScene" uid="uid://5xugetry1ybw" path="res://src/Creatures/Hostile/StarRay.tscn" id="24_l0qou"]
 [ext_resource type="PackedScene" uid="uid://b22uhmabgj8gn" path="res://src/Creatures/Hostile/Evil_Fred.tscn" id="25_tai8o"]
 
 [sub_resource type="Gradient" id="Gradient_imoib"]
@@ -669,6 +670,9 @@ text = "Say Hello to Jeremy and Friends!!!!"
 
 [node name="CreatureCarrier" parent="." unique_id=1283291436 instance=ExtResource("23_l0qou")]
 position = Vector2(-4762.509, -2788.3213)
+
+[node name="StarRay" parent="." unique_id=2099054985 instance=ExtResource("24_l0qou")]
+position = Vector2(-6235.9316, -4732.9375)
 
 [editable path="DuskSector"]
 [editable path="DuskToDawnSector"]

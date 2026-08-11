@@ -19,10 +19,11 @@ func _ready() -> void:
 
 func set_thrust(direction : Vector2, multiplier : float = 1.0) -> void:
 	super.set_thrust(direction, multiplier)
-	if direction != Vector2.ZERO:
-		thrust_particles.start_thrust(direction, velocity, thrust_power)
-	else:
-		thrust_particles.stop_thrust()
+	if thrust_particles:
+		if direction != Vector2.ZERO:
+			thrust_particles.start_thrust(direction, velocity, thrust_power)
+		else:
+			thrust_particles.stop_thrust()
 
 func creature_movement(_delta):
 	if stun_time > 0:

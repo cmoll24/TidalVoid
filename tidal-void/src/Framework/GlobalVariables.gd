@@ -83,6 +83,15 @@ var creature_button_dict = {
 		"adapt": "Burrowing protects against radiation, Capable of surviving immense heat",
 		"diet": "Carnivorous and Lithovorous",
 		"behavior": "Lives in constant motion, slowing eating planets. Shifts to face prey that gets within range."
+	},
+	Creature.crafting_type.star_ray: {
+		"asset": "res://assets/Textures/Creatures/star_mantaray.png",
+		"found": false,
+		"name": "Star Ray",
+		"story": "********************",
+		"adapt": "*********************************",
+		"diet": "********",
+		"behavior": "*************************************************************"
 	}
 }
 
