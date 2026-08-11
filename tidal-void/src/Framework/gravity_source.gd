@@ -19,6 +19,8 @@ var pull_radius_sqr : float = 0
 
 @export var negligible_threshold: float = 10.0
 
+@export var minimum_vehicle_distance : float = 0.0
+
 ### make sure to update velocity here if you make a moving grav source
 var velocity : Vector2 = Vector2.ZERO
 

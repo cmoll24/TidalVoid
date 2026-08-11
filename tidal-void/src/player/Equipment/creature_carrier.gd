@@ -78,8 +78,8 @@ func _physics_process(_delta: float) -> void:
 		var thrust_output = thrust_power * thrust_multiplier * 0.8 #little wiggle room
 		
 		#The closest distance that the vehicle can be to any planet
-		var minimum_clearance_dist : float = vehicle_clearance + dominant_body.collision_radius
-		
+		var minimum_clearance_dist : float = vehicle_clearance + dominant_body.minimum_vehicle_distance + dominant_body.collision_radius
+
 		if dominant_body is Ship:
 			minimum_clearance_dist += dominant_body.inside_ship_radius
 		
