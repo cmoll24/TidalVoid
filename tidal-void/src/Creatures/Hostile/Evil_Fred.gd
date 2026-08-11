@@ -1,4 +1,4 @@
-extends Steven
+extends HuntingCreature
 class_name EvilFred
 
 @export var bite_damage : float = 90

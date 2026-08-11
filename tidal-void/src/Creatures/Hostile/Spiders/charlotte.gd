@@ -1,4 +1,4 @@
-extends Steven
+extends HuntingCreature
 class_name Charlotte
 
 var home_planet : InfestedPlanet = null

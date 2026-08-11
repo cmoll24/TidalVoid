@@ -1,6 +1,7 @@
 extends MovingCreature
-class_name Steven
+class_name HuntingCreature
 
+### The hunting creature is a moving creature that has vision and can lunge
 
 ############################################
 

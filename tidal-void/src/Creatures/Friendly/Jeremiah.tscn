@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://8cyt0tmbquu"]
 
-[ext_resource type="Script" uid="uid://bed3ebjxe4vsg" path="res://src/Creatures/Friendly/steven.gd" id="1_lnscu"]
+[ext_resource type="Script" uid="uid://bed3ebjxe4vsg" path="res://src/Creatures/hunting_creature.gd" id="1_lnscu"]
 [ext_resource type="Script" uid="uid://chuxbj1tello" path="res://src/Framework/Health/health_component.gd" id="2_j3n1s"]
 [ext_resource type="Script" uid="uid://dgajvh57yj4tm" path="res://src/Effects/thrust_particles.gd" id="2_tjqe6"]
 [ext_resource type="Texture2D" uid="uid://6fav0kpu23ho" path="res://assets/Textures/Creatures/jeremiah.png" id="4_j3n1s"]
