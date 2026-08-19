@@ -86,7 +86,7 @@ script = ExtResource("3_6jow0")
 position = Vector2(0, -19.5)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_mlkca")
-animation = &"attack"
+animation = &"closed"
 
 [node name="InteractSource" type="Node2D" parent="." unique_id=1929089534]
 scale = Vector2(0.5, 0.5)
