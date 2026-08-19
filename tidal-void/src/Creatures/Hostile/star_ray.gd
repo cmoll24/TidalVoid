@@ -44,13 +44,39 @@ func creature_movement(delta):
 		var target_direction = global_position.direction_to(target_point)
 		var desired_velocity = target_direction * target_speed
 		
-		var thrust_direction = (desired_velocity - velocity).normalized()
+		var thrust_dir = (desired_velocity - velocity).normalized()
 		
-		set_thrust(thrust_direction)
+		set_thrust(thrust_dir)
 	else:
 		animation_player.play("default")
 		animation_player.speed_scale = 0.5
-		set_thrust(-velocity.normalized())
+		
+		#when the player is not visible, set the thrust to counteract some of the velocity
+		
+		#do nothing if in orbit
+		
+		if(abs(gravity_force.x) + abs(gravity_force.y) < 1):
+			set_thrust(-velocity.normalized())
+		
+
+#Do reverse gravity
+func update_gravity_force() -> void:
+	gravity_force = Vector2.ZERO
+	var max_pull : float = 0
+	
+	for body in game_manager.gravity_sources:
+		if(body == gravity_source):
+			continue
+		#get the gravity force
+		var gravity : Vector2 = body.get_gravity_pull(global_position);
+		gravity_force -= gravity*2;
+		#also update dominant body(increases performance at the cost of neatness)
+		var pull : float = gravity.length_squared()
+		if(pull > 1 and pull > max_pull): #if pull is valid and the greatest
+			dominant_body = body
+			max_pull = pull
+
+
 	
 func on_collide_with_other_drift_body(other : DriftBody) -> void:
 	super.on_collide_with_other_drift_body(other);
