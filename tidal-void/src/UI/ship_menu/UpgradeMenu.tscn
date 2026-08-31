@@ -2,14 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dykmq3gsep4vf" path="res://src/UI/ship_menu/upgrade_menu.gd" id="1_ii1yr"]
 [ext_resource type="Texture2D" uid="uid://ch624r3q8mlmp" path="res://assets/Backgrounds/star-noise-tinny-background4.png" id="2_wwmcp"]
-[ext_resource type="PackedScene" path="res://src/UI/ship_ui/ship_upgrade_ui_panel.tscn" id="3_wwmcp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weer4"]
-bg_color = Color(0.7254902, 0.90588236, 0.9647059, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[ext_resource type="Script" uid="uid://bhl7wrooperqh" path="res://src/UI/ship_ui/upgrade_clicked.gd" id="3_wwmcp"]
+[ext_resource type="Texture2D" uid="uid://jefgk7wainth" path="res://assets/Textures/Placeholder/PLACEHOLDER_Spider.png" id="4_ahi0f"]
+[ext_resource type="Texture2D" uid="uid://5ydq88xyu8vn" path="res://assets/Textures/Placeholder/Thick_Jim.png" id="4_mftji"]
+[ext_resource type="Texture2D" uid="uid://1jigigxnj22x" path="res://assets/Textures/Placeholder/cookie.png" id="4_q0rnk"]
+[ext_resource type="Texture2D" uid="uid://dveodniv3i6fo" path="res://assets/Textures/Player/CreatureCarrier_bubble.png" id="6_q0rnk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gomoy"]
 bg_color = Color(0.8294605, 0.8719416, 0.96233803, 0.6509804)
@@ -20,6 +17,7 @@ corner_radius_bottom_left = 50
 expand_margin_left = 50.0
 expand_margin_top = 50.0
 expand_margin_right = 50.0
+expand_margin_bottom = 50.0
 
 [node name="UpgradeMenu" type="Control" unique_id=1178399043]
 process_mode = 3
@@ -49,38 +47,188 @@ grow_vertical = 2
 scale = Vector2(2, 2)
 texture = ExtResource("2_wwmcp")
 
-[node name="ButtonBackground" type="Panel" parent="." unique_id=1518912905]
-visible = false
-layout_mode = 0
-offset_left = -34.0
-offset_top = -14.0
-offset_right = 1773.0
-offset_bottom = 101.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_weer4")
-
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=853731929]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gomoy")
+
+[node name="ItemDescription" type="ColorRect" parent="PanelContainer" unique_id=1454919669]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+color = Color(0, 0.6, 1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/ItemDescription" unique_id=1336201625]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gomoy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1303153996]
+[node name="UpgradeTitle" type="RichTextLabel" parent="PanelContainer/ItemDescription/VBoxContainer" unique_id=921005527]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-theme_override_constants/separation = 50
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
+bbcode_enabled = true
+text = "Title
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="TabBar" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=301097375]
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-theme_override_constants/separation = 100
-
-[node name="BodyRow" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=302551837]
-custom_minimum_size = Vector2(1700, 700)
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/ItemDescription/VBoxContainer" unique_id=1178749785]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 30
 
-[node name="ShipUpgradeUiPanel" parent="PanelContainer/VBoxContainer/BodyRow" unique_id=379818172 instance=ExtResource("3_wwmcp")]
+[node name="UpgradeDescription" type="RichTextLabel" parent="PanelContainer/ItemDescription/VBoxContainer/ScrollContainer" unique_id=1297464321]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "These are words that are meant to tell what the upgrade is...yeah"
+
+[node name="Button" type="Button" parent="PanelContainer/ItemDescription/VBoxContainer" unique_id=1828411432]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "SAMPLE"
+
+[node name="UpgradeList" type="ColorRect" parent="PanelContainer" unique_id=1651393386]
+custom_minimum_size = Vector2(940, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.16078432, 0.42352942, 1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/UpgradeList" unique_id=1203928169]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeadUpgrades" type="HBoxContainer" parent="PanelContainer/UpgradeList/VBoxContainer" unique_id=416683602]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/UpgradeList/VBoxContainer/HeadUpgrades" unique_id=1487159656]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button" type="Button" parent="PanelContainer/UpgradeList/VBoxContainer/HeadUpgrades/MarginContainer" unique_id=1510291535 groups=["upgrade_buttons"]]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+expand_icon = true
+script = ExtResource("3_wwmcp")
+button_dict_name = "Head1"
+button_icon = ExtResource("4_q0rnk")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/UpgradeList/VBoxContainer/HeadUpgrades" unique_id=410473455]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button2" type="Button" parent="PanelContainer/UpgradeList/VBoxContainer/HeadUpgrades/MarginContainer2" unique_id=814881610 groups=["upgrade_buttons"]]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+expand_icon = true
+script = ExtResource("3_wwmcp")
+button_dict_name = "Head2"
+debug_text = "DON'T CLICK"
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/UpgradeList/VBoxContainer/HeadUpgrades" unique_id=523781612]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button3" type="Button" parent="PanelContainer/UpgradeList/VBoxContainer/HeadUpgrades/MarginContainer3" unique_id=2137120167 groups=["upgrade_buttons"]]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+expand_icon = true
+script = ExtResource("3_wwmcp")
+button_dict_name = "Head3"
+debug_text = "DON'T CLICK"
+
+[node name="BodyUpgrades" type="HBoxContainer" parent="PanelContainer/UpgradeList/VBoxContainer" unique_id=2115277867]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/UpgradeList/VBoxContainer/BodyUpgrades" unique_id=668580132]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button" type="Button" parent="PanelContainer/UpgradeList/VBoxContainer/BodyUpgrades/MarginContainer" unique_id=1067216755 groups=["upgrade_buttons"]]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+expand_icon = true
+script = ExtResource("3_wwmcp")
+button_dict_name = "Body1"
+button_icon = ExtResource("4_ahi0f")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/UpgradeList/VBoxContainer/BodyUpgrades" unique_id=1226845560]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button2" type="Button" parent="PanelContainer/UpgradeList/VBoxContainer/BodyUpgrades/MarginContainer2" unique_id=2103963309 groups=["upgrade_buttons"]]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+expand_icon = true
+script = ExtResource("3_wwmcp")
+button_dict_name = "Body2"
+button_icon = ExtResource("6_q0rnk")
+
+[node name="LegUpgrades" type="HBoxContainer" parent="PanelContainer/UpgradeList/VBoxContainer" unique_id=1880191886]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/UpgradeList/VBoxContainer/LegUpgrades" unique_id=297260262]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button" type="Button" parent="PanelContainer/UpgradeList/VBoxContainer/LegUpgrades/MarginContainer" unique_id=58814149 groups=["upgrade_buttons"]]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+expand_icon = true
+script = ExtResource("3_wwmcp")
+button_dict_name = "Leg1"
+button_icon = ExtResource("4_mftji")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/UpgradeList/VBoxContainer/LegUpgrades" unique_id=1797201461]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button2" type="Button" parent="PanelContainer/UpgradeList/VBoxContainer/LegUpgrades/MarginContainer2" unique_id=440266368 groups=["upgrade_buttons"]]
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+expand_icon = true
+script = ExtResource("3_wwmcp")
+button_dict_name = "Leg2"
+debug_text = "DON'T CLICK"
+
+[node name="CharacterDisplay" type="ColorRect" parent="PanelContainer" unique_id=2120912908]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+color = Color(0.32941177, 0.31764707, 1, 1)
+
+[connection signal="pressed" from="PanelContainer/ItemDescription/VBoxContainer/Button" to="." method="equip_buy_upgrade"]

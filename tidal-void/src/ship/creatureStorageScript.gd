@@ -62,6 +62,23 @@ func get_stored_creatures() -> Dictionary[Creature.crafting_type, int]:
 				
 	return stored_creatures
 
+func remove_stored_creature(creature_type_to_remove: Creature.crafting_type, num_to_remove: int):
+	for body in creature_detector.get_overlapping_bodies():
+		if body is Creature:
+			var creature_type: Creature.crafting_type = body.creature_type
+			if creature_type == creature_type_to_remove:
+				body.queue_free()
+				num_to_remove -= 1
+				if(num_to_remove <= 0):
+					break;
+
+static func name_to_creature_type(creature_name: String) -> Creature.crafting_type:
+	for type in Creature.crafting_type_to_name_table:
+		if Creature.crafting_type_to_name_table[type] == creature_name:
+			return type
+			
+	return Creature.crafting_type.none
+
 #changes the dictionary gotten from get_stored_creature into the format of items, with string names
 static func stored_creatures_to_items(dict : Dictionary[Creature.crafting_type, int]) -> Array:
 	var out : Array = []

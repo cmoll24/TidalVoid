@@ -58,7 +58,20 @@ func remove_item(target_item : String, amount : int) -> void:
 				inventory_items[i] = null
 			inventory_changed.emit()
 			return
-
+		
+	print(hidden_inventory_items)
+	for i in range(hidden_inventory_items.size()):
+		if(!hidden_inventory_items[i]):
+			continue
+		if hidden_inventory_items[i].get('item_name') == target_item:
+			var creature_type = CreatureStorage.name_to_creature_type(target_item)
+			creature_storage.remove_stored_creature(creature_type, amount)
+			await get_tree().process_frame
+			set_hidden_inventory_to_creatures()
+			print(hidden_inventory_items)
+			return
+		
+		
 #Use for upgrades and such, check if player have sufficient items, and return a bool value
 func has_item(item_name: String, quantity: int,b_check_hidden_inventory : bool = false) -> bool:
 	for i in range(inventory_items.size()):

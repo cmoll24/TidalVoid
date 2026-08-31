@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_hbpov")
-ability_slot = 3
-ability_path = "res://src/player/Abilities/Ability_Classes/boost_ability.tscn"
+ability_slot = 1
+ability_path = "res://src/player/Abilities/Ability_Classes/shield_ability.tscn"
 metadata/_custom_type_script = "uid://dam453nm5q6sx"

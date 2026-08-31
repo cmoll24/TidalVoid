@@ -1,6 +1,8 @@
 extends Control
 class_name UIMenu
 
+# Will need to remove this as there is no longer a tab bar
+# or body row
 @onready var tab_bar = $PanelContainer/VBoxContainer/TabBar
 @onready var body_row = $PanelContainer/VBoxContainer/BodyRow
 

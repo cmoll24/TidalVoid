@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="AbilityUnlockUpgrade" format=3 uid="uid://5iqdv6sxefqw"]
+
+[ext_resource type="Script" uid="uid://o3hdc2o4kqcr" path="res://src/upgrades_effects/upgrades/abilities/ability_unlock_upgrade.gd" id="1_u7p3d"]
+
+[resource]
+script = ExtResource("1_u7p3d")
+ability_path = "res://src/player/Abilities/Ability_Classes/teleport_ability.tscn"

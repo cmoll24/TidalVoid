@@ -95,6 +95,65 @@ var creature_button_dict = {
 	}
 }
 
+var upgrade_info = {
+	Head1 = {
+		title = "Teleport",
+		description = "Let's you teleport home.",
+		items = [
+		{name ='Methane Clathrate', quantity = 10},
+		{name = 'Nickel Ore', quantity = 10},
+		{name = "Jeremiah", quantity = 1}],
+		resource = preload('res://src/upgrades_effects/upgrades/abilities/teleport_upgrade.tres'),
+		unlocked = false
+	},
+	Head2 = {
+		title = "Head 2",
+		description = "It's Head Upgrade 2",
+		items = []
+	},
+	Head3 = {
+		title = "Head 3",
+		description = "It's Head Upgrade 3",
+		items = []
+	},
+	Body1 = {
+		title = "Overdrive",
+		description = "Currently Teleport because I needed to test things...\nUnlocks and equips overdrive thrusters, fireable by pressing 3. On use, thrusters become significantly more powerful for a short time. Can be fired 10 times before requiring a recharge at the reset terminal on the ship.",
+		items = [
+		{name ='Methane Clathrate', quantity = 2},
+		{name = 'Nickel Ore', quantity = 3},
+		{name = 'Charlotte', quantity = 2}],
+		resource = preload('res://src/upgrades_effects/upgrades/abilities/overdrive_thruster_upgrade.tres'),
+		unlocked = false
+	},
+	Body2 = {
+		title = "Pulse Shield",
+		description = "Unlocks and equips the pulse shield, fireable by pressing 4. The pulse shield provides temporary protection from damage. Can be fired 5 times before requiring a recharge at the reset terminal on the ship.",
+		items = [
+		{name ='Copper Ore', quantity = 4},
+		{name = 'Methane Clathrate', quantity = 1},
+		{name = 'Basalt', quantity = 2},
+		{name = 'Steven', quantity = 1}],
+		resource = preload('res://src/upgrades_effects/upgrades/abilities/pulse_shield_upgrade.tres'),
+		unlocked = false
+	},
+	Leg1 = {
+		title = "Impulse Thrusters",
+		description = "Unlocks and equips impulse thrusters, fireable by pressing 1. Impulse thrusters provide an instant velocity boost in the direction the mouse. Can be fired 5 times before requiring a recharge at the reset terminal on the ship.",
+		items = [
+		{name = "Methane Clathrate", quantity = 3},
+		{name = "Basalt", quantity = 1},
+		{name = "Jeremiah", quantity = 1}],
+		resource = preload('res://src/upgrades_effects/upgrades/abilities/impulse_thruster_upgrade.tres'),
+		unlocked = false
+	},
+	Leg2 = {
+		title = "Leg 2",
+		description = "It's Leg Upgrade 2",
+		items = []
+	},
+}
+
 func discover_creature(creature_type : Creature.crafting_type):
 	if not creature_button_dict[creature_type]["found"]:
 		

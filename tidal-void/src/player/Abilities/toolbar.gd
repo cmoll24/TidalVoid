@@ -19,7 +19,7 @@ func _ready() -> void:
 		for i in abilities_slot_max:
 			abilities[type].append(null)
 	#add_ability_to_slot(0, typeof(Player), "res://src/player/Abilities/Ability_Classes/propulsion_ability.tscn")
-	add_ability_to_slot(1, typeof(Player), "res://src/player/Abilities/Ability_Classes/teleport_ability.tscn")
+	#add_ability_to_slot(3, typeof(Player), "res://src/player/Abilities/Ability_Classes/teleport_ability.tscn")
 	#add_ability_to_slot(2, typeof(Player), "res://src/player/Abilities/Ability_Classes/boost_ability.tscn")
 	#add_ability_to_slot(3, typeof(Player), "res://src/player/Abilities/Ability_Classes/shield_ability.tscn")
 func add_ability_to_slot(index : int, type, ability_path : String):
@@ -33,6 +33,14 @@ func add_ability_to_slot(index : int, type, ability_path : String):
 		var new_ability : PlayerAbility =load(ability_path).instantiate()
 		new_ability.init_ability()
 		abilities[type][index] = new_ability
+		
+func remove_ability_from_slot(index: int, type):
+	var old_ability : PlayerAbility = abilities[type][index]
+	if(old_ability):
+		old_ability.deinit_ability()
+		old_ability.queue_free()
+		
+	abilities[type][index] = null
 		
 
 func call_ability(index : int, pawn : PlayerPawn):
